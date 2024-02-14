@@ -2,7 +2,6 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-//Git
 namespace Utilities.CustomAttributes.Editor
 {
     [CustomPropertyDrawer(typeof(ShowIfTrue))]

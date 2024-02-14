@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 
-//Git
 namespace Utilities.CustomAttributes
 {
     /// <summary>

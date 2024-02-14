@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 
-//Git
 namespace Utilities.CustomAttributes
 {
     /// <summary>
@@ -12,6 +11,6 @@ namespace Utilities.CustomAttributes
                     AttributeTargets.Class | AttributeTargets.Struct, Inherited = true)]
     public class HideInSubClass : PropertyAttribute
     {
-        // tout tient avec ça, y'a quoi maintenant
+        // c'est moi, y'a quoi maintenant
     }
 }

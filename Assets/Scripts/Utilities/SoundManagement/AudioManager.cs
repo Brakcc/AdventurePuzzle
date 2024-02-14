@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-//Git
 namespace Utilities.SoundManagement
 {
     public class AudioManager : MonoBehaviour

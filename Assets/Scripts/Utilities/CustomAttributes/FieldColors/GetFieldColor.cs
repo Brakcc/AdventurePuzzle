@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-//Git
 namespace Utilities.CustomAttributes.FieldColors
 {
     public static class GetFieldColor
