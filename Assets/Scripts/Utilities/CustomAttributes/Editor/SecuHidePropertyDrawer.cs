@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEngine;
 
-//Git
 namespace Utilities.CustomAttributes.Editor
 {
     [CustomPropertyDrawer(typeof(ShowIfSecu))]

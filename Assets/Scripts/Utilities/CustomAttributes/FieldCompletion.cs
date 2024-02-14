@@ -2,7 +2,6 @@
 using UnityEngine;
 using Utilities.CustomAttributes.FieldColors;
 
-//Git
 namespace Utilities.CustomAttributes
 {
     /// <summary>

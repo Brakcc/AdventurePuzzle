@@ -1,7 +1,6 @@
 using System;
 using System.Runtime.Serialization;
 
-//Git
 namespace Utilities
 {
     public abstract class CustomExceptions

@@ -18,38 +18,59 @@ namespace GameContent.PlayerScripts.PlayerStates
         protected override void OnUpdate()
         {
             var input = moveInput.action.ReadValue<Vector2>();
-
             _inputDir = new Vector3(input.x, 0, input.y);
-
-            ClampVelocity();
             
-            if (IsGrounded)
-                _rb.drag = dragSpeed;
-            else
-                _rb.drag = 0;
+            ClampVelocity();
+            SetLerpedCoef();
+            SetDrag();
         }
 
         protected override void OnFixedUpdate()
         {
             var trans = transform;
+            var tempSpeed = Mathf.Lerp(0, moveSpeed, _currentSpeedLerpCoef);
             
-            _currentDir = trans.forward * _inputDir.x + trans.right * _inputDir.z;
+            _currentDir = (trans.right * _inputDir.x + trans.forward * _inputDir.z).normalized;
             
-            _rb.AddForce(_currentDir.normalized * (moveSpeed * 10), ForceMode.Force);
+            _rb.AddForce(_currentDir.normalized * (moveSpeed * Constants.SpeedMultiplier), ForceMode.Force); //move speed a 7.5
+            //_rb.velocity = new Vector3(_currentDir.x, _rb.velocity.y, _currentDir.z) * tempSpeed; //move speed a 5
         }
 
         private void ClampVelocity()
         {
-            _rb.velocity = new Vector3(ClampVelAxe(_rb.velocity.x),  _rb.velocity.y, ClampVelAxe(_rb.velocity.z));
+            var vel = _rb.velocity;
+            _rb.velocity = new Vector3(ClampVelAxe(vel.x),  vel.y, ClampVelAxe(vel.z));
         }
 
         private float ClampVelAxe(float vel) => Mathf.Clamp(vel, -moveSpeed, moveSpeed);
+
+        #region values setters
+        
+        private void SetLerpedCoef()
+        {
+            if (_inputDir.magnitude >= Constants.MinMoveInputValue)
+                _currentSpeedLerpCoef += Time.deltaTime * 5;
+            else
+                _currentSpeedLerpCoef -= Time.deltaTime * 5;
+
+            _currentSpeedLerpCoef = Mathf.Clamp(_currentSpeedLerpCoef, 0, 1);
+        }
+
+        private void SetDrag()
+        {
+            if (IsGrounded)
+                _rb.drag = dragSpeed;
+            else
+                _rb.drag = 0;
+        }
+        
+        #endregion
         
         #endregion
         
         #region fields
 
-        private const float PlayerHeight = 1;
+        private const float PlayerHeight = 2;
         
         [FieldCompletion] [SerializeField] private InputActionReference moveInput;
         
@@ -59,12 +80,12 @@ namespace GameContent.PlayerScripts.PlayerStates
         [SerializeField] private float dragSpeed;
         
         [SerializeField] private LayerMask groundLayer;
-        
-        [SerializeField] private Transform orientation;
 
         private Vector3 _currentDir;
 
         private Vector3 _inputDir;
+
+        private float _currentSpeedLerpCoef;
 
         private Rigidbody _rb;
 
