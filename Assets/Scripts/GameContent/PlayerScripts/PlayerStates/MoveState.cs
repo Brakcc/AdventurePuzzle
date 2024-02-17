@@ -1,39 +1,40 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
-using Utilities.CustomAttributes;
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    [RequireComponent(typeof(Rigidbody))]
     public class MoveState : BasePlayerState
     {
         #region methodes
 
-        protected override void OnStart()
+        public override void OnEnterState(PlayerStateMachine stateMachine)
         {
-            _rb = GetComponent<Rigidbody>();
+            _stateMachine = stateMachine;
+            
+            _coyoteTimeCounter = _datas.jumpDatas.coyoteTime;
+            _jumpBufferCounter = Constants.SecuValuUnderZero;
 
-            _coyoteTimeCounter = coyoteTime;
-            _jumpBufferCounter = Constants.SecuAValuUnderZero;
+            _rb.drag = _datas.groundingDatas.dragSpeed;
         }
 
-        protected override void OnUpdate()
+        public override void OnExitState(PlayerStateMachine stateMachine)
         {
-            var input = moveInput.action.ReadValue<Vector2>();
-            _inputDir = new Vector3(input.x, 0, input.y);
-            
-            //Moves
-            ClampVelocity();
-            SetLerpedCoef();
-            SetDrag();
+            _stateMachine = null;
+        }
+
+        public override void OnUpdate()
+        {
+            var input = _datas.moveInput.action.ReadValue<Vector2>();
+            _inputDir = new Vector3(input.x, 0, input.y).normalized;
             
             //Jump
             SetCoyote();
             SetJumpBuffer();
         }
 
-        protected override void OnFixedUpdate()
+        public override void OnFixedUpdate()
         {
+            ClampVelocity();
+            
             OnMove();
             OnJump();
         }
@@ -43,81 +44,49 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnMove()
         {
             _currentDir = (Vector3.right * _inputDir.x + Vector3.forward * _inputDir.z).normalized;
-            
-            if (IsGrounded)
-                _rb.AddForce(_currentDir.normalized * (moveSpeed * Constants.SpeedMultiplier), ForceMode.Acceleration);
-            
-            else
-                _rb.AddForce(_currentDir.normalized * (moveSpeed * Constants.SpeedMultiplier * airControlCoef), ForceMode.Acceleration);
+                
+            _rb.AddForce(_currentDir.normalized * (_datas.moveDatas.moveSpeed * Constants.SpeedMultiplier), ForceMode.Acceleration);
         }
         
         private void ClampVelocity()
         {
             var vel = _rb.velocity;
-            _rb.velocity = new Vector3(ClampSymmetric(vel.x, moveSpeed),  vel.y, ClampSymmetric(vel.z, moveSpeed));
+            _rb.velocity = new Vector3(ClampSymmetric(vel.x, _datas.moveDatas.moveSpeed),  vel.y, ClampSymmetric(vel.z, _datas.moveDatas.moveSpeed));
         }
-
-        private static float ClampSymmetric(float val, float clamper) => Mathf.Clamp(val, -clamper, clamper);
         
         #endregion
 
-        #region jump methodes
+        #region jump checker
 
         private void OnJump()
         {
-            if ((!(_coyoteTimeCounter >= 0) || !jumpInput.action.IsPressed()) &&
+            if ((!(_coyoteTimeCounter >= 0) || !_datas.jumpInput.action.IsPressed()) &&
                 (!(_jumpBufferCounter >= 0) || !IsGrounded))
                 return;
             
-            var vel = _rb.velocity;
-            vel = new Vector3(vel.x, 0, vel.z);
-            _rb.velocity = vel;
-            
-            _rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            _stateMachine.OnSwitchState(_stateMachine.playerStates[1]);
         }
 
         private void SetCoyote()
         {
             if (IsGrounded)
-                _coyoteTimeCounter = coyoteTime;
+                _coyoteTimeCounter = _datas.jumpDatas.coyoteTime;
 
             else
                 _coyoteTimeCounter -= Time.deltaTime;
 
-            _coyoteTimeCounter = Mathf.Clamp(_coyoteTimeCounter, Constants.SecuAValuUnderZero, coyoteTime);
+            _coyoteTimeCounter = Mathf.Clamp(_coyoteTimeCounter, Constants.SecuValuUnderZero, _datas.jumpDatas.coyoteTime);
         }
 
         private void SetJumpBuffer()
         {
-            if (jumpInput.action.IsPressed())
-                _jumpBufferCounter = jumpBuffer;
+            if (_datas.jumpInput.action.IsPressed())
+                _jumpBufferCounter = _datas.jumpDatas.jumpBuffer;
 
             else
                 _jumpBufferCounter -= Time.deltaTime;
             
-            _jumpBufferCounter = Mathf.Clamp(_jumpBufferCounter, Constants.SecuAValuUnderZero, jumpBuffer);
-        }
-        
-        #endregion
-        
-        #region values setters
-        
-        private void SetLerpedCoef()
-        {
-            if (_inputDir.magnitude >= Constants.MinMoveInputValue)
-                _currentSpeedLerpCoef += Time.deltaTime * 5;
-            else
-                _currentSpeedLerpCoef -= Time.deltaTime * 5;
-
-            _currentSpeedLerpCoef = Mathf.Clamp(_currentSpeedLerpCoef, 0, 1);
-        }
-
-        private void SetDrag()
-        {
-            if (IsGrounded)
-                _rb.drag = dragSpeed;
-            else
-                _rb.drag = 0;
+            _jumpBufferCounter = Mathf.Clamp(_jumpBufferCounter, Constants.SecuValuUnderZero, _datas.jumpDatas.jumpBuffer);
         }
         
         #endregion
@@ -126,42 +95,12 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         #region fields
 
-        private const float PlayerHeight = 2;
-        [Header("Inputs")]
-        [FieldCompletion] [SerializeField] private InputActionReference moveInput;
-
-        [FieldCompletion] [SerializeField] private InputActionReference jumpInput;
-        
-        [Header("Move")]
-        [SerializeField] private float moveSpeed;
-        
-        [SerializeField] private float dragSpeed;
-        
-        [SerializeField] private LayerMask groundLayer;
-        
-        private Vector3 _currentDir;
-        
-        private Vector3 _inputDir;
-        
-        private float _currentSpeedLerpCoef;
-
-        [Space] [Header("Jump")]
-        [SerializeField] private float jumpForce;
-
-        [SerializeField] private float coyoteTime;
-
         private float _coyoteTimeCounter;
-
-        [SerializeField] private float jumpBuffer;
 
         private float _jumpBufferCounter;
 
-        [FieldColorLerp(0, 1)] [Range(0, 1)] [SerializeField] private float airControlCoef;
-
-        private Rigidbody _rb;
-
         private bool IsGrounded => Physics.Raycast(transform.position, -transform.up,
-            PlayerHeight / 2 + Constants.GroundCheckSupLength, groundLayer);
+            Constants.PlayerHeight / 2 + Constants.GroundCheckSupLength, _datas.groundingDatas.groundLayer);
 
         #endregion
     }

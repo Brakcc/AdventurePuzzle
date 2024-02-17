@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 1006773808239553640}
   - component: {fileID: 5709659350745617961}
   - component: {fileID: 7360728568651634018}
-  - component: {fileID: 5719011867064293986}
-  - component: {fileID: 4617768571516380841}
+  - component: {fileID: 2033561953474625802}
+  - component: {fileID: 8576692583593121037}
+  - component: {fileID: 6670628046909306373}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -136,8 +137,8 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 80
+  m_Interpolate: 0
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!114 &7360728568651634018
 MonoBehaviour:
@@ -226,7 +227,23 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &5719011867064293986
+--- !u!114 &2033561953474625802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396018478670927749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d4a221b81642ea8ad1a93daed11873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStates:
+  - {fileID: 8576692583593121037}
+  - {fileID: 6670628046909306373}
+  datas: {fileID: 11400000, guid: 23c25195203c77244a024765acdfd4e5, type: 2}
+--- !u!114 &8576692583593121037
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -238,20 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e64156e2188e4dd2b99944bfc8b8c9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveInput: {fileID: -1680190386980627800, guid: f20ae6420c757bf438b1fdf422f5ca7f,
-    type: 3}
-  jumpInput: {fileID: 2806470496217673595, guid: f20ae6420c757bf438b1fdf422f5ca7f,
-    type: 3}
-  moveSpeed: 7.5
-  dragSpeed: 5
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  jumpForce: 5
-  coyoteTime: 0.15
-  jumpBuffer: 0.1
-  airControlCoef: 0.5
---- !u!114 &4617768571516380841
+--- !u!114 &6670628046909306373
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,12 +264,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2396018478670927749}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36fb5e3b82cd4fc0bb4c2227b26b28b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 596c981173944d8bb6c08428e876b976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveInput: {fileID: -1680190386980627800, guid: f20ae6420c757bf438b1fdf422f5ca7f,
-    type: 3}
-  rotaSpeedCoef: 10
 --- !u!1 &9170672045371678563
 GameObject:
   m_ObjectHideFlags: 0
