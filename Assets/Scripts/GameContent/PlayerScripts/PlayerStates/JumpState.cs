@@ -2,7 +2,7 @@
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    public class JumpState : BasePlayerState
+    public class JumpState : AbstractPlayerState
     {
         #region methodes
         
@@ -17,7 +17,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             vel = new Vector3(vel.x, 0, vel.z);
             _rb.velocity = vel;
             
-            _rb.AddForce(transform.up * _datas.jumpDatas.jumpForce, ForceMode.Impulse);
+            _rb.AddForce(transform.up * _datasSo.jumpDatasSo.jumpForce, ForceMode.Impulse);
         }
 
         public override void OnExitState(PlayerStateMachine stateMachine)
@@ -42,7 +42,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void GetInputVal()
         {
-            var input = _datas.moveInput.action.ReadValue<Vector2>();
+            var input = _datasSo.moveInput.action.ReadValue<Vector2>();
             _inputDir = new Vector3(input.x, 0, input.y).normalized;
         }
         
@@ -50,13 +50,13 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             _currentDir = (Vector3.right * _inputDir.x + Vector3.forward * _inputDir.z).normalized;
                 
-            _rb.AddForce(_currentDir.normalized * (_datas.moveDatas.moveSpeed * Constants.SpeedMultiplier * _datas.jumpDatas.airControlCoef), ForceMode.Acceleration);
+            _rb.AddForce(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * _datasSo.jumpDatasSo.airControlCoef), ForceMode.Acceleration);
         }
         
         private void ClampVelocity()
         {
             var vel = _rb.velocity;
-            _rb.velocity = new Vector3(ClampSymmetric(vel.x, _datas.moveDatas.moveSpeed),  vel.y, ClampSymmetric(vel.z, _datas.moveDatas.moveSpeed));
+            _rb.velocity = new Vector3(ClampSymmetric(vel.x, _datasSo.moveDatasSo.moveSpeed),  vel.y, ClampSymmetric(vel.z, _datasSo.moveDatasSo.moveSpeed));
         }
 
         #endregion
@@ -85,7 +85,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         private float _jumpTimer;
 
         private bool IsGrounded => Physics.Raycast(transform.position, -transform.up,
-            Constants.PlayerHeight / 2 + Constants.GroundCheckSupLength, _datas.groundingDatas.groundLayer);
+            Constants.PlayerHeight / 2 + Constants.GroundCheckSupLength, _datasSo.groundingDatasSo.groundLayer);
 
         #endregion
     }

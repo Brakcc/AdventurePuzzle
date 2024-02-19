@@ -2,7 +2,7 @@
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    public class MoveState : BasePlayerState
+    public class MoveState : AbstractPlayerState
     {
         #region methodes
 
@@ -10,10 +10,10 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             _stateMachine = stateMachine;
             
-            _coyoteTimeCounter = _datas.jumpDatas.coyoteTime;
+            _coyoteTimeCounter = _datasSo.jumpDatasSo.coyoteTime;
             _jumpBufferCounter = Constants.SecuValuUnderZero;
 
-            _rb.drag = _datas.groundingDatas.dragSpeed;
+            _rb.drag = _datasSo.groundingDatasSo.dragSpeed;
         }
 
         public override void OnExitState(PlayerStateMachine stateMachine)
@@ -23,7 +23,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnUpdate()
         {
-            var input = _datas.moveInput.action.ReadValue<Vector2>();
+            var input = _datasSo.moveInput.action.ReadValue<Vector2>();
             _inputDir = new Vector3(input.x, 0, input.y).normalized;
             
             //Jump
@@ -45,13 +45,13 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             _currentDir = (Vector3.right * _inputDir.x + Vector3.forward * _inputDir.z).normalized;
                 
-            _rb.AddForce(_currentDir.normalized * (_datas.moveDatas.moveSpeed * Constants.SpeedMultiplier), ForceMode.Acceleration);
+            _rb.AddForce(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier), ForceMode.Acceleration);
         }
         
         private void ClampVelocity()
         {
             var vel = _rb.velocity;
-            _rb.velocity = new Vector3(ClampSymmetric(vel.x, _datas.moveDatas.moveSpeed),  vel.y, ClampSymmetric(vel.z, _datas.moveDatas.moveSpeed));
+            _rb.velocity = new Vector3(ClampSymmetric(vel.x, _datasSo.moveDatasSo.moveSpeed),  vel.y, ClampSymmetric(vel.z, _datasSo.moveDatasSo.moveSpeed));
         }
         
         #endregion
@@ -60,7 +60,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void OnJump()
         {
-            if ((!(_coyoteTimeCounter >= 0) || !_datas.jumpInput.action.IsPressed()) &&
+            if ((!(_coyoteTimeCounter >= 0) || !_datasSo.jumpInput.action.IsPressed()) &&
                 (!(_jumpBufferCounter >= 0) || !IsGrounded))
                 return;
             
@@ -70,23 +70,23 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void SetCoyote()
         {
             if (IsGrounded)
-                _coyoteTimeCounter = _datas.jumpDatas.coyoteTime;
+                _coyoteTimeCounter = _datasSo.jumpDatasSo.coyoteTime;
 
             else
                 _coyoteTimeCounter -= Time.deltaTime;
 
-            _coyoteTimeCounter = Mathf.Clamp(_coyoteTimeCounter, Constants.SecuValuUnderZero, _datas.jumpDatas.coyoteTime);
+            _coyoteTimeCounter = Mathf.Clamp(_coyoteTimeCounter, Constants.SecuValuUnderZero, _datasSo.jumpDatasSo.coyoteTime);
         }
 
         private void SetJumpBuffer()
         {
-            if (_datas.jumpInput.action.IsPressed())
-                _jumpBufferCounter = _datas.jumpDatas.jumpBuffer;
+            if (_datasSo.jumpInput.action.IsPressed())
+                _jumpBufferCounter = _datasSo.jumpDatasSo.jumpBuffer;
 
             else
                 _jumpBufferCounter -= Time.deltaTime;
             
-            _jumpBufferCounter = Mathf.Clamp(_jumpBufferCounter, Constants.SecuValuUnderZero, _datas.jumpDatas.jumpBuffer);
+            _jumpBufferCounter = Mathf.Clamp(_jumpBufferCounter, Constants.SecuValuUnderZero, _datasSo.jumpDatasSo.jumpBuffer);
         }
         
         #endregion
@@ -100,7 +100,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         private float _jumpBufferCounter;
 
         private bool IsGrounded => Physics.Raycast(transform.position, -transform.up,
-            Constants.PlayerHeight / 2 + Constants.GroundCheckSupLength, _datas.groundingDatas.groundLayer);
+            Constants.PlayerHeight / 2 + Constants.GroundCheckSupLength, _datasSo.groundingDatasSo.groundLayer);
 
         #endregion
     }

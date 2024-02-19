@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameContent.PlayerScripts
 {
-    public abstract class BasePlayerState : MonoBehaviour
+    public abstract class AbstractPlayerState : MonoBehaviour
     {
         #region base methodes
         
@@ -11,7 +11,7 @@ namespace GameContent.PlayerScripts
 
         public void SetRigidBody(Rigidbody rb) => _rb = rb;
 
-        public void SetDatas(BasePlayerDatas datas) => _datas = datas;
+        public void SetDatas(BasePlayerDatasSO datasSo) => _datasSo = datasSo;
 
         #endregion
         
@@ -33,7 +33,7 @@ namespace GameContent.PlayerScripts
         
         protected Rigidbody _rb;
 
-        protected BasePlayerDatas _datas;
+        protected BasePlayerDatasSO _datasSo;
         
         protected Vector3 _currentDir;
         

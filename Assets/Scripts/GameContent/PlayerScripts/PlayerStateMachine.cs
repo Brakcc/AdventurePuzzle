@@ -1,5 +1,6 @@
 ﻿using GameContent.PlayerScripts.PlayerDatas;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utilities.CustomAttributes;
 
 namespace GameContent.PlayerScripts
@@ -17,7 +18,7 @@ namespace GameContent.PlayerScripts
             foreach (var state in playerStates)
             {
                 state.SetRigidBody(tempRb);
-                state.SetDatas(datas);
+                state.SetDatas(datasSo);
             }
             
             _currentState = playerStates[0];
@@ -41,7 +42,7 @@ namespace GameContent.PlayerScripts
             _currentState.OnFixedUpdate();
         }
 
-        public void OnSwitchState(BasePlayerState newState)
+        public void OnSwitchState(AbstractPlayerState newState)
         {
             _currentState.OnExitState(this);
             _currentState = newState;
@@ -52,11 +53,11 @@ namespace GameContent.PlayerScripts
         
         #region fields
 
-        public BasePlayerState[] playerStates;
+        public AbstractPlayerState[] playerStates;
         
-        [FieldCompletion] [SerializeField] protected BasePlayerDatas datas;
+        [FormerlySerializedAs("datas")] [FieldCompletion] [SerializeField] protected BasePlayerDatasSO datasSo;
 
-        private BasePlayerState _currentState;
+        private AbstractPlayerState _currentState;
 
         #endregion
     }
