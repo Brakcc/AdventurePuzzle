@@ -1,6 +1,5 @@
 ﻿using GameContent.PlayerScripts.PlayerDatas;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utilities.CustomAttributes;
 
 namespace GameContent.PlayerScripts
@@ -55,7 +54,7 @@ namespace GameContent.PlayerScripts
 
         public AbstractPlayerState[] playerStates;
         
-        [FormerlySerializedAs("datas")] [FieldCompletion] [SerializeField] protected BasePlayerDatasSO datasSo;
+        [FieldCompletion] [SerializeField] protected BasePlayerDatasSO datasSo;
 
         private AbstractPlayerState _currentState;
 
