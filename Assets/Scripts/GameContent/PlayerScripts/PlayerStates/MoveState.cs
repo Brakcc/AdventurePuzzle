@@ -1,67 +1,92 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
-using Utilities.CustomAttributes;
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    [RequireComponent(typeof(Rigidbody))]
-    public class MoveState : BasePlayerState
+    public class MoveState : AbstractPlayerState
     {
         #region methodes
 
-        protected override void OnStart()
+        public override void OnEnterState(PlayerStateMachine stateMachine)
         {
-            _rb = GetComponent<Rigidbody>();
-            _rb.freezeRotation = true;
+            _stateMachine = stateMachine;
+            
+            _coyoteTimeCounter = _datasSo.jumpDatasSo.coyoteTime;
+            _jumpBufferCounter = Constants.SecuValuUnderZero;
+
+            _rb.drag = _datasSo.groundingDatasSo.dragSpeed;
         }
 
-        protected override void OnUpdate()
+        public override void OnExitState(PlayerStateMachine stateMachine)
         {
-            var input = moveInput.action.ReadValue<Vector2>();
-            _inputDir = new Vector3(input.x, 0, input.y);
+            _stateMachine = null;
+        }
+
+        public override void OnUpdate()
+        {
+            var input = _datasSo.moveInput.action.ReadValue<Vector2>();
+            _inputDir = new Vector3(input.x, 0, input.y).normalized;
             
+            //Jump
+            SetCoyote();
+            SetJumpBuffer();
+        }
+
+        public override void OnFixedUpdate()
+        {
             ClampVelocity();
-            SetLerpedCoef();
-            SetDrag();
+            
+            OnMove();
+            OnJump();
         }
 
-        protected override void OnFixedUpdate()
+        #region move methodes
+
+        private void OnMove()
         {
-            var trans = transform;
-            var tempSpeed = Mathf.Lerp(0, moveSpeed, _currentSpeedLerpCoef);
-            
-            _currentDir = (trans.right * _inputDir.x + trans.forward * _inputDir.z).normalized;
-            
-            _rb.AddForce(_currentDir.normalized * (moveSpeed * Constants.SpeedMultiplier), ForceMode.Force); //move speed a 7.5
-            //_rb.velocity = new Vector3(_currentDir.x, _rb.velocity.y, _currentDir.z) * tempSpeed; //move speed a 5
+            _currentDir = (Vector3.right * _inputDir.x + Vector3.forward * _inputDir.z).normalized;
+                
+            _rb.AddForce(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier), ForceMode.Acceleration);
         }
-
+        
         private void ClampVelocity()
         {
             var vel = _rb.velocity;
-            _rb.velocity = new Vector3(ClampVelAxe(vel.x),  vel.y, ClampVelAxe(vel.z));
+            _rb.velocity = new Vector3(ClampSymmetric(vel.x, _datasSo.moveDatasSo.moveSpeed),  vel.y, ClampSymmetric(vel.z, _datasSo.moveDatasSo.moveSpeed));
         }
-
-        private float ClampVelAxe(float vel) => Mathf.Clamp(vel, -moveSpeed, moveSpeed);
-
-        #region values setters
         
-        private void SetLerpedCoef()
-        {
-            if (_inputDir.magnitude >= Constants.MinMoveInputValue)
-                _currentSpeedLerpCoef += Time.deltaTime * 5;
-            else
-                _currentSpeedLerpCoef -= Time.deltaTime * 5;
+        #endregion
 
-            _currentSpeedLerpCoef = Mathf.Clamp(_currentSpeedLerpCoef, 0, 1);
+        #region jump checker
+
+        private void OnJump()
+        {
+            if ((!(_coyoteTimeCounter >= 0) || !_datasSo.jumpInput.action.IsPressed()) &&
+                (!(_jumpBufferCounter >= 0) || !IsGrounded))
+                return;
+            
+            _stateMachine.OnSwitchState(_stateMachine.playerStates[1]);
         }
 
-        private void SetDrag()
+        private void SetCoyote()
         {
             if (IsGrounded)
-                _rb.drag = dragSpeed;
+                _coyoteTimeCounter = _datasSo.jumpDatasSo.coyoteTime;
+
             else
-                _rb.drag = 0;
+                _coyoteTimeCounter -= Time.deltaTime;
+
+            _coyoteTimeCounter = Mathf.Clamp(_coyoteTimeCounter, Constants.SecuValuUnderZero, _datasSo.jumpDatasSo.coyoteTime);
+        }
+
+        private void SetJumpBuffer()
+        {
+            if (_datasSo.jumpInput.action.IsPressed())
+                _jumpBufferCounter = _datasSo.jumpDatasSo.jumpBuffer;
+
+            else
+                _jumpBufferCounter -= Time.deltaTime;
+            
+            _jumpBufferCounter = Mathf.Clamp(_jumpBufferCounter, Constants.SecuValuUnderZero, _datasSo.jumpDatasSo.jumpBuffer);
         }
         
         #endregion
@@ -70,27 +95,12 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         #region fields
 
-        private const float PlayerHeight = 2;
-        
-        [FieldCompletion] [SerializeField] private InputActionReference moveInput;
-        
-        [SerializeField] private float moveSpeed;
+        private float _coyoteTimeCounter;
 
-        [Space]
-        [SerializeField] private float dragSpeed;
-        
-        [SerializeField] private LayerMask groundLayer;
+        private float _jumpBufferCounter;
 
-        private Vector3 _currentDir;
-
-        private Vector3 _inputDir;
-
-        private float _currentSpeedLerpCoef;
-
-        private Rigidbody _rb;
-
-        private bool IsGrounded => Physics.Raycast(transform.position, Vector3.down,
-            PlayerHeight / 2 + Constants.GroundCheckSupLength, groundLayer);
+        private bool IsGrounded => Physics.Raycast(transform.position, -transform.up,
+            Constants.PlayerHeight / 2 + Constants.GroundCheckSupLength, _datasSo.groundingDatasSo.groundLayer);
 
         #endregion
     }

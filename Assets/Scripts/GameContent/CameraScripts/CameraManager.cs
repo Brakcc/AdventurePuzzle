@@ -20,3 +20,6 @@ namespace GameContent.CameraScripts
         #endregion
     }
 }
+
+
+//Lourd ce script t'as vu ?
