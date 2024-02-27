@@ -1,4 +1,4 @@
-﻿namespace GameContent.PlayerScripts.PlayerDatas.PlayerDatas
+﻿namespace GameContent.PlayerScripts.PlayerDatas.PlayerDatasSO
 {
     public class FallDatasSO : AbstractPlayerDatasSO
     {
