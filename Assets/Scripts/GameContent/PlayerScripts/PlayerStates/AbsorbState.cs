@@ -18,7 +18,6 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnExitState(PlayerStateMachine stateMachine)
         {
-            OnAbsorb?.Invoke();
         }
 
         public override void OnUpdate()
@@ -58,8 +57,11 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         private void OnAction()
         {
-            if (_absorbTimeCounter <= 0)
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+            if (_absorbTimeCounter > 0)
+                return;
+            
+            OnAbsorb?.Invoke();
+            _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
         }
         
         #endregion

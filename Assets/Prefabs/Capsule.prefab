@@ -17,12 +17,12 @@ GameObject:
   - component: {fileID: 2033561953474625802}
   - component: {fileID: 8576692583593121037}
   - component: {fileID: 6670628046909306373}
-  - component: {fileID: 4796347774354386986}
-  - component: {fileID: 1523799018367820695}
   - component: {fileID: 8958442219162388924}
+  - component: {fileID: 7037661828229688155}
+  - component: {fileID: 7512637877311170692}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,14 +175,6 @@ MonoBehaviour:
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 6b444451-8a00-4d00-a97e-f47457f736a8
-    m_ActionName: Player/Look[/Mouse/delta]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6c2ab1b8-8984-453a-af3d-a3c78ae1679a
-    m_ActionName: Player/Fire[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: c95b2375-e6d9-4b88-9c4c-c5e76515df4b
     m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
@@ -225,6 +217,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: cbfd198e-f77c-4b3f-ba28-6bfe3b2cc4a5
     m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 17c3afa0-712a-40d0-b896-1b6f9b3ee0b9
+    m_ActionName: Player/Apply[/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a9f4a815-9ae8-429e-a945-59bb43b00929
+    m_ActionName: Player/Absorb[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -245,8 +245,8 @@ MonoBehaviour:
   playerStates:
   - {fileID: 8576692583593121037}
   - {fileID: 6670628046909306373}
-  - {fileID: 4796347774354386986}
-  - {fileID: 1523799018367820695}
+  - {fileID: 7512637877311170692}
+  - {fileID: 7037661828229688155}
   - {fileID: 8958442219162388924}
   datasSo: {fileID: 11400000, guid: 23c25195203c77244a024765acdfd4e5, type: 2}
 --- !u!114 &8576692583593121037
@@ -273,7 +273,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 596c981173944d8bb6c08428e876b976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4796347774354386986
+--- !u!114 &8958442219162388924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396018478670927749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd164560e9ff4a3c88c4ee5a74b2f550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7037661828229688155
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -285,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 484d2a7258744259811fbb6b991586c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1523799018367820695
+--- !u!114 &7512637877311170692
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -295,18 +307,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf3f6cb012da4126a109a694b5a8c92c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8958442219162388924
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2396018478670927749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd164560e9ff4a3c88c4ee5a74b2f550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &9170672045371678563

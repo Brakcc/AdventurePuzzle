@@ -18,7 +18,6 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnExitState(PlayerStateMachine stateMachine)
         {
-            OnApply?.Invoke();
         }
 
         public override void OnUpdate()
@@ -58,8 +57,11 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         private void OnAction()
         {
-            if (_applyTimeCounter <= 0)
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+            if (_applyTimeCounter > 0)
+                return;
+            
+            OnApply?.Invoke();
+            _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
         }
         
         #endregion
