@@ -1,4 +1,4 @@
-﻿using GameContent.PlayerScripts.PlayerDatas.PlayerDatas;
+﻿using GameContent.PlayerScripts.PlayerDatas.PlayerDatasSO;
 using Interfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,7 +7,7 @@ using Utilities.CustomAttributes.FieldColors;
 
 namespace GameContent.PlayerScripts.PlayerDatas
 {
-    [CreateAssetMenu(fileName = "Controller", menuName = "PlayerDatas/Controller")]
+    [CreateAssetMenu(fileName = "Controller", menuName = "PlayerDatasSO/Controller")]
     public class BasePlayerDatasSO : ScriptableObject, IPlayerDatas
     {
         [Header("Inputs")]
@@ -24,5 +24,7 @@ namespace GameContent.PlayerScripts.PlayerDatas
         [FieldCompletion(_checkedColor: FieldColor.Green)] public JumpDatasSO jumpDatasSo;
 
         [FieldCompletion(_checkedColor: FieldColor.Green)] public GroundingDatasSO groundingDatasSo;
+        
+        [FieldCompletion(_checkedColor: FieldColor.Green)] public InteractDatasSO interactDatasSo;
     }
 }

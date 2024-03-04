@@ -1,64 +1,72 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    public class MoveState : AbstractPlayerState
+    public class AbsorbState : AbstractPlayerState
     {
         #region methodes
-
+        
         public override void OnEnterState(PlayerStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
-            
-            _coyoteTimeCounter = _datasSo.jumpDatasSo.coyoteTime;
-            _jumpBufferCounter = Constants.SecuValuUnderZero;
 
             _rb.drag = _datasSo.groundingDatasSo.dragSpeed;
+
+            _absorbTimeCounter = _datasSo.interactDatasSo.absorbTime;
         }
 
         public override void OnExitState(PlayerStateMachine stateMachine)
         {
-            _stateMachine = null;
         }
 
         public override void OnUpdate()
         {
-            var input = _datasSo.moveInput.action.ReadValue<Vector2>();
-            _inputDir = new Vector3(input.x, 0, input.y).normalized;
+            SetAbsorbTime();
+            GetOtherActionInput();
+            OnAction();
             
-            GetInteractInputs();
-            
-            //Jump
             SetCoyote();
             SetJumpBuffer();
+            //OnInputVal();
         }
 
         public override void OnFixedUpdate()
         {
-            ClampVelocity();
-            
-            OnMove();
             OnJump();
         }
 
-        #region move methodes
+        #region absorb methodes
 
-        private void OnMove()
+        private void SetAbsorbTime()
         {
-            _currentDir = (Vector3.right * _inputDir.x + Vector3.forward * _inputDir.z).normalized;
-                
-            _rb.AddForce(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier), ForceMode.Acceleration);
+            if (_datasSo.absorbInput.action.IsPressed())
+            {
+                _absorbTimeCounter -= Time.deltaTime;
+                return;
+            }
+            
+            _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+        }
+
+        private void GetOtherActionInput()
+        {
+            if (_datasSo.applyInput.action.WasPressedThisFrame())
+                _stateMachine.OnSwitchState(_stateMachine.playerStates[3]);
         }
         
-        private void ClampVelocity()
+        private void OnAction()
         {
-            var vel = _rb.velocity;
-            _rb.velocity = new Vector3(ClampSymmetric(vel.x, _datasSo.moveDatasSo.moveSpeed),  vel.y, ClampSymmetric(vel.z, _datasSo.moveDatasSo.moveSpeed));
+            if (_absorbTimeCounter > 0)
+                return;
+            
+            OnAbsorb?.Invoke();
+            _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
         }
         
         #endregion
-
-        #region jump Switchers
+        
+        #region jumpSwitchers
 
         private void OnJump()
         {
@@ -68,7 +76,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             _stateMachine.OnSwitchState(_stateMachine.playerStates[1]);
         }
-
+        
         private void SetCoyote()
         {
             if (IsGrounded)
@@ -90,30 +98,33 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             _jumpBufferCounter = Mathf.Clamp(_jumpBufferCounter, Constants.SecuValuUnderZero, _datasSo.jumpDatasSo.jumpBuffer);
         }
-        
+
         #endregion
+        
+        #region moveSwitchers
 
-        #region interact Switchers
-
-        private void GetInteractInputs()
+        private void OnInputVal()
         {
-            if (_datasSo.absorbInput.action.WasPressedThisFrame())
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[2]);
-            
-            if (_datasSo.applyInput.action.WasPressedThisFrame())
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[3]);
+            var input = _datasSo.moveInput.action.ReadValue<Vector2>();
+           
+            if (input.magnitude >= Constants.MinMoveInputValue)
+                _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
         }
+        
+        #endregion
+        
+        #endregion
 
-        #endregion
-        
-        #endregion
-        
         #region fields
+
+        public static event Action OnAbsorb;
+
+        private float _absorbTimeCounter;
 
         private float _coyoteTimeCounter;
 
         private float _jumpBufferCounter;
-
+        
         private bool IsGrounded => Physics.Raycast(transform.position, -transform.up,
             Constants.PlayerHeight / 2 + Constants.GroundCheckSupLength, _datasSo.groundingDatasSo.groundLayer);
 

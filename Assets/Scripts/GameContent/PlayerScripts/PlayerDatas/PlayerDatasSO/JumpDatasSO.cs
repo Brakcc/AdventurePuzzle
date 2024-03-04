@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using Utilities.CustomAttributes;
 
-namespace GameContent.PlayerScripts.PlayerDatas.PlayerDatas
+namespace GameContent.PlayerScripts.PlayerDatas.PlayerDatasSO
 {
-    [CreateAssetMenu(fileName = "JumpDatas", menuName = "PlayerDatas/JumpDatas")]
+    [CreateAssetMenu(fileName = "JumpDatas", menuName = "PlayerDatasSO/JumpDatas")]
     public class JumpDatasSO : AbstractPlayerDatasSO
     {
         public float jumpForce;
