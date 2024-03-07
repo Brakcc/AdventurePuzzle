@@ -1,24 +1,24 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InteractibleCheck : MonoBehaviour
 {
-    public List<GameObject> interactiblesActivated = new List<GameObject>();
+    public AbstractInteractibleBase interactiblesActivated;
     private void OnCollisionEnter(Collision possibleInteractible)
     {
         if (possibleInteractible.transform.CompareTag("Interactible"))
         {
-            interactiblesActivated.Add(possibleInteractible.gameObject);
+            interactiblesActivated = possibleInteractible.gameObject.GetComponent<AbstractInteractibleBase>();
+            interactiblesActivated.OnSubscribe();
         }
     }
-    
+
     private void OnCollisionExit(Collision possibleInteractible)
     {
         if (possibleInteractible.transform.CompareTag("Interactible"))
         {
-            interactiblesActivated.Remove(possibleInteractible.gameObject);
+            interactiblesActivated.OnUnSubscribe();
+            interactiblesActivated = null;
         }
     }
 }
