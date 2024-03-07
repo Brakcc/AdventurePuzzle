@@ -1,3 +1,4 @@
+using GameContent.PlayerScripts.PlayerStates;
 using UnityEngine;
 
 public class Interactible : AbstractInteractibleBase
@@ -6,19 +7,22 @@ public class Interactible : AbstractInteractibleBase
     
     #region Les Methodes
 
-    public override void OnActivated()
+    public override void OnSubscribe()
     {
         Debug.Log("Entered");
+        ApplyState.OnApply += Effect;
     }
-    
-    public override void Effect()
+
+    protected override void Effect()
     {
-        Debug.Log("Effective");
+        Debug.Log(isActivated ? "eee" : "aaa");
+        base.Effect();
     }
-    
-    public override void OnDeactivated()
+
+    public override void OnUnSubscribe()
     {
         Debug.Log("Deactivated");
+        ApplyState.OnApply -= Effect;
     }
     
     #endregion
