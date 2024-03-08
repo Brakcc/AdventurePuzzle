@@ -33,7 +33,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnFixedUpdate()
         {
-            OnJump();
+            //OnJump();
         }
 
         #region absorb methodes

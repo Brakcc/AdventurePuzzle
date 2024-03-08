@@ -38,7 +38,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             ClampVelocity();
             
             OnMove();
-            OnJump();
+            //OnJump();
         }
 
         #region move methodes

@@ -9,7 +9,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region methodes
 
-        public void OnStart()
+        public void Start()
         {
             Cursor.visible = false;
 
