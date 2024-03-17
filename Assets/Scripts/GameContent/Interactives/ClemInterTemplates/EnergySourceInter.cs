@@ -1,15 +1,28 @@
-﻿namespace GameContent.Interactives.ClemInterTemplates
+﻿using GameContent.PlayerScripts.PlayerStates;
+using UnityEngine;
+
+namespace GameContent.Interactives.ClemInterTemplates
 {
     public class EnergySourceInter : BaseInterBehavior
     {
-        public override void OnSubscribe()
+        #region methodes
+
+        protected override void OnSubscribe()
         {
-            throw new System.NotImplementedException();
+            AbsorbState.OnAbsorb += Effect;
         }
 
-        public override void OnUnSubscribe()
+        protected override void OnUnSubscribe()
         {
-            throw new System.NotImplementedException();
+            AbsorbState.OnAbsorb -= Effect;
         }
+
+        protected override void Effect()
+        {
+            Debug.Log("absorb");
+            base.Effect();
+        }
+
+        #endregion
     }
 }

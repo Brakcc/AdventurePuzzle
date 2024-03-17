@@ -1,4 +1,5 @@
 ﻿using GameContent.PlayerScripts.PlayerDatas;
+using GameContent.PlayerScripts.PlayerStates;
 using UnityEngine;
 using Utilities.CustomAttributes;
 
@@ -10,6 +11,16 @@ namespace GameContent.PlayerScripts
 
         private void Awake()
         {
+            var go = gameObject;
+            playerStates = new AbstractPlayerState[]
+            {
+                new MoveState(go),
+                new JumpState(go),
+                new AbsorbState(go),
+                new ApplyState(go),
+                new FallState(go)
+            };
+            
             if (playerStates.Length == 0)
                 return;
 
@@ -18,6 +29,7 @@ namespace GameContent.PlayerScripts
             {
                 state.SetRigidBody(tempRb);
                 state.SetDatas(datasSo);
+                state.OnInit();
             }
             
             _currentState = playerStates[0];
@@ -51,8 +63,8 @@ namespace GameContent.PlayerScripts
         #endregion
         
         #region fields
-
-        public AbstractPlayerState[] playerStates;
+        
+        [HideInInspector] public AbstractPlayerState[] playerStates;
         
         [FieldCompletion] [SerializeField] protected BasePlayerDatasSO datasSo;
 

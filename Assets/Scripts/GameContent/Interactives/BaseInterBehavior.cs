@@ -39,19 +39,21 @@ namespace GameContent.Interactives
             _isInRange = true;
             _checkerRef = checker;
             _checkerRef.InRangeInter.Add(this);
+            OnSubscribe();
         }
 
         private void RemoveSelf()
         {
+            OnUnSubscribe();
             _isInRange = false;
             _checkerRef.InRangeInter.Remove(this);
             _checkerRef = null;
         }
         
         #region Methodes a hériter
-    
-        public abstract void OnSubscribe();
-        public abstract void OnUnSubscribe();
+
+        protected abstract void OnSubscribe();
+        protected abstract void OnUnSubscribe();
         protected virtual void Effect() => isActivated = !isActivated; 
     
         #endregion

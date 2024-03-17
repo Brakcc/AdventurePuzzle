@@ -5,6 +5,14 @@ namespace GameContent.PlayerScripts.PlayerStates
 {
     public class AbsorbState : AbstractPlayerState
     {
+        #region constructor
+
+        public AbsorbState(GameObject go) : base(go)
+        {
+        }
+
+        #endregion
+        
         #region methodes
         
         public override void OnEnterState(PlayerStateMachine stateMachine)
@@ -124,9 +132,6 @@ namespace GameContent.PlayerScripts.PlayerStates
         private float _coyoteTimeCounter;
 
         private float _jumpBufferCounter;
-        
-        private bool IsGrounded => Physics.Raycast(transform.position, -transform.up,
-            Constants.PlayerHeight / 2 + Constants.GroundCheckSupLength, _datasSo.groundingDatasSo.groundLayer);
 
         #endregion
     }

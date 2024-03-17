@@ -10,15 +10,23 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public BaseInterBehavior InterRef { get; private set; }
 
-        public List<BaseInterBehavior> InRangeInter { get; set; }
+        public List<BaseInterBehavior> InRangeInter { get; private set; }
 
         #endregion
 
         #region methodes
 
+        private void Start()
+        {
+            InRangeInter = new List<BaseInterBehavior>();
+        }
+
         private void Update()
         {
-            InterRef = InRangeInter?[0];
+            if (InRangeInter.Count <= 0)
+                return;
+            
+            InterRef = InRangeInter[0];
         }
 
         private void OnTriggerEnter(Collider other)
