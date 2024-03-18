@@ -19,6 +19,8 @@ namespace GameContent.PlayerScripts
         
         protected static float ClampSymmetric(float val, float clamper) => Mathf.Clamp(val, -clamper, clamper);
 
+        public void SetGameObject(GameObject go) => _goRef = go;
+        
         public void SetRigidBody(Rigidbody rb) => _rb = rb;
 
         public void SetDatas(BasePlayerDatasSO datasSo) => _datasSo = datasSo;

@@ -60,7 +60,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void GetOtherActionInput()
         {
             if (_datasSo.applyInput.action.WasPressedThisFrame())
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[3]);
+                _stateMachine.OnSwitchState("apply");
         }
         
         private void OnAction()
