@@ -73,18 +73,20 @@ Material:
     - _Add: 1
     - _Ambiant: 0.5
     - _BaseColorBrightness: 1
+    - _Float: 0
     - _Fresnel: 1
     - _Fresnel_Threshold: 0.43
     - _Multiply: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Ramp: 0.5
+    - _Ramp: 0.38
     - _RimLightBrightness: 1
     - _RimLightFresnel: 0.2
     - _RimPower: 5
     - _ToonRampOffset: 0.5
     - _ToonRampOffsetPoint: -0.5
     - _ToonRampSmoothness: 0
+    - _toon_ramp: 1.16
     m_Colors:
     - _Dark_color: {r: 0.6394059, g: 0.56470275, b: 0.8490566, a: 0}
     - _Light_color: {r: 1, g: 0.9009434, b: 0.9009434, a: 0}
