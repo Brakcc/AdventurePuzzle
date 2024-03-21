@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MSG_Cell_shading 1
-  m_Shader: {fileID: -6465566751694194690, guid: b80bc15d2ec2d114e838223980d4b10e,
+  m_Shader: {fileID: -6465566751694194690, guid: 49b8cd71ef51a0449a5791b4ff8cfa2d,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -29,6 +29,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AmbiantOcclusion:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseColor:
+        m_Texture: {fileID: 2800000, guid: 680da174164d237438807d3b6631573c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -64,9 +72,15 @@ Material:
     - _Multiply: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _RimLightBrightness: 1
+    - _RimLightFresnel: 0.2
+    - _RimPower: 5
+    - _ToonRampOffset: 1
+    - _ToonRampSmoothness: 1
     m_Colors:
     - _Dark_color: {r: 0.6394059, g: 0.56470275, b: 0.8490566, a: 0}
     - _Light_color: {r: 1, g: 0.9009434, b: 0.9009434, a: 0}
+    - _ToonRampTinting: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3792303604934591831
 MonoBehaviour:
