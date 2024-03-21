@@ -40,6 +40,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MaskEmissive:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Metalness:
         m_Texture: {fileID: 2800000, guid: faadd190d3cbbc74d834267554f1aa9c, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -67,6 +71,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Add: 1
+    - _Ambiant: 0.54
     - _BaseColorBrightness: 0.5
     - _Fresnel: 1
     - _Fresnel_Threshold: 0.4
@@ -77,10 +82,12 @@ Material:
     - _RimLightFresnel: 0.2
     - _RimPower: 5
     - _ToonRampOffset: 0.49
+    - _ToonRampOffsetPoint: -0.5
     - _ToonRampSmoothness: 0.06
     m_Colors:
     - _Dark_color: {r: 0.6394059, g: 0.56470275, b: 0.8490566, a: 0}
     - _Light_color: {r: 1, g: 0.9009434, b: 0.9009434, a: 0}
+    - _ToonRampOffsetPoint: {r: -1.62, g: 1, b: 1, a: 1}
     - _ToonRampTinting: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3792303604934591831

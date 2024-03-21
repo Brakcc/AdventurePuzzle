@@ -33,10 +33,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColor:
-        m_Texture: {fileID: 2800000, guid: 680da174164d237438807d3b6631573c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 89fb5f6b16cea3f4aa2dd63a8a1596af, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskEmissive:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -67,19 +71,24 @@ Material:
     m_Ints: []
     m_Floats:
     - _Add: 1
+    - _Ambiant: 0.5
+    - _BaseColorBrightness: 1
     - _Fresnel: 1
     - _Fresnel_Threshold: 0.43
     - _Multiply: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Ramp: 0.5
     - _RimLightBrightness: 1
     - _RimLightFresnel: 0.2
     - _RimPower: 5
-    - _ToonRampOffset: 1
-    - _ToonRampSmoothness: 1
+    - _ToonRampOffset: 0.5
+    - _ToonRampOffsetPoint: -0.5
+    - _ToonRampSmoothness: 0
     m_Colors:
     - _Dark_color: {r: 0.6394059, g: 0.56470275, b: 0.8490566, a: 0}
     - _Light_color: {r: 1, g: 0.9009434, b: 0.9009434, a: 0}
+    - _ToonRampOffsetPoint: {r: 1, g: 1, b: 1, a: 1}
     - _ToonRampTinting: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3792303604934591831
