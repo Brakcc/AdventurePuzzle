@@ -4,6 +4,14 @@ namespace GameContent.PlayerScripts.PlayerStates
 {
     public class JumpState : AbstractPlayerState
     {
+        #region constructor
+
+        public JumpState(GameObject go) : base(go)
+        {
+        }
+
+        #endregion
+        
         #region methodes
         
         public override void OnEnterState(PlayerStateMachine stateMachine)
@@ -17,7 +25,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             vel = new Vector3(vel.x, 0, vel.z);
             _rb.velocity = vel;
             
-            _rb.AddForce(transform.up * _datasSo.jumpDatasSo.jumpForce, ForceMode.Impulse);
+            _rb.AddForce(_goRef.transform.up * _datasSo.jumpDatasSo.jumpForce, ForceMode.Impulse);
         }
 
         public override void OnExitState(PlayerStateMachine stateMachine)
@@ -83,9 +91,6 @@ namespace GameContent.PlayerScripts.PlayerStates
         #region fields
 
         private float _jumpTimer;
-
-        private bool IsGrounded => Physics.Raycast(transform.position, -transform.up,
-            Constants.PlayerHeight / 2 + Constants.GroundCheckSupLength, _datasSo.groundingDatasSo.groundLayer);
 
         #endregion
     }

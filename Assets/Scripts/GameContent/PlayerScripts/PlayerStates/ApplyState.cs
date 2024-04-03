@@ -5,6 +5,14 @@ namespace GameContent.PlayerScripts.PlayerStates
 {
     public class ApplyState : AbstractPlayerState
     {
+        #region constructor
+
+        public ApplyState(GameObject go) : base(go)
+        {
+        }
+
+        #endregion
+        
         #region methodes
         
         public override void OnEnterState(PlayerStateMachine stateMachine)
@@ -33,7 +41,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnFixedUpdate()
         {
-            OnJump();
+            //OnJump();
         }
 
         #region apply methodes
@@ -52,7 +60,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void GetOtherActionInputs()
         {
             if (_datasSo.absorbInput.action.WasPressedThisFrame())
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[2]);
+                _stateMachine.OnSwitchState("absorb");
         }
         
         private void OnAction()
@@ -124,9 +132,6 @@ namespace GameContent.PlayerScripts.PlayerStates
         private float _coyoteTimeCounter;
 
         private float _jumpBufferCounter;
-        
-        private bool IsGrounded => Physics.Raycast(transform.position, -transform.up,
-            Constants.PlayerHeight / 2 + Constants.GroundCheckSupLength, _datasSo.groundingDatasSo.groundLayer);
 
         #endregion
     }
