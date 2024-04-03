@@ -4,7 +4,21 @@ namespace GameContent.PlayerScripts.PlayerStates
 {
     public class MoveState : AbstractPlayerState
     {
+        #region constructor
+
+        public MoveState(GameObject go) : base(go)
+        {
+        }
+
+        #endregion
+        
         #region methodes
+
+        public override void OnInit()
+        {
+            _lastDir = _isoForwardDir;
+            base.OnInit();
+        }
 
         public override void OnEnterState(PlayerStateMachine stateMachine)
         {
@@ -38,14 +52,33 @@ namespace GameContent.PlayerScripts.PlayerStates
             ClampVelocity();
             
             OnMove();
-            OnJump();
+            OnRotate();
+            //OnJump();
         }
+
+        #region rotation mathodes
+
+        private void OnRotate()
+        {
+            if (_inputDir.magnitude <= Constants.MinMoveInputValue)
+                return;
+            
+            var angle = Vector3.Dot(_lastDir, _currentDir) / (_currentDir.magnitude * _lastDir.magnitude);
+            if (Mathf.Acos(angle) > Constants.MinPlayerRotationAngle)
+            {
+                _currentDir = Vector3.MoveTowards(_currentDir, _lastDir, _datasSo.moveDatasSo.rotaSpeedCoef * Time.fixedDeltaTime);
+            }
+            
+            _goRef.transform.rotation = Quaternion.LookRotation(_currentDir);
+        }
+
+        #endregion
 
         #region move methodes
 
         private void OnMove()
         {
-            _currentDir = (Vector3.right * _inputDir.x + Vector3.forward * _inputDir.z).normalized;
+            _currentDir = (_isoRightDir * _inputDir.x + _isoForwardDir * _inputDir.z).normalized;
                 
             _rb.AddForce(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier), ForceMode.Acceleration);
         }
@@ -114,8 +147,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private float _jumpBufferCounter;
 
-        private bool IsGrounded => Physics.Raycast(transform.position, -transform.up,
-            Constants.PlayerHeight / 2 + Constants.GroundCheckSupLength, _datasSo.groundingDatasSo.groundLayer);
+        private Vector3 _lastDir;
 
         #endregion
     }

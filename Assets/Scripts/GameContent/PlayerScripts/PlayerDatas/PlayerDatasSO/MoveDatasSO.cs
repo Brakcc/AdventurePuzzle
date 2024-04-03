@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using Utilities.CustomAttributes;
+using Utilities.CustomAttributes.FieldColors;
 
 namespace GameContent.PlayerScripts.PlayerDatas.PlayerDatasSO
 {
@@ -6,5 +8,8 @@ namespace GameContent.PlayerScripts.PlayerDatas.PlayerDatasSO
     public class MoveDatasSO : AbstractPlayerDatasSO
     {
         public float moveSpeed;
+        
+        [FieldColorLerp(FieldColor.Orange, FieldColor.Cyan, 1, 15)]
+        [Range(1, 15)] public float rotaSpeedCoef;
     }
 }

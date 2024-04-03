@@ -1,4 +1,6 @@
-﻿using GameContent.PlayerScripts.PlayerDatas;
+﻿using System.Collections.Generic;
+using GameContent.PlayerScripts.PlayerDatas;
+using GameContent.PlayerScripts.PlayerStates;
 using UnityEngine;
 using Utilities.CustomAttributes;
 
@@ -10,6 +12,26 @@ namespace GameContent.PlayerScripts
 
         private void Awake()
         {
+            var go = gameObject;
+            
+            playerStates = new AbstractPlayerState[]
+            {
+                new MoveState(go),
+                new JumpState(go),
+                new AbsorbState(go),
+                new ApplyState(go),
+                new FallState(go)
+            };
+
+            playerStatesDict = new Dictionary<string, AbstractPlayerState>
+            {
+                {"move", new MoveState(go)},
+                {"jump", new JumpState(go)},
+                {"absorb", new AbsorbState(go)},
+                {"apply", new ApplyState(go)},
+                {"fall", new FallState(go)}
+            };
+            
             if (playerStates.Length == 0)
                 return;
 
@@ -18,6 +40,7 @@ namespace GameContent.PlayerScripts
             {
                 state.SetRigidBody(tempRb);
                 state.SetDatas(datasSo);
+                state.OnInit();
             }
             
             _currentState = playerStates[0];
@@ -48,12 +71,21 @@ namespace GameContent.PlayerScripts
             _currentState.OnEnterState(this);
         }
         
+        public void OnSwitchState(string newState)
+        {
+            _currentState.OnExitState(this);
+            _currentState = playerStatesDict[newState];
+            _currentState.OnEnterState(this);
+        }
+        
         #endregion
         
         #region fields
-
-        public AbstractPlayerState[] playerStates;
         
+        public AbstractPlayerState[] playerStates;
+
+        private Dictionary<string, AbstractPlayerState> playerStatesDict;
+            
         [FieldCompletion] [SerializeField] protected BasePlayerDatasSO datasSo;
 
         private AbstractPlayerState _currentState;

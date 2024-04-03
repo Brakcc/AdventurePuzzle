@@ -1,7 +1,17 @@
-﻿namespace GameContent.PlayerScripts.PlayerStates
+﻿using UnityEngine;
+
+namespace GameContent.PlayerScripts.PlayerStates
 {
     public class FallState : AbstractPlayerState
     {
+        #region constructor
+
+        public FallState(GameObject go) : base(go)
+        {
+        }
+
+        #endregion
+        
         #region methodes
         
         public override void OnEnterState(PlayerStateMachine stateMachine)

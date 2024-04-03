@@ -9,7 +9,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region methodes
 
-        public void OnStart()
+        public void Start()
         {
             Cursor.visible = false;
 
@@ -37,29 +37,6 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             transform.rotation = Quaternion.LookRotation(_currentDir);
         }
-
-        /*#region rota methodes
-
-        private void OnUpdateRotationDir(Vector3 tempInput)
-        {
-            if (tempInput.magnitude <= Constants.MinMoveInputValue)
-                return;
-
-            _lastDir = new Vector3(tempInput.x, 0, tempInput.y).normalized;
-        }
-
-        private void OnUpdateRotation()
-        {
-            var angle = Vector3.Dot(_lastDir, _currentDir) / (_currentDir.magnitude * _lastDir.magnitude);
-            if (Mathf.Acos(angle) > Constants.MinPlayerRotationAngle)
-            {
-                _currentDir = Vector3.MoveTowards(_currentDir, _lastDir, rotaSpeedCoef * Time.fixedDeltaTime);
-            }
-
-            transform.rotation = Quaternion.LookRotation(_currentDir);
-        }
-
-        #endregion*/
         
         #endregion
 

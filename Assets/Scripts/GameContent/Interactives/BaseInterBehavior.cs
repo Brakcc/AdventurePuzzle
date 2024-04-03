@@ -1,34 +1,77 @@
-﻿using UnityEngine;
-using static GameContent.PlayerScripts.PlayerStates.ApplyState;
-using static GameContent.PlayerScripts.PlayerStates.AbsorbState;
+﻿using GameContent.PlayerScripts.PlayerStates;
+using UnityEngine;
+using Utilities.CustomAttributes;
+using Utilities.CustomAttributes.FieldColors;
 
 namespace GameContent.Interactives
 {
     public abstract class BaseInterBehavior : MonoBehaviour
     {
-        #region methodes
+        #region properties
+
+        public float DistFromPlayer => _distFromPlayer;
+
+        #endregion
         
-        private void OnTriggerEnter(Collider other)
+        #region methodes
+
+        private void Awake()
         {
-            if (!other.CompareTag("Player"))
+            isActivated = false;
+            _isInRange = false;
+        }
+
+        private void Update()
+        {
+            if (!_isInRange)
+                return;
+
+            _distFromPlayer = Vector3.Distance(transform.position, _checkerRef.transform.position);
+            
+            if (_distFromPlayer <= maxDistFromPlayer)
                 return;
             
-            OnApply += TestActionApply;
-            OnAbsorb += TestActionAbsorb;
+            RemoveSelf();
         }
 
-        private void OnTriggerExit(Collider other)
+        public void AddSelf(InterCheckerState checker)
         {
-            if (!other.CompareTag("Player"))
-                return;
-
-            OnApply -= TestActionApply;
-            OnAbsorb -= TestActionAbsorb;
+            _isInRange = true;
+            _checkerRef = checker;
+            _checkerRef.InRangeInter.Add(this);
+            OnSubscribe();
         }
 
-        private static void TestActionAbsorb() => Debug.Log("absorb");
+        private void RemoveSelf()
+        {
+            OnUnSubscribe();
+            _isInRange = false;
+            _checkerRef.InRangeInter.Remove(this);
+            _checkerRef = null;
+        }
+        
+        #region Methodes a hériter
 
-        private static void TestActionApply() => Debug.Log("apply");
+        protected abstract void OnSubscribe();
+        protected abstract void OnUnSubscribe();
+        protected virtual void Effect() => isActivated = !isActivated; 
+    
+        #endregion
+        
+        #endregion
+        
+        #region fields
+
+        private InterCheckerState _checkerRef;
+
+        [FieldColorLerp(FieldColor.Green, FieldColor.Blue,0, 10)]
+        [Range(0, 10)] [SerializeField] private float maxDistFromPlayer;
+        
+        protected bool isActivated;
+
+        private bool _isInRange;
+
+        private float _distFromPlayer;
 
         #endregion
     }
