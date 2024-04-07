@@ -18,8 +18,8 @@ namespace GameContent.PlayerScripts
             {
                 new MoveState(go),
                 new JumpState(go),
-                new AbsorbState(go),
-                new ApplyState(go),
+                new InteractState(go),
+                new CancelState(go),
                 new FallState(go)
             };
 
@@ -27,8 +27,8 @@ namespace GameContent.PlayerScripts
             {
                 {"move", new MoveState(go)},
                 {"jump", new JumpState(go)},
-                {"absorb", new AbsorbState(go)},
-                {"apply", new ApplyState(go)},
+                {"absorb", new InteractState(go)},
+                {"apply", new CancelState(go)},
                 {"fall", new FallState(go)}
             };
             
@@ -88,6 +88,8 @@ namespace GameContent.PlayerScripts
             
         [FieldCompletion] [SerializeField] protected BasePlayerDatasSO datasSo;
 
+        [FieldCompletion] public InterCheckerState checker;
+        
         private AbstractPlayerState _currentState;
 
         #endregion

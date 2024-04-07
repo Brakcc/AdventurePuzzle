@@ -1,5 +1,4 @@
-﻿using GameContent.PlayerScripts.PlayerStates;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates
 {
@@ -7,20 +6,14 @@ namespace GameContent.Interactives.ClemInterTemplates
     {
         #region methodes
 
-        protected override void OnSubscribe()
-        {
-            AbsorbState.OnAbsorb += Effect;
-        }
-
-        protected override void OnUnSubscribe()
-        {
-            AbsorbState.OnAbsorb -= Effect;
-        }
-
-        protected override void Effect()
+        public override void PlayerAction()
         {
             Debug.Log("absorb");
-            base.Effect();
+        }
+
+        public override void InterAction()
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

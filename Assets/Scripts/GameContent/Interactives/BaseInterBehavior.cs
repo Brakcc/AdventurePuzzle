@@ -39,12 +39,10 @@ namespace GameContent.Interactives
             _isInRange = true;
             _checkerRef = checker;
             _checkerRef.InRangeInter.Add(this);
-            OnSubscribe();
         }
 
         private void RemoveSelf()
         {
-            OnUnSubscribe();
             _isInRange = false;
             _checkerRef.InRangeInter.Remove(this);
             _checkerRef = null;
@@ -52,9 +50,9 @@ namespace GameContent.Interactives
         
         #region Methodes a hériter
 
-        protected abstract void OnSubscribe();
-        protected abstract void OnUnSubscribe();
-        protected virtual void Effect() => isActivated = !isActivated; 
+        public abstract void PlayerAction();
+
+        public abstract void InterAction();
     
         #endregion
         
