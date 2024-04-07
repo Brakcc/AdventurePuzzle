@@ -153,7 +153,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 89fb5f6b16cea3f4aa2dd63a8a1596af, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7658de127cda47d47b107fcc6af81f55, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
@@ -552,16 +552,16 @@ Material:
     - _utsVersionY: 9
     - _utsVersionZ: 7
     m_Colors:
-    - _1st_ShadeColor: {r: 0.6603774, g: 0.6323425, b: 0.6323425, a: 1}
+    - _1st_ShadeColor: {r: 0.6037736, g: 0.51548594, b: 0.51548594, a: 1}
     - _2nd_ShadeColor: {r: 0.4245283, g: 0.40650588, b: 0.40650588, a: 1}
     - _AmbiantColor: {r: 0.5139567, g: 0.45946062, b: 0.5566037, a: 0}
     - _AngelRingMaskColor: {r: 0, g: 1, b: 0, a: 1}
     - _AngelRing_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Ap_RimLightColor: {r: 0.25757813, g: 0.16887684, b: 0.31132078, a: 1}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.73135453, g: 0.7963858, b: 0.8962264, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColorMaskColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.73135453, g: 0.7963858, b: 0.8962264, a: 1}
     - _ColorShift: {r: 0, g: 0, b: 0, a: 1}
     - _Dark_color: {r: 1, g: 1, b: 1, a: 0}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
