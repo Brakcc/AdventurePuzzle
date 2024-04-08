@@ -2,25 +2,20 @@
 
 namespace GameContent.Interactives.ClemInterTemplates
 {
-    public class EmitterInter : BaseInterBehavior
+    public class LeverInter : BaseInterBehavior
     {
         #region methodes
-
+        
         public override void PlayerAction()
         {
             Debug.Log("player action");
         }
 
-        public override void PlayerCancel()
+        public override void InterAction()
         {
-            Debug.Log("player cancel");
+            Debug.Log("player action");
         }
-
-        public override void InterAction() 
-        {
-            Debug.Log("inter action");
-        }
-
+        
         #endregion
     }
 }

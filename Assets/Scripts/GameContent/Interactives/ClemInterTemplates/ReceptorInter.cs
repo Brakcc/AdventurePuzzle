@@ -1,4 +1,6 @@
-﻿namespace GameContent.Interactives.ClemInterTemplates
+﻿using UnityEngine;
+
+namespace GameContent.Interactives.ClemInterTemplates
 {
     public class ReceptorInter : BaseInterBehavior
     {
@@ -6,12 +8,17 @@
 
         public override void PlayerAction()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("player action");
         }
-        
+
+        public override void PlayerCancel()
+        {
+            Debug.Log("player cancel");
+        }
+
         public override void InterAction() 
         {
-            throw new System.NotImplementedException();
+            Debug.Log("inter action");
         }
 
         #endregion

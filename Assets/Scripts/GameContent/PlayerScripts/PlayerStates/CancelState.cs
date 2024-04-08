@@ -70,7 +70,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                 return;
             
             if (_checker.InterRef != null)
-                _checker.InterRef.InterAction();
+                _checker.InterRef.PlayerCancel();
             _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
         }
         

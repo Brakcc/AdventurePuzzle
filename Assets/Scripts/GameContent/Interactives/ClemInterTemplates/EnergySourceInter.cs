@@ -8,12 +8,12 @@ namespace GameContent.Interactives.ClemInterTemplates
 
         public override void PlayerAction()
         {
-            Debug.Log("absorb");
+            Debug.Log("player action");
         }
 
         public override void InterAction()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("inter action");
         }
 
         #endregion

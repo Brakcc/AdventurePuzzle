@@ -52,6 +52,8 @@ namespace GameContent.Interactives
 
         public abstract void PlayerAction();
 
+        public virtual void PlayerCancel() {}
+
         public abstract void InterAction();
     
         #endregion
