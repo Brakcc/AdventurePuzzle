@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MSG_Cell_shading
-  m_Shader: {fileID: -6465566751694194690, guid: 49b8cd71ef51a0449a5791b4ff8cfa2d,
+  m_Shader: {fileID: -6465566751694194690, guid: 03caf838c69d71040bfc262802735d00,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -24,6 +24,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - MainTex:
+        m_Texture: {fileID: 2800000, guid: 36cfef1564448d7448873f52b8168781, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Albedo:
         m_Texture: {fileID: 2800000, guid: 36cfef1564448d7448873f52b8168781, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -36,6 +40,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 36cfef1564448d7448873f52b8168781, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Emission_mask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Mask:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -46,6 +54,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Metalness:
         m_Texture: {fileID: 2800000, guid: faadd190d3cbbc74d834267554f1aa9c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MossTexture:
+        m_Texture: {fileID: 2800000, guid: aabbc3ae1f64e7c4ca217f11234aaf7f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -73,25 +85,48 @@ Material:
     - _Add: 1
     - _Ambiant: 0.54
     - _BaseColorBrightness: 0.5
+    - _Brightness: 0
+    - _Brightness_Rim: 2
     - _Float: 1
     - _Fresnel: 1
     - _Fresnel_Threshold: 0.4
+    - _Glossiness: 32
+    - _MossNoise: 3
+    - _MossNoiseScale: 5
     - _Multiply: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Ramp: 0.5
+    - _Ramp_Offset: 0.5
+    - _Ramp_Offset_Secondary: 0.5
+    - _Ramp_Smoothness: 0.05
+    - _RimAmount: 0.7
     - _RimLightBrightness: 1
     - _RimLightFresnel: 0.2
     - _RimPower: 5
+    - _RimThresh: 0.1
+    - _Rim_Power: 5
+    - _Second_Ramp_Offset: 1
     - _ShadeStep: 1
+    - _Shadow_rim: 0.4
+    - _Smoothness_shadow_rim: 0.6
     - _ToonRampOffset: 0.49
     - _ToonRampOffsetPoint: -0.5
     - _ToonRampSmoothness: 0.06
     - _toon_ramp: 1
     m_Colors:
+    - _AmbiantColor: {r: 0.5139567, g: 0.45946062, b: 0.5566037, a: 0}
+    - _Color: {r: 1, g: 0.7122642, b: 0.7122642, a: 1}
     - _Dark_color: {r: 0.6394059, g: 0.56470275, b: 0.8490566, a: 0}
     - _Light_color: {r: 1, g: 0.9009434, b: 0.9009434, a: 0}
+    - _MainColor: {r: 0, g: 0, b: 0, a: 0}
+    - _MossColor: {r: 0.6926296, g: 1, b: 0.6273585, a: 0}
+    - _MossDirection: {r: 0, g: 1, b: 0, a: 0}
+    - _Opacity: {r: 0, g: 0, b: 0, a: 0}
+    - _RimColor: {r: 4, g: 4, b: 4, a: 0}
+    - _Second_ShadowColor: {r: 0.5188679, g: 0, b: 0, a: 0}
     - _Shad_color: {r: 0.53742677, g: 0.44544324, b: 0.6603774, a: 0}
+    - _ShadowColor: {r: 0.8490566, g: 0.20425417, b: 0.20425417, a: 1}
     - _ToonRampOffsetPoint: {r: -1.62, g: 1, b: 1, a: 1}
     - _ToonRampTinting: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
