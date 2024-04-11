@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Apply",
+                    "name": "Cancel",
                     "type": "Button",
                     "id": "17c3afa0-712a-40d0-b896-1b6f9b3ee0b9",
                     "expectedControlType": "Button",
@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Absorb",
+                    "name": "Interact",
                     "type": "Button",
                     "id": "a9f4a815-9ae8-429e-a945-59bb43b00929",
                     "expectedControlType": "Button",
@@ -237,7 +237,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Apply",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -248,7 +248,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Apply",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -259,7 +259,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Apply",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -270,7 +270,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Apply",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -281,7 +281,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Apply",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -292,7 +292,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Absorb",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -303,7 +303,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Absorb",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -314,7 +314,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Absorb",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -325,7 +325,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Absorb",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

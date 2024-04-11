@@ -8,12 +8,12 @@ namespace GameContent.Interactives.ClemInterTemplates
         
         public override void PlayerAction()
         {
-            Debug.Log("player action");
+            Debug.Log($"player action {this}");
         }
 
         public override void InterAction()
         {
-            Debug.Log("player action");
+            Debug.Log($"player action {this}");
         }
         
         #endregion

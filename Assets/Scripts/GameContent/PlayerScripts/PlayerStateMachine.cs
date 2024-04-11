@@ -20,7 +20,8 @@ namespace GameContent.PlayerScripts
                 new JumpState(go),
                 new InteractState(go),
                 new CancelState(go),
-                new FallState(go)
+                new FallState(go),
+                new LockedOnInterState(go)
             };
 
             playerStatesDict = new Dictionary<string, AbstractPlayerState>
@@ -29,7 +30,8 @@ namespace GameContent.PlayerScripts
                 {"jump", new JumpState(go)},
                 {"absorb", new InteractState(go)},
                 {"apply", new CancelState(go)},
-                {"fall", new FallState(go)}
+                {"fall", new FallState(go)},
+                {"locked", new LockedOnInterState(go)}
             };
             
             if (playerStates.Length == 0)

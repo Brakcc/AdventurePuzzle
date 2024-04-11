@@ -2,6 +2,7 @@
 using Interfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using Utilities.CustomAttributes;
 using Utilities.CustomAttributes.FieldColors;
 
@@ -15,9 +16,9 @@ namespace GameContent.PlayerScripts.PlayerDatas
         
         [FieldCompletion] public InputActionReference jumpInput;
 
-        [FieldCompletion] public InputActionReference absorbInput;
+        [FieldCompletion] public InputActionReference interactInput;
 
-        [FieldCompletion] public InputActionReference applyInput;
+        [FieldCompletion] public InputActionReference cancelInput;
         
         [FieldCompletion(_checkedColor: FieldColor.Green)] public MoveDatasSO moveDatasSo;
 
