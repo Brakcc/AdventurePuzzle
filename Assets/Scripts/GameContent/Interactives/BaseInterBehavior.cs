@@ -17,7 +17,7 @@ namespace GameContent.Interactives
 
         private void Awake()
         {
-            isActivated = false;
+            isActivated = true;
             _isInRange = false;
         }
 

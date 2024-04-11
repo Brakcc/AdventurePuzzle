@@ -49,7 +49,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void SetAbsorbTime()
         {
-            if (_datasSo.absorbInput.action.IsPressed())
+            if (_datasSo.interactInput.action.IsPressed())
             {
                 _absorbTimeCounter -= Time.deltaTime;
                 return;
@@ -60,7 +60,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void GetOtherActionInput()
         {
-            if (_datasSo.applyInput.action.WasPressedThisFrame())
+            if (_datasSo.cancelInput.action.WasPressedThisFrame())
                 _stateMachine.OnSwitchState("apply");
         }
         

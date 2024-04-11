@@ -8,18 +8,27 @@ namespace GameContent.Interactives.ClemInterTemplates
 
         public override void PlayerAction()
         {
-            Debug.Log("player action");
+            Debug.Log($"player action {this}");
         }
 
         public override void PlayerCancel()
         {
-            Debug.Log("player cancel");
+            Debug.Log($"player cancel {this}");
         }
 
-        public override void InterAction() 
+        public override void InterAction()
         {
-            Debug.Log("inter action");
+            Debug.Log($"inter action {this}");
+            //Cahcnger les valeurs des receps
         }
+
+        #endregion
+
+        #region fields
+
+        [SerializeField] private ReceptorInter[] receptors;
+        
+        
 
         #endregion
     }
