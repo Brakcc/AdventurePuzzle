@@ -1,10 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using GameContent.PlayerScripts.PlayerStates;
+using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates
 {
     public class EmitterInter : BaseInterBehavior
     {
         #region methodes
+        
+        protected override void OnInit()
+        {
+            _datas = new List<SourceDatas>();
+            isActivated = true;
+        }
 
         public override void PlayerAction()
         {
@@ -26,9 +34,9 @@ namespace GameContent.Interactives.ClemInterTemplates
 
         #region fields
 
-        [SerializeField] private ReceptorInter[] receptors;
-        
-        
+        [SerializeField] protected ReceptorInter[] receptors;
+
+        protected List<SourceDatas> _datas;
 
         #endregion
     }

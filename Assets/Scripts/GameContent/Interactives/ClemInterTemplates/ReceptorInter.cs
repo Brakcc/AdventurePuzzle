@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Utilities.CustomAttributes;
 
 namespace GameContent.Interactives.ClemInterTemplates
 {
+    [RequireComponent(typeof(Collider))]
     public class ReceptorInter : BaseInterBehavior
     {
         #region properties
@@ -25,6 +27,12 @@ namespace GameContent.Interactives.ClemInterTemplates
         
         #region methodes
 
+        protected override void OnInit()
+        {
+            isActivated = false;
+            _col = GetComponent<Collider>();
+        }
+
         public override void PlayerAction()
         {
             Debug.Log($"player action {this}");
@@ -42,6 +50,23 @@ namespace GameContent.Interactives.ClemInterTemplates
             Debug.Log($"inter action {this}");
             //appliquer un effet selon la couleur 
             //Passer par switch case
+            switch (_currentAppliedEnergy)
+            {
+                case EnergyTypes.None:
+                    _col.enabled = true;
+                    break;
+                case EnergyTypes.Yellow:
+                    _col.enabled = true;
+                    break;
+                case EnergyTypes.Green:
+                    _col.enabled = false;
+                    break;
+                case EnergyTypes.Blue:
+                    _col.enabled = true;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException($"how did that happened");
+            }
         }
 
         private void OnCancelEnergy()
@@ -49,13 +74,14 @@ namespace GameContent.Interactives.ClemInterTemplates
             isActivated = false;
             animator.SetTrigger(0);
         }
-            
         
         #endregion
 
         #region fields
 
         [FieldCompletion] [SerializeField] private Animator animator;
+
+        private Collider _col;
 
         private EnergyTypes _currentAppliedEnergy;
 

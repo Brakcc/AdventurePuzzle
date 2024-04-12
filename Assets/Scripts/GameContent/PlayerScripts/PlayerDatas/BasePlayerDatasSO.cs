@@ -2,7 +2,6 @@
 using Interfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using Utilities.CustomAttributes;
 using Utilities.CustomAttributes.FieldColors;
 
