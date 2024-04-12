@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates.Emitters
 {
@@ -7,6 +6,18 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
     {
         #region methodes
 
+        protected override void OnInit()
+        {
+            base.OnInit();
+            if (receptors.Length == 0)
+                return;
+            
+            foreach (var r in receptors)
+            {
+                r.EmitRef = this;
+            }
+        }
+        
         public override void InterAction()
         {
             for (var i = 0; i < _datas.Count; i++)
@@ -26,6 +37,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         {
             base.PlayerCancel();
         }
+
+        #endregion
+
+        #region fields
+        
+        [SerializeField] private ReceptorInter[] receptors;
 
         #endregion
     }

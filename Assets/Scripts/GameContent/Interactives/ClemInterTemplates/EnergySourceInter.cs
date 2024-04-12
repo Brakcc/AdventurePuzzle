@@ -1,5 +1,4 @@
 ﻿using GameContent.PlayerScripts;
-using GameContent.PlayerScripts.PlayerStates;
 using UnityEngine;
 using Utilities.CustomAttributes;
 

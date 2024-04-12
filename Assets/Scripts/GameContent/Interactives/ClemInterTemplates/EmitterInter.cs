@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using GameContent.PlayerScripts.PlayerStates;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates
@@ -43,11 +42,13 @@ namespace GameContent.Interactives.ClemInterTemplates
         public override void PlayerAction()
         {
             Debug.Log($"player action {this}");
+            //add une couleur et lancer une interaction direct dans les cas des cables
         }
 
         public override void PlayerCancel()
         {
             Debug.Log($"player cancel {this}");
+            //retire une couleur et lance une interaction direct dans les cas des cables 
         }
 
         public override void InterAction()
@@ -59,8 +60,6 @@ namespace GameContent.Interactives.ClemInterTemplates
         #endregion
 
         #region fields
-
-        [SerializeField] protected ReceptorInter[] receptors;
 
         protected List<SourceDatas> _datas;
 

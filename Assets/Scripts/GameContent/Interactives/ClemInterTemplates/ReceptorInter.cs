@@ -23,6 +23,19 @@ namespace GameContent.Interactives.ClemInterTemplates
             }
         }
 
+        public EmitterInter EmitRef { get; set; }
+
+        public float DistFromEmit
+        {
+            get
+            {
+                if (EmitRef == null)
+                    return 0;
+                
+                return Vector3.Distance(EmitRef.transform.position, transform.position);
+            }
+        }
+
         #endregion
         
         #region methodes

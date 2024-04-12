@@ -1,5 +1,4 @@
 ﻿using GameContent.Interactives.ClemInterTemplates;
-using GameContent.PlayerScripts.PlayerStates;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts
