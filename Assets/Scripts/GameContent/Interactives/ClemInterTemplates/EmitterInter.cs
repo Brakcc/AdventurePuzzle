@@ -1,11 +1,37 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameContent.PlayerScripts.PlayerStates;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates
 {
-    public class EmitterInter : BaseInterBehavior
+    public abstract class EmitterInter : BaseInterBehavior
     {
+        #region properties
+
+        public List<SourceDatas> DatasList
+        {
+            get => _datas;
+            set
+            {
+                _datas = value;
+                InterAction();
+            }
+        }
+
+        public SourceDatas this[int id]
+        {
+            get
+            {
+                if (id < 0 || id >= _datas.Count)
+                    throw new ArgumentOutOfRangeException();
+
+                return _datas[id];
+            }
+        }
+
+        #endregion
+        
         #region methodes
         
         protected override void OnInit()

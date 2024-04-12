@@ -1,4 +1,7 @@
-﻿namespace GameContent.Interactives.ClemInterTemplates.Emitters
+﻿using System;
+using UnityEngine;
+
+namespace GameContent.Interactives.ClemInterTemplates.Emitters
 {
     public sealed class WaveEmitter : EmitterInter
     {
@@ -18,6 +21,12 @@
         {
             base.PlayerCancel();
         }
+
+        #endregion
+
+        #region fields
+
+        private readonly Comparison<int> Compare = (a, b) => (int)Mathf.Sign(b - a);
 
         #endregion
     }

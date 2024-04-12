@@ -1,6 +1,4 @@
-﻿using GameContent.Interactives.ClemInterTemplates;
-
-namespace GameContent.PlayerScripts.PlayerStates
+﻿namespace GameContent.Interactives.ClemInterTemplates
 {
     public struct SourceDatas
     {
