@@ -1,4 +1,5 @@
 ﻿using System;
+using DebuggingClem;
 using UnityEngine;
 using Utilities.CustomAttributes;
 
@@ -15,14 +16,13 @@ namespace GameContent.Interactives.ClemInterTemplates
             set
             {
                 _currentAppliedEnergy = value;
-                if (_currentAppliedEnergy == EnergyTypes.None)
-                    OnCancelEnergy();
-
-                else
-                    InterAction();
+                InterAction();
+                OnChangeColorLightDebug(_currentAppliedEnergy);
             }
         }
-
+        
+        private Light InterLight { get; set; }
+        
         public EmitterInter EmitRef { get; set; }
 
         public float DistFromEmit
@@ -42,51 +42,63 @@ namespace GameContent.Interactives.ClemInterTemplates
 
         protected override void OnInit()
         {
-            isActivated = false;
+            hasElectricity = false;
             _col = GetComponent<Collider>();
+            InterLight = GetComponentInChildren<Light>();
+            OnChangeColorLightDebug(CurrentEnergyType);
         }
 
         public override void PlayerAction()
         {
-            Debug.Log($"player action {this}");
+            //Debug.Log($"player action {this}");
             //link this sur le player pour allow les actions
         }
 
         public override void PlayerCancel()
         {
-            Debug.Log($"player cancel {this}");
+            //Debug.Log($"player cancel {this}");
             //delink this du player pour lâcher this
         }
 
         public override void InterAction() 
         {
-            Debug.Log($"inter action {this}");
-            //appliquer un effet selon la couleur 
-            //Passer par switch case
-            switch (_currentAppliedEnergy)
+            //Debug.Log($"inter action {this}");
+            switch (CurrentEnergyType)
             {
                 case EnergyTypes.None:
                     _col.enabled = true;
+                    hasElectricity = false;
+                    isMovable = false;
                     break;
                 case EnergyTypes.Yellow:
                     _col.enabled = true;
+                    hasElectricity = true;
+                    isMovable = false;
                     break;
                 case EnergyTypes.Green:
                     _col.enabled = false;
+                    hasElectricity = false;
+                    isMovable = false;
                     break;
                 case EnergyTypes.Blue:
                     _col.enabled = true;
+                    hasElectricity = false;
+                    isMovable = true;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException($"how did that happened");
+                    throw new ArgumentOutOfRangeException(nameof(_currentAppliedEnergy), _currentAppliedEnergy,"how did that happened wtf ???");
             }
         }
 
-        private void OnCancelEnergy()
+        public void OnReset()
         {
-            isActivated = false;
-            animator.SetTrigger(0);
+            CurrentEnergyType = EnergyTypes.None;
+            _col.enabled = true;
+            hasElectricity = false;
+            isMovable = false;
         }
+        
+        private void OnChangeColorLightDebug(EnergyTypes type) => InterLight.color = LightDebugger.DebugColor(type);
         
         #endregion
 
@@ -97,6 +109,10 @@ namespace GameContent.Interactives.ClemInterTemplates
         private Collider _col;
 
         private EnergyTypes _currentAppliedEnergy;
+
+        protected bool hasElectricity;
+
+        protected bool isMovable;
 
         #endregion
     }

@@ -9,7 +9,7 @@ namespace GameContent.Interactives
     {
         #region properties
 
-        public float DistFromPlayer => _distFromPlayer;
+        public float DistFromPlayer { get; private set; }
 
         #endregion
         
@@ -18,21 +18,22 @@ namespace GameContent.Interactives
         private void Awake()
         {
             _isInRange = false;
-
+            isActivated = true;
+            
             OnInit();
         }
 
         private void Update()
         {
-            if (!_isInRange)
+            if (!_isInRange) 
                 return;
 
-            _distFromPlayer = Vector3.Distance(transform.position, _checkerRef.transform.position);
+            DistFromPlayer = Vector3.Distance(transform.position, _checkerRef.transform.position);
             
-            if (_distFromPlayer <= maxDistFromPlayer)
-                return;
-            
-            RemoveSelf();
+            // if (DistFromPlayer <= maxDistFromPlayer)
+            //     return;
+            //
+            // RemoveSelf();
         }
 
         public void AddSelf(InterCheckerState checker)
@@ -42,8 +43,9 @@ namespace GameContent.Interactives
             _checkerRef.InRangeInter.Add(this);
         }
 
-        private void RemoveSelf()
+        public void RemoveSelf()
         {
+            //Debug.Log($"{name} removed");
             _isInRange = false;
             _checkerRef.InRangeInter.Remove(this);
             _checkerRef = null;
@@ -73,8 +75,6 @@ namespace GameContent.Interactives
         protected bool isActivated;
 
         private bool _isInRange;
-
-        private float _distFromPlayer;
 
         #endregion
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates
 {
@@ -8,24 +7,18 @@ namespace GameContent.Interactives.ClemInterTemplates
     {
         #region properties
 
-        public List<SourceDatas> DatasList
-        {
-            get => _datas;
-            set
-            {
-                _datas = value;
-                InterAction();
-            }
-        }
+        protected List<SourceDatas> SourceDatasList { get; private set; }
 
-        public SourceDatas this[int id]
+        protected int Count => SourceDatasList.Count;
+        
+        protected SourceDatas this[int id]
         {
             get
             {
-                if (id < 0 || id >= _datas.Count)
-                    throw new ArgumentOutOfRangeException();
+                if (id < 0 || id >= SourceDatasList.Count)
+                    throw new ArgumentOutOfRangeException(nameof(id), id, "too bad");
 
-                return _datas[id];
+                return SourceDatasList[id];
             }
         }
 
@@ -35,33 +28,26 @@ namespace GameContent.Interactives.ClemInterTemplates
         
         protected override void OnInit()
         {
-            _datas = new List<SourceDatas>();
-            isActivated = true;
+            SourceDatasList = new List<SourceDatas>();
         }
 
         public override void PlayerAction()
         {
-            Debug.Log($"player action {this}");
+            //Debug.Log($"player action {this}");
             //add une couleur et lancer une interaction direct dans les cas des cables
         }
 
         public override void PlayerCancel()
         {
-            Debug.Log($"player cancel {this}");
+            //Debug.Log($"player cancel {this}");
             //retire une couleur et lance une interaction direct dans les cas des cables 
         }
 
         public override void InterAction()
         {
-            Debug.Log($"inter action {this}");
+            //Debug.Log($"inter action {this}");
             //Cahcnger les valeurs des receps
         }
-
-        #endregion
-
-        #region fields
-
-        protected List<SourceDatas> _datas;
 
         #endregion
     }

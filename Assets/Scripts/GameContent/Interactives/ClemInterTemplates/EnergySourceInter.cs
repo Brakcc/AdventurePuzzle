@@ -14,36 +14,33 @@ namespace GameContent.Interactives.ClemInterTemplates
         
         #region methodes
 
-        protected override void OnInit()
-        {
-            isActivated = true;
-        }
-
         public override void PlayerAction()
         {
-            Debug.Log($"player action {this}");
             if (!isActivated)
                 return;
             
-            isActivated = !isActivated;
-            //OnActionAnim(0, isActivated);
+            isActivated = false;
+            OnActionAnim("isActive", isActivated);
 
-            if (PlayerEnergyM.EnergyType == EnergyTypes.None)
+            if (PlayerEnergyM.EnergyType != EnergyTypes.None)
+            {
+                PlayerEnergyM.CurrentSource.Source.InterAction();
+                PlayerEnergyM.CurrentSource = new SourceDatas(this);
+                PlayerEnergyM.OnSourceChangedDebug();
                 return;
-            
-            PlayerEnergyM.CurrentSource.Source.InterAction();
+            }
             PlayerEnergyM.CurrentSource = new SourceDatas(this);
+            PlayerEnergyM.OnSourceChangedDebug();
         }
 
         public override void InterAction()
         {
-            Debug.Log($"inter action {this}");
             if (isActivated)
                 return;
             
             //mettre des lien renderer ou vfx pour montrer la libération de l'energie ?
-            isActivated = !isActivated;
-            //OnActionAnim(0, isActivated);
+            isActivated = true;
+            OnActionAnim("isActive", isActivated);
         }
 
         private void OnActionAnim(string arg, bool state)

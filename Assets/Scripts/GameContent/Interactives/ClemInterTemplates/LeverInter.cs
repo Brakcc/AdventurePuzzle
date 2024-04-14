@@ -6,11 +6,6 @@ namespace GameContent.Interactives.ClemInterTemplates
     {
         #region methodes
         
-        protected override void OnInit()
-        {
-            isActivated = true;
-        }
-        
         public override void PlayerAction()
         {
             Debug.Log($"player action {this}");
