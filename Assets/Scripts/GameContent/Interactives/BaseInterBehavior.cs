@@ -17,8 +17,9 @@ namespace GameContent.Interactives
 
         private void Awake()
         {
-            isActivated = false;
             _isInRange = false;
+
+            OnInit();
         }
 
         private void Update()
@@ -49,6 +50,8 @@ namespace GameContent.Interactives
         }
         
         #region Methodes a hériter
+        
+        protected virtual void OnInit() {}
 
         public abstract void PlayerAction();
 

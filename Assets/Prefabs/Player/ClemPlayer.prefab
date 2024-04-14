@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 8177809058593022989}
   - component: {fileID: 2201709698478507686}
   - component: {fileID: 2805556016637855305}
+  - component: {fileID: 3982721170977102547}
   m_Layer: 0
   m_Name: ClemPlayer
   m_TagString: Player
@@ -410,3 +411,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   datasSo: {fileID: 11400000, guid: 23c25195203c77244a024765acdfd4e5, type: 2}
+  checker: {fileID: 3358087142996880176}
+--- !u!114 &3982721170977102547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8173012353445263340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3de731891d5749a2acb2064bce1e2397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
