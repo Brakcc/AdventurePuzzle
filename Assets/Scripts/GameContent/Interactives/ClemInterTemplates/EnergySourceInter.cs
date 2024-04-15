@@ -14,6 +14,12 @@ namespace GameContent.Interactives.ClemInterTemplates
         
         #region methodes
 
+        protected override void OnInit()
+        {
+            base.OnInit();
+            debugText = "Press <b>E</b> to interact";
+        }
+
         public override void PlayerAction()
         {
             if (!isActivated)

@@ -69,21 +69,25 @@ namespace GameContent.Interactives.ClemInterTemplates
                     _col.enabled = true;
                     hasElectricity = false;
                     isMovable = false;
+                    debugText = "";
                     break;
                 case EnergyTypes.Yellow:
                     _col.enabled = true;
                     hasElectricity = true;
                     isMovable = false;
+                    debugText = "";
                     break;
                 case EnergyTypes.Green:
                     _col.enabled = false;
                     hasElectricity = false;
                     isMovable = false;
+                    debugText = "";
                     break;
                 case EnergyTypes.Blue:
                     _col.enabled = true;
                     hasElectricity = false;
                     isMovable = true;
+                    debugText = "Maintain <b>E</b> to interact";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(_currentAppliedEnergy), _currentAppliedEnergy,"how did that happened wtf ???");

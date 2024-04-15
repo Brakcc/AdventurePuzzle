@@ -61,7 +61,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void GetOtherActionInputs()
         {
             if (_datasSo.interactInput.action.WasPressedThisFrame())
-                _stateMachine.OnSwitchState("absorb");
+                _stateMachine.OnSwitchState("interact");
         }
         
         private void OnAction()

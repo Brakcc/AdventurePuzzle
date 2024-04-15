@@ -1,4 +1,5 @@
 ﻿using GameContent.PlayerScripts.PlayerStates;
+using TMPro;
 using UnityEngine;
 using Utilities.CustomAttributes;
 using Utilities.CustomAttributes.FieldColors;
@@ -38,6 +39,8 @@ namespace GameContent.Interactives
 
         public void AddSelf(InterCheckerState checker)
         {
+            debugInputText.enabled = true;
+            debugInputText.text = debugText;
             _isInRange = true;
             _checkerRef = checker;
             _checkerRef.InRangeInter.Add(this);
@@ -46,6 +49,7 @@ namespace GameContent.Interactives
         public void RemoveSelf()
         {
             //Debug.Log($"{name} removed");
+            debugInputText.enabled = false;
             _isInRange = false;
             _checkerRef.InRangeInter.Remove(this);
             _checkerRef = null;
@@ -67,10 +71,15 @@ namespace GameContent.Interactives
         
         #region fields
 
-        private InterCheckerState _checkerRef;
+        [FieldCompletion(FieldColor.Blue, FieldColor.Cyan)] [SerializeField]
+        private TMP_Text debugInputText;
 
+        protected string debugText;
+        
         [FieldColorLerp(FieldColor.Green, FieldColor.Blue,0, 10)]
         [Range(0, 10)] [SerializeField] private float maxDistFromPlayer;
+        
+        private InterCheckerState _checkerRef;
         
         protected bool isActivated;
 
