@@ -5,12 +5,13 @@ namespace GameContent.Interactives.ClemInterTemplates
     public class LeverInter : BaseInterBehavior
     {
         #region methodes
-        
+
         protected override void OnInit()
         {
-            isActivated = true;
+            base.OnInit();
+            debugText = "Maintain <b>E</b> to interact";
         }
-        
+
         public override void PlayerAction()
         {
             Debug.Log($"player action {this}");

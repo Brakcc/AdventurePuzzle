@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using GameContent.PlayerScripts;
+using UnityEngine;
+using Utilities.CustomAttributes;
+using Utilities.CustomAttributes.FieldColors;
 
 namespace GameContent.Interactives.ClemInterTemplates.Emitters
 {
@@ -20,21 +23,32 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         public override void InterAction()
         {
-            for (var i = 0; i < _datas.Count; i++)
+            for (var i = 0; i < Count; i++)
             {
-                receptors[i].CurrentEnergyType = _datas[i].Type;
+                receptors[i].CurrentEnergyType = this[i].Type;
             }
-            base.InterAction();
         }
 
         public override void PlayerAction()
         {
+            if (SourceDatasList.Count >= 3)
+                return;
             
-            base.PlayerAction();
+            SourceDatasList.Add(PlayerEnergyM.CurrentSource);
+            PlayerEnergyM.CurrentSource = new SourceDatas(null);
+            PlayerEnergyM.OnSourceChangedDebug();
+            
+            InterAction();
         }
 
         public override void PlayerCancel()
         {
+            if (Count <= 0)
+                return;
+            
+            SourceDatasList[Count - 1].Source.InterAction();
+            receptors[Count - 1].OnReset();
+            SourceDatasList.RemoveAt(Count - 1);
             base.PlayerCancel();
         }
 
@@ -42,6 +56,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         #region fields
         
+        [FieldCompletion(FieldColor.Yellow, FieldColor.Green)] 
         [SerializeField] private ReceptorInter[] receptors;
 
         #endregion

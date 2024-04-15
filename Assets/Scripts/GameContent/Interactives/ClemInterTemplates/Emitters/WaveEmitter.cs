@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameContent.PlayerScripts;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates.Emitters
@@ -24,23 +25,34 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public override void InterAction()
         {
-            base.InterAction();
-            recepDatas.Sort(Compare);
+            
         }
 
         public override void PlayerAction()
         {
-            base.PlayerAction();
+            if (SourceDatasList.Count >= 3)
+                         return;
+                     
+            SourceDatasList.Add(PlayerEnergyM.CurrentSource);
+            PlayerEnergyM.CurrentSource = new SourceDatas(null);
+            PlayerEnergyM.OnSourceChangedDebug();
+            
+            recepDatas.Sort(Compare);
         }
 
         public override void PlayerCancel()
         {
+            if (Count <= 0)
+                return;
+            
+            SourceDatasList[Count - 1].Source.InterAction();
+            SourceDatasList.RemoveAt(Count - 1);
             base.PlayerCancel();
         }
 
         private IEnumerator WaveStarted()
         {
-            var tempTime = 0f;
+            //var tempTime = 0f;
             yield break;
         }
         
@@ -48,7 +60,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         #region fields
 
-        [SerializeField] private List<RecepDatas> recepDatas;
+       [SerializeField] private List<RecepDatas> recepDatas;
 
         private readonly Comparison<RecepDatas> Compare = (a, b) =>
             Mathf.RoundToInt(Mathf.Sign(a.ActivationDelay + a.ReceptorInter.DistFromEmit -

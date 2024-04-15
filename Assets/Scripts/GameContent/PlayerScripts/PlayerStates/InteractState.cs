@@ -61,7 +61,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void GetOtherActionInput()
         {
             if (_datasSo.cancelInput.action.WasPressedThisFrame())
-                _stateMachine.OnSwitchState("apply");
+                _stateMachine.OnSwitchState("cancel");
         }
         
         private void OnAction()

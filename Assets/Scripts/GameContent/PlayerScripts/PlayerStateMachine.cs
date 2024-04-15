@@ -26,12 +26,12 @@ namespace GameContent.PlayerScripts
 
             playerStatesDict = new Dictionary<string, AbstractPlayerState>
             {
-                {"move", new MoveState(go)},
-                {"jump", new JumpState(go)},
-                {"absorb", new InteractState(go)},
-                {"apply", new CancelState(go)},
-                {"fall", new FallState(go)},
-                {"locked", new LockedOnInterState(go)}
+                {"move", playerStates[0]},
+                {"jump", playerStates[1]},
+                {"interact", playerStates[2]},
+                {"cancel", playerStates[3]},
+                {"fall", playerStates[4]},
+                {"locked", playerStates[5]}
             };
             
             if (playerStates.Length == 0)

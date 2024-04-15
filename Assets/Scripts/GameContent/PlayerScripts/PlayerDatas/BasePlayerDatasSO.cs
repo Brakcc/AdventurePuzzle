@@ -22,6 +22,8 @@ namespace GameContent.PlayerScripts.PlayerDatas
         [FieldCompletion(_checkedColor: FieldColor.Green)] public MoveDatasSO moveDatasSo;
 
         [FieldCompletion(_checkedColor: FieldColor.Green)] public JumpDatasSO jumpDatasSo;
+        
+        [FieldCompletion(_checkedColor: FieldColor.Green)] public FallDatasSO fallDatasSo;
 
         [FieldCompletion(_checkedColor: FieldColor.Green)] public GroundingDatasSO groundingDatasSo;
         
