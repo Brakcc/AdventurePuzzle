@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameContent.Interactives;
 using UnityEngine;
 
@@ -23,9 +24,15 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void Update()
         {
-            if (InRangeInter.Count <= 0)
-                return;
-            
+            switch (InRangeInter.Count)
+            {
+                case <= 0:
+                    return;
+                case >= 2:
+                    InRangeInter.Sort(CompareInters);
+                    break;
+            }
+
             InterRef = InRangeInter[0];
         }
 
@@ -37,6 +44,26 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (other.TryGetComponent<BaseInterBehavior>(out var inter))
                 inter.AddSelf(this);
         }
+        
+        private void OnTriggerExit(Collider other)
+        {
+            if (!other.CompareTag("Interactible"))
+                return;
+
+            if (!other.TryGetComponent<BaseInterBehavior>(out var inter))
+                return;
+            
+            if (InRangeInter.Contains(inter))
+                inter.RemoveSelf();
+        }
+
+        #endregion
+
+        
+        #region fields
+
+        private static readonly Comparison<BaseInterBehavior> CompareInters = (a, b) =>
+            Mathf.RoundToInt(Mathf.Sign(a.DistFromPlayer - b.DistFromPlayer));
 
         #endregion
     }

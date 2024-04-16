@@ -1,13 +1,12 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    public class AbsorbState : AbstractPlayerState
+    public class CancelState : AbstractPlayerState
     {
         #region constructor
 
-        public AbsorbState(GameObject go) : base(go)
+        public CancelState(GameObject go) : base(go)
         {
         }
 
@@ -19,9 +18,11 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             _stateMachine = stateMachine;
 
+            _checker = _stateMachine.checker;
+
             _rb.drag = _datasSo.groundingDatasSo.dragSpeed;
 
-            _absorbTimeCounter = _datasSo.interactDatasSo.absorbTime;
+            _applyTimeCounter = _datasSo.interactDatasSo.applyTime;
         }
 
         public override void OnExitState(PlayerStateMachine stateMachine)
@@ -30,8 +31,8 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnUpdate()
         {
-            SetAbsorbTime();
-            GetOtherActionInput();
+            SetApplyTime();
+            GetOtherActionInputs();
             OnAction();
             
             SetCoyote();
@@ -44,31 +45,32 @@ namespace GameContent.PlayerScripts.PlayerStates
             //OnJump();
         }
 
-        #region absorb methodes
+        #region apply methodes
 
-        private void SetAbsorbTime()
+        private void SetApplyTime()
         {
-            if (_datasSo.absorbInput.action.IsPressed())
+            if (_datasSo.cancelInput.action.IsPressed())
             {
-                _absorbTimeCounter -= Time.deltaTime;
+                _applyTimeCounter -= Time.deltaTime;
                 return;
             }
             
             _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
         }
 
-        private void GetOtherActionInput()
+        private void GetOtherActionInputs()
         {
-            if (_datasSo.applyInput.action.WasPressedThisFrame())
-                _stateMachine.OnSwitchState("apply");
+            if (_datasSo.interactInput.action.WasPressedThisFrame())
+                _stateMachine.OnSwitchState("interact");
         }
         
         private void OnAction()
         {
-            if (_absorbTimeCounter > 0)
+            if (_applyTimeCounter > 0)
                 return;
             
-            OnAbsorb?.Invoke();
+            if (_checker.InterRef != null)
+                _checker.InterRef.PlayerCancel();
             _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
         }
         
@@ -125,9 +127,9 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         #region fields
 
-        public static event Action OnAbsorb;
-
-        private float _absorbTimeCounter;
+        private InterCheckerState _checker;
+        
+        private float _applyTimeCounter;
 
         private float _coyoteTimeCounter;
 

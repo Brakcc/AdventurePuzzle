@@ -18,18 +18,20 @@ namespace GameContent.PlayerScripts
             {
                 new MoveState(go),
                 new JumpState(go),
-                new AbsorbState(go),
-                new ApplyState(go),
-                new FallState(go)
+                new InteractState(go),
+                new CancelState(go),
+                new FallState(go),
+                new LockedOnInterState(go)
             };
 
             playerStatesDict = new Dictionary<string, AbstractPlayerState>
             {
-                {"move", new MoveState(go)},
-                {"jump", new JumpState(go)},
-                {"absorb", new AbsorbState(go)},
-                {"apply", new ApplyState(go)},
-                {"fall", new FallState(go)}
+                {"move", playerStates[0]},
+                {"jump", playerStates[1]},
+                {"interact", playerStates[2]},
+                {"cancel", playerStates[3]},
+                {"fall", playerStates[4]},
+                {"locked", playerStates[5]}
             };
             
             if (playerStates.Length == 0)
@@ -88,6 +90,8 @@ namespace GameContent.PlayerScripts
             
         [FieldCompletion] [SerializeField] protected BasePlayerDatasSO datasSo;
 
+        [FieldCompletion] public InterCheckerState checker;
+        
         private AbstractPlayerState _currentState;
 
         #endregion

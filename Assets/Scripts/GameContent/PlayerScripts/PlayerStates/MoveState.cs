@@ -45,6 +45,9 @@ namespace GameContent.PlayerScripts.PlayerStates
             //Jump
             SetCoyote();
             SetJumpBuffer();
+            
+            //Fall
+            OnFall();
         }
 
         public override void OnFixedUpdate()
@@ -130,11 +133,21 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void GetInteractInputs()
         {
-            if (_datasSo.absorbInput.action.WasPressedThisFrame())
+            if (_datasSo.interactInput.action.WasPressedThisFrame())
                 _stateMachine.OnSwitchState(_stateMachine.playerStates[2]);
             
-            if (_datasSo.applyInput.action.WasPressedThisFrame())
+            if (_datasSo.cancelInput.action.WasPressedThisFrame())
                 _stateMachine.OnSwitchState(_stateMachine.playerStates[3]);
+        }
+
+        #endregion
+
+        #region fall Switchers
+
+        private void OnFall()
+        {
+            if (!IsGrounded)
+                _stateMachine.OnSwitchState("fall");
         }
 
         #endregion

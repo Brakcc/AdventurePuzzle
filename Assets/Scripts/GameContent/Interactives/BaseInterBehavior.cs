@@ -1,4 +1,5 @@
 ﻿using GameContent.PlayerScripts.PlayerStates;
+using TMPro;
 using UnityEngine;
 using Utilities.CustomAttributes;
 using Utilities.CustomAttributes.FieldColors;
@@ -9,7 +10,7 @@ namespace GameContent.Interactives
     {
         #region properties
 
-        public float DistFromPlayer => _distFromPlayer;
+        public float DistFromPlayer { get; private set; }
 
         #endregion
         
@@ -17,44 +18,52 @@ namespace GameContent.Interactives
 
         private void Awake()
         {
-            isActivated = false;
             _isInRange = false;
+            isActivated = true;
+            
+            OnInit();
         }
 
         private void Update()
         {
-            if (!_isInRange)
+            if (!_isInRange) 
                 return;
 
-            _distFromPlayer = Vector3.Distance(transform.position, _checkerRef.transform.position);
+            DistFromPlayer = Vector3.Distance(transform.position, _checkerRef.transform.position);
             
-            if (_distFromPlayer <= maxDistFromPlayer)
-                return;
-            
-            RemoveSelf();
+            // if (DistFromPlayer <= maxDistFromPlayer)
+            //     return;
+            //
+            // RemoveSelf();
         }
 
         public void AddSelf(InterCheckerState checker)
         {
+            debugInputText.enabled = true;
+            debugInputText.text = debugText;
             _isInRange = true;
             _checkerRef = checker;
             _checkerRef.InRangeInter.Add(this);
-            OnSubscribe();
         }
 
-        private void RemoveSelf()
+        public void RemoveSelf()
         {
-            OnUnSubscribe();
+            //Debug.Log($"{name} removed");
+            debugInputText.enabled = false;
             _isInRange = false;
             _checkerRef.InRangeInter.Remove(this);
             _checkerRef = null;
         }
         
         #region Methodes a hériter
+        
+        protected virtual void OnInit() {}
 
-        protected abstract void OnSubscribe();
-        protected abstract void OnUnSubscribe();
-        protected virtual void Effect() => isActivated = !isActivated; 
+        public abstract void PlayerAction();
+
+        public virtual void PlayerCancel() {}
+
+        public abstract void InterAction();
     
         #endregion
         
@@ -62,16 +71,19 @@ namespace GameContent.Interactives
         
         #region fields
 
-        private InterCheckerState _checkerRef;
+        [FieldCompletion(FieldColor.Blue, FieldColor.Cyan)] [SerializeField]
+        private TMP_Text debugInputText;
 
+        protected string debugText;
+        
         [FieldColorLerp(FieldColor.Green, FieldColor.Blue,0, 10)]
         [Range(0, 10)] [SerializeField] private float maxDistFromPlayer;
+        
+        private InterCheckerState _checkerRef;
         
         protected bool isActivated;
 
         private bool _isInRange;
-
-        private float _distFromPlayer;
 
         #endregion
     }

@@ -16,11 +16,12 @@ MonoBehaviour:
     type: 3}
   jumpInput: {fileID: 2806470496217673595, guid: f20ae6420c757bf438b1fdf422f5ca7f,
     type: 3}
-  absorbInput: {fileID: 1099258083510979159, guid: f20ae6420c757bf438b1fdf422f5ca7f,
+  interactInput: {fileID: 1099258083510979159, guid: f20ae6420c757bf438b1fdf422f5ca7f,
     type: 3}
-  applyInput: {fileID: -8374691165920661904, guid: f20ae6420c757bf438b1fdf422f5ca7f,
+  cancelInput: {fileID: -8374691165920661904, guid: f20ae6420c757bf438b1fdf422f5ca7f,
     type: 3}
   moveDatasSo: {fileID: 11400000, guid: a8b61752c681c1c4fb869b60d9201abb, type: 2}
   jumpDatasSo: {fileID: 11400000, guid: 1cbea9f684825214a99b882fe1f9e099, type: 2}
+  fallDatasSo: {fileID: 11400000, guid: 09caf1f147c68d640b1d41167e916c56, type: 2}
   groundingDatasSo: {fileID: 11400000, guid: 54541c7887a7f2340a32f35d75591300, type: 2}
   interactDatasSo: {fileID: 11400000, guid: 329b336c7b60d5d40b3dd7bf68c3832f, type: 2}
