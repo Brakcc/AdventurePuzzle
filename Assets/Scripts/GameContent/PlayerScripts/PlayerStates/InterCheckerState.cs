@@ -27,6 +27,8 @@ namespace GameContent.PlayerScripts.PlayerStates
             switch (InRangeInter.Count)
             {
                 case <= 0:
+                    if (InterRef is not null)
+                        InterRef = null;
                     return;
                 case >= 2:
                     InRangeInter.Sort(CompareInters);
@@ -58,7 +60,6 @@ namespace GameContent.PlayerScripts.PlayerStates
         }
 
         #endregion
-
         
         #region fields
 

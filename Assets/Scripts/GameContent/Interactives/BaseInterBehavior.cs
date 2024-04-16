@@ -1,5 +1,5 @@
-﻿using GameContent.PlayerScripts.PlayerStates;
-using TMPro;
+﻿using DebuggingClem;
+using GameContent.PlayerScripts.PlayerStates;
 using UnityEngine;
 using Utilities.CustomAttributes;
 using Utilities.CustomAttributes.FieldColors;
@@ -10,6 +10,8 @@ namespace GameContent.Interactives
     {
         #region properties
 
+        
+        
         public float DistFromPlayer { get; private set; }
 
         #endregion
@@ -39,8 +41,11 @@ namespace GameContent.Interactives
 
         public void AddSelf(InterCheckerState checker)
         {
-            debugInputText.enabled = true;
-            debugInputText.text = debugText;
+            if (hasDebugMod)
+            {
+                debugMod.debugText.enabled = true;
+                debugMod.debugText.text = debugTextLocal;
+            }
             _isInRange = true;
             _checkerRef = checker;
             _checkerRef.InRangeInter.Add(this);
@@ -48,8 +53,11 @@ namespace GameContent.Interactives
 
         public void RemoveSelf()
         {
-            //Debug.Log($"{name} removed");
-            debugInputText.enabled = false;
+            if (hasDebugMod)
+            {
+                //Debug.Log($"{name} removed");
+                debugMod.debugText.enabled = false;
+            }
             _isInRange = false;
             _checkerRef.InRangeInter.Remove(this);
             _checkerRef = null;
@@ -71,10 +79,8 @@ namespace GameContent.Interactives
         
         #region fields
 
-        [FieldCompletion(FieldColor.Blue, FieldColor.Cyan)] [SerializeField]
-        private TMP_Text debugInputText;
-
-        protected string debugText;
+        [SerializeField] protected bool hasDebugMod;
+        [ShowIfBoolTrue("hasDebugMod")] [SerializeField] protected DebugModDatas debugMod;
         
         [FieldColorLerp(FieldColor.Green, FieldColor.Blue,0, 10)]
         [Range(0, 10)] [SerializeField] private float maxDistFromPlayer;
@@ -84,6 +90,8 @@ namespace GameContent.Interactives
         protected bool isActivated;
 
         private bool _isInRange;
+
+        protected string debugTextLocal;
 
         #endregion
     }
