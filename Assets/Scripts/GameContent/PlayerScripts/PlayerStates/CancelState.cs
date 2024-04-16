@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameContent.Interactives.ClemInterTemplates;
+using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
@@ -68,9 +69,21 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             if (_applyTimeCounter > 0)
                 return;
-            
-            if (_checker.InterRef != null)
+
+            if (_checker.InterRef is not null)
+            {
                 _checker.InterRef.PlayerCancel();
+                _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+                return;
+            }
+
+            if (_checker.InterRef is null && PlayerEnergyM.EnergyType != EnergyTypes.None)
+            {
+                PlayerEnergyM.CurrentSource.Source.InterAction();
+                PlayerEnergyM.CurrentSource = new SourceDatas();
+                PlayerEnergyM.OnSourceChangedDebug();
+            }
+            
             _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
         }
         

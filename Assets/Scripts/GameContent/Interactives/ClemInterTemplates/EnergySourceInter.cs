@@ -17,7 +17,7 @@ namespace GameContent.Interactives.ClemInterTemplates
         protected override void OnInit()
         {
             base.OnInit();
-            debugText = "Press <b>E</b> to interact";
+            debugTextLocal = debugMod.debugString;
         }
 
         public override void PlayerAction()
