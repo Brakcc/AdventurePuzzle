@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace GameContent.Interactives.ClemInterTemplates
+﻿namespace GameContent.Interactives.ClemInterTemplates
 {
     public class LeverInter : BaseInterBehavior
     {
@@ -9,17 +7,17 @@ namespace GameContent.Interactives.ClemInterTemplates
         protected override void OnInit()
         {
             base.OnInit();
-            debugText = "Maintain <b>E</b> to interact";
+            debugTextLocal = "Maintain <b>E</b> to interact";
         }
 
         public override void PlayerAction()
         {
-            Debug.Log($"player action {this}");
+            //Debug.Log($"player action {this}");
         }
 
         public override void InterAction()
         {
-            Debug.Log($"player action {this}");
+            //Debug.Log($"player action {this}");
         }
         
         #endregion
