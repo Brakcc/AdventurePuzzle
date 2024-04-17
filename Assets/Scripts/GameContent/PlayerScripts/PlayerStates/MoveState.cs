@@ -84,6 +84,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             _currentDir = (_isoRightDir * _inputDir.x + _isoForwardDir * _inputDir.z).normalized;
                 
             _rb.AddForce(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier), ForceMode.Acceleration);
+            //_rb.position += _currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime);
         }
         
         private void ClampVelocity()

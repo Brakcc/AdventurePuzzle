@@ -28,6 +28,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnExitState(PlayerStateMachine stateMachine)
         {
+            _lerpCoef = 0;
             _stateMachine = null;
         }
         
