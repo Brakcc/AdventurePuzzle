@@ -20,8 +20,6 @@ namespace GameContent.PlayerScripts.PlayerStates
 
             _checker = _stateMachine.checker;
 
-            _rb.drag = _datasSo.groundingDatasSo.dragSpeed;
-
             _absorbTimeCounter = _datasSo.interactDatasSo.absorbTime;
         }
 

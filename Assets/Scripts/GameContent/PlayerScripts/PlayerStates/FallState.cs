@@ -23,7 +23,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         public override void OnEnterState(PlayerStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
-            _rb.drag = _datasSo.groundingDatasSo.dragSpeed;
+            Debug.Log("fall");
         }
 
         public override void OnExitState(PlayerStateMachine stateMachine)
@@ -72,15 +72,16 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnMove()
         {
             _currentDir = (_isoRightDir * _inputDir.x + _isoForwardDir * _inputDir.z).normalized;
-            _rb.AddForce(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Constants.FallSpeedMultiplier), ForceMode.Acceleration);
+            //_rb.AddForce(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Constants.FallSpeedMultiplier), ForceMode.Acceleration);
 
-            _rb.velocity = new Vector3(_rb.velocity.x, Mathf.Lerp(0, _datasSo.fallDatasSo.fallSpeed, _lerpCoef),_rb.velocity.z);
+            _cc.SimpleMove(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime * 0.5f));
+            //_rb.velocity = new Vector3(_rb.velocity.x, Mathf.Lerp(0, _datasSo.fallDatasSo.fallSpeed, _lerpCoef),_rb.velocity.z);
         }
         
         private void ClampVelocity()
         {
-            var vel = _rb.velocity;
-            _rb.velocity = new Vector3(ClampSymmetric(vel.x, _datasSo.moveDatasSo.moveSpeed),  vel.y, ClampSymmetric(vel.z, _datasSo.moveDatasSo.moveSpeed));
+            var vel = _cc.velocity;
+            //_cc.velocity = new Vector3(ClampSymmetric(vel.x, _datasSo.moveDatasSo.moveSpeed),  vel.y, ClampSymmetric(vel.z, _datasSo.moveDatasSo.moveSpeed));
         }
 
         private void SetLerpCoef()

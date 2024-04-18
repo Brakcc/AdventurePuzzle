@@ -5,6 +5,12 @@ namespace GameContent.PlayerScripts
 {
     public abstract class AbstractPlayerState
     {
+        #region properties
+        
+        protected bool IsGrounded => _cc.isGrounded;
+
+        #endregion
+        
         #region constructor
 
         protected AbstractPlayerState(GameObject go)
@@ -21,7 +27,7 @@ namespace GameContent.PlayerScripts
 
         public void SetGameObject(GameObject go) => _goRef = go;
         
-        public void SetRigidBody(Rigidbody rb) => _rb = rb;
+        public void SetCharaCont(CharacterController cc) => _cc = cc;
 
         public void SetDatas(BasePlayerDatasSO datasSo) => _datasSo = datasSo;
 
@@ -47,7 +53,7 @@ namespace GameContent.PlayerScripts
 
         protected GameObject _goRef;
         
-        protected Rigidbody _rb;
+        protected CharacterController _cc;
 
         protected BasePlayerDatasSO _datasSo;
         
@@ -59,8 +65,8 @@ namespace GameContent.PlayerScripts
         
         protected readonly Vector3 _isoForwardDir = new(1, 0, 1);
         
-        protected bool IsGrounded => Physics.Raycast(_goRef.transform.position, -_goRef.transform.up,
-            Constants.PlayerHeight / 2 + Constants.GroundCheckSupLength, _datasSo.groundingDatasSo.groundLayer);
+        // protected bool IsGrounded => Physics.Raycast(_goRef.transform.position, -_goRef.transform.up,
+        //     Constants.PlayerHeight / 2 + Constants.GroundCheckSupLength, _datasSo.groundingDatasSo.groundLayer);
 
         #endregion
     }

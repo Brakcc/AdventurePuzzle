@@ -26,8 +26,6 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             _coyoteTimeCounter = _datasSo.jumpDatasSo.coyoteTime;
             _jumpBufferCounter = Constants.SecuValuUnderZero;
-
-            _rb.drag = _datasSo.groundingDatasSo.dragSpeed;
         }
 
         public override void OnExitState(PlayerStateMachine stateMachine)
@@ -82,15 +80,15 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnMove()
         {
             _currentDir = (_isoRightDir * _inputDir.x + _isoForwardDir * _inputDir.z).normalized;
-                
-            _rb.AddForce(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier), ForceMode.Acceleration);
+            _cc.SimpleMove(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime) /*+ Vector3.down*/);
+            //_rb.AddForce(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier), ForceMode.Acceleration);
             //_rb.position += _currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime);
         }
         
         private void ClampVelocity()
         {
-            var vel = _rb.velocity;
-            _rb.velocity = new Vector3(ClampSymmetric(vel.x, _datasSo.moveDatasSo.moveSpeed),  vel.y, ClampSymmetric(vel.z, _datasSo.moveDatasSo.moveSpeed));
+            var vel = _cc.velocity;
+            //_cc.velocity = new Vector3(ClampSymmetric(vel.x, _datasSo.moveDatasSo.moveSpeed),  vel.y, ClampSymmetric(vel.z, _datasSo.moveDatasSo.moveSpeed));
         }
         
         #endregion
@@ -135,10 +133,10 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void GetInteractInputs()
         {
             if (_datasSo.interactInput.action.WasPressedThisFrame())
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[2]);
+                _stateMachine.OnSwitchState("interact");
             
             if (_datasSo.cancelInput.action.WasPressedThisFrame())
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[3]);
+                _stateMachine.OnSwitchState("cancel");
         }
 
         #endregion
@@ -148,7 +146,9 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnFall()
         {
             if (!IsGrounded)
+            {
                 _stateMachine.OnSwitchState("fall");
+            }
         }
 
         #endregion

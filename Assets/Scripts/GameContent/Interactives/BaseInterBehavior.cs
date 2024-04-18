@@ -43,6 +43,7 @@ namespace GameContent.Interactives
         {
             if (hasDebugMod)
             {
+                Debug.Log($"{name} added");
                 debugMod.debugText.enabled = true;
                 debugMod.debugText.text = debugTextLocal;
             }
@@ -55,7 +56,7 @@ namespace GameContent.Interactives
         {
             if (hasDebugMod)
             {
-                //Debug.Log($"{name} removed");
+                Debug.Log($"{name} removed");
                 debugMod.debugText.enabled = false;
             }
             _isInRange = false;
