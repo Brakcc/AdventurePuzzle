@@ -75,6 +75,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             //_rb.AddForce(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Constants.FallSpeedMultiplier), ForceMode.Acceleration);
 
             _cc.SimpleMove(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime * 0.5f));
+            _cc.Move(Vector3.down * (Mathf.Lerp(0, _datasSo.fallDatasSo.fallSpeed, _lerpCoef) * Time.deltaTime));
             //_rb.velocity = new Vector3(_rb.velocity.x, Mathf.Lerp(0, _datasSo.fallDatasSo.fallSpeed, _lerpCoef),_rb.velocity.z);
         }
         
