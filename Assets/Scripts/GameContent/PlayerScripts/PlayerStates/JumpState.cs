@@ -2,7 +2,7 @@
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    public class JumpState : AbstractPlayerState
+    public sealed class JumpState : AbstractPlayerState
     {
         #region constructor
 

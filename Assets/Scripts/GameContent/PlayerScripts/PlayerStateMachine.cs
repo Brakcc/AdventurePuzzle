@@ -43,6 +43,7 @@ namespace GameContent.PlayerScripts
             {
                 state.SetCharaCont(tempCc);
                 state.SetDatas(datasSo);
+                state.SetChecker(checker);
                 state.OnInit();
             }
             

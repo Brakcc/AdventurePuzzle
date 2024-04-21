@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using GameContent.Interactives.ClemInterTemplates;
+using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    public class MoveState : AbstractPlayerState
+    public sealed class MoveState : AbstractPlayerState
     {
         #region constructor
 
@@ -46,12 +47,13 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             //Fall
             OnFall();
+
+            var position = _goRef.transform.position;
+            Debug.DrawLine(position, position + _goRef.transform.forward, Color.red);
         }
 
         public override void OnFixedUpdate()
         {
-            ClampVelocity();
-            
             OnMove();
             OnRotate();
             //OnJump();
@@ -80,15 +82,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnMove()
         {
             _currentDir = (_isoRightDir * _inputDir.x + _isoForwardDir * _inputDir.z).normalized;
-            _cc.SimpleMove(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime) /*+ Vector3.down*/);
-            //_rb.AddForce(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier), ForceMode.Acceleration);
-            //_rb.position += _currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime);
-        }
-        
-        private void ClampVelocity()
-        {
-            var vel = _cc.velocity;
-            //_cc.velocity = new Vector3(ClampSymmetric(vel.x, _datasSo.moveDatasSo.moveSpeed),  vel.y, ClampSymmetric(vel.z, _datasSo.moveDatasSo.moveSpeed));
+            _cc.SimpleMove(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime));
         }
         
         #endregion
@@ -133,7 +127,13 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void GetInteractInputs()
         {
             if (_datasSo.interactInput.action.WasPressedThisFrame())
-                _stateMachine.OnSwitchState("interact");
+            {
+                if (_checker.InterRef is null)
+                    return;
+                
+                _stateMachine.OnSwitchState(_checker.InterRef is ReceptorInter or LeverInter ? "locked" : "interact");
+                return;
+            }
             
             if (_datasSo.cancelInput.action.WasPressedThisFrame())
                 _stateMachine.OnSwitchState("cancel");

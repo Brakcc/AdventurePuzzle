@@ -1,4 +1,5 @@
 ﻿using GameContent.PlayerScripts.PlayerDatas;
+using GameContent.PlayerScripts.PlayerStates;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts
@@ -31,6 +32,8 @@ namespace GameContent.PlayerScripts
 
         public void SetDatas(BasePlayerDatasSO datasSo) => _datasSo = datasSo;
 
+        public void SetChecker(InterCheckerState checker) => _checker = checker;
+
         #endregion
         
         #region methodes to herit
@@ -56,6 +59,8 @@ namespace GameContent.PlayerScripts
         protected CharacterController _cc;
 
         protected BasePlayerDatasSO _datasSo;
+
+        protected InterCheckerState _checker;
         
         protected Vector3 _currentDir;
         
@@ -64,9 +69,6 @@ namespace GameContent.PlayerScripts
         protected readonly Vector3 _isoRightDir = new(1, 0, -1);
         
         protected readonly Vector3 _isoForwardDir = new(1, 0, 1);
-        
-        // protected bool IsGrounded => Physics.Raycast(_goRef.transform.position, -_goRef.transform.up,
-        //     Constants.PlayerHeight / 2 + Constants.GroundCheckSupLength, _datasSo.groundingDatasSo.groundLayer);
 
         #endregion
     }

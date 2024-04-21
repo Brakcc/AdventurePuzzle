@@ -2,7 +2,7 @@
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    public class InteractState : AbstractPlayerState
+    public sealed class InteractState : AbstractPlayerState
     {
         #region constructor
 
@@ -18,8 +18,6 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             _stateMachine = stateMachine;
 
-            _checker = _stateMachine.checker;
-
             _absorbTimeCounter = _datasSo.interactDatasSo.absorbTime;
         }
 
@@ -29,7 +27,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnUpdate()
         {
-            SetAbsorbTime();
+            SetInteractTime();
             GetOtherActionInput();
             OnAction();
             
@@ -45,7 +43,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         #region absorb methodes
 
-        private void SetAbsorbTime()
+        private void SetInteractTime()
         {
             if (_datasSo.interactInput.action.IsPressed())
             {
@@ -129,8 +127,6 @@ namespace GameContent.PlayerScripts.PlayerStates
         #endregion
 
         #region fields
-
-        private InterCheckerState _checker;
         
         private float _absorbTimeCounter;
 
