@@ -44,8 +44,11 @@ namespace GameContent.Interactives.ClemInterTemplates
         {
             hasElectricity = false;
             _col = GetComponent<Collider>();
-            if (debugMod.hasLight)
-                InterLight = debugMod.debugLight;
+            
+            if (!debugMod.hasLight)
+                return;
+            
+            InterLight = debugMod.debugLight;
             OnChangeColorLightDebug(CurrentEnergyType);
         }
 
@@ -111,6 +114,8 @@ namespace GameContent.Interactives.ClemInterTemplates
 
         [FieldCompletion] [SerializeField] private Animator animator;
 
+        [FieldCompletion] public Transform pivot;
+        
         private Collider _col;
 
         private EnergyTypes _currentAppliedEnergy;
