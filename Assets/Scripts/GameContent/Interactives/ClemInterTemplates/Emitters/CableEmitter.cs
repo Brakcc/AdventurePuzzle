@@ -39,7 +39,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public override void PlayerAction()
         {
-            if (SourceDatasList.Count >= 3)
+            if (SourceDatasList.Count >= receptors.Length)
                 return;
             
             if (PlayerEnergyM.EnergyType == EnergyTypes.None)

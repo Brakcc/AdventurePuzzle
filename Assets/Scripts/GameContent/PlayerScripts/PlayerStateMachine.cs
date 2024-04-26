@@ -6,6 +6,7 @@ using Utilities.CustomAttributes;
 
 namespace GameContent.PlayerScripts
 {
+    [RequireComponent(typeof(CharacterController))]
     public class PlayerStateMachine : MonoBehaviour
     {
         #region methodes
@@ -37,11 +38,12 @@ namespace GameContent.PlayerScripts
             if (playerStates.Length == 0)
                 return;
 
-            var tempRb = GetComponent<Rigidbody>();
+            var tempCc = GetComponent<CharacterController>();
             foreach (var state in playerStates)
             {
-                state.SetRigidBody(tempRb);
+                state.SetCharaCont(tempCc);
                 state.SetDatas(datasSo);
+                state.SetChecker(checker);
                 state.OnInit();
             }
             

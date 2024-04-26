@@ -2,17 +2,16 @@
 using GameContent.PlayerScripts.PlayerStates;
 using UnityEngine;
 using Utilities.CustomAttributes;
-using Utilities.CustomAttributes.FieldColors;
 
 namespace GameContent.Interactives
 {
     public abstract class BaseInterBehavior : MonoBehaviour
     {
         #region properties
-
-        
         
         public float DistFromPlayer { get; private set; }
+        
+        public float AngleWithPlayer { get; private set; }
 
         #endregion
         
@@ -31,18 +30,20 @@ namespace GameContent.Interactives
             if (!_isInRange) 
                 return;
 
-            DistFromPlayer = Vector3.Distance(transform.position, _checkerRef.transform.position);
+            var localPos = transform.position;
+            var playerPos = _checkerRef.transform.position;
             
-            // if (DistFromPlayer <= maxDistFromPlayer)
-            //     return;
-            //
-            // RemoveSelf();
+            DistFromPlayer = Vector3.Distance(localPos, playerPos);
+
+            var vecPlayerToTrans = localPos - playerPos;
+            AngleWithPlayer = Vector3.Angle(vecPlayerToTrans, _checkerRef.transform.forward);
         }
 
         public void AddSelf(InterCheckerState checker)
         {
             if (hasDebugMod)
             {
+                //Debug.Log($"{name} added");
                 debugMod.debugText.enabled = true;
                 debugMod.debugText.text = debugTextLocal;
             }
@@ -82,14 +83,11 @@ namespace GameContent.Interactives
         [SerializeField] protected bool hasDebugMod;
         [ShowIfBoolTrue("hasDebugMod")] [SerializeField] protected DebugModDatas debugMod;
         
-        [FieldColorLerp(FieldColor.Green, FieldColor.Blue,0, 10)]
-        [Range(0, 10)] [SerializeField] private float maxDistFromPlayer;
-        
         private InterCheckerState _checkerRef;
         
-        protected bool isActivated;
-
         private bool _isInRange;
+
+        protected bool isActivated;
 
         protected string debugTextLocal;
 
