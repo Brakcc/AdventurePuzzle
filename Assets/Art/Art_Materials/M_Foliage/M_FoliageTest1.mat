@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8927993353667314387
+--- !u!114 &-7478435360297816704
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Feuillage03 9
+  m_Name: M_FoliageTest1
   m_Shader: {fileID: -6465566751694194690, guid: 835fe04e7ab95284c847f3bc636769ce,
     type: 3}
   m_Parent: {fileID: 0}
@@ -38,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Alpha:
-        m_Texture: {fileID: 2800000, guid: fa54d4a5a46670149b9f871b16c418e8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 46b5bf9f13234c24db7d7d55bb21acd9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -50,7 +50,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Color:
-        m_Texture: {fileID: 2800000, guid: 77bc42038b599eb4a99f016470f9d12f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 35be86d6358148b4f9a91b9d718be0d2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
