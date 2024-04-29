@@ -9,6 +9,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
     {
         #region methodes
 
+        private void FixedUpdate()
+        {
+            //_line.SetPosition(1, PlayerEnergyM.instance.transform.position);
+        }
+
         protected override void OnInit()
         {
             base.OnInit();
@@ -19,6 +24,9 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             {
                 r.EmitRef = this;
             }
+            
+            //_line = GetComponent<LineRenderer>();
+            //_line.SetPositions(new []{transform.position, PlayerEnergyM.instance.transform.position});
         }
         
         public override void InterAction()
@@ -31,11 +39,14 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public override void PlayerAction()
         {
-            if (SourceDatasList.Count >= 3)
+            if (SourceDatasList.Count >= receptors.Length)
+                return;
+            
+            if (PlayerEnergyM.EnergyType == EnergyTypes.None)
                 return;
             
             SourceDatasList.Add(PlayerEnergyM.CurrentSource);
-            PlayerEnergyM.CurrentSource = new SourceDatas(null);
+            PlayerEnergyM.CurrentSource = new SourceDatas();
             PlayerEnergyM.OnSourceChangedDebug();
             
             InterAction();
@@ -45,8 +56,17 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         {
             if (Count <= 0)
                 return;
+
+            if (PlayerEnergyM.GetEnergyBack)
+            {
+                if (PlayerEnergyM.EnergyType != EnergyTypes.None)
+                    PlayerEnergyM.CurrentSource.Source.InterAction();
+                PlayerEnergyM.CurrentSource = SourceDatasList[Count - 1];
+                PlayerEnergyM.OnSourceChangedDebug();
+            }
+            else 
+                SourceDatasList[Count - 1].Source.InterAction();
             
-            SourceDatasList[Count - 1].Source.InterAction();
             receptors[Count - 1].OnReset();
             SourceDatasList.RemoveAt(Count - 1);
             base.PlayerCancel();
@@ -58,6 +78,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         [FieldCompletion(FieldColor.Yellow, FieldColor.Green)] 
         [SerializeField] private ReceptorInter[] receptors;
+
+        //private LineRenderer _line;
 
         #endregion
     }

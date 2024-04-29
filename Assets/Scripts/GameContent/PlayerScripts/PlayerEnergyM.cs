@@ -14,18 +14,34 @@ namespace GameContent.PlayerScripts
 
         private static Light PlayerLight { get; set; }
 
+        public static bool GetEnergyBack { get; private set; }
+
         #endregion
         
         #region methodes
-        
+
+        private void Awake()
+        {
+            //instance = this;
+        }
+
         private void Start()
         {
             CurrentSource = new SourceDatas(null);
             PlayerLight = GetComponentInChildren<Light>();
+            GetEnergyBack = getEnergyBack;
             OnSourceChangedDebug();
         }
 
         public static void OnSourceChangedDebug() => PlayerLight.color = LightDebugger.DebugColor(EnergyType);
+
+        #endregion
+
+        #region fields
+
+        [SerializeField] private bool getEnergyBack;
+
+        //public static PlayerEnergyM instance;
 
         #endregion
     }

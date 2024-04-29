@@ -2,7 +2,7 @@
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    public class InteractState : AbstractPlayerState
+    public sealed class InteractState : AbstractPlayerState
     {
         #region constructor
 
@@ -18,10 +18,6 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             _stateMachine = stateMachine;
 
-            _checker = _stateMachine.checker;
-
-            _rb.drag = _datasSo.groundingDatasSo.dragSpeed;
-
             _absorbTimeCounter = _datasSo.interactDatasSo.absorbTime;
         }
 
@@ -31,7 +27,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnUpdate()
         {
-            SetAbsorbTime();
+            SetInteractTime();
             GetOtherActionInput();
             OnAction();
             
@@ -47,7 +43,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         #region absorb methodes
 
-        private void SetAbsorbTime()
+        private void SetInteractTime()
         {
             if (_datasSo.interactInput.action.IsPressed())
             {
@@ -69,8 +65,13 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (_absorbTimeCounter > 0)
                 return;
 
-            if (_checker.InterRef != null)
-                _checker.InterRef.PlayerAction();
+            if (_checker.InterRef is null)
+            {
+                _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+                return;
+            }
+
+            _checker.InterRef.PlayerAction();
             _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
         }
         
@@ -126,8 +127,6 @@ namespace GameContent.PlayerScripts.PlayerStates
         #endregion
 
         #region fields
-
-        private InterCheckerState _checker;
         
         private float _absorbTimeCounter;
 

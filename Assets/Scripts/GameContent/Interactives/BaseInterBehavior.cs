@@ -1,16 +1,17 @@
-﻿using GameContent.PlayerScripts.PlayerStates;
-using TMPro;
+﻿using DebuggingClem;
+using GameContent.PlayerScripts.PlayerStates;
 using UnityEngine;
 using Utilities.CustomAttributes;
-using Utilities.CustomAttributes.FieldColors;
 
 namespace GameContent.Interactives
 {
     public abstract class BaseInterBehavior : MonoBehaviour
     {
         #region properties
-
+        
         public float DistFromPlayer { get; private set; }
+        
+        public float AngleWithPlayer { get; private set; }
 
         #endregion
         
@@ -29,18 +30,23 @@ namespace GameContent.Interactives
             if (!_isInRange) 
                 return;
 
-            DistFromPlayer = Vector3.Distance(transform.position, _checkerRef.transform.position);
+            var localPos = transform.position;
+            var playerPos = _checkerRef.transform.position;
             
-            // if (DistFromPlayer <= maxDistFromPlayer)
-            //     return;
-            //
-            // RemoveSelf();
+            DistFromPlayer = Vector3.Distance(localPos, playerPos);
+
+            var vecPlayerToTrans = localPos - playerPos;
+            AngleWithPlayer = Vector3.Angle(vecPlayerToTrans, _checkerRef.transform.forward);
         }
 
         public void AddSelf(InterCheckerState checker)
         {
-            debugInputText.enabled = true;
-            debugInputText.text = debugText;
+            if (hasDebugMod)
+            {
+                //Debug.Log($"{name} added");
+                debugMod.debugText.enabled = true;
+                debugMod.debugText.text = debugTextLocal;
+            }
             _isInRange = true;
             _checkerRef = checker;
             _checkerRef.InRangeInter.Add(this);
@@ -48,8 +54,11 @@ namespace GameContent.Interactives
 
         public void RemoveSelf()
         {
-            //Debug.Log($"{name} removed");
-            debugInputText.enabled = false;
+            if (hasDebugMod)
+            {
+                //Debug.Log($"{name} removed");
+                debugMod.debugText.enabled = false;
+            }
             _isInRange = false;
             _checkerRef.InRangeInter.Remove(this);
             _checkerRef = null;
@@ -71,19 +80,16 @@ namespace GameContent.Interactives
         
         #region fields
 
-        [FieldCompletion(FieldColor.Blue, FieldColor.Cyan)] [SerializeField]
-        private TMP_Text debugInputText;
-
-        protected string debugText;
-        
-        [FieldColorLerp(FieldColor.Green, FieldColor.Blue,0, 10)]
-        [Range(0, 10)] [SerializeField] private float maxDistFromPlayer;
+        [SerializeField] protected bool hasDebugMod;
+        [ShowIfBoolTrue("hasDebugMod")] [SerializeField] protected DebugModDatas debugMod;
         
         private InterCheckerState _checkerRef;
         
+        private bool _isInRange;
+
         protected bool isActivated;
 
-        private bool _isInRange;
+        protected string debugTextLocal;
 
         #endregion
     }
