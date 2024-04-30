@@ -19,18 +19,23 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         public override void OnEnterState(PlayerStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
             _interRef = _checker.InterRef as ReceptorInter;
-
+            _recepRefRb = _interRef?.GetComponent<Rigidbody>();
+            //_interRef?.transform.SetParent(stateMachine.transform);
+            
             _directionMode = GetBaseMoveDir();
         }
 
         public override void OnExitState(PlayerStateMachine stateMachine)
         {
             _stateMachine = null;
+            //_interRef.transform.SetParent(null);
             _interRef = null;
+            _recepRefRb = null;
         }
 
         public override void OnUpdate()
@@ -74,6 +79,9 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void OnMove()
         {
+            if (_inputDir.magnitude <= Constants.MinMoveInputValue)
+                return;
+            
             //trouver une simplification a l'enterState
             _currentDir = _directionMode switch
             {
@@ -82,7 +90,8 @@ namespace GameContent.PlayerScripts.PlayerStates
                 _ => Vector3.zero
             };
 
-            _cc.SimpleMove(_currentDir * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime));
+            _cc.SimpleMove(_currentDir * (_datasSo.moveDatasSo.holdingRecepMoveSpeed * Constants.SpeedMultiplier * Time.deltaTime));
+            _recepRefRb.position += _currentDir * (Time.deltaTime * Constants.RecepMoveSpeedMultiplier);
         }
         
         #endregion
@@ -92,6 +101,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         #region fields
 
         private ReceptorInter _interRef;
+
+        private Rigidbody _recepRefRb;
 
         private LockDirectionMode _directionMode;
 
