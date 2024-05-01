@@ -131,10 +131,17 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             if (_datasSo.interactInput.action.WasPressedThisFrame())
             {
-                if (_checker.InterRef is null)
-                    return;
-                
-                _stateMachine.OnSwitchState(_checker.InterRef is ReceptorInter or LeverInter ? "locked" : "interact");
+                switch (_checker.InterRef)
+                {
+                    case null:
+                        return;
+                    case ReceptorInter { CurrentEnergyType: EnergyTypes.Blue }:
+                        _stateMachine.OnSwitchState("locked");
+                        break;
+                    case not null:
+                        _stateMachine.OnSwitchState("interact");
+                        break;
+                }
                 return;
             }
             

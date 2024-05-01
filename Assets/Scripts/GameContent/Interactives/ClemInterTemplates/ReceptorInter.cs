@@ -6,6 +6,7 @@ using Utilities.CustomAttributes;
 namespace GameContent.Interactives.ClemInterTemplates
 {
     [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Rigidbody))]
     public class ReceptorInter : BaseInterBehavior
     {
         #region properties
@@ -48,13 +49,17 @@ namespace GameContent.Interactives.ClemInterTemplates
             _col = GetComponent<Collider>();
             _rb = GetComponent<Rigidbody>();
 
-            _rb.drag = 500;
+            _rb.mass = 1000;
+            _rb.constraints = RigidbodyConstraints.FreezeRotation;
+            _rb.isKinematic = true;
+
+            if (debugMod.hasLight)
+            {
+                InterLight = debugMod.debugLight;
+                 OnChangeColorLightDebug(CurrentEnergyType);
+            }
             
-            if (!debugMod.hasLight)
-                return;
-            
-            InterLight = debugMod.debugLight;
-            OnChangeColorLightDebug(CurrentEnergyType);
+            OnReset();
         }
 
         public override void PlayerAction()
