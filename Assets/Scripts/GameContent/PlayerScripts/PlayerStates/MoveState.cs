@@ -81,9 +81,6 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void OnMove()
         {
-            if (_inputDir.magnitude <= Constants.MinMoveInputValue)
-                return;
-            
             _currentDir = (_isoRightDir * _inputDir.x + _isoForwardDir * _inputDir.z).normalized;
             _cc.SimpleMove(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime));
         }
@@ -131,17 +128,11 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             if (_datasSo.interactInput.action.WasPressedThisFrame())
             {
-                switch (_checker.InterRef)
-                {
-                    case null:
-                        return;
-                    case ReceptorInter { isMovable : true }:
-                        _stateMachine.OnSwitchState("locked");
-                        return;
-                    default:
-                        _stateMachine.OnSwitchState("interact");
-                        return;
-                }
+                if (_checker.InterRef is null)
+                    return;
+                
+                _stateMachine.OnSwitchState(_checker.InterRef is ReceptorInter or LeverInter ? "locked" : "interact");
+                return;
             }
             
             if (_datasSo.cancelInput.action.WasPressedThisFrame())
