@@ -27,6 +27,8 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnUpdate()
         {
+            base.OnUpdate();
+            
             SetInteractTime();
             GetOtherActionInput();
             OnAction();
@@ -38,6 +40,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnFixedUpdate()
         {
+            base.OnFixedUpdate();
             //OnJump();
         }
 

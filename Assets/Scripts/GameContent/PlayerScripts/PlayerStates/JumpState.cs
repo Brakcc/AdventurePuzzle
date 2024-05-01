@@ -35,12 +35,15 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnUpdate()
         {
+            base.OnUpdate();
+            
             GetInputVal();
             GetJumpTimer();
         }
 
         public override void OnFixedUpdate()
         {
+            base.OnFixedUpdate();
             OnMove();
             OnLand();
             ClampVelocity();

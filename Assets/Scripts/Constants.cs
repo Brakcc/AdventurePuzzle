@@ -8,5 +8,7 @@ public static class Constants
     public const float SecuValuUnderZero = -0.1f;
     public const float JumpTimerAfterInput = 0.15f;
     public const float RecepMoveSpeedMultiplier = 4.1f;
+    public const float RecepBlockedSpeedThreshold = 0.1f;
     public const float GrabGabThreshold = 0.5f;
+    public const float MinWorldMoveSpeedThreshold = 0.005f;
 }
