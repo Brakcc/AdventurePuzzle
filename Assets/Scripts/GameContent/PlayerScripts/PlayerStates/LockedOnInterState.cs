@@ -79,6 +79,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             var tempAngle = Vector3.Angle(Vector3.right, _goRef.transform.position - _interRef.pivot.position);
 
+            Debug.Log("test");
+            
             return tempAngle switch
             {
                 <= 45 or >= 135 => LockDirectionMode.BLToTR,
