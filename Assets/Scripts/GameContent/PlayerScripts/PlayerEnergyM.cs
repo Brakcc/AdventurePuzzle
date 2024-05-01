@@ -1,5 +1,4 @@
-﻿using System;
-using DebuggingClem;
+﻿using DebuggingClem;
 using GameContent.Interactives.ClemInterTemplates;
 using UnityEngine;
 

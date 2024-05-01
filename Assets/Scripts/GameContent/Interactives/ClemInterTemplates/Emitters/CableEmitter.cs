@@ -39,7 +39,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public override void PlayerAction()
         {
-            if (SourceDatasList.Count >= 3)
+            if (SourceDatasList.Count >= receptors.Length)
                 return;
             
             if (PlayerEnergyM.EnergyType == EnergyTypes.None)
@@ -76,7 +76,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         #region fields
         
-        [FieldCompletion(FieldColor.Yellow, FieldColor.Green)] 
+        [FieldCompletion(FieldColor.Red, FieldColor.Green)] 
         [SerializeField] private ReceptorInter[] receptors;
 
         //private LineRenderer _line;

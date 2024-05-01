@@ -2,7 +2,7 @@
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    public class FallState : AbstractPlayerState
+    public sealed class FallState : AbstractPlayerState
     {
         #region constructor
 
@@ -23,16 +23,18 @@ namespace GameContent.PlayerScripts.PlayerStates
         public override void OnEnterState(PlayerStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
-            _rb.drag = _datasSo.groundingDatasSo.dragSpeed;
         }
 
         public override void OnExitState(PlayerStateMachine stateMachine)
         {
+            _lerpCoef = 0;
             _stateMachine = null;
         }
         
         public override void OnUpdate()
         {
+            base.OnUpdate();
+            
             var input = _datasSo.moveInput.action.ReadValue<Vector2>();
             _inputDir = new Vector3(input.x, 0, input.y).normalized;
             
@@ -42,8 +44,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnFixedUpdate()
         {
-            ClampVelocity();
-            
+            base.OnFixedUpdate();
             OnMove();
             OnRotate();
         }
@@ -71,15 +72,9 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnMove()
         {
             _currentDir = (_isoRightDir * _inputDir.x + _isoForwardDir * _inputDir.z).normalized;
-            _rb.AddForce(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Constants.FallSpeedMultiplier), ForceMode.Acceleration);
 
-            _rb.velocity = new Vector3(_rb.velocity.x, Mathf.Lerp(0, _datasSo.fallDatasSo.fallSpeed, _lerpCoef),_rb.velocity.z);
-        }
-        
-        private void ClampVelocity()
-        {
-            var vel = _rb.velocity;
-            _rb.velocity = new Vector3(ClampSymmetric(vel.x, _datasSo.moveDatasSo.moveSpeed),  vel.y, ClampSymmetric(vel.z, _datasSo.moveDatasSo.moveSpeed));
+            _cc.SimpleMove(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime * 0.5f));
+            _cc.Move(Vector3.down * (Mathf.Lerp(0, _datasSo.fallDatasSo.fallSpeed, _lerpCoef) * Time.deltaTime));
         }
 
         private void SetLerpCoef()

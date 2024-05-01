@@ -8,6 +8,6 @@ namespace GameContent.PlayerScripts.PlayerDatas.PlayerDatasSO
     public class FallDatasSO : AbstractPlayerDatasSO
     {
         [FieldColorLerp(FieldColor.Orange, FieldColor.Cyan, 1, 15)]
-        [Range(-30, 0)] public float fallSpeed;
+        [Range(0, 30)] public float fallSpeed;
     }
 }
