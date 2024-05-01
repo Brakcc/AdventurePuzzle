@@ -9,7 +9,7 @@ namespace DebuggingClem
     public class DebugModDatas
     {
         [FieldCompletion] public TMP_Text debugText;
-        public string debugString;
+        [TextArea] public string debugString;
 
         public bool hasLight;
         [ShowIfBoolTrue("hasLight")] 
