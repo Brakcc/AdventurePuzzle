@@ -29,7 +29,7 @@ namespace GameContent.Interactives.ClemInterTemplates
         protected override void OnInit()
         {
             SourceDatasList = new List<SourceDatas>();
-            debugText = "Press <b>E</b> to interact, Press <b>Tab</b> to empty";
+            debugTextLocal = debugMod.debugString;
         }
 
         public override void PlayerAction()

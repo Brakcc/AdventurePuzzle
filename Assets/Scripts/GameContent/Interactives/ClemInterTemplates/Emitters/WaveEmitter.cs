@@ -44,8 +44,16 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         {
             if (Count <= 0)
                 return;
+
+            if (PlayerEnergyM.GetEnergyBack)
+            {
+                PlayerEnergyM.CurrentSource.Source.InterAction();
+                PlayerEnergyM.CurrentSource = SourceDatasList[Count - 1];
+                PlayerEnergyM.OnSourceChangedDebug();
+            }
+            else
+                SourceDatasList[Count - 1].Source.InterAction();
             
-            SourceDatasList[Count - 1].Source.InterAction();
             SourceDatasList.RemoveAt(Count - 1);
             base.PlayerCancel();
         }

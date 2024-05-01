@@ -69,8 +69,13 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (_absorbTimeCounter > 0)
                 return;
 
-            if (_checker.InterRef != null)
-                _checker.InterRef.PlayerAction();
+            if (_checker.InterRef is null)
+            {
+                _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+                return;
+            }
+
+            _checker.InterRef.PlayerAction();
             _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
         }
         
