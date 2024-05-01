@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    public class CancelState : AbstractPlayerState
+    public sealed class CancelState : AbstractPlayerState
     {
         #region constructor
 
@@ -19,10 +19,6 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             _stateMachine = stateMachine;
 
-            _checker = _stateMachine.checker;
-
-            _rb.drag = _datasSo.groundingDatasSo.dragSpeed;
-
             _applyTimeCounter = _datasSo.interactDatasSo.applyTime;
         }
 
@@ -32,7 +28,9 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnUpdate()
         {
-            SetApplyTime();
+            base.OnUpdate();
+            
+            SetCancelTime();
             GetOtherActionInputs();
             OnAction();
             
@@ -43,12 +41,13 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnFixedUpdate()
         {
+            base.OnFixedUpdate();
             //OnJump();
         }
 
-        #region apply methodes
+        #region cancel methodes
 
-        private void SetApplyTime()
+        private void SetCancelTime()
         {
             if (_datasSo.cancelInput.action.IsPressed())
             {
@@ -61,8 +60,8 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void GetOtherActionInputs()
         {
-            if (_datasSo.interactInput.action.WasPressedThisFrame())
-                _stateMachine.OnSwitchState("interact");
+            if (_datasSo.interactInput.action.WasPressedThisFrame() && _checker.InterRef is not null)
+                _stateMachine.OnSwitchState(_checker.InterRef is ReceptorInter or LeverInter ? "locked" : "interact");
         }
         
         private void OnAction()
@@ -139,8 +138,6 @@ namespace GameContent.PlayerScripts.PlayerStates
         #endregion
 
         #region fields
-
-        private InterCheckerState _checker;
         
         private float _applyTimeCounter;
 

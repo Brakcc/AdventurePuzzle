@@ -36,6 +36,8 @@ namespace GameContent.Interactives.ClemInterTemplates
             }
         }
 
+        //public bool IsHitting => Physics;
+
         #endregion
         
         #region methodes
@@ -44,8 +46,14 @@ namespace GameContent.Interactives.ClemInterTemplates
         {
             hasElectricity = false;
             _col = GetComponent<Collider>();
-            if (debugMod.hasLight)
-                InterLight = debugMod.debugLight;
+            _rb = GetComponent<Rigidbody>();
+
+            _rb.drag = 500;
+            
+            if (!debugMod.hasLight)
+                return;
+            
+            InterLight = debugMod.debugLight;
             OnChangeColorLightDebug(CurrentEnergyType);
         }
 
@@ -70,24 +78,28 @@ namespace GameContent.Interactives.ClemInterTemplates
                     _col.enabled = true;
                     hasElectricity = false;
                     isMovable = false;
+                    _rb.isKinematic = true;
                     debugTextLocal = "";
                     break;
                 case EnergyTypes.Yellow:
                     _col.enabled = true;
                     hasElectricity = true;
                     isMovable = false;
+                    _rb.isKinematic = true;
                     debugTextLocal = "";
                     break;
                 case EnergyTypes.Green:
                     _col.enabled = false;
                     hasElectricity = false;
                     isMovable = false;
+                    _rb.isKinematic = true;
                     debugTextLocal = "";
                     break;
                 case EnergyTypes.Blue:
                     _col.enabled = true;
                     hasElectricity = false;
                     isMovable = true;
+                    _rb.isKinematic = false;
                     debugTextLocal = debugMod.debugString;
                     break;
                 default:
@@ -104,14 +116,25 @@ namespace GameContent.Interactives.ClemInterTemplates
         }
         
         private void OnChangeColorLightDebug(EnergyTypes type) => InterLight.color = LightDebugger.DebugColor(type);
-        
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            //Gizmos.DrawLine(_col.bounds.center + new Vector3(_col.bounds.extents.x, 0, _col.bounds.extents.z), 
+            //    _col.bounds.center + new Vector3(_col.bounds.extents.x, 0, -_col.bounds.extents.z));
+        }
+
         #endregion
 
         #region fields
 
         [FieldCompletion] [SerializeField] private Animator animator;
 
+        [FieldCompletion] public Transform pivot;
+        
         private Collider _col;
+
+        private Rigidbody _rb;
 
         private EnergyTypes _currentAppliedEnergy;
 

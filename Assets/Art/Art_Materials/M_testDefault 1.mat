@@ -38,6 +38,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 89fb5f6b16cea3f4aa2dd63a8a1596af, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _AOTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _AngelRing_Sampler:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -102,6 +106,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _EmissionMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Emission_mask:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -146,6 +154,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MossTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MossTexture:
         m_Texture: {fileID: 2800000, guid: aabbc3ae1f64e7c4ca217f11234aaf7f, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -160,6 +172,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NormalMapOS:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 2800000, guid: 91872d52da899e845aa1468efa4258e3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -405,7 +421,7 @@ Material:
     - _MatCap: 0
     - _MaterialID: 1
     - _Metallic: 0
-    - _MossNoise: 0.3
+    - _MossNoise: 3
     - _MossNoiseScale: 8.26
     - _Nearest_Distance: 0.5
     - _NormalMapSpace: 0
@@ -535,6 +551,7 @@ Material:
     m_Colors:
     - _1st_ShadeColor: {r: 0.7830189, g: 0.21052866, b: 0.21052866, a: 1}
     - _2nd_ShadeColor: {r: 0.5, g: 0.040094346, b: 0.05514557, a: 1}
+    - _AOColor: {r: 1, g: 0, b: 0.7673602, a: 0}
     - _Ambiant_color: {r: 0.4528302, g: 0, b: 0, a: 1}
     - _AngelRingMaskColor: {r: 0, g: 1, b: 0, a: 1}
     - _AngelRing_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -568,6 +585,7 @@ Material:
     - _RimLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimLightMaskColor: {r: 1, g: 0, b: 1, a: 1}
     - _SecondShadeMaskColor: {r: 0, g: 0, b: 1, a: 1}
+    - _SecondShadowColor: {r: 0.4056604, g: 0, b: 0.302905, a: 0}
     - _Second_ShadowColor: {r: 0.5660378, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0.9528302, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

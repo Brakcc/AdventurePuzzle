@@ -2,7 +2,7 @@
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    public class JumpState : AbstractPlayerState
+    public sealed class JumpState : AbstractPlayerState
     {
         #region constructor
 
@@ -18,14 +18,14 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             _stateMachine = stateMachine;
             
-            _rb.drag = 0;
+            //_rb.drag = 0;
             _jumpTimer = Constants.JumpTimerAfterInput;
             
-            var vel = _rb.velocity;
-            vel = new Vector3(vel.x, 0, vel.z);
-            _rb.velocity = vel;
+            //var vel = _rb.velocity;
+            //vel = new Vector3(vel.x, 0, vel.z);
+            //_rb.velocity = vel;
             
-            _rb.AddForce(_goRef.transform.up * _datasSo.jumpDatasSo.jumpForce, ForceMode.Impulse);
+            //_rb.AddForce(_goRef.transform.up * _datasSo.jumpDatasSo.jumpForce, ForceMode.Impulse);
         }
 
         public override void OnExitState(PlayerStateMachine stateMachine)
@@ -35,12 +35,15 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnUpdate()
         {
+            base.OnUpdate();
+            
             GetInputVal();
             GetJumpTimer();
         }
 
         public override void OnFixedUpdate()
         {
+            base.OnFixedUpdate();
             OnMove();
             OnLand();
             ClampVelocity();
@@ -58,13 +61,13 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             _currentDir = (Vector3.right * _inputDir.x + Vector3.forward * _inputDir.z).normalized;
                 
-            _rb.AddForce(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * _datasSo.jumpDatasSo.airControlCoef), ForceMode.Acceleration);
+            //_rb.AddForce(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * _datasSo.jumpDatasSo.airControlCoef), ForceMode.Acceleration);
         }
         
         private void ClampVelocity()
         {
-            var vel = _rb.velocity;
-            _rb.velocity = new Vector3(ClampSymmetric(vel.x, _datasSo.moveDatasSo.moveSpeed),  vel.y, ClampSymmetric(vel.z, _datasSo.moveDatasSo.moveSpeed));
+            //var vel = _rb.velocity;
+            //_rb.velocity = new Vector3(ClampSymmetric(vel.x, _datasSo.moveDatasSo.moveSpeed),  vel.y, ClampSymmetric(vel.z, _datasSo.moveDatasSo.moveSpeed));
         }
 
         #endregion

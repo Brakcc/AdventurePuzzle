@@ -30,7 +30,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public override void PlayerAction()
         {
-            if (SourceDatasList.Count >= 3)
+            if (SourceDatasList.Count >= recepDatas.Count)
                          return;
                      
             SourceDatasList.Add(PlayerEnergyM.CurrentSource);

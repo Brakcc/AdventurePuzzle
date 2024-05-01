@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using GameContent.Interactives.ClemInterTemplates;
+using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    public class MoveState : AbstractPlayerState
+    public sealed class MoveState : AbstractPlayerState
     {
         #region constructor
 
@@ -26,8 +27,6 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             _coyoteTimeCounter = _datasSo.jumpDatasSo.coyoteTime;
             _jumpBufferCounter = Constants.SecuValuUnderZero;
-
-            _rb.drag = _datasSo.groundingDatasSo.dragSpeed;
         }
 
         public override void OnExitState(PlayerStateMachine stateMachine)
@@ -37,6 +36,8 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnUpdate()
         {
+            base.OnUpdate();
+            
             var input = _datasSo.moveInput.action.ReadValue<Vector2>();
             _inputDir = new Vector3(input.x, 0, input.y).normalized;
             
@@ -48,18 +49,20 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             //Fall
             OnFall();
+
+            var position = _goRef.transform.position;
+            Debug.DrawLine(position, position + _goRef.transform.forward, Color.red);
         }
 
         public override void OnFixedUpdate()
         {
-            ClampVelocity();
-            
+            base.OnFixedUpdate();
             OnMove();
             OnRotate();
             //OnJump();
         }
 
-        #region rotation mathodes
+        #region rotation methodes
 
         private void OnRotate()
         {
@@ -82,14 +85,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnMove()
         {
             _currentDir = (_isoRightDir * _inputDir.x + _isoForwardDir * _inputDir.z).normalized;
-                
-            _rb.AddForce(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier), ForceMode.Acceleration);
-        }
-        
-        private void ClampVelocity()
-        {
-            var vel = _rb.velocity;
-            _rb.velocity = new Vector3(ClampSymmetric(vel.x, _datasSo.moveDatasSo.moveSpeed),  vel.y, ClampSymmetric(vel.z, _datasSo.moveDatasSo.moveSpeed));
+            _cc.SimpleMove(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime));
         }
         
         #endregion
@@ -134,10 +130,16 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void GetInteractInputs()
         {
             if (_datasSo.interactInput.action.WasPressedThisFrame())
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[2]);
+            {
+                if (_checker.InterRef is null)
+                    return;
+                
+                _stateMachine.OnSwitchState(_checker.InterRef is ReceptorInter or LeverInter ? "locked" : "interact");
+                return;
+            }
             
             if (_datasSo.cancelInput.action.WasPressedThisFrame())
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[3]);
+                _stateMachine.OnSwitchState("cancel");
         }
 
         #endregion
@@ -147,7 +149,9 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnFall()
         {
             if (!IsGrounded)
+            {
                 _stateMachine.OnSwitchState("fall");
+            }
         }
 
         #endregion
