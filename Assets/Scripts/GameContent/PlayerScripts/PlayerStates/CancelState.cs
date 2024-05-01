@@ -28,6 +28,8 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnUpdate()
         {
+            base.OnUpdate();
+            
             SetCancelTime();
             GetOtherActionInputs();
             OnAction();
@@ -39,6 +41,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnFixedUpdate()
         {
+            base.OnFixedUpdate();
             //OnJump();
         }
 

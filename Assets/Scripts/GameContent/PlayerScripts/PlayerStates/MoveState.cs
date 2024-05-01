@@ -36,6 +36,8 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnUpdate()
         {
+            base.OnUpdate();
+            
             var input = _datasSo.moveInput.action.ReadValue<Vector2>();
             _inputDir = new Vector3(input.x, 0, input.y).normalized;
             
@@ -54,12 +56,13 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnFixedUpdate()
         {
+            base.OnFixedUpdate();
             OnMove();
             OnRotate();
             //OnJump();
         }
 
-        #region rotation mathodes
+        #region rotation methodes
 
         private void OnRotate()
         {

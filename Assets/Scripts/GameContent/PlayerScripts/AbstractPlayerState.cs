@@ -10,6 +10,8 @@ namespace GameContent.PlayerScripts
         
         protected bool IsGrounded => _cc.isGrounded;
 
+        protected float Velocity => (_nextPos - _prevPos).magnitude;
+
         #endregion
         
         #region constructor
@@ -38,11 +40,19 @@ namespace GameContent.PlayerScripts
         
         #region methodes to herit
 
-        public virtual void OnInit() {}
-        
+        public virtual void OnInit()
+        {
+            _prevPos = _goRef.transform.position;
+            _nextPos = _goRef.transform.position;
+        }
+
         public virtual void OnUpdate() {}
         
-        public virtual void OnFixedUpdate() {}
+        public virtual void OnFixedUpdate()
+        {
+            _prevPos = _nextPos;
+            _nextPos = _goRef.transform.position;
+        }
 
         public abstract void OnEnterState(PlayerStateMachine stateMachine);
 
@@ -69,6 +79,10 @@ namespace GameContent.PlayerScripts
         protected readonly Vector3 _isoRightDir = new(1, 0, -1);
         
         protected readonly Vector3 _isoForwardDir = new(1, 0, 1);
+
+        private Vector3 _prevPos;
+
+        private Vector3 _nextPos;
 
         #endregion
     }
