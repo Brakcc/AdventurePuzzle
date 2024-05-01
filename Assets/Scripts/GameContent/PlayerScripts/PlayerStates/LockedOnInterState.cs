@@ -1,4 +1,4 @@
-﻿using GameContent.Interactives.ClemInterTemplates;
+using GameContent.Interactives.ClemInterTemplates;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
@@ -19,7 +19,6 @@ namespace GameContent.PlayerScripts.PlayerStates
         public override void OnEnterState(PlayerStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
-            
             _interRef = _checker.InterRef as ReceptorInter;
             
             _recepRefRb = _interRef!.GetComponent<Rigidbody>();
@@ -35,7 +34,6 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             _stateMachine = null;
             _interRef = null;
-            _recepRefRb = null;
         }
 
         public override void OnUpdate()
@@ -53,7 +51,6 @@ namespace GameContent.PlayerScripts.PlayerStates
             base.OnFixedUpdate();
             
             OnMove();
-            DistFromInterCheck();
         }
 
         #region holding methodes
@@ -93,9 +90,6 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void OnMove()
         {
-            if (_inputDir.magnitude <= Constants.MinMoveInputValue)
-                return;
-            
             //trouver une simplification a l'enterState
             _currentDir = _directionMode switch
             {
@@ -119,11 +113,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private ReceptorInter _interRef;
 
-        private Rigidbody _recepRefRb;
-
         private LockDirectionMode _directionMode;
-
-        private float _tempDistFromPlayer;
 
         #endregion
 
