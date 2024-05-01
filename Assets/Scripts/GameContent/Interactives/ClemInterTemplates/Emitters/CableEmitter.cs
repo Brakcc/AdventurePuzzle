@@ -76,7 +76,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         #region fields
         
-        [FieldCompletion(FieldColor.Yellow, FieldColor.Green)] 
+        [FieldCompletion(FieldColor.Red, FieldColor.Green)] 
         [SerializeField] private ReceptorInter[] receptors;
 
         //private LineRenderer _line;

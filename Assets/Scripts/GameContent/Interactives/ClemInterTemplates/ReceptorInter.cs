@@ -6,6 +6,7 @@ using Utilities.CustomAttributes;
 namespace GameContent.Interactives.ClemInterTemplates
 {
     [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Rigidbody))]
     public class ReceptorInter : BaseInterBehavior
     {
         #region properties
@@ -17,7 +18,8 @@ namespace GameContent.Interactives.ClemInterTemplates
             {
                 _currentAppliedEnergy = value;
                 InterAction();
-                OnChangeColorLightDebug(_currentAppliedEnergy);
+                if (hasDebugMod && debugMod.hasLight)
+                    OnChangeColorLightDebug(_currentAppliedEnergy);
             }
         }
         
@@ -29,7 +31,7 @@ namespace GameContent.Interactives.ClemInterTemplates
         {
             get
             {
-                if (EmitRef == null)
+                if (EmitRef is null)
                     return 0;
                 
                 return Vector3.Distance(EmitRef.transform.position, transform.position);
@@ -115,14 +117,14 @@ namespace GameContent.Interactives.ClemInterTemplates
         [FieldCompletion] [SerializeField] private Animator animator;
 
         [FieldCompletion] public Transform pivot;
-        
+
         private Collider _col;
 
         private EnergyTypes _currentAppliedEnergy;
 
-        protected bool hasElectricity;
+        [HideInInspector] public bool hasElectricity;
 
-        protected bool isMovable;
+        [HideInInspector] public bool isMovable;
 
         #endregion
     }
