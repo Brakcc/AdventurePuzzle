@@ -18,7 +18,7 @@ namespace GameContent.Interactives.ClemInterTemplates
             {
                 _currentAppliedEnergy = value;
                 InterAction();
-                if (hasDebugMod)
+                if (hasDebugMod && debugMod.hasLight)
                     OnChangeColorLightDebug(_currentAppliedEnergy);
             }
         }

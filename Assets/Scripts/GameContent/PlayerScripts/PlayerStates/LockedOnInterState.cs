@@ -23,17 +23,23 @@ namespace GameContent.PlayerScripts.PlayerStates
         public override void OnEnterState(PlayerStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
+            
             _interRef = _checker.InterRef as ReceptorInter;
-            _recepRefRb = _interRef?.GetComponent<Rigidbody>();
-            //_interRef?.transform.SetParent(stateMachine.transform);
+            
+            _recepRefRb = _interRef!.GetComponent<Rigidbody>();
+            _recepRefRb.isKinematic = false;
+            
+            _tempDistFromPlayer = _interRef.DistFromPlayer;
             
             _directionMode = GetBaseMoveDir();
         }
 
         public override void OnExitState(PlayerStateMachine stateMachine)
         {
+            _tempDistFromPlayer = 0;
+            _recepRefRb.isKinematic = true;
+            
             _stateMachine = null;
-            //_interRef.transform.SetParent(null);
             _interRef = null;
             _recepRefRb = null;
         }
@@ -49,6 +55,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         public override void OnFixedUpdate()
         {
             OnMove();
+            DistFromInterCheck();
         }
 
         #region holding methodes
@@ -61,6 +68,12 @@ namespace GameContent.PlayerScripts.PlayerStates
             _stateMachine.OnSwitchState("move");
         }
 
+        private void DistFromInterCheck()
+        {
+            if (_interRef.DistFromPlayer >= _tempDistFromPlayer + Constants.GrabGabThreshold)
+                _stateMachine.OnSwitchState("move");
+        }
+        
         private LockDirectionMode GetBaseMoveDir()
         {
             var tempAngle = Vector3.Angle(Vector3.right, _goRef.transform.position - _interRef.pivot.position);
@@ -91,6 +104,8 @@ namespace GameContent.PlayerScripts.PlayerStates
             };
 
             _cc.SimpleMove(_currentDir * (_datasSo.moveDatasSo.holdingRecepMoveSpeed * Constants.SpeedMultiplier * Time.deltaTime));
+            
+            //obj move
             _recepRefRb.position += _currentDir * (Time.deltaTime * Constants.RecepMoveSpeedMultiplier);
         }
         
@@ -105,6 +120,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         private Rigidbody _recepRefRb;
 
         private LockDirectionMode _directionMode;
+
+        private float _tempDistFromPlayer;
 
         #endregion
 
