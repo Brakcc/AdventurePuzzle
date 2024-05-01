@@ -11,4 +11,5 @@ public static class Constants
     public const float RecepBlockedSpeedThreshold = 0.1f;
     public const float GrabGabThreshold = 0.5f;
     public const float MinWorldMoveSpeedThreshold = 0.005f;
+    private const short DebGit = 1;
 }
