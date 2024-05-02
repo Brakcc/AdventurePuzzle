@@ -1,58 +1,60 @@
-using System.Collections;
 using UnityEngine;
-using UnityEditor;
 
 namespace GameContent.Interactives.ClemInterTemplates
 {
     public class TeleporterInter : ReceptorInter
     {
-        public TeleporterInter otherTeleporter;
+        [SerializeField] private TeleporterInter otherTeleporter;
         
-        public bool _justTeleported;
-        public bool _canTeleport;
+        private bool _canTeleport;
+        private bool _justTeleported;
+
+        private bool _teleportStart;
+        private Transform _playerToTeleport;
+        private void FixedUpdate()
+        {
+            if (_teleportStart)
+            {
+                _teleportStart = false;
+                _playerToTeleport.position = otherTeleporter.transform.position;
+            }
+        }
         
         public override void InterAction()
         {
             GetComponent<MeshRenderer>().enabled = true;
             otherTeleporter.GetComponent<MeshRenderer>().enabled = true;
-            _justTeleported = false;
             _canTeleport = true;
+            _justTeleported = false;
             
-            otherTeleporter._justTeleported = false;
             otherTeleporter._canTeleport = true;
         }
 
-        public override void PlayerCancel()
+        public override void OnReset()
         {
-            GetComponent<MeshCollider>().enabled = false;
-            otherTeleporter.GetComponent<MeshCollider>().enabled = false;
+            GetComponent<MeshRenderer>().enabled = false;
+            otherTeleporter.GetComponent<MeshRenderer>().enabled = false;
             _canTeleport = false;
             _justTeleported = false;
             
-            otherTeleporter._justTeleported = false;
             otherTeleporter._canTeleport = false;
         }
 
         private void OnTriggerEnter(Collider playerCol)
         {
-            if (playerCol.transform.CompareTag("Player") && _canTeleport)
+            if (playerCol.transform.CompareTag("Player") && _canTeleport && !_justTeleported)
             {
-                Debug.Log("screams of pain");
-                _justTeleported = true;
-                if (!otherTeleporter._justTeleported)
-                {
-                    playerCol.transform.position = otherTeleporter.transform.position;
-                }
+                _playerToTeleport = playerCol.transform;
+                _teleportStart = true;
+                otherTeleporter._justTeleported = true;
             }  
         }
-        /*private void OnTriggerExit(Collider playerCol)
+        private void OnTriggerExit(Collider playerCol)
         {
             if (playerCol.transform.CompareTag("Player") && _canTeleport && _justTeleported)
             {
-                Debug.Log(gameObject.name);
                 _justTeleported = false;
-                otherTeleporter._justTeleported = false;
             }
-        }*/
+        }
     }
 }

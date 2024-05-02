@@ -109,7 +109,7 @@ namespace GameContent.Interactives.ClemInterTemplates
             }
         }
 
-        public void OnReset()
+        public virtual void OnReset()
         {
             CurrentEnergyType = EnergyTypes.None;
             _col.enabled = true;
