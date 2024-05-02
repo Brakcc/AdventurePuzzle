@@ -137,12 +137,14 @@ namespace GameContent.PlayerScripts.PlayerStates
                         return;
                     case ReceptorInter { CurrentEnergyType: EnergyTypes.Blue }:
                         _stateMachine.OnSwitchState("locked");
-                        break;
+                        return;
+                    case LeverInter : 
+                        _stateMachine.OnSwitchState("lever");
+                        return;
                     case not null:
                         _stateMachine.OnSwitchState("interact");
-                        break;
+                        return;
                 }
-                return;
             }
             
             if (_datasSo.cancelInput.action.WasPressedThisFrame())
