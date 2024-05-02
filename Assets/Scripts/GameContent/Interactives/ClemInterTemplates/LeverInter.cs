@@ -21,5 +21,11 @@
         }
         
         #endregion
+
+        #region fields
+
+        private short _currentLevel;
+
+        #endregion
     }
 }
