@@ -84,9 +84,6 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void OnMove()
         {
-            if (_inputDir.magnitude <= Constants.MinMoveInputValue)
-                return;
-            
             _currentDir = (_isoRightDir * _inputDir.x + _isoForwardDir * _inputDir.z).normalized;
             _cc.SimpleMove(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime));
         }
@@ -137,11 +134,15 @@ namespace GameContent.PlayerScripts.PlayerStates
                 switch (_checker.InterRef)
                 {
                     case null:
+                        _stateMachine.OnSwitchState("interact");
                         return;
-                    case ReceptorInter { isMovable : true }:
+                    case ReceptorInter { CurrentEnergyType: EnergyTypes.Blue }:
                         _stateMachine.OnSwitchState("locked");
                         return;
-                    default:
+                    case LeverInter : 
+                        _stateMachine.OnSwitchState("lever");
+                        return;
+                    case not null:
                         _stateMachine.OnSwitchState("interact");
                         return;
                 }

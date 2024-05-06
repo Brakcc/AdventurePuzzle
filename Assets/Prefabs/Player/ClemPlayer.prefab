@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 63962317975907622}
   - component: {fileID: 6172168281648003866}
   - component: {fileID: 6349739493370595221}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 4353327182877276981}
   - component: {fileID: 3358087142996880176}
   - component: {fileID: 2208434415901889940}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.2492657, y: 1, z: 3.0050507}
+  m_Size: {x: 1.75, y: 1, z: 2.5}
   m_Center: {x: 0.02113247, y: 0, z: 0.8583126}
 --- !u!1 &3696280016124979333
 GameObject:
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 5896440626325804008}
   - component: {fileID: 2768133767940912054}
   - component: {fileID: 1957618219012096123}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Area Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 2201709698478507686}
   - component: {fileID: 2805556016637855305}
   - component: {fileID: 3982721170977102547}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: ClemPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}

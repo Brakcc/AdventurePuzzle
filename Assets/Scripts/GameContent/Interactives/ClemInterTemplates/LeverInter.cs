@@ -1,25 +1,71 @@
-﻿namespace GameContent.Interactives.ClemInterTemplates
+﻿using UnityEngine;
+
+namespace GameContent.Interactives.ClemInterTemplates
 {
-    public class LeverInter : BaseInterBehavior
+    public sealed class LeverInter : BaseInterBehavior
     {
+        #region properties
+
+        public GameObject ImageD => imageIndic;
+
+        public GameObject ImageF => imageVert;
+
+        public short Level
+        {
+            get => _currentLevel;
+            set
+            {
+                _currentLevel = (short)(value < 0 ? value + levelNumbers : value % levelNumbers);
+                PlayerAction();
+            }
+        }
+
+        public LeverOrientationMode LeverOrientationMode => leverOrientation;
+
+        #endregion
+        
         #region methodes
 
         protected override void OnInit()
         {
             base.OnInit();
             debugTextLocal = "Maintain <b>E</b> to interact";
+            Level = 0;
         }
 
         public override void PlayerAction()
         {
             //Debug.Log($"player action {this}");
+            emitRef.EmitLevel = Level;
         }
 
         public override void InterAction()
         {
-            //Debug.Log($"player action {this}");
+            //Debug.Log($"inter action {this}");
         }
         
         #endregion
+
+        #region fields
+
+        [SerializeField] private EmitterInter emitRef;
+
+        [SerializeField] private short levelNumbers;
+
+        [SerializeField] private LeverOrientationMode leverOrientation; 
+        
+        [SerializeField] private GameObject imageIndic;
+        
+        [SerializeField] private GameObject imageVert;
+        
+        private short _currentLevel;
+
+        #endregion
+    }
+
+    public enum LeverOrientationMode
+    {
+        Horizontal,
+        Vertical
     }
 }

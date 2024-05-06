@@ -18,8 +18,7 @@ namespace GameContent.Interactives.ClemInterTemplates
             {
                 _currentAppliedEnergy = value;
                 InterAction();
-                if (hasDebugMod && debugMod.hasLight)
-                    OnChangeColorLightDebug(_currentAppliedEnergy);
+                OnChangeColorLightDebug(_currentAppliedEnergy);
             }
         }
         
@@ -31,7 +30,7 @@ namespace GameContent.Interactives.ClemInterTemplates
         {
             get
             {
-                if (EmitRef is null)
+                if (EmitRef == null)
                     return 0;
                 
                 return Vector3.Distance(EmitRef.transform.position, transform.position);
@@ -50,13 +49,17 @@ namespace GameContent.Interactives.ClemInterTemplates
             _col = GetComponent<Collider>();
             _rb = GetComponent<Rigidbody>();
 
-            _rb.drag = 500;
+            _rb.mass = 1000;
+            _rb.constraints = RigidbodyConstraints.FreezeRotation;
+            _rb.isKinematic = true;
+
+            if (debugMod.hasLight)
+            {
+                InterLight = debugMod.debugLight;
+                 OnChangeColorLightDebug(CurrentEnergyType);
+            }
             
-            if (!debugMod.hasLight)
-                return;
-            
-            InterLight = debugMod.debugLight;
-            OnChangeColorLightDebug(CurrentEnergyType);
+            OnReset();
         }
 
         public override void PlayerAction()
@@ -133,16 +136,16 @@ namespace GameContent.Interactives.ClemInterTemplates
         [FieldCompletion] [SerializeField] private Animator animator;
 
         [FieldCompletion] public Transform pivot;
-
+        
         private Collider _col;
 
         private Rigidbody _rb;
 
         private EnergyTypes _currentAppliedEnergy;
 
-        [HideInInspector] public bool hasElectricity;
+        protected bool hasElectricity;
 
-        [HideInInspector] public bool isMovable;
+        protected bool isMovable;
 
         #endregion
     }
