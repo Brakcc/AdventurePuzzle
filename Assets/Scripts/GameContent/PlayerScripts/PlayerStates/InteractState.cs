@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameContent.Interactives.ClemInterTemplates;
+using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
@@ -68,7 +69,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (_absorbTimeCounter > 0)
                 return;
 
-            if (_checker.InterRef is null)
+            if (_checker.InterRef is null or ReceptorInter)
             {
                 _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
                 return;

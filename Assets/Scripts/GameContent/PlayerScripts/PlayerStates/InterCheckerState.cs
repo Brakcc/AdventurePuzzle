@@ -31,7 +31,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                         InterRef = null;
                     return;
                 case >= 2:
-                    InRangeInter.Sort(CompareIntersByAngle);
+                    InRangeInter.Sort(CompareIntersByParams);
                     break;
             }
 
@@ -68,6 +68,10 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         private static readonly Comparison<BaseInterBehavior> CompareIntersByAngle = (a, b) =>
             Mathf.RoundToInt(Mathf.Sign(a.AngleWithPlayer - b.AngleWithPlayer));
+
+        private static readonly Comparison<BaseInterBehavior> CompareIntersByParams = (a, b) =>
+            Mathf.RoundToInt(Mathf.Sign(a.DistFromPlayer - b.DistFromPlayer)) / 2 *
+            (Mathf.RoundToInt(Mathf.Sign(a.AngleWithPlayer - b.AngleWithPlayer)) / 2);
 
         #endregion
     }
