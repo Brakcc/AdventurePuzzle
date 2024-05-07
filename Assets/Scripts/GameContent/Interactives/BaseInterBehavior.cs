@@ -30,6 +30,11 @@ namespace GameContent.Interactives
             OnUpdate();
         }
 
+        private void FixedUpdate()
+        {
+            OnFixedUpdate();
+        }
+
         public void AddSelf(InterCheckerState checker)
         {
             if (hasDebugMod)
@@ -72,6 +77,8 @@ namespace GameContent.Interactives
             var vecPlayerToTrans = localPos - playerPos;
             AngleWithPlayer = Vector3.Angle(vecPlayerToTrans, _checkerRef.transform.forward);
         }
+
+        protected virtual void OnFixedUpdate() {}
         
         public abstract void PlayerAction();
 

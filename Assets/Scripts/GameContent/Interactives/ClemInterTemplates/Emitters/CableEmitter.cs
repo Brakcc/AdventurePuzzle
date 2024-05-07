@@ -9,10 +9,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
     {
         #region methodes
 
-        private void FixedUpdate()
-        {
-            //_line.SetPosition(1, PlayerEnergyM.instance.transform.position);
-        }
+        //protected override void OnFixedUpdate()
+        //{
+        //    _line.SetPosition(1, PlayerEnergyM.instance.transform.position);
+        //}
 
         protected override void OnInit()
         {
@@ -89,13 +89,5 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         //private LineRenderer _line;
 
         #endregion
-    }
-    
-    internal enum CableNodeMode
-    {
-        L,
-        I,
-        T,
-        X
     }
 }
