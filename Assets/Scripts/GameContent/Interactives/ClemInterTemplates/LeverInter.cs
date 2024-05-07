@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using Utilities.CustomAttributes;
+using Utilities.CustomAttributes.FieldColors;
 
 namespace GameContent.Interactives.ClemInterTemplates
 {
@@ -49,8 +51,9 @@ namespace GameContent.Interactives.ClemInterTemplates
         #region fields
 
         [SerializeField] private EmitterInter emitRef;
-
-        [SerializeField] private short levelNumbers;
+        
+        [FieldColorLerp(FieldColor.Red, FieldColor.Green, 5, 0)]
+        [Range(0, 5)] [SerializeField] private short levelNumbers;
 
         [SerializeField] private LeverOrientationMode leverOrientation; 
         
@@ -65,7 +68,7 @@ namespace GameContent.Interactives.ClemInterTemplates
 
     public enum LeverOrientationMode
     {
-        Horizontal,
-        Vertical
+        Horizontal = 0,
+        Vertical = 1
     }
 }

@@ -31,6 +31,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         public override void InterAction()
         {
+            //ici action du cable
+            //
+            //
+            //
+            
             for (var i = 0; i < Count; i++)
             {
                 receptors[i].CurrentEnergyType = this[i].Type;
@@ -79,8 +84,18 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         [FieldCompletion(FieldColor.Yellow, FieldColor.Green)] 
         [SerializeField] private ReceptorInter[] receptors;
 
+        [SerializeField] private CableNodeMode nodeMode;
+
         //private LineRenderer _line;
 
         #endregion
+    }
+    
+    internal enum CableNodeMode
+    {
+        L,
+        I,
+        T,
+        X
     }
 }
