@@ -172,34 +172,36 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
+
+            var bounds = _col.bounds;
             
-            Gizmos.DrawLine(_col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
-                                                              heightCorrector * _col.bounds.extents.y, 
-                                                              _col.bounds.extents.z + widthCorrector), 
-                             _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
-                                                              heightCorrector * _col.bounds.extents.y, 
-                                                              -(_col.bounds.extents.z + widthCorrector)));
+            Gizmos.DrawLine(bounds.center + new Vector3(bounds.extents.x + widthCorrector, 
+                                                              heightCorrector * bounds.extents.y, 
+                                                              bounds.extents.z + widthCorrector), 
+                             bounds.center + new Vector3(bounds.extents.x + widthCorrector, 
+                                                              heightCorrector * bounds.extents.y, 
+                                                              -(bounds.extents.z + widthCorrector)));
             
-            Gizmos.DrawLine(_col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
-                                                             heightCorrector * _col.bounds.extents.y, 
-                                                             _col.bounds.extents.z + widthCorrector), 
-                            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector),
-                                                             heightCorrector * _col.bounds.extents.y,
-                                                             -(_col.bounds.extents.z + widthCorrector)));
+            Gizmos.DrawLine(_col.bounds.center + new Vector3(-(bounds.extents.x + widthCorrector), 
+                                                             heightCorrector * bounds.extents.y, 
+                                                             bounds.extents.z + widthCorrector), 
+                            bounds.center + new Vector3(-(bounds.extents.x + widthCorrector),
+                                                             heightCorrector * bounds.extents.y,
+                                                             -(bounds.extents.z + widthCorrector)));
             
-            Gizmos.DrawLine(_col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
-                                                             heightCorrector * _col.bounds.extents.y, 
-                                                             _col.bounds.extents.z + widthCorrector), 
-                            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
-                                                             heightCorrector * _col.bounds.extents.y,
-                                                             _col.bounds.extents.z + widthCorrector));
+            Gizmos.DrawLine(_col.bounds.center + new Vector3(bounds.extents.x + widthCorrector, 
+                                                             heightCorrector * bounds.extents.y, 
+                                                             bounds.extents.z + widthCorrector), 
+                            bounds.center + new Vector3(-(bounds.extents.x + widthCorrector), 
+                                                             heightCorrector * bounds.extents.y,
+                                                             bounds.extents.z + widthCorrector));
             
-            Gizmos.DrawLine(_col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
-                                                             heightCorrector * _col.bounds.extents.y,
-                                                             -(_col.bounds.extents.z + widthCorrector)), 
-                            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector,
-                                                             heightCorrector * _col.bounds.extents.y, 
-                                                             -(_col.bounds.extents.z + widthCorrector)));
+            Gizmos.DrawLine(_col.bounds.center + new Vector3(-(bounds.extents.x + widthCorrector), 
+                                                             heightCorrector * bounds.extents.y,
+                                                             -(bounds.extents.z + widthCorrector)), 
+                            bounds.center + new Vector3(bounds.extents.x + widthCorrector,
+                                                             heightCorrector * bounds.extents.y, 
+                                                             -(bounds.extents.z + widthCorrector)));
         }
 
         #endregion
@@ -210,7 +212,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         [FieldCompletion] public Transform pivot;
 
-        [Range(0, 0.2f)] [SerializeField] private float widthCorrector;
+        [Range(0.01f, 0.2f)] [SerializeField] private float widthCorrector;
         [Range(-1, 1)] [SerializeField] private float heightCorrector;
 
         [SerializeField] private LayerMask blockMask;
