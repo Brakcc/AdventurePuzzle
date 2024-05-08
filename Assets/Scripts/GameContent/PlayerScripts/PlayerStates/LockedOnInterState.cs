@@ -1,4 +1,4 @@
-using GameContent.Interactives.ClemInterTemplates;
+using GameContent.Interactives.ClemInterTemplates.Receptors;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
@@ -23,6 +23,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             _interRef = _checker.InterRef as ReceptorInter;
             
             _recepRefRb = _interRef!.GetComponent<Rigidbody>();
+            _recepRefRb.constraints = ReceptorInter.GetRBConstraints(RBCMode.Rota);
             
             _tempDistFromPlayer = _interRef.DistFromPlayer;
             
@@ -32,6 +33,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         public override void OnExitState(PlayerStateMachine stateMachine)
         {
             _tempDistFromPlayer = 0;
+            _recepRefRb.constraints = ReceptorInter.GetRBConstraints(RBCMode.RotaPlan);
             
             _stateMachine = null;
             _interRef = null;

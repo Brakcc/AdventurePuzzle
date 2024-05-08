@@ -1,4 +1,4 @@
-﻿using GameContent.Interactives.ClemInterTemplates;
+﻿using GameContent.Interactives.ClemInterTemplates.Receptors;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates

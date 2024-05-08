@@ -1,3 +1,5 @@
+//NE PAS TOUCHER sauf si vous etes sur de ce que vous faites
+
 public static class Constants
 {
     public const float GroundCheckSupLength = 0.1f;
@@ -14,4 +16,6 @@ public static class Constants
     public const float RecepBlockedSpeedThreshold = 0.1f;
     public const float GrabGapThreshold = 0.5f;
     public const float MinWorldMoveSpeedThreshold = 0.005f;
+    public const short OrientationNumber = 4;
+    public const int BitFlagRBConstraintRotaPlan = 122;
 }

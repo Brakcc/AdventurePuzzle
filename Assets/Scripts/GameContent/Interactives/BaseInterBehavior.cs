@@ -80,11 +80,11 @@ namespace GameContent.Interactives
 
         protected virtual void OnFixedUpdate() {}
         
-        public abstract void PlayerAction();
+        public virtual void PlayerAction() {}
 
         public virtual void PlayerCancel() {}
 
-        public abstract void InterAction();
+        public virtual void InterAction() {}
     
         #endregion
         
