@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameContent.Interactives.ClemInterTemplates.Receptors;
+using UnityEngine;
 using Utilities.CustomAttributes;
 using Utilities.CustomAttributes.FieldColors;
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using DebuggingClem;
+using GameContent.Interactives.ClemInterTemplates.Receptors;
 using UnityEngine;
 using Utilities.CustomAttributes;
 
@@ -18,21 +19,22 @@ namespace GameContent.Interactives.ClemInterTemplates
             {
                 _currentAppliedEnergy = value;
                 InterAction();
-                OnChangeColorLightDebug(_currentAppliedEnergy);
+                if (hasDebugMod)
+                    OnChangeColorLightDebug(_currentAppliedEnergy);
             }
         }
-        
+
         private Light InterLight { get; set; }
-        
+
         public EmitterInter EmitRef { get; set; }
 
         public float DistFromEmit
         {
             get
             {
-                if (EmitRef == null)
+                if (EmitRef is null)
                     return 0;
-                
+
                 return Vector3.Distance(EmitRef.transform.position, transform.position);
             }
         }
@@ -40,7 +42,7 @@ namespace GameContent.Interactives.ClemInterTemplates
         //public bool IsHitting => Physics;
 
         #endregion
-        
+
         #region methodes
 
         protected override void OnInit()
@@ -50,15 +52,15 @@ namespace GameContent.Interactives.ClemInterTemplates
             _rb = GetComponent<Rigidbody>();
 
             _rb.mass = 1000;
-            _rb.constraints = RigidbodyConstraints.FreezeRotation;
+            _rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
             _rb.isKinematic = true;
 
             if (debugMod.hasLight)
             {
                 InterLight = debugMod.debugLight;
-                 OnChangeColorLightDebug(CurrentEnergyType);
+                OnChangeColorLightDebug(CurrentEnergyType);
             }
-            
+
             OnReset();
         }
 
@@ -71,10 +73,10 @@ namespace GameContent.Interactives.ClemInterTemplates
         public override void PlayerCancel()
         {
             //Debug.Log($"player cancel {this}");
-            //delink this du player pour lâcher this
+            //delink this du player pour lacher this
         }
 
-        public override void InterAction() 
+        public override void InterAction()
         {
             //Debug.Log($"inter action {this}");
             switch (CurrentEnergyType)
@@ -84,6 +86,7 @@ namespace GameContent.Interactives.ClemInterTemplates
                     hasElectricity = false;
                     isMovable = false;
                     _rb.isKinematic = true;
+                    _rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
                     debugTextLocal = "";
                     break;
                 case EnergyTypes.Yellow:
@@ -91,6 +94,7 @@ namespace GameContent.Interactives.ClemInterTemplates
                     hasElectricity = true;
                     isMovable = false;
                     _rb.isKinematic = true;
+                    _rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
                     debugTextLocal = "";
                     break;
                 case EnergyTypes.Green:
@@ -98,6 +102,7 @@ namespace GameContent.Interactives.ClemInterTemplates
                     hasElectricity = false;
                     isMovable = false;
                     _rb.isKinematic = true;
+                    _rb.constraints = GetRBConstraints(RBCMode.Full);
                     debugTextLocal = "";
                     break;
                 case EnergyTypes.Blue:
@@ -105,10 +110,12 @@ namespace GameContent.Interactives.ClemInterTemplates
                     hasElectricity = false;
                     isMovable = true;
                     _rb.isKinematic = false;
+                    _rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
                     debugTextLocal = debugMod.debugString;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(_currentAppliedEnergy), _currentAppliedEnergy,"how did that happened wtf ???");
+                    throw new ArgumentOutOfRangeException(nameof(_currentAppliedEnergy), _currentAppliedEnergy,
+                        "how did that happened wtf ???");
             }
         }
 
@@ -116,9 +123,18 @@ namespace GameContent.Interactives.ClemInterTemplates
         {
             CurrentEnergyType = EnergyTypes.None;
         }
-        
+
         private void OnChangeColorLightDebug(EnergyTypes type) => InterLight.color = LightDebugger.DebugColor(type);
 
+        public static RigidbodyConstraints GetRBConstraints(RBCMode mode) => mode switch
+        {
+            RBCMode.Rota => RigidbodyConstraints.FreezeRotation,
+            RBCMode.RotaPlan => RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX,
+            RBCMode.Full => RigidbodyConstraints.FreezeAll,
+            RBCMode.None => RigidbodyConstraints.None,
+            _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, "nice try my guy ???")
+        };
+        
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
@@ -133,7 +149,7 @@ namespace GameContent.Interactives.ClemInterTemplates
         [FieldCompletion] [SerializeField] private Animator animator;
 
         [FieldCompletion] public Transform pivot;
-        
+
         private Collider _col;
 
         private Rigidbody _rb;
