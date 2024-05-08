@@ -134,6 +134,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                 switch (_checker.InterRef)
                 {
                     case null:
+                        _stateMachine.OnSwitchState("interact");
                         return;
                     case ReceptorInter { CurrentEnergyType: EnergyTypes.Blue }:
                         _stateMachine.OnSwitchState("locked");

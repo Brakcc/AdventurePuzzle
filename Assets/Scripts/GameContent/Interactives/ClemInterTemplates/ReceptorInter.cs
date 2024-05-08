@@ -115,9 +115,6 @@ namespace GameContent.Interactives.ClemInterTemplates
         public virtual void OnReset()
         {
             CurrentEnergyType = EnergyTypes.None;
-            _col.enabled = true;
-            hasElectricity = false;
-            isMovable = false;
         }
         
         private void OnChangeColorLightDebug(EnergyTypes type) => InterLight.color = LightDebugger.DebugColor(type);

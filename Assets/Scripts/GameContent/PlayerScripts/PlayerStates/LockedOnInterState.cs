@@ -70,7 +70,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             //Debug.Log($"{_interRef.name} and {_interRef.DistFromPlayer} and {_tempDistFromPlayer + Constants.GrabGabThreshold}" );
             
-            if (_interRef.DistFromPlayer >= _tempDistFromPlayer + Constants.GrabGabThreshold ||
+            if (_interRef.DistFromPlayer >= _tempDistFromPlayer + Constants.GrabGapThreshold ||
                 !_checker.InRangeInter.Contains(_interRef))
                 _stateMachine.OnSwitchState("move");
         }
@@ -126,12 +126,12 @@ namespace GameContent.PlayerScripts.PlayerStates
         private float _tempDistFromPlayer;
 
         #endregion
+    }
 
-        private enum LockDirectionMode
-        {
-            TLToBR,
-            BLToTR,
-            None
-        }
+    internal enum LockDirectionMode
+    {
+        TLToBR,
+        BLToTR,
+        None
     }
 }

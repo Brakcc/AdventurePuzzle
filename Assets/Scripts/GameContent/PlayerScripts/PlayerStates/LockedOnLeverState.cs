@@ -1,9 +1,10 @@
-﻿using GameContent.Interactives.ClemInterTemplates;
+﻿using System;
+using GameContent.Interactives.ClemInterTemplates;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    public class LockedOnLeverState : AbstractPlayerState
+    public sealed class LockedOnLeverState : AbstractPlayerState
     {
         #region constructor
         
@@ -20,12 +21,21 @@ namespace GameContent.PlayerScripts.PlayerStates
             _stateMachine = stateMachine;
             
             _leverRef = _checker.InterRef as LeverInter;
+            if (_leverRef!.LeverOrientationMode == LeverOrientationMode.Horizontal)
+                _leverRef.ImageD.SetActive(true);
+            else
+                _leverRef.ImageF.SetActive(true);
+
+            _canManip = false;
+            _canReloadManip = true;
         }
 
         public override void OnExitState(PlayerStateMachine stateMachine)
         {
             _stateMachine = null;
 
+            _leverRef.ImageD.SetActive(false);
+            _leverRef.ImageF.SetActive(false);
             _leverRef = null;
         }
 
@@ -58,7 +68,48 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void OnLeverManip()
         {
+            if (_canManip && _inputDir.magnitude > Constants.MinLeverInputThreshold)
+            {
+                _canManip = false;
+                _canReloadManip = true;
+
+                switch (_leverRef.LeverOrientationMode)
+                {
+                    case LeverOrientationMode.Horizontal:
+                        switch (_inputDir.x)
+                        {
+                            case >= Constants.MinLeverInputThreshold:
+                                _leverRef.Level++;
+                                break;
+                            case <= -Constants.MinLeverInputThreshold:
+                                _leverRef.Level--;
+                                break;
+                        }
+                        break;
+                    case LeverOrientationMode.Vertical:
+                        switch (_inputDir.z)
+                        {
+                            case >= Constants.MinLeverInputThreshold:
+                                _leverRef.Level++;
+                                break;
+                            case <= -Constants.MinLeverInputThreshold:
+                                _leverRef.Level--;
+                                break;
+                        }
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException($"{_leverRef.LeverOrientationMode} ah", "well shit...");
+                }
             
+                //Debug.Log($"{_leverRef.name} + {_leverRef.Level}");
+            }
+
+            
+            if (!_canReloadManip || !(_inputDir.magnitude <= Constants.ReloadLeverManipThreshold))
+                return;
+            
+            _canManip = true;
+            _canReloadManip = false;
         }
         
         #endregion
@@ -66,8 +117,12 @@ namespace GameContent.PlayerScripts.PlayerStates
         #endregion
 
         #region fields
-
+        
         private LeverInter _leverRef;
+
+        private bool _canManip;
+
+        private bool _canReloadManip;
 
         #endregion
     }

@@ -27,16 +27,12 @@ namespace GameContent.Interactives
 
         private void Update()
         {
-            if (!_isInRange) 
-                return;
+            OnUpdate();
+        }
 
-            var localPos = transform.position;
-            var playerPos = _checkerRef.transform.position;
-            
-            DistFromPlayer = Vector3.Distance(localPos, playerPos);
-
-            var vecPlayerToTrans = localPos - playerPos;
-            AngleWithPlayer = Vector3.Angle(vecPlayerToTrans, _checkerRef.transform.forward);
+        private void FixedUpdate()
+        {
+            OnFixedUpdate();
         }
 
         public void AddSelf(InterCheckerState checker)
@@ -68,6 +64,22 @@ namespace GameContent.Interactives
         
         protected virtual void OnInit() {}
 
+        protected virtual void OnUpdate()
+        {
+            if (!_isInRange) 
+                return;
+
+            var localPos = transform.position;
+            var playerPos = _checkerRef.transform.position;
+            
+            DistFromPlayer = Vector3.Distance(localPos, playerPos);
+
+            var vecPlayerToTrans = localPos - playerPos;
+            AngleWithPlayer = Vector3.Angle(vecPlayerToTrans, _checkerRef.transform.forward);
+        }
+
+        protected virtual void OnFixedUpdate() {}
+        
         public abstract void PlayerAction();
 
         public virtual void PlayerCancel() {}

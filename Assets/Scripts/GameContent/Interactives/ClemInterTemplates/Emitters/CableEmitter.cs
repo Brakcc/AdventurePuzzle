@@ -9,10 +9,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
     {
         #region methodes
 
-        private void FixedUpdate()
-        {
-            //_line.SetPosition(1, PlayerEnergyM.instance.transform.position);
-        }
+        //protected override void OnFixedUpdate()
+        //{
+        //    _line.SetPosition(1, PlayerEnergyM.instance.transform.position);
+        //}
 
         protected override void OnInit()
         {
@@ -31,6 +31,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         public override void InterAction()
         {
+            //ici action du cable
+            //
+            //
+            //
+            
             for (var i = 0; i < Count; i++)
             {
                 receptors[i].CurrentEnergyType = this[i].Type;
@@ -78,6 +83,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         [FieldCompletion(FieldColor.Yellow, FieldColor.Green)] 
         [SerializeField] private ReceptorInter[] receptors;
+
+        [SerializeField] private CableNodeMode nodeMode;
 
         //private LineRenderer _line;
 
