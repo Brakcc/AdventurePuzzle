@@ -1,5 +1,5 @@
 ﻿using System;
-using GameContent.Interactives.ClemInterTemplates;
+using GameContent.Interactives.ClemInterTemplates.Levers;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates

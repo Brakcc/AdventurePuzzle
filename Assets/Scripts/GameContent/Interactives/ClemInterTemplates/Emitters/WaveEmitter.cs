@@ -1,13 +1,29 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameContent.Interactives.ClemInterTemplates.Receptors;
 using GameContent.PlayerScripts;
+using TMPro;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates.Emitters
 {
     public sealed class WaveEmitter : EmitterInter
     {
+        #region properties
+
+        public short CurrentHeightLevel
+        {
+            get => _currentLevel;
+            set
+            {
+                _currentLevel = value;
+                levelText.text = _currentLevel.ToString();
+            }
+        }
+
+        #endregion
+        
         #region methodes
 
         protected override void OnInit()
@@ -70,9 +86,13 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
        [SerializeField] private List<RecepDatas> recepDatas;
 
+       [SerializeField] private TMP_Text levelText; 
+
         private readonly Comparison<RecepDatas> Compare = (a, b) =>
             Mathf.RoundToInt(Mathf.Sign(a.ActivationDelay + a.ReceptorInter.DistFromEmit -
                             (b.ActivationDelay + b.ReceptorInter.DistFromEmit)));
+        
+        private short _currentLevel;
         
         #endregion
     }

@@ -1,9 +1,8 @@
-﻿using GameContent.Interactives.ClemInterTemplates.Receptors;
-using UnityEngine;
+﻿using UnityEngine;
 using Utilities.CustomAttributes;
 using Utilities.CustomAttributes.FieldColors;
 
-namespace GameContent.Interactives.ClemInterTemplates
+namespace GameContent.Interactives.ClemInterTemplates.Receptors
 {
     [System.Serializable]
     public struct RecepDatas

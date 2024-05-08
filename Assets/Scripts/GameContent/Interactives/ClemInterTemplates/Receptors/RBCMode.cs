@@ -1,4 +1,4 @@
-﻿namespace GameContent.Interactives.ClemInterTemplates
+﻿namespace GameContent.Interactives.ClemInterTemplates.Receptors
 {
     public enum RBCMode
     {

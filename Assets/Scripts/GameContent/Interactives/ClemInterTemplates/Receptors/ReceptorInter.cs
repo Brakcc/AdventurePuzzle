@@ -1,10 +1,10 @@
 ﻿using System;
 using DebuggingClem;
-using GameContent.Interactives.ClemInterTemplates.Receptors;
 using UnityEngine;
 using Utilities.CustomAttributes;
+using Utilities.CustomAttributes.FieldColors;
 
-namespace GameContent.Interactives.ClemInterTemplates
+namespace GameContent.Interactives.ClemInterTemplates.Receptors
 {
     [RequireComponent(typeof(Collider))]
     [RequireComponent(typeof(Rigidbody))]
@@ -38,8 +38,42 @@ namespace GameContent.Interactives.ClemInterTemplates
                 return Vector3.Distance(EmitRef.transform.position, transform.position);
             }
         }
-
-        //public bool IsHitting => Physics;
+        
+        public bool IsHittingTopRight => Physics.Linecast(
+            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
+                                             heightCorrector * _col.bounds.extents.y, 
+                                             _col.bounds.extents.z + widthCorrector), 
+            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
+                                             heightCorrector * _col.bounds.extents.y, 
+                                             -(_col.bounds.extents.z + widthCorrector)),
+            blockMask);
+        
+        public bool IsHittingTopLeft => Physics.Linecast(
+            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
+                                             heightCorrector * _col.bounds.extents.y, 
+                                             _col.bounds.extents.z + widthCorrector), 
+            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
+                                             heightCorrector * _col.bounds.extents.y, 
+                                             _col.bounds.extents.z + widthCorrector),
+            blockMask);
+        
+        public bool IsHittingBottomRight => Physics.Linecast(
+            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
+                                             heightCorrector * _col.bounds.extents.y, 
+                                             -(_col.bounds.extents.z + widthCorrector)), 
+            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
+                                             heightCorrector * _col.bounds.extents.y, 
+                                             -(_col.bounds.extents.z + widthCorrector)),
+            blockMask);
+        
+        public bool IsHittingBottomLeft => Physics.Linecast(
+            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
+                                             heightCorrector * _col.bounds.extents.y, 
+                                             _col.bounds.extents.z + widthCorrector), 
+            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
+                                             heightCorrector * _col.bounds.extents.y, 
+                                             -(_col.bounds.extents.z + widthCorrector)),
+            blockMask);
 
         #endregion
 
@@ -129,7 +163,7 @@ namespace GameContent.Interactives.ClemInterTemplates
         public static RigidbodyConstraints GetRBConstraints(RBCMode mode) => mode switch
         {
             RBCMode.Rota => RigidbodyConstraints.FreezeRotation,
-            RBCMode.RotaPlan => RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX,
+            RBCMode.RotaPlan => (RigidbodyConstraints)Constants.BitFlagRBConstraintRotaPlan,
             RBCMode.Full => RigidbodyConstraints.FreezeAll,
             RBCMode.None => RigidbodyConstraints.None,
             _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, "nice try my guy ???")
@@ -138,8 +172,34 @@ namespace GameContent.Interactives.ClemInterTemplates
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            //Gizmos.DrawLine(_col.bounds.center + new Vector3(_col.bounds.extents.x, 0, _col.bounds.extents.z), 
-            //    _col.bounds.center + new Vector3(_col.bounds.extents.x, 0, -_col.bounds.extents.z));
+            
+            Gizmos.DrawLine(_col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
+                                                              heightCorrector * _col.bounds.extents.y, 
+                                                              _col.bounds.extents.z + widthCorrector), 
+                             _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
+                                                              heightCorrector * _col.bounds.extents.y, 
+                                                              -(_col.bounds.extents.z + widthCorrector)));
+            
+            Gizmos.DrawLine(_col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
+                                                             heightCorrector * _col.bounds.extents.y, 
+                                                             _col.bounds.extents.z + widthCorrector), 
+                            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector),
+                                                             heightCorrector * _col.bounds.extents.y,
+                                                             -(_col.bounds.extents.z + widthCorrector)));
+            
+            Gizmos.DrawLine(_col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
+                                                             heightCorrector * _col.bounds.extents.y, 
+                                                             _col.bounds.extents.z + widthCorrector), 
+                            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
+                                                             heightCorrector * _col.bounds.extents.y,
+                                                             _col.bounds.extents.z + widthCorrector));
+            
+            Gizmos.DrawLine(_col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
+                                                             heightCorrector * _col.bounds.extents.y,
+                                                             -(_col.bounds.extents.z + widthCorrector)), 
+                            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector,
+                                                             heightCorrector * _col.bounds.extents.y, 
+                                                             -(_col.bounds.extents.z + widthCorrector)));
         }
 
         #endregion
@@ -150,7 +210,13 @@ namespace GameContent.Interactives.ClemInterTemplates
 
         [FieldCompletion] public Transform pivot;
 
-        private Collider _col;
+        [Range(0, 0.2f)] [SerializeField] private float widthCorrector;
+        [Range(-1, 1)] [SerializeField] private float heightCorrector;
+
+        [SerializeField] private LayerMask blockMask;
+        
+        [FieldCompletion(FieldColor.Orange)]
+        [SerializeField] private Collider _col;
 
         private Rigidbody _rb;
 

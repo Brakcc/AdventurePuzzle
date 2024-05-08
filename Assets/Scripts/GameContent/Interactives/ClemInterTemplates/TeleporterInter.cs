@@ -1,3 +1,4 @@
+using GameContent.Interactives.ClemInterTemplates.Receptors;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates

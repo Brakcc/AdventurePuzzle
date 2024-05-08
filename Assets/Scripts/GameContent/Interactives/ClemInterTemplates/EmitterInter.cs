@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates
 {
@@ -12,16 +10,6 @@ namespace GameContent.Interactives.ClemInterTemplates
         protected List<SourceDatas> SourceDatasList { get; private set; }
 
         protected int Count => SourceDatasList.Count;
-
-        public short EmitLevel
-        {
-            get => _currentLevel;
-            set
-            {
-                _currentLevel = value;
-                levelText.text = _currentLevel.ToString();
-            }
-        }
         
         protected SourceDatas this[int id]
         {
@@ -61,14 +49,6 @@ namespace GameContent.Interactives.ClemInterTemplates
             //Debug.Log($"inter action {this}");
             //Cahcnger les valeurs des receps
         }
-
-        #endregion
-
-        #region fields
-
-        [SerializeField] protected TMP_Text levelText;
-        
-        private short _currentLevel;
 
         #endregion
     }
