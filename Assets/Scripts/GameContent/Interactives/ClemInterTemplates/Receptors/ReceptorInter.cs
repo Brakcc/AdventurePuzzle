@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DebuggingClem;
 using UnityEngine;
 using Utilities.CustomAttributes;
@@ -38,43 +39,105 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 return Vector3.Distance(EmitRef.transform.position, transform.position);
             }
         }
+
+        public Vector3 TempDir
+        {
+            get => _tempDir;
+            set => _tempDir = SetDir(value);
+        }
+        
+        public bool IsMovable => _isMovable;
+        
+        #region IsHittingTR
         
         public bool IsHittingTopRight => Physics.Linecast(
             _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
                                              heightCorrector * _col.bounds.extents.y, 
-                                             _col.bounds.extents.z + widthCorrector), 
+                                             _col.bounds.extents.z), 
             _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
                                              heightCorrector * _col.bounds.extents.y, 
-                                             -(_col.bounds.extents.z + widthCorrector)),
+                                             -_col.bounds.extents.z),
+            blockMask) || 
+                                         Physics.Linecast(
+            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
+                                             heightCorrector * _col.bounds.extents.y, 
+                                             -_col.bounds.extents.z), 
+            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
+                                             heightCorrector * _col.bounds.extents.y, 
+                                             _col.bounds.extents.z), 
             blockMask);
+        
+        #endregion
+        
+        #region IsHittingTL
         
         public bool IsHittingTopLeft => Physics.Linecast(
-            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
+            _col.bounds.center + new Vector3(_col.bounds.extents.x, 
                                              heightCorrector * _col.bounds.extents.y, 
                                              _col.bounds.extents.z + widthCorrector), 
-            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
+            _col.bounds.center + new Vector3(-_col.bounds.extents.x, 
                                              heightCorrector * _col.bounds.extents.y, 
                                              _col.bounds.extents.z + widthCorrector),
+            blockMask) || 
+                                        Physics.Linecast(
+            _col.bounds.center + new Vector3(-_col.bounds.extents.x,
+                                             heightCorrector * _col.bounds.extents.y, 
+                                             _col.bounds.extents.z + widthCorrector), 
+            _col.bounds.center + new Vector3(_col.bounds.extents.x, 
+                                             heightCorrector * _col.bounds.extents.y, 
+                                             _col.bounds.extents.z + widthCorrector), 
             blockMask);
         
+        #endregion
+        
+        #region IsHittingBR
+        
         public bool IsHittingBottomRight => Physics.Linecast(
-            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
+            _col.bounds.center + new Vector3(-_col.bounds.extents.x, 
                                              heightCorrector * _col.bounds.extents.y, 
                                              -(_col.bounds.extents.z + widthCorrector)), 
-            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
+            _col.bounds.center + new Vector3(_col.bounds.extents.x, 
+                                             heightCorrector * _col.bounds.extents.y, 
+                                             -(_col.bounds.extents.z + widthCorrector)),
+            blockMask) ||
+                                            Physics.Linecast(
+            _col.bounds.center + new Vector3(_col.bounds.extents.x, 
+                                             heightCorrector * _col.bounds.extents.y, 
+                                             -(_col.bounds.extents.z + widthCorrector)), 
+            _col.bounds.center + new Vector3(-_col.bounds.extents.x, 
                                              heightCorrector * _col.bounds.extents.y, 
                                              -(_col.bounds.extents.z + widthCorrector)),
             blockMask);
+        
+        #endregion
+        
+        #region IsHittingBL
         
         public bool IsHittingBottomLeft => Physics.Linecast(
             _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
                                              heightCorrector * _col.bounds.extents.y, 
-                                             _col.bounds.extents.z + widthCorrector), 
+                                             _col.bounds.extents.z), 
             _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
                                              heightCorrector * _col.bounds.extents.y, 
-                                             -(_col.bounds.extents.z + widthCorrector)),
+                                             -_col.bounds.extents.z),
+            blockMask) || 
+                                           Physics.Linecast(
+            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
+                                             heightCorrector * _col.bounds.extents.y, 
+                                             -_col.bounds.extents.z), 
+            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
+                                             heightCorrector * _col.bounds.extents.y, 
+                                             _col.bounds.extents.z),
             blockMask);
 
+        #endregion
+
+        #region HasBlueAbove
+
+        public List<ReceptorInter> TopReceps => _grabber.RecepRefs;
+
+        #endregion
+        
         #endregion
 
         #region methodes
@@ -84,20 +147,25 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             hasElectricity = false;
             _col = GetComponent<Collider>();
             _rb = GetComponent<Rigidbody>();
+            _grabber = GetComponentInChildren<RecepsTopBlockGrabber>();
 
             _rb.mass = 1000;
             _rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
             _rb.isKinematic = true;
+
+            _tempDir = Vector3.zero;
 
             if (debugMod.hasLight)
             {
                 InterLight = debugMod.debugLight;
                 OnChangeColorLightDebug(CurrentEnergyType);
             }
-
+            
             OnReset();
         }
 
+        #region Actions
+        
         public override void PlayerAction()
         {
             //Debug.Log($"player action {this}");
@@ -118,7 +186,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 case EnergyTypes.None:
                     _col.enabled = true;
                     hasElectricity = false;
-                    isMovable = false;
+                    _isMovable = false;
                     _rb.isKinematic = true;
                     _rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
                     debugTextLocal = "";
@@ -126,7 +194,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 case EnergyTypes.Yellow:
                     _col.enabled = true;
                     hasElectricity = true;
-                    isMovable = false;
+                    _isMovable = false;
                     _rb.isKinematic = true;
                     _rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
                     debugTextLocal = "";
@@ -134,7 +202,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 case EnergyTypes.Green:
                     _col.enabled = false;
                     hasElectricity = false;
-                    isMovable = false;
+                    _isMovable = false;
                     _rb.isKinematic = true;
                     _rb.constraints = GetRBConstraints(RBCMode.Full);
                     debugTextLocal = "";
@@ -142,7 +210,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 case EnergyTypes.Blue:
                     _col.enabled = true;
                     hasElectricity = false;
-                    isMovable = true;
+                    _isMovable = true;
                     _rb.isKinematic = false;
                     _rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
                     debugTextLocal = debugMod.debugString;
@@ -152,7 +220,22 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                         "how did that happened wtf ???");
             }
         }
+        
+        #endregion
 
+        private Vector3 SetDir(Vector3 dir) => (dir.x, dir.z) switch
+        {
+            (>= Constants.MinBlockMoveInputThreshold, <= Constants.MinBlockMoveInputThreshold) => IsHittingTopRight ? Vector3.zero : dir,
+            (<= Constants.MinBlockMoveInputThreshold, >= Constants.MinBlockMoveInputThreshold) => IsHittingTopLeft ? Vector3.zero : dir,
+            (<= Constants.MinBlockMoveInputThreshold, <= -Constants.MinBlockMoveInputThreshold) => IsHittingBottomRight ? Vector3.zero : dir,
+            (<= -Constants.MinBlockMoveInputThreshold, <= Constants.MinBlockMoveInputThreshold) => IsHittingBottomLeft ? Vector3.zero : dir,
+            _ => Vector3.zero
+        };
+
+        public void MoveSolid(Vector3 dir) => _rb.position += dir;
+            
+        public void SetRBConstraints(RigidbodyConstraints constraints) => _rb.constraints = constraints;
+        
         public virtual void OnReset()
         {
             CurrentEnergyType = EnergyTypes.None;
@@ -166,8 +249,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             RBCMode.RotaPlan => (RigidbodyConstraints)Constants.BitFlagRBConstraintRotaPlan,
             RBCMode.Full => RigidbodyConstraints.FreezeAll,
             RBCMode.None => RigidbodyConstraints.None,
-            _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, "nice try my guy ???")
+            _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, "nice try my guy")
         };
+        
+        #region Gizmos
         
         private void OnDrawGizmos()
         {
@@ -175,35 +260,41 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
             var bounds = _col.bounds;
             
+            //Top Right
             Gizmos.DrawLine(bounds.center + new Vector3(bounds.extents.x + widthCorrector, 
-                                                              heightCorrector * bounds.extents.y, 
-                                                              bounds.extents.z + widthCorrector), 
+                                                        heightCorrector * bounds.extents.y,
+                                                        bounds.extents.z), 
                              bounds.center + new Vector3(bounds.extents.x + widthCorrector, 
-                                                              heightCorrector * bounds.extents.y, 
-                                                              -(bounds.extents.z + widthCorrector)));
+                                                         heightCorrector * bounds.extents.y, 
+                                                         -bounds.extents.z));
             
-            Gizmos.DrawLine(_col.bounds.center + new Vector3(-(bounds.extents.x + widthCorrector), 
-                                                             heightCorrector * bounds.extents.y, 
-                                                             bounds.extents.z + widthCorrector), 
+            //Bottom Left
+            Gizmos.DrawLine(bounds.center + new Vector3(-(bounds.extents.x + widthCorrector), 
+                                                        heightCorrector * bounds.extents.y,
+                                                        bounds.extents.z),
                             bounds.center + new Vector3(-(bounds.extents.x + widthCorrector),
-                                                             heightCorrector * bounds.extents.y,
-                                                             -(bounds.extents.z + widthCorrector)));
+                                                        heightCorrector * bounds.extents.y,
+                                                        -bounds.extents.z));
             
-            Gizmos.DrawLine(_col.bounds.center + new Vector3(bounds.extents.x + widthCorrector, 
-                                                             heightCorrector * bounds.extents.y, 
-                                                             bounds.extents.z + widthCorrector), 
-                            bounds.center + new Vector3(-(bounds.extents.x + widthCorrector), 
-                                                             heightCorrector * bounds.extents.y,
-                                                             bounds.extents.z + widthCorrector));
+            //Top Left
+            Gizmos.DrawLine(bounds.center + new Vector3(bounds.extents.x, 
+                                                        heightCorrector * bounds.extents.y, 
+                                                        bounds.extents.z + widthCorrector), 
+                            bounds.center + new Vector3(-bounds.extents.x, 
+                                                        heightCorrector * bounds.extents.y,
+                                                        bounds.extents.z + widthCorrector));
             
-            Gizmos.DrawLine(_col.bounds.center + new Vector3(-(bounds.extents.x + widthCorrector), 
-                                                             heightCorrector * bounds.extents.y,
-                                                             -(bounds.extents.z + widthCorrector)), 
-                            bounds.center + new Vector3(bounds.extents.x + widthCorrector,
-                                                             heightCorrector * bounds.extents.y, 
-                                                             -(bounds.extents.z + widthCorrector)));
+            //Bottom Right
+            Gizmos.DrawLine(bounds.center + new Vector3(-bounds.extents.x, 
+                                                        heightCorrector * bounds.extents.y,
+                                                        -(bounds.extents.z + widthCorrector)), 
+                            bounds.center + new Vector3(bounds.extents.x,
+                                                        heightCorrector * bounds.extents.y, 
+                                                        -(bounds.extents.z + widthCorrector)));
         }
 
+        #endregion
+        
         #endregion
 
         #region fields
@@ -222,11 +313,15 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         private Rigidbody _rb;
 
+        private RecepsTopBlockGrabber _grabber;
+
         private EnergyTypes _currentAppliedEnergy;
 
-        protected bool hasElectricity;
+        private Vector3 _tempDir;
 
-        protected bool isMovable;
+        private bool _isMovable;
+
+        protected bool hasElectricity;
 
         #endregion
     }
