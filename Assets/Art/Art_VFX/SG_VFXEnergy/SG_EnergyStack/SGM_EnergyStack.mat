@@ -56,12 +56,14 @@ Material:
     m_Ints: []
     m_Floats:
     - _Cell: 3.48
+    - _Cutoff_Height: 0
+    - _Noise_Strength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Speed: 1.38
     - _shinespeed: 0.005
     - _tiling: 0.25
     m_Colors:
-    - _Color: {r: 0, g: 0.8249159, b: 1, a: 0}
+    - _Color: {r: 0, g: 0.8235297, b: 1, a: 0}
     - _LightColor: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
