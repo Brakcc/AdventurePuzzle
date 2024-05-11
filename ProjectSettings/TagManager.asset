@@ -36,9 +36,12 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - IgnoreCollisionFlags
   - Player
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: StarVFX
+    uniqueID: 953059927
     locked: 0

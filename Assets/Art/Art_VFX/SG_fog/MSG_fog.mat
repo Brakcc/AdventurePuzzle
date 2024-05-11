@@ -51,13 +51,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Density: 0.04
+    - _Density: 0.074
     - _Divider: 5
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
     - _Background_Color: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.57075465, g: 0.9862655, b: 1, a: 1}
-    - _Fog: {r: 1, g: 0.4870981, b: 0.3443396, a: 1}
+    - _Fog: {r: 1, g: 0.34509802, b: 0.55493504, a: 1}
     - _Foreground_color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
