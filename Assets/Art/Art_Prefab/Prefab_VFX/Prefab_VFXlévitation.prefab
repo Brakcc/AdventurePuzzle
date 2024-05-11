@@ -75,6 +75,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2330862173574123544, guid: 4061d70fbc2ad4d439fdb7dc36dd674d,
         type: 3}
+      propertyPath: CustomDataModule.vector1_1.scalar
+      value: 6.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 2330862173574123544, guid: 4061d70fbc2ad4d439fdb7dc36dd674d,
+        type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 2
       objectReference: {fileID: 0}
@@ -95,6 +100,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2330862173574123544, guid: 4061d70fbc2ad4d439fdb7dc36dd674d,
         type: 3}
+      propertyPath: CustomDataModule.vectorComponentCount1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2330862173574123544, guid: 4061d70fbc2ad4d439fdb7dc36dd674d,
+        type: 3}
       propertyPath: SubModule.subEmitters.Array.data[0].emitter
       value: 
       objectReference: {fileID: 0}
@@ -102,6 +112,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3733402924578733929, guid: 4061d70fbc2ad4d439fdb7dc36dd674d,
+        type: 3}
+      propertyPath: m_VertexStreams.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3733402924578733929, guid: 4061d70fbc2ad4d439fdb7dc36dd674d,
+        type: 3}
+      propertyPath: m_VertexStreams.Array.data[5]
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 4733241267609597617, guid: 4061d70fbc2ad4d439fdb7dc36dd674d,
         type: 3}
@@ -271,7 +291,7 @@ PrefabInstance:
     - target: {fileID: 8207274318889478582, guid: 4061d70fbc2ad4d439fdb7dc36dd674d,
         type: 3}
       propertyPath: m_Name
-      value: "Prefab_VFXl\xE9vitation Variant"
+      value: "Prefab_VFXl\xE9vitation"
       objectReference: {fileID: 0}
     - target: {fileID: 8555635268965186174, guid: 4061d70fbc2ad4d439fdb7dc36dd674d,
         type: 3}
