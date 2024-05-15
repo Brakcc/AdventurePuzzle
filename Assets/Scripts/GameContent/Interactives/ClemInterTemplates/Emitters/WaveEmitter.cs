@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using GameContent.Interactives.ClemInterTemplates.Receptors;
 using GameContent.PlayerScripts;
@@ -47,8 +46,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         public override void PlayerAction()
         {
             if (SourceDatasList.Count >= recepDatas.Count)
-                         return;
-                     
+                return;
+            
+            if (PlayerEnergyM.EnergyType == EnergyTypes.None)
+                return;
+            
             SourceDatasList.Add(PlayerEnergyM.CurrentSource);
             PlayerEnergyM.CurrentSource = new SourceDatas(null);
             PlayerEnergyM.OnSourceChangedDebug();
@@ -63,7 +65,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
             if (PlayerEnergyM.GetEnergyBack)
             {
-                PlayerEnergyM.CurrentSource.Source.InterAction();
+                if (PlayerEnergyM.EnergyType != EnergyTypes.None)
+                    PlayerEnergyM.CurrentSource.Source.InterAction();
                 PlayerEnergyM.CurrentSource = SourceDatasList[Count - 1];
                 PlayerEnergyM.OnSourceChangedDebug();
             }
@@ -74,19 +77,30 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             base.PlayerCancel();
         }
 
-        private IEnumerator WaveStarted()
+        protected override void OnUpdate()
+        {
+            
+            base.OnUpdate();
+        }
+
+        private void WaveStarted(EnergyTypes type)
         {
             //var tempTime = 0f;
-            yield break;
         }
         
         #endregion
 
         #region fields
+        
+        [SerializeField] private List<RecepDatas> recepDatas;
+        
+        [SerializeField] private TMP_Text levelText;
 
-       [SerializeField] private List<RecepDatas> recepDatas;
-
-       [SerializeField] private TMP_Text levelText; 
+        [SerializeField] private float tripleWavesDelay;
+        
+        [SerializeField] private float monoWaveDelay;
+        
+        [SerializeField] private float waveSpeed;
 
         private readonly Comparison<RecepDatas> Compare = (a, b) =>
             Mathf.RoundToInt(Mathf.Sign(a.ActivationDelay + a.ReceptorInter.DistFromEmit -

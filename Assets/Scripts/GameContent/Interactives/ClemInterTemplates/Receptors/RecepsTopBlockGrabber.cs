@@ -28,8 +28,9 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 return;
             
             RecepRefs.Add(recep);
+            recep.IsOnTop = true;
             recep.SetRBConstraints((RigidbodyConstraints)112);
-            Debug.Log($"{recep.name}  added");
+            //Debug.Log($"{recep.name}  added");
         }
 
         private void OnTriggerExit(Collider other)
@@ -44,9 +45,23 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 return;
             
             recep.SetRBConstraints((RigidbodyConstraints)Constants.BitFlagRBConstraintRotaPlan);
+            recep.IsOnTop = false;
             RecepRefs.Remove(recep);
-            Debug.Log($"{recep.name}  removed");
+            //Debug.Log($"{recep.name}  removed");
         }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            
+            Gizmos.DrawWireCube(col.transform.position, col.bounds.size);
+        }
+
+        #endregion
+
+        #region fields
+
+        [SerializeField] private Collider col;
 
         #endregion
     }

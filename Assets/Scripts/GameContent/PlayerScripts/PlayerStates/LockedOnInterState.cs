@@ -34,7 +34,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         public override void OnExitState(PlayerStateMachine stateMachine)
         {
             _tempDistFromPlayer = 0;
-            _recepRefRb.constraints = ReceptorInter.GetRBConstraints(RBCMode.RotaPlan);
+            _recepRefRb.constraints = ReceptorInter.GetRBConstraints(_interRef.IsOnTop ? RBCMode.Rota : RBCMode.RotaPlan);
             
             _stateMachine = null;
             _interRef = null;

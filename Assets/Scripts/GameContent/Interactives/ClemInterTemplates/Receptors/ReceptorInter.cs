@@ -135,6 +135,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         #region HasBlueAbove
 
         public List<ReceptorInter> TopReceps => _grabber.RecepRefs;
+        
+        public bool IsOnTop { get; set; }
 
         #endregion
         
@@ -154,6 +156,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             _rb.isKinematic = true;
 
             _tempDir = Vector3.zero;
+            IsOnTop = false;
 
             if (debugMod.hasLight)
             {
