@@ -105,9 +105,13 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         private readonly Comparison<RecepDatas> Compare = (a, b) =>
             Mathf.RoundToInt(Mathf.Sign(a.ActivationDelay + a.ReceptorInter.DistFromEmit -
                             (b.ActivationDelay + b.ReceptorInter.DistFromEmit)));
-        
+
         private short _currentLevel;
-        
+
+        private float _tripleWavesDelayCounter;
+
+        private float _monoWaveDelayCounter;
+
         #endregion
     }
 }

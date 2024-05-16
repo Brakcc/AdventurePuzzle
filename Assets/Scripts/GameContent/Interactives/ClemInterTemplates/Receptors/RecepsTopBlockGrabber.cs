@@ -53,8 +53,9 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            
-            Gizmos.DrawWireCube(col.transform.position, col.bounds.size);
+
+            var bounds = col.bounds;
+            Gizmos.DrawWireCube(bounds.center, bounds.size);
         }
 
         #endregion
