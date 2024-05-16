@@ -1,4 +1,4 @@
-using GameContent.Interactives.ClemInterTemplates;
+using GameContent.Interactives.ClemInterTemplates.Receptors;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
@@ -23,8 +23,10 @@ namespace GameContent.PlayerScripts.PlayerStates
             _interRef = _checker.InterRef as ReceptorInter;
             
             _recepRefRb = _interRef!.GetComponent<Rigidbody>();
+            _recepRefRb.constraints = ReceptorInter.GetRBConstraints(RBCMode.Rota);
             
             _tempDistFromPlayer = _interRef.DistFromPlayer;
+            _fallCounter = 0;
             
             _directionMode = GetBaseMoveDir();
         }
@@ -32,6 +34,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         public override void OnExitState(PlayerStateMachine stateMachine)
         {
             _tempDistFromPlayer = 0;
+            _recepRefRb.constraints = ReceptorInter.GetRBConstraints(_interRef.IsOnTop ? RBCMode.Rota : RBCMode.RotaPlan);
             
             _stateMachine = null;
             _interRef = null;
@@ -45,6 +48,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             var input = _datasSo.moveInput.action.ReadValue<Vector2>();
             _inputDir = new Vector3(input.x, 0, input.y).normalized;
             
+            OnFall();
             GetHoldInput();
         }
 
@@ -96,21 +100,42 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (_inputDir.magnitude <= Constants.MinMoveInputValue)
                 return;
             
-            //trouver une simplification a l'enterState
             _currentDir = _directionMode switch
             {
-                LockDirectionMode.BLToTR when _inputDir is { x: > 0, z: > 0 } or { x: < 0, z: < 0 } => (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
-                LockDirectionMode.TLToBR when _inputDir is { x: > 0, z: < 0 } or { x: < 0, z: > 0 } => (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                LockDirectionMode.BLToTR when _inputDir is { x: > 0, z: > 0 } => _interRef.IsHittingTopRight ? Vector3.zero : (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                LockDirectionMode.BLToTR when _inputDir is { x: < 0, z: < 0 } => _interRef.IsHittingBottomLeft ? Vector3.zero : (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                LockDirectionMode.TLToBR when _inputDir is { x: > 0, z: < 0 } => _interRef.IsHittingBottomRight ? Vector3.zero : (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                LockDirectionMode.TLToBR when _inputDir is { x: < 0, z: > 0 } => _interRef.IsHittingTopLeft ? Vector3.zero : (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
                 _ => Vector3.zero
-            
             };
+            
+            //Debug.Log($"{_interRef.name} = {_interRef.IsHittingTopRight}  {_interRef.IsHittingTopLeft}  {_interRef.IsHittingBottomRight}  {_interRef.IsHittingBottomLeft}");
             
             _cc.SimpleMove(_currentDir * (_datasSo.moveDatasSo.holdingRecepMoveSpeed * Constants.SpeedMultiplier * Time.deltaTime));
             
             //obj move
-            _recepRefRb.position += _currentDir * (Time.deltaTime * Constants.RecepMoveSpeedMultiplier);
+            var tempDir = _currentDir * (Time.deltaTime * Constants.RecepMoveSpeedMultiplier);
+            _recepRefRb.position += tempDir;
+            foreach (var r in _interRef.TopReceps)
+            {
+                r.TempDir = tempDir;
+                r.MoveSolid(r.TempDir);
+            }
         }
         
+        #endregion
+
+        #region fall switchers
+        
+        private void OnFall()
+        {
+            if (!IsGrounded)
+                _fallCounter += Time.deltaTime;
+            
+            if (_fallCounter >= Constants.MaxFallCounterWhileGrabThreshold)
+                _stateMachine.OnSwitchState("fall");
+        }
+
         #endregion
 
         #endregion
@@ -124,6 +149,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         private LockDirectionMode _directionMode;
 
         private float _tempDistFromPlayer;
+
+        private float _fallCounter;
 
         #endregion
     }

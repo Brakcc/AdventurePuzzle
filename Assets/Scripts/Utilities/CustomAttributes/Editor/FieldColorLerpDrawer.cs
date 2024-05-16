@@ -10,7 +10,15 @@ namespace Utilities.CustomAttributes.Editor
         {
             if (attribute is FieldColorLerp field)
             {
-                GUI.color = GetLerpedColor(field.color1, field.color2, property.floatValue, field.minValue, field.maxValue);
+                GUI.color = property.numericType switch
+                {
+                    SerializedPropertyNumericType.Float =>
+                        GetLerpedColor(field.color1, field.color2, property.floatValue, field.minValue, field.maxValue),
+                    SerializedPropertyNumericType.Int16 or SerializedPropertyNumericType.Int32 => 
+                        GetLerpedColor(field.color1, field.color2, property.intValue, field.minValue, field.maxValue),
+                    _ => GUI.color
+                };
+
                 // if (!(property.serializedObject.GetType().IsClass || property.serializedObject.GetType().IsInterface))
                 //    GUI.color = GetLerpedColor(field.color1, field.color2, property.floatValue, field.minValue, field.maxValue);
                 // else

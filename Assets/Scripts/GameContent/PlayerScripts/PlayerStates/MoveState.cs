@@ -1,4 +1,5 @@
-﻿using GameContent.Interactives.ClemInterTemplates;
+﻿using GameContent.Interactives.ClemInterTemplates.Levers;
+using GameContent.Interactives.ClemInterTemplates.Receptors;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
@@ -136,7 +137,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                     case null:
                         _stateMachine.OnSwitchState("interact");
                         return;
-                    case ReceptorInter { CurrentEnergyType: EnergyTypes.Blue }:
+                    case ReceptorInter { IsMovable: true}:
                         _stateMachine.OnSwitchState("locked");
                         return;
                     case LeverInter : 

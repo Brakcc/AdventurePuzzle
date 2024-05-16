@@ -14,6 +14,15 @@ namespace GameContent.Interactives
         public float AngleWithPlayer { get; private set; }
 
         #endregion
+
+        #region constructors
+
+        ~BaseInterBehavior()
+        {
+            Debug.Log($"{gameObject.name} removed");
+        }
+
+        #endregion
         
         #region methodes
 
@@ -27,16 +36,12 @@ namespace GameContent.Interactives
 
         private void Update()
         {
-            if (!_isInRange) 
-                return;
+            OnUpdate();
+        }
 
-            var localPos = transform.position;
-            var playerPos = _checkerRef.transform.position;
-            
-            DistFromPlayer = Vector3.Distance(localPos, playerPos);
-
-            var vecPlayerToTrans = localPos - playerPos;
-            AngleWithPlayer = Vector3.Angle(vecPlayerToTrans, _checkerRef.transform.forward);
+        private void FixedUpdate()
+        {
+            OnFixedUpdate();
         }
 
         public void AddSelf(InterCheckerState checker)
@@ -68,11 +73,27 @@ namespace GameContent.Interactives
         
         protected virtual void OnInit() {}
 
-        public abstract void PlayerAction();
+        protected virtual void OnUpdate()
+        {
+            if (!_isInRange) 
+                return;
+
+            var localPos = transform.position;
+            var playerPos = _checkerRef.transform.position;
+            
+            DistFromPlayer = Vector3.Distance(localPos, playerPos);
+
+            var vecPlayerToTrans = localPos - playerPos;
+            AngleWithPlayer = Vector3.Angle(vecPlayerToTrans, _checkerRef.transform.forward);
+        }
+
+        protected virtual void OnFixedUpdate() {}
+        
+        public virtual void PlayerAction() {}
 
         public virtual void PlayerCancel() {}
 
-        public abstract void InterAction();
+        public virtual void InterAction() {}
     
         #endregion
         
