@@ -14,6 +14,15 @@ namespace GameContent.Interactives
         public float AngleWithPlayer { get; private set; }
 
         #endregion
+
+        #region constructors
+
+        ~BaseInterBehavior()
+        {
+            Debug.Log($"{gameObject.name} removed");
+        }
+
+        #endregion
         
         #region methodes
 

@@ -21,7 +21,12 @@ namespace GameContent.PlayerScripts
             _goRef = go;
             _currentDir = _isoForwardDir;
         }
-             
+
+        ~AbstractPlayerState()
+        {
+            Debug.Log($"{this} removed");
+        }
+        
         #endregion
         
         #region base methodes

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates.Emitters
 {
-    public class CableNode : BaseInterBehavior
+    public sealed class CableNode : BaseInterBehavior
     {
         #region properties
 
