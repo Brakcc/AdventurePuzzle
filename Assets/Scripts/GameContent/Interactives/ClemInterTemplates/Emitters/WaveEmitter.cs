@@ -28,6 +28,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         protected override void OnInit()
         {
             base.OnInit();
+            _currentEnergySourceID = 0;
+            
             if (recepDatas.Count == 0)
                 return;
             
@@ -79,13 +81,27 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         protected override void OnUpdate()
         {
-            
             base.OnUpdate();
+            
+            if (_tripleWavesDelayCounter <= tripleWavesDelay)
+            {
+                _tripleWavesDelayCounter += Time.deltaTime;
+                return;
+            }
+            _tripleWavesDelayCounter = 0;
+            
+            if (Count == 0)
+                return;
+            
+            WaveStarted(this[_currentEnergySourceID].Type);
+            _currentEnergySourceID = (short)((_currentEnergySourceID + 1) % Count);
         }
 
-        private void WaveStarted(EnergyTypes type)
+        private async void WaveStarted(EnergyTypes type)
         {
             //var tempTime = 0f;
+            Debug.Log(_currentEnergySourceID);
+            
         }
         
         #endregion
@@ -96,9 +112,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         [SerializeField] private TMP_Text levelText;
 
+        [Range(1, 10)]
         [SerializeField] private float tripleWavesDelay;
-        
-        [SerializeField] private float monoWaveDelay;
         
         [SerializeField] private float waveSpeed;
 
@@ -108,9 +123,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         private short _currentLevel;
 
+        private short _currentEnergySourceID;
+        
         private float _tripleWavesDelayCounter;
 
-        private float _monoWaveDelayCounter;
+        private volatile float _monoWaveDelayCounter; //é_é
 
         #endregion
     }
