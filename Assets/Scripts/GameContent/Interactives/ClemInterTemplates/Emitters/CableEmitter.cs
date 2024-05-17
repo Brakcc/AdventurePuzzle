@@ -37,7 +37,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             //
             //
             
-            for (var i = 0; i < Count; i++)
+            for (var i = 0; i < SourceCount; i++)
             {
                 receptors[i].CurrentEnergyType = this[i].Type;
             }
@@ -60,21 +60,21 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public override void PlayerCancel()
         {
-            if (Count <= 0)
+            if (SourceCount <= 0)
                 return;
 
             if (PlayerEnergyM.GetEnergyBack)
             {
                 if (PlayerEnergyM.EnergyType != EnergyTypes.None)
                     PlayerEnergyM.CurrentSource.Source.InterAction();
-                PlayerEnergyM.CurrentSource = SourceDatasList[Count - 1];
+                PlayerEnergyM.CurrentSource = SourceDatasList[SourceCount - 1];
                 PlayerEnergyM.OnSourceChangedDebug();
             }
             else 
-                SourceDatasList[Count - 1].Source.InterAction();
+                SourceDatasList[SourceCount - 1].Source.InterAction();
             
-            receptors[Count - 1].OnReset();
-            SourceDatasList.RemoveAt(Count - 1);
+            receptors[SourceCount - 1].OnReset();
+            SourceDatasList.RemoveAt(SourceCount - 1);
             base.PlayerCancel();
         }
 

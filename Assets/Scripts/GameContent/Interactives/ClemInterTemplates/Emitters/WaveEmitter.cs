@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using GameContent.Interactives.ClemInterTemplates.Receptors;
 using GameContent.PlayerScripts;
@@ -11,6 +12,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
     {
         #region properties
 
+        private int RecepCount => recepDatas.Count;
+        
         public short CurrentHeightLevel
         {
             get => _currentLevel;
@@ -62,20 +65,20 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public override void PlayerCancel()
         {
-            if (Count <= 0)
+            if (SourceCount <= 0)
                 return;
 
             if (PlayerEnergyM.GetEnergyBack)
             {
                 if (PlayerEnergyM.EnergyType != EnergyTypes.None)
                     PlayerEnergyM.CurrentSource.Source.InterAction();
-                PlayerEnergyM.CurrentSource = SourceDatasList[Count - 1];
+                PlayerEnergyM.CurrentSource = SourceDatasList[SourceCount - 1];
                 PlayerEnergyM.OnSourceChangedDebug();
             }
             else
-                SourceDatasList[Count - 1].Source.InterAction();
+                SourceDatasList[SourceCount - 1].Source.InterAction();
             
-            SourceDatasList.RemoveAt(Count - 1);
+            SourceDatasList.RemoveAt(SourceCount - 1);
             base.PlayerCancel();
         }
 
@@ -90,17 +93,25 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             }
             _tripleWavesDelayCounter = 0;
             
-            if (Count == 0)
+            if (SourceCount == 0)
                 return;
             
             WaveStarted(this[_currentEnergySourceID].Type);
-            _currentEnergySourceID = (short)((_currentEnergySourceID + 1) % Count);
+            _currentEnergySourceID = (short)((_currentEnergySourceID + 1) % SourceCount);
         }
 
         private async void WaveStarted(EnergyTypes type)
         {
-            //var tempTime = 0f;
             Debug.Log(_currentEnergySourceID);
+            var i = SourceCount;
+            while (i > 0)
+            {
+                
+            }
+        }
+
+        private async void MonoWaveStarted()
+        {
             
         }
         
