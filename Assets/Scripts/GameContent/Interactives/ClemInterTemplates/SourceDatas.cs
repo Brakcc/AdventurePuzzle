@@ -1,6 +1,9 @@
-﻿namespace GameContent.Interactives.ClemInterTemplates
+﻿using System;
+using UnityEngine;
+
+namespace GameContent.Interactives.ClemInterTemplates
 {
-    public struct SourceDatas
+    public readonly struct SourceDatas
     {
         #region properties
         
@@ -24,6 +27,16 @@
             Type = source == null ? EnergyTypes.None : source.EnergyType;
         }
 
+        public static Color GetTypedColor(EnergyTypes type) => type switch
+        {
+            EnergyTypes.None => new Color(0, 0, 0, 0),
+            EnergyTypes.Yellow => Color.yellow,
+            EnergyTypes.Green => Color.green,
+            EnergyTypes.Blue => Color.blue,
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, "allez zebi")
+        };
+            
+        
         #endregion
     }
 }

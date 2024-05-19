@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using Utilities.CustomAttributes;
 using Utilities.CustomAttributes.FieldColors;
+using UnityEngine.VFX;
 
 namespace GameContent.Interactives.ClemInterTemplates.Emitters
 {
@@ -16,7 +17,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         private int RecepCount => recepDatas.Count;
 
-        public Vector3 SpherePos => sphere.position;
+        public Vector3 SpherePos => datas.sphere.position;
         
         public short CurrentHeightLevel
         {
@@ -25,8 +26,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             {
                 var prevLevel = _currentLevel;
                 _currentLevel = value;
-                levelText.text = _currentLevel.ToString();
-                sphere.position += Vector3.up * (inBetweenLevelThreshold * (_currentLevel - prevLevel));
+                datas.levelText.text = _currentLevel.ToString();
+                datas.sphere.position += Vector3.up * (datas.inBetweenLevelThreshold * (_currentLevel - prevLevel));
             }
         }
 
@@ -46,11 +47,16 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 r.ReceptorInter.EmitRef = this;
             }
             recepDatas.Sort(Compare);
+            
+            var curve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(datas.waveSpeed / 2, datas.maxDistHit / 2));
+            datas.monoWave.SetAnimationCurve("curve", curve);
+            datas.monoWave.SetAnimationCurve("curve", curve);
+            datas.monoWave.SetFloat("life", 1);
         }
 
         public override void InterAction()
         {
-            
+            //ton père le conifère
         }
 
         public override void PlayerAction()
@@ -91,7 +97,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         {
             base.OnUpdate();
             
-            if (_tripleWavesDelayCounter <= tripleWavesDelay)
+            if (_tripleWavesDelayCounter <= datas.tripleWavesDelay)
             {
                 _tripleWavesDelayCounter += Time.deltaTime;
                 return;
@@ -117,17 +123,27 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 }
                 i--;
 
-                yield return new WaitForSeconds(monoWaveDelay);
+                yield return new WaitForSeconds(datas.monoWaveDelay);
             }
         }
 
         private IEnumerator MonoWaveStarted(int i, int j)
         {
-            yield return new WaitForSeconds((recepDatas[j - 1].ReceptorInter.DistFromEmit + recepDatas[j - 1].ActivationDelay) / waveSpeed);
+            if (this[i - 1].Type == EnergyTypes.None)
+                yield break;
             
-            if (recepDatas[j - 1].ReceptorInter.DistFromEmit >= maxDistHit ||
-                Mathf.Abs(sphere.position.y + levelCorrector - recepDatas[j - 1].ReceptorInter.Pivot.y) >=
-                inBetweenLevelThreshold / 2 + ampliCorrector)
+            datas.monoWave.SetFloat("r", SourceDatas.GetTypedColor(this[i - 1].Type).r * 255);
+            datas.monoWave.SetFloat("g", SourceDatas.GetTypedColor(this[i - 1].Type).g * 255);
+            datas.monoWave.SetFloat("b", SourceDatas.GetTypedColor(this[i - 1].Type).b * 255);
+            datas.monoWave.SetFloat("a", SourceDatas.GetTypedColor(this[i - 1].Type).a * 0.2f);
+
+            datas.monoWave.Play();
+            
+            yield return new WaitForSeconds((recepDatas[j - 1].ReceptorInter.DistFromEmit + recepDatas[j - 1].ActivationDelay) / datas.waveSpeed);
+            
+            if (recepDatas[j - 1].ReceptorInter.DistFromEmit >= datas.maxDistHit ||
+                Mathf.Abs(datas.sphere.position.y + datas.levelCorrector - recepDatas[j - 1].ReceptorInter.Pivot.y) >=
+                datas.inBetweenLevelThreshold / 2 + datas.ampliCorrector)
                 yield break;
             
             recepDatas[j - 1].ReceptorInter.CurrentEnergyType = this[i - 1].Type;
@@ -135,16 +151,16 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = gizmosColor;
-            Gizmos.DrawWireSphere(sphere.position, maxDistHit);
-            Gizmos.DrawWireCube(sphere.position + Vector3.up * levelCorrector, 
-                            new Vector3(maxDistHit * 1.75f, inBetweenLevelThreshold + 2 * ampliCorrector, maxDistHit * 1.75f));
+            Gizmos.color = datas.gizmosColor;
+            Gizmos.DrawWireSphere(datas.sphere.position, datas.maxDistHit);
+            Gizmos.DrawWireCube(datas.sphere.position + Vector3.up * datas.levelCorrector, 
+                            new Vector3(datas.maxDistHit * 1.75f, datas.inBetweenLevelThreshold + 2 * datas.ampliCorrector, datas.maxDistHit * 1.75f));
 
-            Gizmos.color = new Color(gizmosColor.a, gizmosColor.g, gizmosColor.b, gizmosColor.a * 0.2f);
-            if (!drawDebugCube)
+            Gizmos.color = new Color(datas.gizmosColor.a, datas.gizmosColor.g, datas.gizmosColor.b, datas.gizmosColor.a * 0.2f);
+            if (!datas.drawDebugCube)
                 return;
-            Gizmos.DrawCube(sphere.position + Vector3.up * levelCorrector, 
-                            new Vector3(maxDistHit * 1.75f, inBetweenLevelThreshold + 2 * ampliCorrector, maxDistHit * 1.75f));
+            Gizmos.DrawCube(datas.sphere.position + Vector3.up * datas.levelCorrector, 
+                            new Vector3(datas.maxDistHit * 1.75f, datas.inBetweenLevelThreshold + 2 * datas.ampliCorrector, datas.maxDistHit * 1.75f));
         }
 
         #endregion
@@ -152,37 +168,9 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         #region fields
         
         [SerializeField] private List<RecepDatas> recepDatas;
-        
-        [FieldCompletion]
-        [SerializeField] private Transform sphere;
-        
-        [FieldCompletion(_uncheckedColor:FieldColor.Orange)]
-        [SerializeField] private TMP_Text levelText;
 
-        [FieldColorLerp(1, 10)]
-        [Range(1, 10)] [SerializeField] private float tripleWavesDelay;
+        [SerializeField] private WaveEmitterDatas datas;
         
-        [FieldColorLerp(1, 10)]
-        [Range(1, 10)] [SerializeField] private float monoWaveDelay;
-        
-        [FieldColorLerp(1, 10)]
-        [Range(1, 10)] [SerializeField] private float waveSpeed;
-
-        [FieldColorLerp(1, 30)]
-        [Range(1, 30)] [SerializeField] private float maxDistHit;
-        
-        [FieldColorLerp(0, 3)]
-        [Range(0, 3)] [SerializeField] private float inBetweenLevelThreshold;
-
-        [FieldColorLerp(0, 1)]
-        [Range(0, 1)] [SerializeField] private float ampliCorrector;
-        
-        [FieldColorLerp(0, 1)]
-        [Range(0, 1)] [SerializeField] private float levelCorrector; //yPosSphereCorrector
-
-        [SerializeField] private bool drawDebugCube;
-        [SerializeField] private Color gizmosColor;
-
         private readonly Comparison<RecepDatas> Compare = (a, b) =>
             Mathf.RoundToInt(Mathf.Sign(a.ActivationDelay + a.ReceptorInter.DistFromEmit -
                             (b.ActivationDelay + b.ReceptorInter.DistFromEmit)));
@@ -191,6 +179,47 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         private float _tripleWavesDelayCounter;
 
+        #endregion
+    }
+    
+    [Serializable]
+    internal class WaveEmitterDatas
+    {
+        #region fields
+        
+        [FieldCompletion]
+        [SerializeField] internal Transform sphere;
+        
+        [FieldCompletion(_uncheckedColor:FieldColor.Orange)]
+        [SerializeField] internal TMP_Text levelText;
+
+        [FieldColorLerp(1, 10)]
+        [Range(1, 10)] [SerializeField] internal float tripleWavesDelay;
+        
+        [FieldColorLerp(1, 10)]
+        [Range(1, 10)] [SerializeField] internal float monoWaveDelay;
+        
+        [FieldColorLerp(1, 10)]
+        [Range(1, 10)] [SerializeField] internal float waveSpeed;
+
+        [FieldColorLerp(1, 30)]
+        [Range(1, 30)] [SerializeField] internal float maxDistHit;
+        
+        [FieldColorLerp(0, 3)]
+        [Range(0, 3)] [SerializeField] internal float inBetweenLevelThreshold;
+
+        [FieldColorLerp(0, 1)]
+        [Range(0, 1)] [SerializeField] internal float ampliCorrector;
+        
+        [FieldColorLerp(0, 1)]
+        [Range(0, 1)] [SerializeField] internal float levelCorrector; //yPosSphereCorrector
+
+        [FieldCompletion]
+        [SerializeField] internal VisualEffect monoWave;
+        
+        [SerializeField] internal bool drawDebugCube;
+        [SerializeField] internal Color gizmosColor;
+        
         #endregion
     }
 }
