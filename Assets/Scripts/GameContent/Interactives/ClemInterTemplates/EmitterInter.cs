@@ -9,7 +9,7 @@ namespace GameContent.Interactives.ClemInterTemplates
 
         protected List<SourceDatas> SourceDatasList { get; private set; }
 
-        protected int Count => SourceDatasList.Count;
+        protected int SourceCount => SourceDatasList.Count;
         
         protected SourceDatas this[int id]
         {

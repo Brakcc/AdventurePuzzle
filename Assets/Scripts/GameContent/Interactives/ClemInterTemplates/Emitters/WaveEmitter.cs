@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using GameContent.Interactives.ClemInterTemplates.Receptors;
 using GameContent.PlayerScripts;
 using TMPro;
 using UnityEngine;
+using Utilities.CustomAttributes;
+using Utilities.CustomAttributes.FieldColors;
 
 namespace GameContent.Interactives.ClemInterTemplates.Emitters
 {
@@ -11,13 +14,19 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
     {
         #region properties
 
+        private int RecepCount => recepDatas.Count;
+
+        public Vector3 SpherePos => sphere.position;
+        
         public short CurrentHeightLevel
         {
             get => _currentLevel;
             set
             {
+                var prevLevel = _currentLevel;
                 _currentLevel = value;
                 levelText.text = _currentLevel.ToString();
+                sphere.position += Vector3.up * (inBetweenLevelThreshold * (_currentLevel - prevLevel));
             }
         }
 
@@ -28,7 +37,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         protected override void OnInit()
         {
             base.OnInit();
-            _currentEnergySourceID = 0;
             
             if (recepDatas.Count == 0)
                 return;
@@ -62,20 +70,20 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public override void PlayerCancel()
         {
-            if (Count <= 0)
+            if (SourceCount <= 0)
                 return;
 
             if (PlayerEnergyM.GetEnergyBack)
             {
                 if (PlayerEnergyM.EnergyType != EnergyTypes.None)
                     PlayerEnergyM.CurrentSource.Source.InterAction();
-                PlayerEnergyM.CurrentSource = SourceDatasList[Count - 1];
+                PlayerEnergyM.CurrentSource = SourceDatasList[SourceCount - 1];
                 PlayerEnergyM.OnSourceChangedDebug();
             }
             else
-                SourceDatasList[Count - 1].Source.InterAction();
+                SourceDatasList[SourceCount - 1].Source.InterAction();
             
-            SourceDatasList.RemoveAt(Count - 1);
+            SourceDatasList.RemoveAt(SourceCount - 1);
             base.PlayerCancel();
         }
 
@@ -90,44 +98,98 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             }
             _tripleWavesDelayCounter = 0;
             
-            if (Count == 0)
+            if (SourceCount == 0)
                 return;
-            
-            WaveStarted(this[_currentEnergySourceID].Type);
-            _currentEnergySourceID = (short)((_currentEnergySourceID + 1) % Count);
+                
+            StartCoroutine(WaveStarted());
         }
 
-        private async void WaveStarted(EnergyTypes type)
+        private IEnumerator WaveStarted()
         {
-            //var tempTime = 0f;
-            Debug.Log(_currentEnergySourceID);
-            
+            var i = SourceCount;
+            while (i > 0)
+            {
+                var j = RecepCount;
+                while (j > 0)
+                {
+                    StartCoroutine(MonoWaveStarted(i, j));
+                    j--;
+                }
+                i--;
+
+                yield return new WaitForSeconds(monoWaveDelay);
+            }
         }
-        
+
+        private IEnumerator MonoWaveStarted(int i, int j)
+        {
+            yield return new WaitForSeconds((recepDatas[j - 1].ReceptorInter.DistFromEmit + recepDatas[j - 1].ActivationDelay) / waveSpeed);
+            
+            if (recepDatas[j - 1].ReceptorInter.DistFromEmit >= maxDistHit ||
+                Mathf.Abs(sphere.position.y + levelCorrector - recepDatas[j - 1].ReceptorInter.Pivot.y) >=
+                inBetweenLevelThreshold / 2 + ampliCorrector)
+                yield break;
+            
+            recepDatas[j - 1].ReceptorInter.CurrentEnergyType = this[i - 1].Type;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = gizmosColor;
+            Gizmos.DrawWireSphere(sphere.position, maxDistHit);
+            Gizmos.DrawWireCube(sphere.position + Vector3.up * levelCorrector, 
+                            new Vector3(maxDistHit * 1.75f, inBetweenLevelThreshold + 2 * ampliCorrector, maxDistHit * 1.75f));
+
+            Gizmos.color = new Color(gizmosColor.a, gizmosColor.g, gizmosColor.b, gizmosColor.a * 0.2f);
+            if (!drawDebugCube)
+                return;
+            Gizmos.DrawCube(sphere.position + Vector3.up * levelCorrector, 
+                            new Vector3(maxDistHit * 1.75f, inBetweenLevelThreshold + 2 * ampliCorrector, maxDistHit * 1.75f));
+        }
+
         #endregion
 
         #region fields
         
         [SerializeField] private List<RecepDatas> recepDatas;
         
+        [FieldCompletion]
+        [SerializeField] private Transform sphere;
+        
+        [FieldCompletion(_uncheckedColor:FieldColor.Orange)]
         [SerializeField] private TMP_Text levelText;
 
-        [Range(1, 10)]
-        [SerializeField] private float tripleWavesDelay;
+        [FieldColorLerp(1, 10)]
+        [Range(1, 10)] [SerializeField] private float tripleWavesDelay;
         
-        [SerializeField] private float waveSpeed;
+        [FieldColorLerp(1, 10)]
+        [Range(1, 10)] [SerializeField] private float monoWaveDelay;
+        
+        [FieldColorLerp(1, 10)]
+        [Range(1, 10)] [SerializeField] private float waveSpeed;
+
+        [FieldColorLerp(1, 30)]
+        [Range(1, 30)] [SerializeField] private float maxDistHit;
+        
+        [FieldColorLerp(0, 3)]
+        [Range(0, 3)] [SerializeField] private float inBetweenLevelThreshold;
+
+        [FieldColorLerp(0, 1)]
+        [Range(0, 1)] [SerializeField] private float ampliCorrector;
+        
+        [FieldColorLerp(0, 1)]
+        [Range(0, 1)] [SerializeField] private float levelCorrector; //yPosSphereCorrector
+
+        [SerializeField] private bool drawDebugCube;
+        [SerializeField] private Color gizmosColor;
 
         private readonly Comparison<RecepDatas> Compare = (a, b) =>
             Mathf.RoundToInt(Mathf.Sign(a.ActivationDelay + a.ReceptorInter.DistFromEmit -
                             (b.ActivationDelay + b.ReceptorInter.DistFromEmit)));
-
+        
         private short _currentLevel;
-
-        private short _currentEnergySourceID;
         
         private float _tripleWavesDelayCounter;
-
-        private volatile float _monoWaveDelayCounter; //é_é
 
         #endregion
     }
