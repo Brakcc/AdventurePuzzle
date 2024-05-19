@@ -85,8 +85,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         [FieldCompletion(FieldColor.Yellow, FieldColor.Green)] 
         [SerializeField] private ReceptorInter[] receptors;
 
-        [SerializeField] private CableNodeMode nodeMode;
-
         //private LineRenderer _line;
 
         #endregion

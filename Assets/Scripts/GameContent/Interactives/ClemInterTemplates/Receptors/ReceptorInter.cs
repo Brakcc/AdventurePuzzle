@@ -40,6 +40,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             }
         }
 
+        public Vector3 Pivot => pivot.position;
+        
         public Vector3 TempDir
         {
             get => _tempDir;
@@ -304,7 +306,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         [FieldCompletion] [SerializeField] private Animator animator;
 
-        [FieldCompletion] public Transform pivot;
+        [FieldCompletion] [SerializeField] private Transform pivot;
 
         [Range(0.01f, 0.2f)] [SerializeField] private float widthCorrector;
         [Range(-1, 1)] [SerializeField] private float heightCorrector;

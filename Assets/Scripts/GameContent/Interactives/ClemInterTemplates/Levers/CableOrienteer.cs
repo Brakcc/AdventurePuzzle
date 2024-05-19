@@ -1,4 +1,5 @@
-﻿using GameContent.Interactives.ClemInterTemplates.Emitters;
+﻿using System;
+using GameContent.Interactives.ClemInterTemplates.Emitters;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates.Levers
@@ -33,11 +34,19 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
             
         }
 
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = gizmosColor;
+            Gizmos.DrawLine(transform.position, nodeRef.transform.position);
+        }
+
         #endregion
 
         #region fields
 
         [SerializeField] private CableNode nodeRef;
+
+        [SerializeField] private Color gizmosColor;
 
         #endregion
     }
