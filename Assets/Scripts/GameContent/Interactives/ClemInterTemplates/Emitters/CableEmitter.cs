@@ -9,25 +9,18 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
     public sealed class CableEmitter : EmitterInter
     {
         #region methodes
-
-        //protected override void OnFixedUpdate()
-        //{
-        //    _line.SetPosition(1, PlayerEnergyM.instance.transform.position);
-        //}
-
+        
         protected override void OnInit()
         {
             base.OnInit();
-            if (receptors.Length == 0)
+            if (nodes.Length == 0)
                 return;
             
-            foreach (var r in receptors)
+            foreach (var n in nodes)
             {
-                r.EmitRef = this;
+                if (n.dendrite is DentriteType.Receptor)
+                    n.receptorRef.EmitRef = this;
             }
-            
-            //_line = GetComponent<LineRenderer>();
-            //_line.SetPositions(new []{transform.position, PlayerEnergyM.instance.transform.position});
         }
         
         public override void InterAction()
@@ -39,13 +32,14 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             for (var i = 0; i < SourceCount; i++)
             {
-                receptors[i].CurrentEnergyType = this[i].Type;
+                if (nodes[i].dendrite is DentriteType.Receptor)
+                    nodes[i].receptorRef.CurrentEnergyType = this[i].Type;
             }
         }
 
         public override void PlayerAction()
         {
-            if (SourceDatasList.Count >= receptors.Length)
+            if (SourceDatasList.Count >= nodes.Length)
                 return;
             
             if (PlayerEnergyM.EnergyType == EnergyTypes.None)
@@ -73,7 +67,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             else 
                 SourceDatasList[SourceCount - 1].Source.InterAction();
             
-            receptors[SourceCount - 1].OnReset();
+            if (nodes[SourceCount - 1].dendrite is DentriteType.Receptor)
+                nodes[SourceCount - 1].receptorRef.OnReset();
             SourceDatasList.RemoveAt(SourceCount - 1);
             base.PlayerCancel();
         }
@@ -83,9 +78,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         #region fields
         
         [FieldCompletion(FieldColor.Yellow, FieldColor.Green)] 
-        [SerializeField] private ReceptorInter[] receptors;
-
-        //private LineRenderer _line;
+        [SerializeField] private NodeDatas[] nodes;
 
         #endregion
     }

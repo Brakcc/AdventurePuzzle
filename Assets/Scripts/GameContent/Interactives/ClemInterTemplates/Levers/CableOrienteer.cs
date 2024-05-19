@@ -17,6 +17,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
             }
         }
 
+        private Transform NodeTrans => nodeRef.transform;
+        
         #endregion
         
         #region methodes

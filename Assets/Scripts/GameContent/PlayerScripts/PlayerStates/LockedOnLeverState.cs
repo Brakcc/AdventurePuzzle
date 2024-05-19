@@ -28,6 +28,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
             _canManip = false;
             _canReloadManip = true;
+            _unNormalizedInput = Vector2.zero;
         }
 
         public override void OnExitState(PlayerStateMachine stateMachine)
@@ -43,8 +44,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             base.OnUpdate();
             
-            var input = _datasSo.moveInput.action.ReadValue<Vector2>();
-            _inputDir = new Vector3(input.x, 0, input.y).normalized;
+            _unNormalizedInput = _datasSo.moveInput.action.ReadValue<Vector2>();
+            _inputDir = new Vector3(_unNormalizedInput.x, 0, _unNormalizedInput.y).normalized;
             
             GetHoldInput();
         }
@@ -68,7 +69,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void OnLeverManip()
         {
-            if (_canManip && _inputDir.magnitude > Constants.MinLeverInputThreshold)
+            if (_canManip && _unNormalizedInput.magnitude > Constants.MinLeverInputThreshold)
             {
                 _canManip = false;
                 _canReloadManip = true;
@@ -120,6 +121,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         private LeverInter _leverRef;
 
+        private Vector2 _unNormalizedInput;
+        
         private bool _canManip;
 
         private bool _canReloadManip;

@@ -132,12 +132,16 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             if (this[i - 1].Type == EnergyTypes.None)
                 yield break;
             
+            #region VFX
+            
             datas.monoWave.SetFloat("r", SourceDatas.GetTypedColor(this[i - 1].Type).r * 255);
             datas.monoWave.SetFloat("g", SourceDatas.GetTypedColor(this[i - 1].Type).g * 255);
             datas.monoWave.SetFloat("b", SourceDatas.GetTypedColor(this[i - 1].Type).b * 255);
             datas.monoWave.SetFloat("a", SourceDatas.GetTypedColor(this[i - 1].Type).a * 0.2f);
 
             datas.monoWave.Play();
+            
+            #endregion
             
             yield return new WaitForSeconds((recepDatas[j - 1].ReceptorInter.DistFromEmit + recepDatas[j - 1].ActivationDelay) / datas.waveSpeed);
             
@@ -149,6 +153,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             recepDatas[j - 1].ReceptorInter.CurrentEnergyType = this[i - 1].Type;
         }
 
+        #region Gizmos
+        
         private void OnDrawGizmos()
         {
             Gizmos.color = datas.gizmosColor;
@@ -163,6 +169,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                             new Vector3(datas.maxDistHit * 1.75f, datas.inBetweenLevelThreshold + 2 * datas.ampliCorrector, datas.maxDistHit * 1.75f));
         }
 
+        #endregion
+        
         #endregion
 
         #region fields
