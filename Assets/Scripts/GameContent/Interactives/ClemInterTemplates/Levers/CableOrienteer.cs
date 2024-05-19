@@ -1,5 +1,4 @@
-﻿using System;
-using GameContent.Interactives.ClemInterTemplates.Emitters;
+﻿using GameContent.Interactives.ClemInterTemplates.Emitters;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates.Levers

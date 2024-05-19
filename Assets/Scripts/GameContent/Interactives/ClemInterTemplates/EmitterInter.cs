@@ -16,7 +16,10 @@ namespace GameContent.Interactives.ClemInterTemplates
             get
             {
                 if (id < 0 || id >= SourceDatasList.Count)
-                    throw new ArgumentOutOfRangeException(nameof(id), id, "too bad");
+                {
+                    //throw new ArgumentOutOfRangeException(nameof(id), id, "too bad");
+                    return new SourceDatas(null);
+                }
 
                 return SourceDatasList[id];
             }
