@@ -30,8 +30,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
     public enum DentriteType
     {
-        Distributor,
         Receptor,
+        Distributor,
         None
     }
 }
