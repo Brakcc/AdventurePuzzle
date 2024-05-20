@@ -8,8 +8,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
     {
         public DentriteType dendrite;
 
-        [ShowIfTrue("dendrite", new[] { (int)DentriteType.RotativeNode })]
-        public CableNode nodeRef;
+        [ShowIfTrue("dendrite", new[] { (int)DentriteType.Distributor })]
+        public Distributor nodeRef;
         
         [ShowIfTrue("dendrite", new[] { (int)DentriteType.Receptor })]
         public ReceptorInter receptorRef;
@@ -17,7 +17,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
     public enum DentriteType
     {
-        RotativeNode,
+        Distributor,
         Receptor,
         None
     }

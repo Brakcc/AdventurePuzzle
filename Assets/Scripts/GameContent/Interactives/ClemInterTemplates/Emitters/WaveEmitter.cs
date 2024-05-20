@@ -48,10 +48,14 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             }
             recepDatas.Sort(Compare);
             
-            var curve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(datas.waveSpeed / 2, datas.maxDistHit / 2));
+            #region VFX
+            
+            var curve = new AnimationCurve(new Keyframe(0, 0, 2, 3), 
+                                           new Keyframe(datas.waveSpeed, datas.maxDistHit));
             datas.monoWave.SetAnimationCurve("curve", curve);
-            datas.monoWave.SetAnimationCurve("curve", curve);
-            datas.monoWave.SetFloat("life", 1);
+            datas.monoWave.SetFloat("life", datas.waveSpeed);
+            
+            #endregion
         }
 
         public override void InterAction()

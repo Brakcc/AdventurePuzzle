@@ -45,7 +45,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
 
         #region fields
 
-        [SerializeField] private CableNode nodeRef;
+        [SerializeField] private Distributor nodeRef;
 
         [SerializeField] private Color gizmosColor;
 

@@ -5,11 +5,13 @@ using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates.Emitters
 {
-    public sealed class CableNode : BaseInterBehavior
+    public sealed class Distributor : BaseInterBehavior
     {
         #region properties
 
-        public EnergyTypes EnergtHeld { get; set; }
+        public EnergyTypes IncomingCollectedEnergy { get; set; }
+        
+        public EnergyTypes TransmittedEnergy { get; set; }
         
         public short CurrentOrientationLevel
         {
@@ -18,11 +20,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             {
                 _currentLevel = value;
                 levelText.text = _currentLevel.ToString();
-                _currentMultiplexOrientation = GetOrientationArray(nodeMode, _currentLevel);
+                _currentDistributionOrientation = GetOrientationArray(nodeMode, _currentLevel);
             }
         }
 
-        public sbyte[] CurrentMultiplex => _currentMultiplexOrientation;
+        public sbyte[] CurrentDistribution => _currentDistributionOrientation;
 
         #endregion
 
@@ -75,7 +77,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         [SerializeField] private CableNodeMode nodeMode;
 
-        private sbyte[] _currentMultiplexOrientation;
+        private sbyte[] _currentDistributionOrientation;
         
         private short _currentLevel;
 
