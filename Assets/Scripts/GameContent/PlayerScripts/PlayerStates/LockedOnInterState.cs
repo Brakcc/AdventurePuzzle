@@ -5,6 +5,78 @@ namespace GameContent.PlayerScripts.PlayerStates
 {
     public sealed class LockedOnInterState : AbstractPlayerState
     {
+        #region properties
+
+        private bool PlayerHittingTR => Physics.Linecast(
+            _cc.bounds.center + new Vector3(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector, 
+                                             _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
+                                             _cc.bounds.extents.z), 
+            _cc.bounds.center + new Vector3(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector, 
+                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
+                                            -_cc.bounds.extents.z),
+            _datasSo.collisionDatasSo.blockMask) || 
+                                         Physics.Linecast(
+            _cc.bounds.center + new Vector3(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector, 
+                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
+                                             -_cc.bounds.extents.z), 
+            _cc.bounds.center + new Vector3(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector, 
+                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
+                                            _cc.bounds.extents.z), 
+            _datasSo.collisionDatasSo.blockMask);
+        
+        private bool PlayerHittingTL => Physics.Linecast(
+            _cc.bounds.center + new Vector3(_cc.bounds.extents.x, 
+                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
+                                             _cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector), 
+            _cc.bounds.center + new Vector3(-_cc.bounds.extents.x, 
+                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
+                                            _cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector),
+            _datasSo.collisionDatasSo.blockMask) || 
+                                        Physics.Linecast(
+            _cc.bounds.center + new Vector3(-_cc.bounds.extents.x,
+                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
+                                             _cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector), 
+            _cc.bounds.center + new Vector3(_cc.bounds.extents.x, 
+                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
+                                            _cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector), 
+            _datasSo.collisionDatasSo.blockMask);
+        
+        private bool PlayerHittingBR => Physics.Linecast(
+            _cc.bounds.center + new Vector3(-_cc.bounds.extents.x, 
+                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
+                                             -(_cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector)), 
+            _cc.bounds.center + new Vector3(_cc.bounds.extents.x, 
+                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
+                                            -(_cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector)),
+            _datasSo.collisionDatasSo.blockMask) ||
+                                            Physics.Linecast(
+            _cc.bounds.center + new Vector3(_cc.bounds.extents.x, 
+                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
+                                             -(_cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector)), 
+            _cc.bounds.center + new Vector3(-_cc.bounds.extents.x, 
+                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
+                                            -(_cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector)),
+            _datasSo.collisionDatasSo.blockMask);
+
+        private bool PlayerHittingBL => Physics.Linecast(
+            _cc.bounds.center + new Vector3(-(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector), 
+                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
+                                             _cc.bounds.extents.z), 
+            _cc.bounds.center + new Vector3(-(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector), 
+                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
+                                            -_cc.bounds.extents.z),
+            _datasSo.collisionDatasSo.blockMask) || 
+                                           Physics.Linecast(
+            _cc.bounds.center + new Vector3(-(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector), 
+                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
+                                             -_cc.bounds.extents.z), 
+            _cc.bounds.center + new Vector3(-(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector), 
+                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
+                                            _cc.bounds.extents.z),
+            _datasSo.collisionDatasSo.blockMask);
+        
+        #endregion
+        
         #region constructor
         
         public LockedOnInterState(GameObject go) : base(go)
@@ -102,10 +174,22 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             _currentDir = _directionMode switch
             {
-                LockDirectionMode.BLToTR when _inputDir is { x: > 0, z: > 0 } => _interRef.IsHittingTopRight ? Vector3.zero : (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
-                LockDirectionMode.BLToTR when _inputDir is { x: < 0, z: < 0 } => _interRef.IsHittingBottomLeft ? Vector3.zero : (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
-                LockDirectionMode.TLToBR when _inputDir is { x: > 0, z: < 0 } => _interRef.IsHittingBottomRight ? Vector3.zero : (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
-                LockDirectionMode.TLToBR when _inputDir is { x: < 0, z: > 0 } => _interRef.IsHittingTopLeft ? Vector3.zero : (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                LockDirectionMode.BLToTR when _inputDir is { x: > 0, z: > 0 } => _interRef.IsHittingTopRight ? 
+                    Vector3.zero : 
+                    (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                
+                LockDirectionMode.BLToTR when _inputDir is { x: < 0, z: < 0 } => _interRef.IsHittingBottomLeft ? 
+                    Vector3.zero : 
+                    (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                
+                LockDirectionMode.TLToBR when _inputDir is { x: > 0, z: < 0 } => _interRef.IsHittingBottomRight ? 
+                    Vector3.zero : 
+                    (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                
+                LockDirectionMode.TLToBR when _inputDir is { x: < 0, z: > 0 } => _interRef.IsHittingTopLeft ? 
+                    Vector3.zero : 
+                    (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                
                 _ => Vector3.zero
             };
             

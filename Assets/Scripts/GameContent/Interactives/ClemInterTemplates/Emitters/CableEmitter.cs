@@ -1,8 +1,6 @@
 ﻿using GameContent.Interactives.ClemInterTemplates.Receptors;
 using GameContent.PlayerScripts;
 using UnityEngine;
-using Utilities.CustomAttributes;
-using Utilities.CustomAttributes.FieldColors;
 
 namespace GameContent.Interactives.ClemInterTemplates.Emitters
 {
@@ -25,15 +23,13 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         public override void InterAction()
         {
-            //ici action du cable
-            //
-            //
-            //
-            
             for (var i = 0; i < SourceCount; i++)
             {
                 if (nodes[i].dendrite is DentriteType.Receptor)
+                {
+                    nodes[i].receptorRef.HasCableEnergy = true;
                     nodes[i].receptorRef.CurrentEnergyType = this[i].Type;
+                }
             }
         }
 
@@ -66,9 +62,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             }
             else 
                 SourceDatasList[SourceCount - 1].Source.InterAction();
-            
+
             if (nodes[SourceCount - 1].dendrite is DentriteType.Receptor)
+            {
+                nodes[SourceCount - 1].receptorRef.HasCableEnergy = false;
                 nodes[SourceCount - 1].receptorRef.OnReset();
+            }
             SourceDatasList.RemoveAt(SourceCount - 1);
             base.PlayerCancel();
         }
@@ -77,7 +76,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         #region fields
         
-        [FieldCompletion(FieldColor.Yellow, FieldColor.Green)] 
         [SerializeField] private NodeDatas[] nodes;
 
         #endregion

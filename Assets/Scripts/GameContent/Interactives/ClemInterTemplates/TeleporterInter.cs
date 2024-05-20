@@ -42,7 +42,7 @@ namespace GameContent.Interactives.ClemInterTemplates
                 GetComponent<MeshRenderer>().material.color = new Color32(65,105,225,255);
                 otherTeleporter.GetComponent<MeshRenderer>().material.color = new Color32(65,105,225,255);
             }
-            
+            base.InterAction();
         }
 
         public override void OnReset()
@@ -53,6 +53,7 @@ namespace GameContent.Interactives.ClemInterTemplates
             _justTeleported = false;
             
             otherTeleporter._canTeleport = false;
+            base.OnReset();
         }
 
         private void OnTriggerEnter(Collider playerCol)
