@@ -138,11 +138,13 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             #region VFX
             
-            datas.monoWave.SetFloat("r", SourceDatas.GetTypedColor(this[i - 1].Type).r * 255);
-            datas.monoWave.SetFloat("g", SourceDatas.GetTypedColor(this[i - 1].Type).g * 255);
-            datas.monoWave.SetFloat("b", SourceDatas.GetTypedColor(this[i - 1].Type).b * 255);
-            datas.monoWave.SetFloat("a", SourceDatas.GetTypedColor(this[i - 1].Type).a * 0.2f);
+            datas.monoWave.SetVector4("rgba", new Vector4(
+                                                          SourceDatas.GetTypedColor(this[i - 1].Type).r * 255,
+                                                          SourceDatas.GetTypedColor(this[i - 1].Type).g * 255,
+                                                          SourceDatas.GetTypedColor(this[i - 1].Type).b * 255,
+                                                          SourceDatas.GetTypedColor(this[i - 1].Type).a * 0.2f));
 
+            
             datas.monoWave.Play();
             
             #endregion
