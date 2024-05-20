@@ -17,6 +17,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
             }
         }
 
+        private Transform NodeTrans => nodeRef.transform;
+        
         #endregion
         
         #region methodes
@@ -33,11 +35,19 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
             
         }
 
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = gizmosColor;
+            Gizmos.DrawLine(transform.position, nodeRef.transform.position);
+        }
+
         #endregion
 
         #region fields
 
-        [SerializeField] private CableNode nodeRef;
+        [SerializeField] private Distributor nodeRef;
+
+        [SerializeField] private Color gizmosColor;
 
         #endregion
     }

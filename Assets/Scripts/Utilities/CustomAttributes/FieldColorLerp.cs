@@ -19,14 +19,14 @@ namespace Utilities.CustomAttributes
         public readonly float minValue;
 
         public FieldColorLerp(FieldColor _color1 = FieldColor.Red, FieldColor _color2 = FieldColor.Green,
-            float _maxValue = float.MaxValue, float _minValue = float.MinValue)
+            float _minValue = float.MinValue, float _maxValue = float.MaxValue)
         {
             color1 = GetFieldColor.GetFC(_color1);
             color2 = GetFieldColor.GetFC(_color2);
             maxValue = _maxValue;
             minValue = _minValue;
         }
-        public FieldColorLerp(float _maxValue = float.MaxValue, float _minValue = float.MinValue)
+        public FieldColorLerp(float _minValue = float.MinValue, float _maxValue = float.MaxValue)
         {
             color1 = GetFieldColor.GetFC(FieldColor.Green);
             color2 = GetFieldColor.GetFC(FieldColor.Red);

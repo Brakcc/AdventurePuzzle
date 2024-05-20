@@ -11,7 +11,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         
         [FieldCompletion(FieldColor.Red, FieldColor.Green)] public ReceptorInter ReceptorInter;
 
-        [FieldColorLerp(FieldColor.Red, FieldColor.Green, 0, 1)] [Range(0, 1)] public float ActivationDelay;
+        [FieldColorLerp(FieldColor.Red, FieldColor.Green, -1, 1)] [Range(-1, 1)] public float ActivationDelay;
 
         #endregion
         
