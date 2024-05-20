@@ -77,7 +77,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         #region fields
         
-        [FieldCompletion(FieldColor.Yellow, FieldColor.Green)] 
         [SerializeField] private NodeDatas[] nodes;
 
         #endregion

@@ -29,7 +29,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
             nodeRef.CurrentOrientationLevel = Level;
             UnMaxDanimAAjouter();
         }
-
+        
         private void UnMaxDanimAAjouter()
         {
             
