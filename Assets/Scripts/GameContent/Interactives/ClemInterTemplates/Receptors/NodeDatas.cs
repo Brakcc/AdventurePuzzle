@@ -20,10 +20,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         public DentriteType dendrite;
         
         [ShowIfTrue("dendrite", new[] { (int)DentriteType.Distributor })]
-        public Distributor nodeRef;
+        [FieldCompletion] public Distributor nodeRef;
         
         [ShowIfTrue("dendrite", new[] { (int)DentriteType.Receptor })]
-        public ReceptorInter receptorRef;
+        [FieldCompletion] public ReceptorInter receptorRef;
         
         #endregion
     }
