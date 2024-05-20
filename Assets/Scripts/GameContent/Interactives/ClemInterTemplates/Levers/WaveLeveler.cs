@@ -29,14 +29,22 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
             emitterRef.CurrentHeightLevel = Level;
         }
 
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = gizmosColor;
+            Gizmos.DrawLine(transform.position, emitterRef.SpherePos);
+        }
+
         #endregion
         
         #region fields
 
         [SerializeField] private WaveEmitter emitterRef;
         
-        [FieldColorLerp(FieldColor.Red, FieldColor.Green, 5, 0)]
+        [FieldColorLerp(FieldColor.Red, FieldColor.Green, 0, 5)]
         [Range(0, 5)] [SerializeField] private short levelNumbers;
+
+        [SerializeField] private Color gizmosColor;
 
         #endregion
     }
