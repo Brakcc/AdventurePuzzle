@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DebuggingClem;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utilities.CustomAttributes;
 using Utilities.CustomAttributes.FieldColors;
 
@@ -24,7 +25,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                     OnChangeColorLightDebug(_currentAppliedEnergy);
             }
         }
-
+        
         private Light InterLight { get; set; }
 
         public EmitterInter EmitRef { get; set; }
@@ -50,22 +51,58 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         
         public bool IsMovable => _isMovable;
         
+        public bool HasWaveEnergy
+        {
+            get => _hasWaveEnergy;
+            set
+            {
+                _hasWaveEnergy = value;
+                _waveEnergyCounter = _hasWaveEnergy ? Constants.WaveEnergyDuration : -1;
+            }
+            
+        }
+
+        public bool HasCableEnergy
+        {
+            get => _hasCableEnergy;
+            set
+            {
+                _hasCableEnergy = value;
+            }
+        }
+        
         #region IsHittingTR
         
         public bool IsHittingTopRight => Physics.Linecast(
             _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
-                                             heightCorrector * _col.bounds.extents.y, 
+                                             midHeightCorrector * _col.bounds.extents.y, 
                                              _col.bounds.extents.z), 
             _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
-                                             heightCorrector * _col.bounds.extents.y, 
+                                             midHeightCorrector * _col.bounds.extents.y, 
                                              -_col.bounds.extents.z),
             blockMask) || 
                                          Physics.Linecast(
             _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
-                                             heightCorrector * _col.bounds.extents.y, 
+                                             midHeightCorrector * _col.bounds.extents.y, 
                                              -_col.bounds.extents.z), 
             _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
-                                             heightCorrector * _col.bounds.extents.y, 
+                                             midHeightCorrector * _col.bounds.extents.y, 
+                                             _col.bounds.extents.z), 
+            blockMask) ||
+                                         Physics.Linecast(
+            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
+                                             (downHeightCorrector - 1) * _col.bounds.extents.y, 
+                                             _col.bounds.extents.z), 
+            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
+                                             (downHeightCorrector - 1) * _col.bounds.extents.y, 
+                                             -_col.bounds.extents.z),
+            blockMask) || 
+                                         Physics.Linecast(
+            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
+                                             (downHeightCorrector - 1) * _col.bounds.extents.y, 
+                                             -_col.bounds.extents.z), 
+            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
+                                             (downHeightCorrector - 1) * _col.bounds.extents.y, 
                                              _col.bounds.extents.z), 
             blockMask);
         
@@ -75,18 +112,34 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         
         public bool IsHittingTopLeft => Physics.Linecast(
             _col.bounds.center + new Vector3(_col.bounds.extents.x, 
-                                             heightCorrector * _col.bounds.extents.y, 
+                                             midHeightCorrector * _col.bounds.extents.y, 
                                              _col.bounds.extents.z + widthCorrector), 
             _col.bounds.center + new Vector3(-_col.bounds.extents.x, 
-                                             heightCorrector * _col.bounds.extents.y, 
+                                             midHeightCorrector * _col.bounds.extents.y, 
                                              _col.bounds.extents.z + widthCorrector),
             blockMask) || 
                                         Physics.Linecast(
             _col.bounds.center + new Vector3(-_col.bounds.extents.x,
-                                             heightCorrector * _col.bounds.extents.y, 
+                                             midHeightCorrector * _col.bounds.extents.y, 
                                              _col.bounds.extents.z + widthCorrector), 
             _col.bounds.center + new Vector3(_col.bounds.extents.x, 
-                                             heightCorrector * _col.bounds.extents.y, 
+                                             midHeightCorrector * _col.bounds.extents.y, 
+                                             _col.bounds.extents.z + widthCorrector), 
+            blockMask) ||
+                                        Physics.Linecast(
+            _col.bounds.center + new Vector3(_col.bounds.extents.x, 
+                                             (downHeightCorrector - 1) * _col.bounds.extents.y, 
+                                             _col.bounds.extents.z + widthCorrector), 
+            _col.bounds.center + new Vector3(-_col.bounds.extents.x, 
+                                             (downHeightCorrector - 1) * _col.bounds.extents.y, 
+                                             _col.bounds.extents.z + widthCorrector),
+            blockMask) || 
+                                        Physics.Linecast(
+            _col.bounds.center + new Vector3(-_col.bounds.extents.x,
+                                             (downHeightCorrector - 1) * _col.bounds.extents.y, 
+                                             _col.bounds.extents.z + widthCorrector), 
+            _col.bounds.center + new Vector3(_col.bounds.extents.x, 
+                                             (downHeightCorrector - 1) * _col.bounds.extents.y, 
                                              _col.bounds.extents.z + widthCorrector), 
             blockMask);
         
@@ -96,18 +149,34 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         
         public bool IsHittingBottomRight => Physics.Linecast(
             _col.bounds.center + new Vector3(-_col.bounds.extents.x, 
-                                             heightCorrector * _col.bounds.extents.y, 
+                                             midHeightCorrector * _col.bounds.extents.y, 
                                              -(_col.bounds.extents.z + widthCorrector)), 
             _col.bounds.center + new Vector3(_col.bounds.extents.x, 
-                                             heightCorrector * _col.bounds.extents.y, 
+                                             midHeightCorrector * _col.bounds.extents.y, 
                                              -(_col.bounds.extents.z + widthCorrector)),
             blockMask) ||
                                             Physics.Linecast(
             _col.bounds.center + new Vector3(_col.bounds.extents.x, 
-                                             heightCorrector * _col.bounds.extents.y, 
+                                             midHeightCorrector * _col.bounds.extents.y, 
                                              -(_col.bounds.extents.z + widthCorrector)), 
             _col.bounds.center + new Vector3(-_col.bounds.extents.x, 
-                                             heightCorrector * _col.bounds.extents.y, 
+                                             midHeightCorrector * _col.bounds.extents.y, 
+                                             -(_col.bounds.extents.z + widthCorrector)),
+            blockMask) ||
+                                            Physics.Linecast(
+            _col.bounds.center + new Vector3(-_col.bounds.extents.x, 
+                                             (downHeightCorrector - 1) * _col.bounds.extents.y, 
+                                             -(_col.bounds.extents.z + widthCorrector)), 
+            _col.bounds.center + new Vector3(_col.bounds.extents.x, 
+                                             (downHeightCorrector - 1) * _col.bounds.extents.y, 
+                                             -(_col.bounds.extents.z + widthCorrector)),
+            blockMask) ||
+                                            Physics.Linecast(
+            _col.bounds.center + new Vector3(_col.bounds.extents.x, 
+                                             (downHeightCorrector - 1) * _col.bounds.extents.y, 
+                                             -(_col.bounds.extents.z + widthCorrector)), 
+            _col.bounds.center + new Vector3(-_col.bounds.extents.x, 
+                                             (downHeightCorrector - 1) * _col.bounds.extents.y, 
                                              -(_col.bounds.extents.z + widthCorrector)),
             blockMask);
         
@@ -117,18 +186,34 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         
         public bool IsHittingBottomLeft => Physics.Linecast(
             _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
-                                             heightCorrector * _col.bounds.extents.y, 
+                                             midHeightCorrector * _col.bounds.extents.y, 
                                              _col.bounds.extents.z), 
             _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
-                                             heightCorrector * _col.bounds.extents.y, 
+                                             midHeightCorrector * _col.bounds.extents.y, 
                                              -_col.bounds.extents.z),
             blockMask) || 
                                            Physics.Linecast(
             _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
-                                             heightCorrector * _col.bounds.extents.y, 
+                                             midHeightCorrector * _col.bounds.extents.y, 
                                              -_col.bounds.extents.z), 
             _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
-                                             heightCorrector * _col.bounds.extents.y, 
+                                             midHeightCorrector * _col.bounds.extents.y, 
+                                             _col.bounds.extents.z),
+            blockMask) ||
+                                           Physics.Linecast(
+            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
+                                             (downHeightCorrector - 1) * _col.bounds.extents.y, 
+                                             _col.bounds.extents.z), 
+            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
+                                             (downHeightCorrector - 1) * _col.bounds.extents.y, 
+                                             -_col.bounds.extents.z),
+            blockMask) || 
+                                           Physics.Linecast(
+            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
+                                             (downHeightCorrector - 1) * _col.bounds.extents.y, 
+                                             -_col.bounds.extents.z), 
+            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
+                                             (downHeightCorrector - 1) * _col.bounds.extents.y, 
                                              _col.bounds.extents.z),
             blockMask);
 
@@ -170,7 +255,23 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         }
 
         #region Actions
-        
+
+        protected override void OnUpdate()
+        {
+            base.OnUpdate();
+            if (!HasWaveEnergy)
+                return;
+
+            if (_waveEnergyCounter <= 0)
+            {
+                HasWaveEnergy = false;
+                CurrentEnergyType = EnergyTypes.None;
+                return;
+            }
+
+            _waveEnergyCounter -= Time.deltaTime;
+        }
+
         public override void PlayerAction()
         {
             //Debug.Log($"player action {this}");
@@ -265,37 +366,81 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
             var bounds = _col.bounds;
             
+            #region TR
+            
             //Top Right
             Gizmos.DrawLine(bounds.center + new Vector3(bounds.extents.x + widthCorrector, 
-                                                        heightCorrector * bounds.extents.y,
+                                                        midHeightCorrector * bounds.extents.y,
                                                         bounds.extents.z), 
                              bounds.center + new Vector3(bounds.extents.x + widthCorrector, 
-                                                         heightCorrector * bounds.extents.y, 
+                                                         midHeightCorrector * bounds.extents.y, 
                                                          -bounds.extents.z));
+            
+            Gizmos.DrawLine(bounds.center + new Vector3(bounds.extents.x + widthCorrector, 
+                                                        (downHeightCorrector - 1) * bounds.extents.y,
+                                                        bounds.extents.z), 
+                            bounds.center + new Vector3(bounds.extents.x + widthCorrector, 
+                                                        (downHeightCorrector - 1) * bounds.extents.y, 
+                                                        -bounds.extents.z));
+            
+            #endregion
+            
+            #region BL
             
             //Bottom Left
             Gizmos.DrawLine(bounds.center + new Vector3(-(bounds.extents.x + widthCorrector), 
-                                                        heightCorrector * bounds.extents.y,
+                                                        midHeightCorrector * bounds.extents.y,
                                                         bounds.extents.z),
                             bounds.center + new Vector3(-(bounds.extents.x + widthCorrector),
-                                                        heightCorrector * bounds.extents.y,
+                                                        midHeightCorrector * bounds.extents.y,
                                                         -bounds.extents.z));
+            
+            Gizmos.DrawLine(bounds.center + new Vector3(-(bounds.extents.x + widthCorrector), 
+                                                        (downHeightCorrector - 1) * bounds.extents.y,
+                                                        bounds.extents.z),
+                            bounds.center + new Vector3(-(bounds.extents.x + widthCorrector),
+                                                        (downHeightCorrector - 1) * bounds.extents.y,
+                                                        -bounds.extents.z));
+            
+            #endregion
+            
+            #region TL
             
             //Top Left
             Gizmos.DrawLine(bounds.center + new Vector3(bounds.extents.x, 
-                                                        heightCorrector * bounds.extents.y, 
+                                                        midHeightCorrector * bounds.extents.y, 
                                                         bounds.extents.z + widthCorrector), 
                             bounds.center + new Vector3(-bounds.extents.x, 
-                                                        heightCorrector * bounds.extents.y,
+                                                        midHeightCorrector * bounds.extents.y,
                                                         bounds.extents.z + widthCorrector));
+            
+            Gizmos.DrawLine(bounds.center + new Vector3(bounds.extents.x, 
+                                                        (downHeightCorrector - 1) * bounds.extents.y, 
+                                                        bounds.extents.z + widthCorrector), 
+                            bounds.center + new Vector3(-bounds.extents.x, 
+                                                        (downHeightCorrector - 1) * bounds.extents.y,
+                                                        bounds.extents.z + widthCorrector));
+            
+            #endregion
+            
+            #region BR
             
             //Bottom Right
             Gizmos.DrawLine(bounds.center + new Vector3(-bounds.extents.x, 
-                                                        heightCorrector * bounds.extents.y,
+                                                        midHeightCorrector * bounds.extents.y,
                                                         -(bounds.extents.z + widthCorrector)), 
                             bounds.center + new Vector3(bounds.extents.x,
-                                                        heightCorrector * bounds.extents.y, 
+                                                        midHeightCorrector * bounds.extents.y, 
                                                         -(bounds.extents.z + widthCorrector)));
+            
+            Gizmos.DrawLine(bounds.center + new Vector3(-bounds.extents.x, 
+                                                        (downHeightCorrector - 1) * bounds.extents.y,
+                                                        -(bounds.extents.z + widthCorrector)), 
+                            bounds.center + new Vector3(bounds.extents.x,
+                                                        (downHeightCorrector - 1) * bounds.extents.y, 
+                                                        -(bounds.extents.z + widthCorrector)));
+            
+            #endregion
         }
 
         #endregion
@@ -309,7 +454,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         [FieldCompletion] [SerializeField] private Transform pivot;
 
         [Range(0.01f, 0.2f)] [SerializeField] private float widthCorrector;
-        [Range(-1, 1)] [SerializeField] private float heightCorrector;
+        [Range(-1, 1)] [SerializeField] private float midHeightCorrector;
+        [Range(0.1f, 1)] [SerializeField] private float downHeightCorrector;
 
         [SerializeField] private LayerMask blockMask;
         
@@ -326,6 +472,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         private bool _isMovable;
 
+        private bool _hasWaveEnergy;
+
+        private bool _hasCableEnergy;
+
+        private float _waveEnergyCounter;
+        
         protected bool hasElectricity;
 
         #endregion

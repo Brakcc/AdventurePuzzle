@@ -20,5 +20,6 @@ public static class Constants
     public const short OrientationNumber = 4;
     public const int BitFlagRBConstraintRotaPlan = 122;
     public const float MaxFallCounterWhileGrabThreshold = 0.5f;
+    public const float WaveEnergyDuration = 12.5f;
     public static readonly sbyte[] XShapeNodeArray = { 1, 1, 1, 1 };
 }

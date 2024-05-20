@@ -153,9 +153,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             if (recepDatas[j - 1].ReceptorInter.DistFromEmit >= datas.maxDistHit ||
                 Mathf.Abs(datas.sphere.position.y + datas.levelCorrector - recepDatas[j - 1].ReceptorInter.Pivot.y) >=
-                datas.inBetweenLevelThreshold / 2 + datas.ampliCorrector)
+                datas.inBetweenLevelThreshold / 2 + datas.ampliCorrector || 
+                recepDatas[j - 1].ReceptorInter.HasCableEnergy)
                 yield break;
-            
+
+            recepDatas[j - 1].ReceptorInter.HasWaveEnergy = true;
             recepDatas[j - 1].ReceptorInter.CurrentEnergyType = this[i - 1].Type;
         }
 

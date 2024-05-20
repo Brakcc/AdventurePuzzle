@@ -158,7 +158,8 @@ MonoBehaviour:
   animator: {fileID: 0}
   pivot: {fileID: 5190737938463608986}
   widthCorrector: 0.15
-  heightCorrector: 0.06
+  midHeightCorrector: 0
+  downHeightCorrector: 0.15
   blockMask:
     serializedVersion: 2
     m_Bits: 127

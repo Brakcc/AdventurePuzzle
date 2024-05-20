@@ -26,7 +26,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             for (var i = 0; i < SourceCount; i++)
             {
                 if (nodes[i].dendrite is DentriteType.Receptor)
+                {
+                    nodes[i].receptorRef.HasCableEnergy = true;
                     nodes[i].receptorRef.CurrentEnergyType = this[i].Type;
+                }
             }
         }
 
@@ -59,9 +62,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             }
             else 
                 SourceDatasList[SourceCount - 1].Source.InterAction();
-            
+
             if (nodes[SourceCount - 1].dendrite is DentriteType.Receptor)
+            {
+                nodes[SourceCount - 1].receptorRef.HasCableEnergy = false;
                 nodes[SourceCount - 1].receptorRef.OnReset();
+            }
             SourceDatasList.RemoveAt(SourceCount - 1);
             base.PlayerCancel();
         }
