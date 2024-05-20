@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1450204327818588482}
   - component: {fileID: 6528655810891902166}
   - component: {fileID: 3493667686890250604}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Base
-  m_TagString: Untagged
+  m_TagString: Interactible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,9 +147,9 @@ GameObject:
   - component: {fileID: 4639221198135643766}
   - component: {fileID: 7280922287756850687}
   - component: {fileID: 7552328914635691443}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Base
-  m_TagString: Untagged
+  m_TagString: Interactible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -277,9 +277,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3569955801630123079}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Teleporter
-  m_TagString: Untagged
+  m_TagString: Interactible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -315,9 +315,9 @@ GameObject:
   - component: {fileID: 296115206207507084}
   - component: {fileID: 7147602697567464586}
   - component: {fileID: 5494478456105598821}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TeleporterCylinder
-  m_TagString: Untagged
+  m_TagString: Interactible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -457,8 +457,12 @@ MonoBehaviour:
     debugLight: {fileID: 0}
   animator: {fileID: 0}
   pivot: {fileID: 0}
-  hasElectricity: 0
-  isMovable: 0
+  widthCorrector: 0
+  heightCorrector: 0
+  blockMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _col: {fileID: 0}
   otherTeleporter: {fileID: 7257395392188917429}
 --- !u!1 &4197085087921144170
 GameObject:
@@ -469,9 +473,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3222537597069308292}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TeleporterPack
-  m_TagString: Untagged
+  m_TagString: Interactible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -502,9 +506,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4551429116190882786}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Teleporter1
-  m_TagString: Untagged
+  m_TagString: Interactible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -540,9 +544,9 @@ GameObject:
   - component: {fileID: 5772121656520642563}
   - component: {fileID: 894400662265714349}
   - component: {fileID: 7257395392188917429}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TeleporterCylinder
-  m_TagString: Untagged
+  m_TagString: Interactible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -682,6 +686,10 @@ MonoBehaviour:
     debugLight: {fileID: 0}
   animator: {fileID: 0}
   pivot: {fileID: 0}
-  hasElectricity: 0
-  isMovable: 0
+  widthCorrector: 0
+  heightCorrector: 0
+  blockMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _col: {fileID: 0}
   otherTeleporter: {fileID: 5494478456105598821}
