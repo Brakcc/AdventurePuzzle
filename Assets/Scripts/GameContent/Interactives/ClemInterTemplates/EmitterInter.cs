@@ -9,14 +9,17 @@ namespace GameContent.Interactives.ClemInterTemplates
 
         protected List<SourceDatas> SourceDatasList { get; private set; }
 
-        protected int Count => SourceDatasList.Count;
+        protected int SourceCount => SourceDatasList.Count;
         
         protected SourceDatas this[int id]
         {
             get
             {
                 if (id < 0 || id >= SourceDatasList.Count)
-                    throw new ArgumentOutOfRangeException(nameof(id), id, "too bad");
+                {
+                    //throw new ArgumentOutOfRangeException(nameof(id), id, "too bad");
+                    return new SourceDatas(null);
+                }
 
                 return SourceDatasList[id];
             }
