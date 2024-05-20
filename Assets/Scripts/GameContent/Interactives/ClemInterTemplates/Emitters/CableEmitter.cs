@@ -1,8 +1,6 @@
 ﻿using GameContent.Interactives.ClemInterTemplates.Receptors;
 using GameContent.PlayerScripts;
 using UnityEngine;
-using Utilities.CustomAttributes;
-using Utilities.CustomAttributes.FieldColors;
 
 namespace GameContent.Interactives.ClemInterTemplates.Emitters
 {
@@ -25,11 +23,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         public override void InterAction()
         {
-            //ici action du cable
-            //
-            //
-            //
-            
             for (var i = 0; i < SourceCount; i++)
             {
                 if (nodes[i].dendrite is DentriteType.Receptor)

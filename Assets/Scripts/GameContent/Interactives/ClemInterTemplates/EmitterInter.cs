@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace GameContent.Interactives.ClemInterTemplates
 {
@@ -9,7 +8,7 @@ namespace GameContent.Interactives.ClemInterTemplates
 
         protected List<SourceDatas> SourceDatasList { get; private set; }
 
-        protected int SourceCount => SourceDatasList.Count;
+        public int SourceCount => SourceDatasList.Count;
         
         protected SourceDatas this[int id]
         {

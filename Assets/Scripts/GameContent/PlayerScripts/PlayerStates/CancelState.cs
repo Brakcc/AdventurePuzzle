@@ -73,6 +73,13 @@ namespace GameContent.PlayerScripts.PlayerStates
 
             if (_checker.InterRef is not null)
             {
+                if (_checker.InterRef is not EmitterInter && PlayerEnergyM.EnergyType != EnergyTypes.None ||
+                    _checker.InterRef is EmitterInter { SourceCount: 0 } && PlayerEnergyM.EnergyType != EnergyTypes.None)
+                {
+                    PlayerEnergyM.CurrentSource.Source.InterAction();
+                    PlayerEnergyM.CurrentSource = new SourceDatas();
+                    PlayerEnergyM.OnSourceChangedDebug();
+                }
                 _checker.InterRef.PlayerCancel();
                 _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
                 return;
