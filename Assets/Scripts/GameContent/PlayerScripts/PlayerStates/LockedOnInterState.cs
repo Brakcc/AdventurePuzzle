@@ -81,7 +81,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         private LockDirectionMode GetBaseMoveDir()
         {
-            var tempAngle = Vector3.Angle(Vector3.right, _goRef.transform.position - _interRef.pivot.position);
+            var tempAngle = Vector3.Angle(Vector3.right, _goRef.transform.position - _interRef.Pivot);
             
             return tempAngle switch
             {

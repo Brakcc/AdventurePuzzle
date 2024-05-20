@@ -15,9 +15,10 @@ public static class Constants
     public const float JumpTimerAfterInput = 0.15f;
     public const float RecepMoveSpeedMultiplier = 4f;
     public const float RecepBlockedSpeedThreshold = 0.1f;
-    public const float GrabGapThreshold = 0.5f;
+    public const float GrabGapThreshold = 0.25f;
     public const float MinWorldMoveSpeedThreshold = 0.005f;
     public const short OrientationNumber = 4;
     public const int BitFlagRBConstraintRotaPlan = 122;
     public const float MaxFallCounterWhileGrabThreshold = 0.5f;
+    public static readonly sbyte[] XShapeNodeArray = { 1, 1, 1, 1 };
 }
