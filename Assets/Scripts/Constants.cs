@@ -1,5 +1,7 @@
 //NE PAS TOUCHER sauf si vous etes sur de ce que vous faites
 
+using System;
+
 public static class Constants
 {
     public const float GroundCheckSupLength = 0.1f;
@@ -21,5 +23,8 @@ public static class Constants
     public const int BitFlagRBConstraintRotaPlan = 122;
     public const float MaxFallCounterWhileGrabThreshold = 0.5f;
     public const float WaveEnergyDuration = 12.5f;
+    public const float FirstQuarterAngleValue = 45;
+    public const float ThirdQuarterAngleValue = 135;
+    public const float PiByFourRadVal = 0.7071067f;
     public static readonly sbyte[] XShapeNodeArray = { 1, 1, 1, 1 };
 }

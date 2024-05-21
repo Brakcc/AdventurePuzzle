@@ -1,3 +1,4 @@
+using System;
 using GameContent.Interactives.ClemInterTemplates.Receptors;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region properties
 
+        #region TR
+        
         private bool PlayerHittingTR => Physics.Linecast(
             _cc.bounds.center + new Vector3(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector, 
                                              _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
@@ -23,6 +26,10 @@ namespace GameContent.PlayerScripts.PlayerStates
                                             _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
                                             _cc.bounds.extents.z), 
             _datasSo.collisionDatasSo.blockMask);
+        
+        #endregion
+        
+        #region TL
         
         private bool PlayerHittingTL => Physics.Linecast(
             _cc.bounds.center + new Vector3(_cc.bounds.extents.x, 
@@ -41,6 +48,10 @@ namespace GameContent.PlayerScripts.PlayerStates
                                             _cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector), 
             _datasSo.collisionDatasSo.blockMask);
         
+        #endregion
+        
+        #region BR
+        
         private bool PlayerHittingBR => Physics.Linecast(
             _cc.bounds.center + new Vector3(-_cc.bounds.extents.x, 
                                             _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
@@ -58,6 +69,10 @@ namespace GameContent.PlayerScripts.PlayerStates
                                             -(_cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector)),
             _datasSo.collisionDatasSo.blockMask);
 
+        #endregion
+        
+        #region BL
+        
         private bool PlayerHittingBL => Physics.Linecast(
             _cc.bounds.center + new Vector3(-(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector), 
                                             _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
@@ -74,6 +89,8 @@ namespace GameContent.PlayerScripts.PlayerStates
                                             _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
                                             _cc.bounds.extents.z),
             _datasSo.collisionDatasSo.blockMask);
+        
+        #endregion
         
         #endregion
         
@@ -100,7 +117,8 @@ namespace GameContent.PlayerScripts.PlayerStates
             _tempDistFromPlayer = _interRef.DistFromPlayer;
             _fallCounter = 0;
             
-            _directionMode = GetBaseMoveDir();
+            _relativePos = GetRelativePos();
+            _directionMode = GetBaseMoveDir(_relativePos);
         }
 
         public override void OnExitState(PlayerStateMachine stateMachine)
@@ -151,18 +169,52 @@ namespace GameContent.PlayerScripts.PlayerStates
                 _stateMachine.OnSwitchState("move");
         }
         
-        private LockDirectionMode GetBaseMoveDir()
+        private static LockDirectionMode GetBaseMoveDir(Vector3 fromVec)
         {
-            var tempAngle = Vector3.Angle(Vector3.right, _goRef.transform.position - _interRef.Pivot);
+            //can be fromVec = _goRef.transform.position - _interRef.Pivot
+            var tempAngle = Vector3.Angle(Vector3.right, fromVec);
             
             return tempAngle switch
             {
-                <= 45 or >= 135 => LockDirectionMode.BLToTR,
-                < 135 or > 45 => LockDirectionMode.TLToBR,
+                <= Constants.FirstQuarterAngleValue or >= Constants.ThirdQuarterAngleValue => LockDirectionMode.BLToTR,
+                < Constants.ThirdQuarterAngleValue or > Constants.FirstQuarterAngleValue => LockDirectionMode.TLToBR,
                 _ => LockDirectionMode.None
             };
         }
 
+        private static LockDirectionMode GetBaseMoveDir(RelativeInterPos pos) => pos switch
+        {
+            RelativeInterPos.TR => LockDirectionMode.BLToTR,
+            RelativeInterPos.BR => LockDirectionMode.TLToBR,
+            RelativeInterPos.TL => LockDirectionMode.TLToBR,
+            RelativeInterPos.BL => LockDirectionMode.BLToTR,
+            _ => throw new ArgumentOutOfRangeException(nameof(pos), pos, "et bah non")
+        };
+
+        private RelativeInterPos GetRelativePos()
+        {
+            var tempDotX = Vector2.Dot(new Vector2(_interRef.transform.right.x, _interRef.transform.right.z),
+                                       new Vector2((_goRef.transform.position - _interRef.Pivot).x,
+                                                   (_goRef.transform.position - _interRef.Pivot).z)) /
+                           new Vector2((_goRef.transform.position - _interRef.Pivot).x,
+                                       (_goRef.transform.position - _interRef.Pivot).z).magnitude;
+            
+            var tempDotY = Vector2.Dot(new Vector2(_interRef.transform.forward.x, _interRef.transform.forward.z),
+                                       new Vector2((_goRef.transform.position - _interRef.Pivot).x,
+                                                   (_goRef.transform.position - _interRef.Pivot).z)) / 
+                           new Vector2((_goRef.transform.position - _interRef.Pivot).x,
+                                       (_goRef.transform.position - _interRef.Pivot).z).magnitude;
+
+            return (tempDotX, tempDotY) switch
+            {
+                (>= Constants.PiByFourRadVal, <= Constants.PiByFourRadVal) => RelativeInterPos.TR,
+                (<= Constants.PiByFourRadVal, >= Constants.PiByFourRadVal) => RelativeInterPos.TL,
+                (<= Constants.PiByFourRadVal, <= -Constants.PiByFourRadVal) => RelativeInterPos.BR,
+                (<= -Constants.PiByFourRadVal, <= Constants.PiByFourRadVal) => RelativeInterPos.BL,
+                _ => RelativeInterPos.TR
+            };
+        }
+        
         #endregion
         
         #region move methodes
@@ -171,8 +223,61 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             if (_inputDir.magnitude <= Constants.MinMoveInputValue)
                 return;
-            
-            _currentDir = _directionMode switch
+
+            _currentDir = _relativePos switch
+            {
+                #region TR
+                
+                RelativeInterPos.TR when _inputDir is { x: > 0, z: > 0 } =>
+                    _interRef.IsHittingTopRight || PlayerHittingTR
+                        ? Vector3.zero
+                        : (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                RelativeInterPos.TR when _inputDir is { x: < 0, z: < 0 } => _interRef.IsHittingBottomLeft
+                    ? Vector3.zero
+                    : (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                
+                #endregion
+                
+                #region BR
+                
+                RelativeInterPos.BR when _inputDir is { x: > 0, z: < 0 } =>
+                    _interRef.IsHittingBottomRight || PlayerHittingBR
+                        ? Vector3.zero
+                        : (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                RelativeInterPos.BR when _inputDir is { x: < 0, z: > 0 } => _interRef.IsHittingTopLeft
+                    ? Vector3.zero
+                    : (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                
+                #endregion
+                
+                #region TL
+                    
+                RelativeInterPos.TL when _inputDir is { x: > 0, z: < 0 } => _interRef.IsHittingBottomRight
+                    ? Vector3.zero
+                    : (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                RelativeInterPos.TL when _inputDir is { x: < 0, z: > 0 } =>
+                    _interRef.IsHittingTopLeft || PlayerHittingTL
+                        ? Vector3.zero
+                        : (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                
+                #endregion
+                
+                #region BL
+                
+                RelativeInterPos.BL when _inputDir is { x: > 0, z: > 0 } => _interRef.IsHittingTopRight
+                    ? Vector3.zero
+                    : (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                RelativeInterPos.BL when _inputDir is { x: < 0, z: < 0 } =>
+                    _interRef.IsHittingBottomLeft || PlayerHittingBL
+                        ? Vector3.zero
+                        : (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                
+                #endregion
+                
+                _ => Vector3.zero
+            };
+
+            /*_currentDir = _directionMode switch
             {
                 LockDirectionMode.BLToTR when _inputDir is { x: > 0, z: > 0 } => _interRef.IsHittingTopRight ? 
                     Vector3.zero : 
@@ -191,12 +296,11 @@ namespace GameContent.PlayerScripts.PlayerStates
                     (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
                 
                 _ => Vector3.zero
-            };
-            
-            //Debug.Log($"{_interRef.name} = {_interRef.IsHittingTopRight}  {_interRef.IsHittingTopLeft}  {_interRef.IsHittingBottomRight}  {_interRef.IsHittingBottomLeft}");
+
+            };*/
             
             _cc.SimpleMove(_currentDir * (_datasSo.moveDatasSo.holdingRecepMoveSpeed * Constants.SpeedMultiplier * Time.deltaTime));
-            
+            Debug.Log(PlayerHittingTL);
             //obj move
             var tempDir = _currentDir * (Time.deltaTime * Constants.RecepMoveSpeedMultiplier);
             _recepRefRb.position += tempDir;
@@ -232,6 +336,8 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private LockDirectionMode _directionMode;
 
+        private RelativeInterPos _relativePos;
+
         private float _tempDistFromPlayer;
 
         private float _fallCounter;
@@ -244,5 +350,13 @@ namespace GameContent.PlayerScripts.PlayerStates
         TLToBR,
         BLToTR,
         None
+    }
+
+    internal enum RelativeInterPos
+    {
+        TR,
+        BR,
+        TL,
+        BL
     }
 }
