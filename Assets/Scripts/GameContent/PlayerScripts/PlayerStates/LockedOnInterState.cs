@@ -10,85 +10,69 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         #region TR
         
-        private bool PlayerHittingTR => Physics.Linecast(
-            _cc.bounds.center + new Vector3(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector, 
-                                             _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
-                                             _cc.bounds.extents.z), 
-            _cc.bounds.center + new Vector3(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector, 
-                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
-                                            -_cc.bounds.extents.z),
-            _datasSo.collisionDatasSo.blockMask) || 
-                                         Physics.Linecast(
-            _cc.bounds.center + new Vector3(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector, 
-                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
-                                             -_cc.bounds.extents.z), 
-            _cc.bounds.center + new Vector3(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector, 
-                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
-                                            _cc.bounds.extents.z), 
-            _datasSo.collisionDatasSo.blockMask);
+        private bool PlayerHittingTR => Physics.BoxCast(_cc.bounds.center + new Vector3(
+                                                         _cc.bounds.extents.x + 0.05f, 
+                                                         0, 
+                                                         0),
+                                                        new Vector3(
+                                                                    0.075f / 2, 
+                                                                    _cc.bounds.extents.y - 0.1f, 
+                                                                    _cc.bounds.extents.z),
+                                                        Vector3.right, 
+                                                        Quaternion.identity, 
+                                                        0.1f, 
+                                                        _datasSo.collisionDatasSo.blockMask);
         
         #endregion
         
         #region TL
         
-        private bool PlayerHittingTL => Physics.Linecast(
-            _cc.bounds.center + new Vector3(_cc.bounds.extents.x, 
-                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
-                                             _cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector), 
-            _cc.bounds.center + new Vector3(-_cc.bounds.extents.x, 
-                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
-                                            _cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector),
-            _datasSo.collisionDatasSo.blockMask) || 
-                                        Physics.Linecast(
-            _cc.bounds.center + new Vector3(-_cc.bounds.extents.x,
-                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
-                                             _cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector), 
-            _cc.bounds.center + new Vector3(_cc.bounds.extents.x, 
-                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
-                                            _cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector), 
-            _datasSo.collisionDatasSo.blockMask);
+        private bool PlayerHittingTL => Physics.BoxCast(_cc.bounds.center + new Vector3(
+                                                         0, 
+                                                         0, 
+                                                         _cc.bounds.extents.z + 0.05f),
+                                                        new Vector3(
+                                                                    _cc.bounds.extents.x, 
+                                                                    _cc.bounds.extents.y - 0.1f, 
+                                                                    0.075f / 2),
+                                                        Vector3.forward, 
+                                                        Quaternion.identity, 
+                                                        0.1f, 
+                                                        _datasSo.collisionDatasSo.blockMask);
         
         #endregion
         
         #region BR
         
-        private bool PlayerHittingBR => Physics.Linecast(
-            _cc.bounds.center + new Vector3(-_cc.bounds.extents.x, 
-                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
-                                             -(_cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector)), 
-            _cc.bounds.center + new Vector3(_cc.bounds.extents.x, 
-                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
-                                            -(_cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector)),
-            _datasSo.collisionDatasSo.blockMask) ||
-                                            Physics.Linecast(
-            _cc.bounds.center + new Vector3(_cc.bounds.extents.x, 
-                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
-                                             -(_cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector)), 
-            _cc.bounds.center + new Vector3(-_cc.bounds.extents.x, 
-                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
-                                            -(_cc.bounds.extents.z + _datasSo.collisionDatasSo.widthCorrector)),
-            _datasSo.collisionDatasSo.blockMask);
+        private bool PlayerHittingBR => Physics.BoxCast(_cc.bounds.center + new Vector3(
+                                                         0, 
+                                                         0, 
+                                                         -(_cc.bounds.extents.z + 0.05f)),
+                                                        new Vector3(
+                                                                    _cc.bounds.extents.x, 
+                                                                    _cc.bounds.extents.y - 0.1f, 
+                                                                    0.075f / 2),
+                                                        Vector3.back, 
+                                                        Quaternion.identity, 
+                                                        0.1f, 
+                                                        _datasSo.collisionDatasSo.blockMask);
 
         #endregion
         
         #region BL
         
-        private bool PlayerHittingBL => Physics.Linecast(
-            _cc.bounds.center + new Vector3(-(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector), 
-                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
-                                             _cc.bounds.extents.z), 
-            _cc.bounds.center + new Vector3(-(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector), 
-                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
-                                            -_cc.bounds.extents.z),
-            _datasSo.collisionDatasSo.blockMask) || 
-                                           Physics.Linecast(
-            _cc.bounds.center + new Vector3(-(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector), 
-                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
-                                             -_cc.bounds.extents.z), 
-            _cc.bounds.center + new Vector3(-(_cc.bounds.extents.x + _datasSo.collisionDatasSo.widthCorrector), 
-                                            _datasSo.collisionDatasSo.midHeightCorrector * _cc.bounds.extents.y, 
-                                            _cc.bounds.extents.z),
-            _datasSo.collisionDatasSo.blockMask);
+        private bool PlayerHittingBL => Physics.BoxCast(_cc.bounds.center + new Vector3(
+                                                         -(_cc.bounds.extents.x + 0.05f), 
+                                                         0, 
+                                                         0),
+                                                        new Vector3(
+                                                                    0.075f / 2, 
+                                                                    _cc.bounds.extents.y - 0.1f, 
+                                                                    _cc.bounds.extents.z),
+                                                        Vector3.left, 
+                                                        Quaternion.identity, 
+                                                        0.1f, 
+                                                        _datasSo.collisionDatasSo.blockMask);
         
         #endregion
         
@@ -276,34 +260,12 @@ namespace GameContent.PlayerScripts.PlayerStates
                 
                 _ => Vector3.zero
             };
-
-            /*_currentDir = _directionMode switch
-            {
-                LockDirectionMode.BLToTR when _inputDir is { x: > 0, z: > 0 } => _interRef.IsHittingTopRight ? 
-                    Vector3.zero : 
-                    (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
-                
-                LockDirectionMode.BLToTR when _inputDir is { x: < 0, z: < 0 } => _interRef.IsHittingBottomLeft ? 
-                    Vector3.zero : 
-                    (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
-                
-                LockDirectionMode.TLToBR when _inputDir is { x: > 0, z: < 0 } => _interRef.IsHittingBottomRight ? 
-                    Vector3.zero : 
-                    (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
-                
-                LockDirectionMode.TLToBR when _inputDir is { x: < 0, z: > 0 } => _interRef.IsHittingTopLeft ? 
-                    Vector3.zero : 
-                    (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
-                
-                _ => Vector3.zero
-
-            };*/
             
             _cc.SimpleMove(_currentDir * (_datasSo.moveDatasSo.holdingRecepMoveSpeed * Constants.SpeedMultiplier * Time.deltaTime));
-            Debug.Log(PlayerHittingTL);
+            
             //obj move
             var tempDir = _currentDir * (Time.deltaTime * Constants.RecepMoveSpeedMultiplier);
-            _recepRefRb.position += tempDir;
+            _recepRefRb.transform.position += tempDir;
             foreach (var r in _interRef.TopReceps)
             {
                 r.TempDir = tempDir;
