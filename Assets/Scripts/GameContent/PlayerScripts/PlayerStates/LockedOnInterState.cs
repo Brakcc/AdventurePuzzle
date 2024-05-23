@@ -96,7 +96,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             _interRef = _checker.InterRef as ReceptorInter;
             
             _recepRefRb = _interRef!.GetComponent<Rigidbody>();
-            _recepRefRb.constraints = ReceptorInter.GetRBConstraints(RBCMode.Rota);
+            //_recepRefRb.constraints = ReceptorInter.GetRBConstraints(RBCMode.Rota);
             
             _tempDistFromPlayer = _interRef.DistFromPlayer;
             _fallCounter = 0;
@@ -108,7 +108,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         public override void OnExitState(PlayerStateMachine stateMachine)
         {
             _tempDistFromPlayer = 0;
-            _recepRefRb.constraints = ReceptorInter.GetRBConstraints(_interRef.IsOnTop ? RBCMode.Rota : RBCMode.RotaPlan);
+            //_recepRefRb.constraints = ReceptorInter.GetRBConstraints(_interRef.IsOnTop ? RBCMode.Rota : RBCMode.RotaPlan);
             
             _stateMachine = null;
             _interRef = null;
@@ -132,6 +132,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             OnMove();
             DistFromInterCheck();
+            BlockFall();
         }
 
         #region holding methodes
@@ -177,17 +178,22 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private RelativeInterPos GetRelativePos()
         {
-            var tempDotX = Vector2.Dot(new Vector2(_interRef.transform.right.x, _interRef.transform.right.z),
-                                       new Vector2((_goRef.transform.position - _interRef.Pivot).x,
-                                                   (_goRef.transform.position - _interRef.Pivot).z)) /
-                           new Vector2((_goRef.transform.position - _interRef.Pivot).x,
-                                       (_goRef.transform.position - _interRef.Pivot).z).magnitude;
+            var transform = _interRef.transform;
+            var position = transform.position;
+            var right = transform.right;
+            var forward = transform.forward;
             
-            var tempDotY = Vector2.Dot(new Vector2(_interRef.transform.forward.x, _interRef.transform.forward.z),
-                                       new Vector2((_goRef.transform.position - _interRef.Pivot).x,
-                                                   (_goRef.transform.position - _interRef.Pivot).z)) / 
-                           new Vector2((_goRef.transform.position - _interRef.Pivot).x,
-                                       (_goRef.transform.position - _interRef.Pivot).z).magnitude;
+            var tempDotX = Vector2.Dot(new Vector2(right.x, right.z),
+                               new Vector2((position - _interRef.Pivot).x,
+                                   (position - _interRef.Pivot).z)) /
+                           new Vector2((position - _interRef.Pivot).x,
+                               (position - _interRef.Pivot).z).magnitude;
+
+            var tempDotY = Vector2.Dot(new Vector2(forward.x, forward.z),
+                               new Vector2((position - _interRef.Pivot).x,
+                                   (position - _interRef.Pivot).z)) / 
+                           new Vector2((position - _interRef.Pivot).x,
+                               (position - _interRef.Pivot).z).magnitude;
 
             return (tempDotX, tempDotY) switch
             {
@@ -284,6 +290,12 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             if (_fallCounter >= Constants.MaxFallCounterWhileGrabThreshold)
                 _stateMachine.OnSwitchState("fall");
+        }
+
+        private void BlockFall()
+        {
+            if (!_interRef.IsHittingGround)
+                _stateMachine.OnSwitchState("move");
         }
 
         #endregion
