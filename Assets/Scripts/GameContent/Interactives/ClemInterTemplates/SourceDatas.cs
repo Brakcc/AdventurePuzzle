@@ -26,7 +26,11 @@ namespace GameContent.Interactives.ClemInterTemplates
             Source = source;
             Type = source == null ? EnergyTypes.None : source.EnergyType;
         }
-
+        
+        #endregion
+        
+        #region methodes
+        
         public static Color GetTypedColor(EnergyTypes type) => type switch
         {
             EnergyTypes.None => new Color(0, 0, 0, 0),
@@ -35,7 +39,6 @@ namespace GameContent.Interactives.ClemInterTemplates
             EnergyTypes.Blue => Color.blue,
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, "allez zebi")
         };
-            
         
         #endregion
     }

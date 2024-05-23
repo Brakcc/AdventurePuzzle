@@ -100,6 +100,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             _tempDistFromPlayer = _interRef.DistFromPlayer;
             _fallCounter = 0;
+            _blockFallCounter = 0;
             
             _relativePos = GetRelativePos();
             _directionMode = GetBaseMoveDir(_relativePos);
@@ -178,10 +179,9 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private RelativeInterPos GetRelativePos()
         {
-            var transform = _interRef.transform;
-            var position = transform.position;
-            var right = transform.right;
-            var forward = transform.forward;
+            var position = _goRef.transform.position;
+            var right = Vector3.right;
+            var forward = Vector3.forward;
             
             var tempDotX = Vector2.Dot(new Vector2(right.x, right.z),
                                new Vector2((position - _interRef.Pivot).x,
@@ -195,6 +195,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                            new Vector2((position - _interRef.Pivot).x,
                                (position - _interRef.Pivot).z).magnitude;
 
+            Debug.Log($"{tempDotX}  {tempDotY}");
             return (tempDotX, tempDotY) switch
             {
                 (>= Constants.PiByFourRadVal, <= Constants.PiByFourRadVal) => RelativeInterPos.TR,
@@ -295,6 +296,9 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void BlockFall()
         {
             if (!_interRef.IsHittingGround)
+                _blockFallCounter += Time.deltaTime;
+            
+            if (_blockFallCounter >= Constants.MaxFallCounterWhileGrabThreshold)
                 _stateMachine.OnSwitchState("move");
         }
 
@@ -315,6 +319,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         private float _tempDistFromPlayer;
 
         private float _fallCounter;
+
+        private float _blockFallCounter;
 
         #endregion
     }
