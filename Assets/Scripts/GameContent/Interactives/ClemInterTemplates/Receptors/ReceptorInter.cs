@@ -13,6 +13,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
     {
         #region properties
 
+        #region Inner Infos
+        
         public EnergyTypes CurrentEnergyType
         {
             get => _currentAppliedEnergy;
@@ -48,8 +50,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             set => _tempDir = SetDir(value);
         }
         
-        public bool IsMovable => _isMovable;
-        
+        public bool IsMovable
+        {
+            get => _isMovable;
+            protected set => _isMovable = value;
+        }
+
         public bool HasWaveEnergy
         {
             get => _hasWaveEnergy;
@@ -70,19 +76,21 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             }
         }
         
+        #endregion
+        
         #region IsHittingTR
         
         public bool IsHittingTopRight => Physics.BoxCast(_col.bounds.center + new Vector3(
-                                                          _col.bounds.extents.x + 0.05f, 
+                                                          _col.bounds.extents.x + Constants.BoxCastBounds.SideBoxPosDeport, 
                                                           0, 
                                                           0),
                                                          new Vector3(
-                                                                     0.075f / 2, 
-                                                                     _col.bounds.extents.y - 0.1f, 
+                                                                     Constants.BoxCastBounds.SideBoxHalfExtent / 2, 
+                                                                     _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxHeightCut, 
                                                                      _col.bounds.extents.z),
-                                                         Vector3.right, 
+                                                         Vector3.right,
                                                          Quaternion.identity, 
-                                                         0.1f, 
+                                                         Constants.BoxCastBounds.SideCastDist, 
                                                          blockMask);
         
         #endregion
@@ -92,14 +100,14 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         public bool IsHittingTopLeft => Physics.BoxCast(_col.bounds.center + new Vector3(
                                                          0, 
                                                          0, 
-                                                         _col.bounds.extents.z + 0.05f),
+                                                         _col.bounds.extents.z + Constants.BoxCastBounds.SideBoxPosDeport),
                                                         new Vector3(
                                                                     _col.bounds.extents.x, 
-                                                                    _col.bounds.extents.y - 0.1f, 
-                                                                    0.075f / 2),
+                                                                    _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxHeightCut, 
+                                                                    Constants.BoxCastBounds.SideBoxHalfExtent / 2),
                                                         Vector3.forward, 
                                                         Quaternion.identity, 
-                                                        0.1f, 
+                                                        Constants.BoxCastBounds.SideCastDist, 
                                                         blockMask);
         
         #endregion
@@ -109,14 +117,14 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         public bool IsHittingBottomRight => Physics.BoxCast(_col.bounds.center + new Vector3(
                                                              0, 
                                                              0, 
-                                                             -(_col.bounds.extents.z + 0.05f)),
+                                                             -(_col.bounds.extents.z + Constants.BoxCastBounds.SideBoxPosDeport)),
                                                             new Vector3(
                                                                         _col.bounds.extents.x, 
-                                                                        _col.bounds.extents.y - 0.1f, 
-                                                                        0.075f / 2),
+                                                                        _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxHeightCut, 
+                                                                        Constants.BoxCastBounds.SideBoxHalfExtent / 2),
                                                             Vector3.back, 
                                                             Quaternion.identity, 
-                                                            0.1f, 
+                                                            Constants.BoxCastBounds.SideCastDist, 
                                                             blockMask);
         
         #endregion
@@ -124,16 +132,16 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         #region IsHittingBL
         
         public bool IsHittingBottomLeft => Physics.BoxCast(_col.bounds.center + new Vector3(
-                                                            -(_col.bounds.extents.x + 0.05f), 
+                                                            -(_col.bounds.extents.x + Constants.BoxCastBounds.SideBoxPosDeport), 
                                                             0, 
                                                             0),
                                                            new Vector3(
-                                                                       0.075f / 2, 
-                                                                       _col.bounds.extents.y - 0.1f, 
+                                                                       Constants.BoxCastBounds.SideBoxHalfExtent / 2, 
+                                                                       _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxHeightCut, 
                                                                        _col.bounds.extents.z),
                                                            Vector3.left, 
                                                            Quaternion.identity, 
-                                                           0.1f, 
+                                                           Constants.BoxCastBounds.SideCastDist, 
                                                            blockMask);
 
         #endregion
@@ -141,6 +149,18 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         #region IsHittingGround
 
         //raycast ou boxcast ?
+        public bool IsHittingGround => Physics.BoxCast(_col.bounds.center + new Vector3(
+                                                            0, 
+                                                            -(_col.bounds.extents.y - Constants.BoxCastBounds.DownBoxPosDeport), 
+                                                            0),
+                                                           new Vector3(
+                                                                       _col.bounds.extents.x, 
+                                                                       Constants.BoxCastBounds.DownBoxHalfExtent / 2, 
+                                                                       _col.bounds.extents.z),
+                                                           Vector3.down, 
+                                                           Quaternion.identity, 
+                                                           Constants.BoxCastBounds.DownCastDist, 
+                                                           blockMask);
 
         #endregion
         
@@ -163,12 +183,13 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             _rb = GetComponent<Rigidbody>();
             _grabber = GetComponentInChildren<RecepsTopBlockGrabber>();
 
-            _rb.mass = 1000;
-            _rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
+            //_rb.mass = 1000;
+            //_rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
             _rb.isKinematic = true;
 
             _tempDir = Vector3.zero;
             IsOnTop = false;
+            _fallCurveCounter = 0;
 
             if (debugMod.hasLight)
             {
@@ -178,8 +199,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             
             OnReset();
         }
-
-        #region Actions
 
         protected override void OnUpdate()
         {
@@ -196,6 +215,13 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
             _waveEnergyCounter -= Time.deltaTime;
         }
+
+        protected override void OnFixedUpdate()
+        {
+            SolidFall();
+        }
+
+        #region Actions
 
         public override void PlayerAction()
         {
@@ -218,32 +244,32 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                     _col.enabled = true;
                     hasElectricity = false;
                     _isMovable = false;
-                    _rb.isKinematic = true;
-                    _rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
+                    //_rb.isKinematic = true;
+                    //_rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
                     debugTextLocal = "";
                     break;
                 case EnergyTypes.Yellow:
                     _col.enabled = true;
                     hasElectricity = true;
                     _isMovable = false;
-                    _rb.isKinematic = true;
-                    _rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
+                    //_rb.isKinematic = true;
+                    //_rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
                     debugTextLocal = "";
                     break;
                 case EnergyTypes.Green:
                     _col.enabled = false;
                     hasElectricity = false;
                     _isMovable = false;
-                    _rb.isKinematic = true;
-                    _rb.constraints = GetRBConstraints(RBCMode.Full);
+                    //_rb.isKinematic = true;
+                    //_rb.constraints = GetRBConstraints(RBCMode.Full);
                     debugTextLocal = "";
                     break;
                 case EnergyTypes.Blue:
                     _col.enabled = true;
                     hasElectricity = false;
                     _isMovable = true;
-                    _rb.isKinematic = false;
-                    _rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
+                    //_rb.isKinematic = true;
+                    //_rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
                     debugTextLocal = debugMod.debugString;
                     break;
                 default:
@@ -254,6 +280,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         
         #endregion
 
+        #region Inner Actions
+        
         private Vector3 SetDir(Vector3 dir) => (dir.x, dir.z) switch
         {
             (>= Constants.MinBlockMoveInputThreshold, <= Constants.MinBlockMoveInputThreshold) => IsHittingTopRight ? Vector3.zero : dir,
@@ -263,6 +291,19 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             _ => Vector3.zero
         };
 
+        private void SolidFall()
+        {
+            if (IsHittingGround)
+            {
+                if (_fallCurveCounter > 0)
+                    _fallCurveCounter = 0;
+                return;
+            }
+
+            _fallCurveCounter += Time.fixedDeltaTime;
+            transform.position -= new Vector3(0, fallCurve.Evaluate(_fallCurveCounter) * Time.fixedDeltaTime, 0);
+        }
+        
         public void MoveSolid(Vector3 dir) => _rb.transform.position += dir;
             
         public void SetRBConstraints(RigidbodyConstraints constraints) => _rb.constraints = constraints;
@@ -282,6 +323,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             RBCMode.None => RigidbodyConstraints.None,
             _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, "nice try my guy")
         };
+        
+        #endregion
         
         #region Gizmos
         
@@ -321,6 +364,13 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             Gizmos.DrawWireCube(bounds.center + new Vector3(0, 0, -(bounds.extents.z + 0.1f)),
                                 new Vector3(bounds.size.x, bounds.size.y - 0.2f, 0.15f));
             #endregion
+
+            #region GC
+
+            Gizmos.DrawWireCube(bounds.center + new Vector3(0, -(bounds.extents.y/* - 0.03f*/), 0), 
+                new Vector3(bounds.size.x, 0.15f, bounds.size.z));
+
+            #endregion
         }
 
         #endregion
@@ -334,6 +384,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         [FieldCompletion] [SerializeField] private Transform pivot;
 
         [SerializeField] private LayerMask blockMask;
+
+        [SerializeField] private AnimationCurve fallCurve;
         
         [FieldCompletion(FieldColor.Orange)]
         [SerializeField] private Collider _col;
@@ -355,6 +407,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         private float _waveEnergyCounter;
         
         protected bool hasElectricity;
+
+        private float _fallCurveCounter;
 
         #endregion
     }
