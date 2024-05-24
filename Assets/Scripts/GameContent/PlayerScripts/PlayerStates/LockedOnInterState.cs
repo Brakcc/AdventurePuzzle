@@ -298,7 +298,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (!_interRef.IsHittingGround)
                 _blockFallCounter += Time.deltaTime;
             
-            if (_blockFallCounter >= Constants.MaxFallCounterWhileGrabThreshold)
+            if (_blockFallCounter >= Constants.MaxBlockFallCounterThreshold)
                 _stateMachine.OnSwitchState("move");
         }
 

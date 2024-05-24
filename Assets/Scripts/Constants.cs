@@ -20,6 +20,7 @@ public static class Constants
     public const short OrientationNumber = 4;
     public const int BitFlagRBConstraintRotaPlan = 122;
     public const float MaxFallCounterWhileGrabThreshold = 0.5f;
+    public const float MaxBlockFallCounterThreshold = 0.25f;
     public const float WaveEnergyDuration = 12.5f;
     public const float FirstQuarterAngleValue = 45;
     public const float ThirdQuarterAngleValue = 135;
