@@ -33,7 +33,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                         nodes[i].receptorRef.CurrentEnergyType = this[i].Type;
                         break;
                     case DentriteType.Distributor:
-                        Debug.Log($"energy added type {nodes[i].distributorRef.IncomingCollectedEnergy} and from  {this[i].Type} ");
                         nodes[i].distributorRef.IncomingCollectedEnergy = this[i].Type;
                         break;
                     case DentriteType.None:

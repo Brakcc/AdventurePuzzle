@@ -58,20 +58,22 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             if (CurrentDistribution is null)
                 return;
             
+            TransmittedEnergy = IncomingCollectedEnergy;
+            Debug.Log(TransmittedEnergy);
+            
             if (CurrentDistribution[0] == 0)
             {
                 TransmittedEnergy = EnergyTypes.None;
-                ResetNetwork();
+                //ResetNetwork();
+                EnergyDistribution();
                 return;
             }
             
-            TransmittedEnergy = IncomingCollectedEnergy;
-            
-            if (TransmittedEnergy is EnergyTypes.None)
+            /*if (TransmittedEnergy is EnergyTypes.None)
             {
                 ResetNetwork();
                 return;
-            }
+            }*/
 
             EnergyDistribution();
         }
