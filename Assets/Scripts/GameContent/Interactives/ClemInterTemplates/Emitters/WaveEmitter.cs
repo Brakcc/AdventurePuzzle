@@ -138,11 +138,13 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             #region VFX
             
-            datas.monoWave.SetFloat("r", SourceDatas.GetTypedColor(this[i - 1].Type).r * 255);
-            datas.monoWave.SetFloat("g", SourceDatas.GetTypedColor(this[i - 1].Type).g * 255);
-            datas.monoWave.SetFloat("b", SourceDatas.GetTypedColor(this[i - 1].Type).b * 255);
-            datas.monoWave.SetFloat("a", SourceDatas.GetTypedColor(this[i - 1].Type).a * 0.2f);
+            datas.monoWave.SetVector4("rgba", new Vector4(
+                                                          SourceDatas.GetTypedColor(this[i - 1].Type).r * 255,
+                                                          SourceDatas.GetTypedColor(this[i - 1].Type).g * 255,
+                                                          SourceDatas.GetTypedColor(this[i - 1].Type).b * 255,
+                                                          SourceDatas.GetTypedColor(this[i - 1].Type).a * 0.2f));
 
+            
             datas.monoWave.Play();
             
             #endregion
@@ -151,9 +153,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             if (recepDatas[j - 1].ReceptorInter.DistFromEmit >= datas.maxDistHit ||
                 Mathf.Abs(datas.sphere.position.y + datas.levelCorrector - recepDatas[j - 1].ReceptorInter.Pivot.y) >=
-                datas.inBetweenLevelThreshold / 2 + datas.ampliCorrector)
+                datas.inBetweenLevelThreshold / 2 + datas.ampliCorrector || 
+                recepDatas[j - 1].ReceptorInter.HasCableEnergy)
                 yield break;
-            
+
+            recepDatas[j - 1].ReceptorInter.HasWaveEnergy = true;
             recepDatas[j - 1].ReceptorInter.CurrentEnergyType = this[i - 1].Type;
         }
 

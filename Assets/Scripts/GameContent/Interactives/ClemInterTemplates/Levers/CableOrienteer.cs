@@ -29,10 +29,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
             nodeRef.CurrentOrientationLevel = Level;
             UnMaxDanimAAjouter();
         }
-
+        
         private void UnMaxDanimAAjouter()
         {
-            
+            //arreter d'avoir la flemme et faire le truc
         }
 
         private void OnDrawGizmos()

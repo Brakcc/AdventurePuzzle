@@ -28,5 +28,7 @@ namespace GameContent.PlayerScripts.PlayerDatas
         [FieldCompletion(_checkedColor: FieldColor.Green)] public GroundingDatasSO groundingDatasSo;
         
         [FieldCompletion(_checkedColor: FieldColor.Green)] public InteractDatasSO interactDatasSo;
+        
+        [FieldCompletion(_checkedColor: FieldColor.Green)] public CollisionDatasSO collisionDatasSo;
     }
 }

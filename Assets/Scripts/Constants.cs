@@ -20,5 +20,20 @@ public static class Constants
     public const short OrientationNumber = 4;
     public const int BitFlagRBConstraintRotaPlan = 122;
     public const float MaxFallCounterWhileGrabThreshold = 0.5f;
+    public const float MaxBlockFallCounterThreshold = 0.25f;
+    public const float WaveEnergyDuration = 12.5f;
+    public const float FirstQuarterAngleValue = 45;
+    public const float ThirdQuarterAngleValue = 135;
+    public const float PiByFourRadVal = 0.7071067f;
     public static readonly sbyte[] XShapeNodeArray = { 1, 1, 1, 1 };
+    public static class BoxCastBounds
+    {
+        public const float SideBoxPosDeport = 0.05f;
+        public const float DownBoxPosDeport = 0.15f;
+        public const float SideBoxHalfExtent = 0.075f;
+        public const float SideBoxLengthCut = 0.1f;
+        public const float DownBoxHalfExtent = 0.15f;
+        public const float SideCastDist = 0.1f;
+        public const float DownCastDist = 0.15f;
+    }
 }

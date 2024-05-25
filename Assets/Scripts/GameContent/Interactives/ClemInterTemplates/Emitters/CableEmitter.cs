@@ -1,8 +1,7 @@
-﻿using GameContent.Interactives.ClemInterTemplates.Receptors;
+﻿using System;
+using GameContent.Interactives.ClemInterTemplates.Receptors;
 using GameContent.PlayerScripts;
 using UnityEngine;
-using Utilities.CustomAttributes;
-using Utilities.CustomAttributes.FieldColors;
 
 namespace GameContent.Interactives.ClemInterTemplates.Emitters
 {
@@ -25,15 +24,22 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         public override void InterAction()
         {
-            //ici action du cable
-            //
-            //
-            //
-            
             for (var i = 0; i < SourceCount; i++)
             {
-                if (nodes[i].dendrite is DentriteType.Receptor)
-                    nodes[i].receptorRef.CurrentEnergyType = this[i].Type;
+                switch (nodes[i].dendrite)
+                {
+                    case DentriteType.Receptor:
+                        nodes[i].receptorRef.HasCableEnergy = true;
+                        nodes[i].receptorRef.CurrentEnergyType = this[i].Type;
+                        break;
+                    case DentriteType.Distributor:
+                        nodes[i].nodeRef.IncomingCollectedEnergy = this[i].Type;
+                        break;
+                    case DentriteType.None:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(nodes), nodes[i].dendrite, "et bah non");
+                }
             }
         }
 
@@ -66,9 +72,22 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             }
             else 
                 SourceDatasList[SourceCount - 1].Source.InterAction();
-            
-            if (nodes[SourceCount - 1].dendrite is DentriteType.Receptor)
-                nodes[SourceCount - 1].receptorRef.OnReset();
+
+            switch (nodes[SourceCount - 1].dendrite)
+            {
+                case DentriteType.Receptor:
+                    nodes[SourceCount - 1].receptorRef.HasCableEnergy = false;
+                    nodes[SourceCount - 1].receptorRef.OnReset();
+                    break;
+                case DentriteType.Distributor:
+                    nodes[SourceCount - 1].nodeRef.IncomingCollectedEnergy = EnergyTypes.None;
+                    break;
+                case DentriteType.None:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(nodes), nodes[SourceCount - 1].dendrite, "et bah non ca passe pas");
+            }
+
             SourceDatasList.RemoveAt(SourceCount - 1);
             base.PlayerCancel();
         }
@@ -77,7 +96,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         #region fields
         
-        [FieldCompletion(FieldColor.Yellow, FieldColor.Green)] 
         [SerializeField] private NodeDatas[] nodes;
 
         #endregion
