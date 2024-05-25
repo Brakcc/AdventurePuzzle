@@ -17,8 +17,19 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             foreach (var n in nodes)
             {
-                if (n.dendrite is DentriteType.Receptor)
-                    n.receptorRef.EmitRef = this;
+                switch (n.dendrite)
+                {
+                    case DentriteType.Receptor:
+                        n.receptorRef.EmitRef = this;
+                        break;
+                    case DentriteType.Distributor:
+                        n.distributorRef.GetRef(this);
+                        break;
+                    case DentriteType.None:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(n), n.dendrite, "ta ...");
+                }
             }
         }
         

@@ -59,7 +59,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 return;
             
             TransmittedEnergy = IncomingCollectedEnergy;
-            Debug.Log(TransmittedEnergy);
+            
             
             if (CurrentDistribution[0] == 0)
             {
@@ -68,7 +68,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 EnergyDistribution();
                 return;
             }
-            
+            //Debug.Log($"{name}  {TransmittedEnergy}  {CurrentDistribution[0]},{CurrentDistribution[1]},{CurrentDistribution[2]},{CurrentDistribution[3]}");
             /*if (TransmittedEnergy is EnergyTypes.None)
             {
                 ResetNetwork();
@@ -78,6 +78,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             EnergyDistribution();
         }
 
+        #region reset
+        
         private void ResetNetwork()
         {
             foreach (var n in nodeDatas)
@@ -98,19 +100,20 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             }
         }
 
+        #endregion
+        
         private void EnergyDistribution()
         {
             foreach (var n in nodeDatas)
             {
-                var tempE = CurrentDistribution[n.ConnectionID] == 1 ? IncomingCollectedEnergy : EnergyTypes.None;
+                var tempE = CurrentDistribution[n.ConnectionID] == 1 ? TransmittedEnergy : EnergyTypes.None;
+                //Debug.Log($"{n.dendrite} {n.receptorRef?.name} {n.distributorRef?.name} {n.ConnectionID}");
                 switch(n.dendrite)
                 {
                     case DentriteType.Receptor:
-                        Debug.Log($"{name}  {n.receptorRef.name}  {n.receptorRef.CurrentEnergyType}  {tempE}");
                         n.receptorRef.CurrentEnergyType = tempE;
                         break;
                     case DentriteType.Distributor:
-                        Debug.Log($"{name}  {n.distributorRef.name}  {n.distributorRef.TransmittedEnergy}  {tempE}");
                         n.distributorRef.IncomingCollectedEnergy = tempE;
                         break;
                     case DentriteType.None:
@@ -148,6 +151,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             }
         }
 
+        public void GetRef(EmitterInter emit)
+        {
+            
+        }
+        
         #endregion
         
         #region fields
