@@ -243,15 +243,13 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 case EnergyTypes.None:
                     _col.enabled = true;
                     hasElectricity = false;
-                    _isMovable = false;
-                    //_rb.isKinematic = true;
-                    //_rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
+                    _isMovable = true;
                     debugTextLocal = "";
                     break;
                 case EnergyTypes.Yellow:
                     _col.enabled = true;
                     hasElectricity = true;
-                    _isMovable = false;
+                    _isMovable = true;
                     //_rb.isKinematic = true;
                     //_rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
                     debugTextLocal = "";
@@ -293,6 +291,9 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         private void SolidFall()
         {
+            if (!_isMovable)
+                return;
+            
             if (IsHittingGround)
             {
                 if (_fallCurveCounter > 0)
