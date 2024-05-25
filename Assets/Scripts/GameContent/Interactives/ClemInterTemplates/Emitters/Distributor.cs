@@ -9,9 +9,24 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
     {
         #region properties
 
-        public EnergyTypes IncomingCollectedEnergy { get; set; }
-        
-        public EnergyTypes TransmittedEnergy { get; set; }
+        public EnergyTypes IncomingCollectedEnergy
+        {
+            get => _incomingCollectedEnergy;
+            set
+            {
+                _incomingCollectedEnergy = value;
+                InterAction();
+            }
+        }
+
+        public EnergyTypes TransmittedEnergy
+        {
+            get => _transmittedEnergy;
+            set
+            {
+                _transmittedEnergy = value;
+            }
+        }
         
         public short CurrentOrientationLevel
         {
@@ -31,14 +46,77 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         #region methodes
 
+        protected override void OnInit()
+        {
+            base.OnInit();
+            _currentLevel = 0;
+            _currentDistributionOrientation = GetOrientationArray(nodeMode, 0);
+        }
+
         public override void InterAction()
         {
+            if (CurrentDistribution is null)
+                return;
             
+            if (CurrentDistribution[0] == 0)
+            {
+                TransmittedEnergy = EnergyTypes.None;
+                ResetNetwork();
+                return;
+            }
+            
+            TransmittedEnergy = IncomingCollectedEnergy;
+            
+            if (TransmittedEnergy is EnergyTypes.None)
+            {
+                ResetNetwork();
+                return;
+            }
+
+            EnergyDistribution();
+        }
+
+        private void ResetNetwork()
+        {
+            foreach (var n in nodeDatas)
+            {
+                switch(n.dendrite)
+                {
+                    case DentriteType.Receptor:
+                        n.receptorRef.CurrentEnergyType = EnergyTypes.None;
+                        break;
+                    case DentriteType.Distributor:
+                        n.distributorRef.IncomingCollectedEnergy = EnergyTypes.None;
+                        break;
+                    case DentriteType.None:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(n), n.dendrite, "mais voila mais c'etait sur en fait");
+                }
+            }
         }
 
         private void EnergyDistribution()
         {
-            
+            foreach (var n in nodeDatas)
+            {
+                var tempE = CurrentDistribution[n.ConnectionID] == 1 ? IncomingCollectedEnergy : EnergyTypes.None;
+                switch(n.dendrite)
+                {
+                    case DentriteType.Receptor:
+                        Debug.Log($"{name}  {n.receptorRef.name}  {n.receptorRef.CurrentEnergyType}  {tempE}");
+                        n.receptorRef.CurrentEnergyType = tempE;
+                        break;
+                    case DentriteType.Distributor:
+                        Debug.Log($"{name}  {n.distributorRef.name}  {n.distributorRef.TransmittedEnergy}  {tempE}");
+                        n.distributorRef.IncomingCollectedEnergy = tempE;
+                        break;
+                    case DentriteType.None:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(n), n.dendrite, "mais voila mais c'etait sur en fait");
+                }
+            }
         }
         
         private static sbyte[] GetOrientationArray(CableNodeMode mode, short orientLevel)
@@ -78,6 +156,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         [SerializeField] private CableNodeMode nodeMode;
 
+        private EnergyTypes _incomingCollectedEnergy;
+
+        private EnergyTypes _transmittedEnergy;
+        
         private sbyte[] _currentDistributionOrientation;
         
         private short _currentLevel;

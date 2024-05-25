@@ -22,7 +22,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             {
                 _currentAppliedEnergy = value;
                 InterAction();
-                if (hasDebugMod)
+                if (hasDebugMod && debugMod.hasLight)
                     OnChangeColorLightDebug(_currentAppliedEnergy);
             }
         }
@@ -313,7 +313,13 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             CurrentEnergyType = EnergyTypes.None;
         }
 
-        private void OnChangeColorLightDebug(EnergyTypes type) => InterLight.color = LightDebugger.DebugColor(type);
+        private void OnChangeColorLightDebug(EnergyTypes type)
+        {
+            if (InterLight is null)
+                return;
+            
+            InterLight.color = LightDebugger.DebugColor(type);
+        } 
 
         public static RigidbodyConstraints GetRBConstraints(RBCMode mode) => mode switch
         {

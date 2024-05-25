@@ -33,7 +33,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                         nodes[i].receptorRef.CurrentEnergyType = this[i].Type;
                         break;
                     case DentriteType.Distributor:
-                        nodes[i].nodeRef.IncomingCollectedEnergy = this[i].Type;
+                        Debug.Log($"energy added type {nodes[i].distributorRef.IncomingCollectedEnergy} and from  {this[i].Type} ");
+                        nodes[i].distributorRef.IncomingCollectedEnergy = this[i].Type;
                         break;
                     case DentriteType.None:
                         break;
@@ -80,7 +81,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                     nodes[SourceCount - 1].receptorRef.OnReset();
                     break;
                 case DentriteType.Distributor:
-                    nodes[SourceCount - 1].nodeRef.IncomingCollectedEnergy = EnergyTypes.None;
+                    nodes[SourceCount - 1].distributorRef.IncomingCollectedEnergy = EnergyTypes.None;
                     break;
                 case DentriteType.None:
                     break;
