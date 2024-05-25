@@ -32,7 +32,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         
         private void UnMaxDanimAAjouter()
         {
-            
+            //arreter d'avoir la flemme et faire le truc
         }
 
         private void OnDrawGizmos()

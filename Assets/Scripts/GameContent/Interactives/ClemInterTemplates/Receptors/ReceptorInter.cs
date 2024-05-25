@@ -86,8 +86,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                                                           0),
                                                          new Vector3(
                                                                      Constants.BoxCastBounds.SideBoxHalfExtent / 2, 
-                                                                     _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxHeightCut, 
-                                                                     _col.bounds.extents.z),
+                                                                     _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxLengthCut, 
+                                                                     _col.bounds.extents.z - Constants.BoxCastBounds.SideBoxLengthCut),
                                                          Vector3.right,
                                                          Quaternion.identity, 
                                                          Constants.BoxCastBounds.SideCastDist, 
@@ -102,8 +102,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                                                          0, 
                                                          _col.bounds.extents.z + Constants.BoxCastBounds.SideBoxPosDeport),
                                                         new Vector3(
-                                                                    _col.bounds.extents.x, 
-                                                                    _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxHeightCut, 
+                                                                    _col.bounds.extents.x - Constants.BoxCastBounds.SideBoxLengthCut, 
+                                                                    _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxLengthCut, 
                                                                     Constants.BoxCastBounds.SideBoxHalfExtent / 2),
                                                         Vector3.forward, 
                                                         Quaternion.identity, 
@@ -119,8 +119,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                                                              0, 
                                                              -(_col.bounds.extents.z + Constants.BoxCastBounds.SideBoxPosDeport)),
                                                             new Vector3(
-                                                                        _col.bounds.extents.x, 
-                                                                        _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxHeightCut, 
+                                                                        _col.bounds.extents.x - Constants.BoxCastBounds.SideBoxLengthCut, 
+                                                                        _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxLengthCut, 
                                                                         Constants.BoxCastBounds.SideBoxHalfExtent / 2),
                                                             Vector3.back, 
                                                             Quaternion.identity, 
@@ -137,8 +137,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                                                             0),
                                                            new Vector3(
                                                                        Constants.BoxCastBounds.SideBoxHalfExtent / 2, 
-                                                                       _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxHeightCut, 
-                                                                       _col.bounds.extents.z),
+                                                                       _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxLengthCut, 
+                                                                       _col.bounds.extents.z - Constants.BoxCastBounds.SideBoxLengthCut),
                                                            Vector3.left, 
                                                            Quaternion.identity, 
                                                            Constants.BoxCastBounds.SideCastDist, 
@@ -338,7 +338,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             
             //Top Right
             Gizmos.DrawWireCube(bounds.center + new Vector3(bounds.extents.x + 0.1f, 0, 0),
-                                new Vector3(0.15f, bounds.size.y - 0.2f, bounds.size.z));
+                                new Vector3(0.15f, bounds.size.y - 0.2f, bounds.size.z - 0.2f));
             
             #endregion
             
@@ -346,7 +346,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             
             //Bottom Left
             Gizmos.DrawWireCube(bounds.center + new Vector3(-(bounds.extents.x + 0.1f), 0, 0),
-                                new Vector3(0.15f, bounds.size.y - 0.2f, bounds.size.z));
+                                new Vector3(0.15f, bounds.size.y - 0.2f, bounds.size.z - 0.2f));
             
             #endregion
             
@@ -354,7 +354,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             
             //Top Left
             Gizmos.DrawWireCube(bounds.center + new Vector3(0, 0, bounds.extents.z + 0.1f),
-                                new Vector3(bounds.size.x, bounds.size.y - 0.2f, 0.15f));
+                                new Vector3(bounds.size.x - 0.2f, bounds.size.y - 0.2f, 0.15f));
             
             #endregion
             
@@ -362,7 +362,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             
             //Bottom Right
             Gizmos.DrawWireCube(bounds.center + new Vector3(0, 0, -(bounds.extents.z + 0.1f)),
-                                new Vector3(bounds.size.x, bounds.size.y - 0.2f, 0.15f));
+                                new Vector3(bounds.size.x - 0.2f, bounds.size.y - 0.2f, 0.15f));
             #endregion
 
             #region GC

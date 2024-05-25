@@ -30,7 +30,7 @@ public static class Constants
         public const float SideBoxPosDeport = 0.05f;
         public const float DownBoxPosDeport = 0.15f;
         public const float SideBoxHalfExtent = 0.075f;
-        public const float SideBoxHeightCut = 0.1f;
+        public const float SideBoxLengthCut = 0.1f;
         public const float DownBoxHalfExtent = 0.15f;
         public const float SideCastDist = 0.1f;
         public const float DownCastDist = 0.15f;

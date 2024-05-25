@@ -21,6 +21,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 _currentLevel = value;
                 levelText.text = _currentLevel.ToString();
                 _currentDistributionOrientation = GetOrientationArray(nodeMode, _currentLevel);
+                //Verif retroactive de l'energie
             }
         }
 
