@@ -19,7 +19,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public Vector3 SpherePos => datas.sphere.position;
         
-        public short CurrentHeightLevel
+        public sbyte CurrentHeightLevel
         {
             get => _currentLevel;
             set
@@ -65,7 +65,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public override void PlayerAction()
         {
-            if (SourceDatasList.Count >= recepDatas.Count)
+            if (SourceCount >= recepDatas.Count)
                 return;
             
             if (PlayerEnergyM.EnergyType == EnergyTypes.None)
@@ -161,6 +161,21 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             recepDatas[j - 1].ReceptorInter.CurrentEnergyType = this[i - 1].Type;
         }
 
+        protected override void ForceAbsorbSources(EnergySourceInter[] sources)
+        {
+            if (sources.Length <= 0)
+                return;
+
+            foreach (var s in sources)
+            {
+                if (SourceCount >= recepDatas.Count)
+                    break;
+                
+                SourceDatasList.Add(new SourceDatas(s));
+                s.OnForceAbsorb();
+            }
+        }
+
         #region Gizmos
         
         private void OnDrawGizmos()
@@ -193,7 +208,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             Mathf.RoundToInt(Mathf.Sign(a.ActivationDelay + a.ReceptorInter.DistFromEmit -
                             (b.ActivationDelay + b.ReceptorInter.DistFromEmit)));
         
-        private short _currentLevel;
+        private sbyte _currentLevel;
         
         private float _tripleWavesDelayCounter;
 

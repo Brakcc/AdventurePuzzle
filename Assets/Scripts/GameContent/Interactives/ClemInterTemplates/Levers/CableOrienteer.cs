@@ -7,12 +7,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
     {
         #region properties
 
-        public override short Level
+        public override sbyte Level
         {
             get => _currentLevel;
             set
             {
-                _currentLevel = (short)(value < 0 ? value + Constants.OrientationNumber : value % Constants.OrientationNumber);
+                _currentLevel = (sbyte)(value < 0 ? value + Constants.OrientationNumber : value % Constants.OrientationNumber);
                 PlayerAction();
             }
         }
@@ -33,7 +33,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         private void UnMaxDanimAAjouter()
         {
             //arreter d'avoir la flemme et faire le truc
-            //Debug.Log($"{nodeRef.CurrentDistribution[0]}  {nodeRef.CurrentDistribution[1]}  {nodeRef.CurrentDistribution[2]}  {nodeRef.CurrentDistribution[3]}");
+            
+            NodeTrans.Rotate(pivot.up, 90);
         }
 
         private void OnDrawGizmos()
@@ -49,6 +50,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         [SerializeField] private Distributor nodeRef;
 
         [SerializeField] private Color gizmosColor;
+
+        [SerializeField] private Transform pivot;
 
         #endregion
     }

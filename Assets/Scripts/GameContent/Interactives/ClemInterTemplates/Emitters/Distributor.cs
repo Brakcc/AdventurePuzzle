@@ -28,7 +28,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             }
         }
         
-        public short CurrentOrientationLevel
+        public sbyte CurrentOrientationLevel
         {
             get => _currentLevel;
             set
@@ -64,43 +64,13 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             if (CurrentDistribution[0] == 0)
             {
                 TransmittedEnergy = EnergyTypes.None;
-                //ResetNetwork();
                 EnergyDistribution();
                 return;
             }
             //Debug.Log($"{name}  {TransmittedEnergy}  {CurrentDistribution[0]},{CurrentDistribution[1]},{CurrentDistribution[2]},{CurrentDistribution[3]}");
-            /*if (TransmittedEnergy is EnergyTypes.None)
-            {
-                ResetNetwork();
-                return;
-            }*/
 
             EnergyDistribution();
         }
-
-        #region reset
-        
-        private void ResetNetwork()
-        {
-            foreach (var n in nodeDatas)
-            {
-                switch(n.dendrite)
-                {
-                    case DentriteType.Receptor:
-                        n.receptorRef.CurrentEnergyType = EnergyTypes.None;
-                        break;
-                    case DentriteType.Distributor:
-                        n.distributorRef.IncomingCollectedEnergy = EnergyTypes.None;
-                        break;
-                    case DentriteType.None:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(n), n.dendrite, "mais voila mais c'etait sur en fait");
-                }
-            }
-        }
-
-        #endregion
         
         private void EnergyDistribution()
         {
@@ -124,7 +94,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             }
         }
         
-        private static sbyte[] GetOrientationArray(CableNodeMode mode, short orientLevel)
+        private static sbyte[] GetOrientationArray(CableNodeMode mode, sbyte orientLevel)
         {
             switch (mode)
             {
@@ -191,7 +161,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         private sbyte[] _currentDistributionOrientation;
         
-        private short _currentLevel;
+        private sbyte _currentLevel;
 
         #endregion
     }
