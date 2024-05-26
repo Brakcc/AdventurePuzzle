@@ -42,6 +42,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public sbyte[] CurrentDistribution => _currentDistributionOrientation;
 
+        public Transform Pivot => pivot;
+
+        public float BaseYRota => transform.rotation.eulerAngles.y;
+
         #endregion
 
         #region methodes
@@ -154,6 +158,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         [SerializeField] private TMP_Text levelText;
 
         [SerializeField] private CableNodeMode nodeMode;
+        
+        [SerializeField] private Transform pivot;
 
         private EnergyTypes _incomingCollectedEnergy;
 

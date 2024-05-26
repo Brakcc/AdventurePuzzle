@@ -17,7 +17,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
             }
         }
 
-        private Transform NodeTrans => nodeRef.transform;
+        private Transform DistributorPivot => distributorRef.Pivot;
         
         #endregion
         
@@ -26,7 +26,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         public override void PlayerAction()
         {
             base.PlayerAction();
-            nodeRef.CurrentOrientationLevel = Level;
+            distributorRef.CurrentOrientationLevel = Level;
             UnMaxDanimAAjouter();
         }
         
@@ -34,24 +34,31 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         {
             //arreter d'avoir la flemme et faire le truc
             
-            NodeTrans.Rotate(pivot.up, 90);
+            DistributorPivot.rotation = Quaternion.Euler(0, GetDistributorAngle(), 0);
         }
 
+        private float GetDistributorAngle() => Level switch
+        {
+            0 => distributorRef.BaseYRota + 0,
+            1 => distributorRef.BaseYRota + 90,
+            2 => distributorRef.BaseYRota + 180,
+            3 => distributorRef.BaseYRota + 270,
+            _ => distributorRef.BaseYRota + 0
+        };
+        
         private void OnDrawGizmos()
         {
             Gizmos.color = gizmosColor;
-            Gizmos.DrawLine(transform.position, nodeRef.transform.position);
+            Gizmos.DrawLine(transform.position, distributorRef.transform.position);
         }
 
         #endregion
 
         #region fields
 
-        [SerializeField] private Distributor nodeRef;
+        [SerializeField] private Distributor distributorRef;
 
         [SerializeField] private Color gizmosColor;
-
-        [SerializeField] private Transform pivot;
 
         #endregion
     }
