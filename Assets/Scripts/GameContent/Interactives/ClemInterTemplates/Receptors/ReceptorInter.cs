@@ -29,19 +29,20 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         
         private Light InterLight { get; set; }
 
-        public EmitterInter EmitRef { get; set; }
+        public List<EmitterInter> EmitsRef { get; set; } = new();
 
         public float DistFromEmit
         {
             get
             {
-                if (EmitRef is null)
+                if (EmitsRef is null || EmitsRef.Count == 0)
                     return 0;
 
-                return Vector3.Distance(EmitRef.transform.position, transform.position);
+                var i = SortList(EmitsRef);
+                return Vector3.Distance(EmitsRef[i].transform.position, transform.position);
             }
         }
-
+        
         public Vector3 Pivot => pivot.position;
         
         public Vector3 TempDir
@@ -320,8 +321,25 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 return;
             
             InterLight.color = LightDebugger.DebugColor(type);
-        } 
+        }
 
+        private int SortList(IReadOnlyList<EmitterInter> receps)
+        {
+            var baseDist = Vector3.Distance(receps[0].transform.position, transform.position);
+            var i = 0;
+            for (var j = 0 ; j < receps.Count ; j++)
+            {
+                var tempDist = Vector3.Distance(receps[j].transform.position, transform.position);
+                if (!(tempDist <= baseDist))
+                    continue;
+                
+                baseDist = tempDist;
+                i = j;
+            }
+
+            return i;
+        }
+        
         public static RigidbodyConstraints GetRBConstraints(RBCMode mode) => mode switch
         {
             RBCMode.Rota => RigidbodyConstraints.FreezeRotation,
@@ -396,7 +414,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         
         [FieldCompletion(FieldColor.Orange)]
         [SerializeField] private Collider _col;
-
+        
         private Rigidbody _rb;
 
         private RecepsTopBlockGrabber _grabber;

@@ -20,10 +20,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 switch (n.dendrite)
                 {
                     case DentriteType.Receptor:
-                        n.receptorRef.EmitRef = this;
+                        n.receptorRef.EmitsRef.Add(this);
                         break;
                     case DentriteType.Distributor:
-                        n.distributorRef.GetRef(this);
+                        n.distributorRef.SetRef(this);
                         break;
                     case DentriteType.None:
                         break;

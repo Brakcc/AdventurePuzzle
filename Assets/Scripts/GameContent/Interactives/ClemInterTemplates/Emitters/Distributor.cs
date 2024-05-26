@@ -128,6 +128,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         {
             switch (mode)
             {
+                //i dont even remember why i called them sb smthg
                 case CableNodeMode.L:
                     var sbl = new sbyte[] { 0, 0 ,0 ,0 };
                     sbl[orientLevel] = 1;
@@ -151,9 +152,27 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             }
         }
 
-        public void GetRef(EmitterInter emit)
+        public void SetRef(EmitterInter emit)
         {
+            if (nodeDatas.Length == 0)
+                return;
             
+            foreach (var n in nodeDatas)
+            {
+                switch (n.dendrite)
+                {
+                    case DentriteType.Receptor:
+                        n.receptorRef.EmitsRef.Add(emit);
+                        break;
+                    case DentriteType.Distributor:
+                        n.distributorRef.SetRef(emit);
+                        break;
+                    case DentriteType.None:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(n), n.dendrite, "cheh");
+                }
+            }
         }
         
         #endregion
