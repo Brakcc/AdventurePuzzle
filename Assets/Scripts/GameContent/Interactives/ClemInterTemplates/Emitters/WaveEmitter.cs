@@ -149,9 +149,9 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             #endregion
             
-            yield return new WaitForSeconds((recepDatas[j - 1].ReceptorInter.DistFromEmit + recepDatas[j - 1].ActivationDelay) / datas.waveSpeed);
+            yield return new WaitForSeconds((recepDatas[j - 1].ReceptorInter.GetDistFromEmit(this) + recepDatas[j - 1].ActivationDelay) / datas.waveSpeed);
             
-            if (recepDatas[j - 1].ReceptorInter.DistFromEmit >= datas.maxDistHit ||
+            if (recepDatas[j - 1].ReceptorInter.GetDistFromEmit(this) >= datas.maxDistHit ||
                 Mathf.Abs(datas.sphere.position.y + datas.levelCorrector - recepDatas[j - 1].ReceptorInter.Pivot.y) >=
                 datas.inBetweenLevelThreshold / 2 + datas.ampliCorrector || 
                 recepDatas[j - 1].ReceptorInter.HasCableEnergy)
@@ -205,8 +205,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         [SerializeField] private WaveEmitterDatas datas;
         
         private readonly Comparison<RecepDatas> Compare = (a, b) =>
-            Mathf.RoundToInt(Mathf.Sign(a.ActivationDelay + a.ReceptorInter.DistFromEmit -
-                            (b.ActivationDelay + b.ReceptorInter.DistFromEmit)));
+            Mathf.RoundToInt(Mathf.Sign(a.ActivationDelay /*+ a.ReceptorInter.DistFromEmit*/ -
+                            (b.ActivationDelay /*+ b.ReceptorInter.DistFromEmit*/)));
         
         private sbyte _currentLevel;
         

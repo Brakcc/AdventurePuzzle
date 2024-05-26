@@ -29,8 +29,9 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         
         private Light InterLight { get; set; }
 
-        public List<EmitterInter> EmitsRef { get; set; } = new();
+        public List<EmitterInter> EmitsRef { get; } = new();
 
+        [Obsolete]
         public float DistFromEmit
         {
             get
@@ -315,6 +316,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             CurrentEnergyType = EnergyTypes.None;
         }
 
+        public float GetDistFromEmit(EmitterInter emit) => Vector3.Distance(emit.transform.position, transform.position);
+        
         private void OnChangeColorLightDebug(EnergyTypes type)
         {
             if (InterLight is null)
