@@ -32,7 +32,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         
         private void UnMaxDanimAAjouter()
         {
-            
+            //arreter d'avoir la flemme et faire le truc
+            //Debug.Log($"{nodeRef.CurrentDistribution[0]}  {nodeRef.CurrentDistribution[1]}  {nodeRef.CurrentDistribution[2]}  {nodeRef.CurrentDistribution[3]}");
         }
 
         private void OnDrawGizmos()

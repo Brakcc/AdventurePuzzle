@@ -19,7 +19,7 @@ namespace GameContent.Interactives
 
         ~BaseInterBehavior()
         {
-            Debug.Log($"{gameObject.name} removed");
+            //Debug.Log($"{gameObject.name} removed");
         }
 
         #endregion

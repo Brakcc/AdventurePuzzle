@@ -15,12 +15,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         
         #region fields
         
-        [SerializeField] [Range(1, 3)] private short connectionID;
+        [SerializeField] [Range(2, 4)] private short connectionID;
         
         public DentriteType dendrite;
         
         [ShowIfTrue("dendrite", new[] { (int)DentriteType.Distributor })]
-        [FieldCompletion] public Distributor nodeRef;
+        [FieldCompletion] public Distributor distributorRef;
         
         [ShowIfTrue("dendrite", new[] { (int)DentriteType.Receptor })]
         [FieldCompletion] public ReceptorInter receptorRef;

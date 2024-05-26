@@ -44,7 +44,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             foreach (var r in recepDatas)
             {
-                r.ReceptorInter.EmitRef = this;
+                r.ReceptorInter.EmitsRef.Add(this);
             }
             recepDatas.Sort(Compare);
             
@@ -126,7 +126,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                     j--;
                 }
                 i--;
-
+                //who tf are i and j ?
                 yield return new WaitForSeconds(datas.monoWaveDelay);
             }
         }
@@ -153,9 +153,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             if (recepDatas[j - 1].ReceptorInter.DistFromEmit >= datas.maxDistHit ||
                 Mathf.Abs(datas.sphere.position.y + datas.levelCorrector - recepDatas[j - 1].ReceptorInter.Pivot.y) >=
-                datas.inBetweenLevelThreshold / 2 + datas.ampliCorrector)
+                datas.inBetweenLevelThreshold / 2 + datas.ampliCorrector || 
+                recepDatas[j - 1].ReceptorInter.HasCableEnergy)
                 yield break;
-            
+
+            recepDatas[j - 1].ReceptorInter.HasWaveEnergy = true;
             recepDatas[j - 1].ReceptorInter.CurrentEnergyType = this[i - 1].Type;
         }
 
@@ -164,14 +166,16 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         private void OnDrawGizmos()
         {
             Gizmos.color = datas.gizmosColor;
-            Gizmos.DrawWireSphere(datas.sphere.position, datas.maxDistHit);
-            Gizmos.DrawWireCube(datas.sphere.position + Vector3.up * datas.levelCorrector, 
+            var position = datas.sphere.position;
+            
+            Gizmos.DrawWireSphere(position, datas.maxDistHit);
+            Gizmos.DrawWireCube(position + Vector3.up * datas.levelCorrector, 
                             new Vector3(datas.maxDistHit * 1.75f, datas.inBetweenLevelThreshold + 2 * datas.ampliCorrector, datas.maxDistHit * 1.75f));
 
             Gizmos.color = new Color(datas.gizmosColor.a, datas.gizmosColor.g, datas.gizmosColor.b, datas.gizmosColor.a * 0.2f);
             if (!datas.drawDebugCube)
                 return;
-            Gizmos.DrawCube(datas.sphere.position + Vector3.up * datas.levelCorrector, 
+            Gizmos.DrawCube(position + Vector3.up * datas.levelCorrector, 
                             new Vector3(datas.maxDistHit * 1.75f, datas.inBetweenLevelThreshold + 2 * datas.ampliCorrector, datas.maxDistHit * 1.75f));
         }
 

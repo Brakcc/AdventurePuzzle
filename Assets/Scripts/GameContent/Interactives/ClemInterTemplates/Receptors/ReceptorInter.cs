@@ -13,6 +13,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
     {
         #region properties
 
+        #region Inner Infos
+        
         public EnergyTypes CurrentEnergyType
         {
             get => _currentAppliedEnergy;
@@ -20,26 +22,27 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             {
                 _currentAppliedEnergy = value;
                 InterAction();
-                if (hasDebugMod)
+                if (hasDebugMod && debugMod.hasLight)
                     OnChangeColorLightDebug(_currentAppliedEnergy);
             }
         }
-
+        
         private Light InterLight { get; set; }
 
-        public EmitterInter EmitRef { get; set; }
+        public List<EmitterInter> EmitsRef { get; set; } = new();
 
         public float DistFromEmit
         {
             get
             {
-                if (EmitRef is null)
+                if (EmitsRef is null || EmitsRef.Count == 0)
                     return 0;
 
-                return Vector3.Distance(EmitRef.transform.position, transform.position);
+                var i = SortList(EmitsRef);
+                return Vector3.Distance(EmitsRef[i].transform.position, transform.position);
             }
         }
-
+        
         public Vector3 Pivot => pivot.position;
         
         public Vector3 TempDir
@@ -48,92 +51,120 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             set => _tempDir = SetDir(value);
         }
         
-        public bool IsMovable => _isMovable;
+        public bool IsMovable
+        {
+            get => _isMovable;
+            protected set => _isMovable = value;
+        }
+
+        public bool HasWaveEnergy
+        {
+            get => _hasWaveEnergy;
+            set
+            {
+                _hasWaveEnergy = value;
+                _waveEnergyCounter = _hasWaveEnergy ? Constants.WaveEnergyDuration : -1;
+            }
+            
+        }
+
+        public bool HasCableEnergy
+        {
+            get => _hasCableEnergy;
+            set
+            {
+                _hasCableEnergy = value;
+            }
+        }
+        
+        #endregion
         
         #region IsHittingTR
         
-        public bool IsHittingTopRight => Physics.Linecast(
-            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
-                                             heightCorrector * _col.bounds.extents.y, 
-                                             _col.bounds.extents.z), 
-            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
-                                             heightCorrector * _col.bounds.extents.y, 
-                                             -_col.bounds.extents.z),
-            blockMask) || 
-                                         Physics.Linecast(
-            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
-                                             heightCorrector * _col.bounds.extents.y, 
-                                             -_col.bounds.extents.z), 
-            _col.bounds.center + new Vector3(_col.bounds.extents.x + widthCorrector, 
-                                             heightCorrector * _col.bounds.extents.y, 
-                                             _col.bounds.extents.z), 
-            blockMask);
+        public bool IsHittingTopRight => Physics.BoxCast(_col.bounds.center + new Vector3(
+                                                          _col.bounds.extents.x + Constants.BoxCastBounds.SideBoxPosDeport, 
+                                                          0, 
+                                                          0),
+                                                         new Vector3(
+                                                                     Constants.BoxCastBounds.SideBoxHalfExtent / 2, 
+                                                                     _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxLengthCut, 
+                                                                     _col.bounds.extents.z - Constants.BoxCastBounds.SideBoxLengthCut),
+                                                         Vector3.right,
+                                                         Quaternion.identity, 
+                                                         Constants.BoxCastBounds.SideCastDist, 
+                                                         blockMask);
         
         #endregion
         
         #region IsHittingTL
         
-        public bool IsHittingTopLeft => Physics.Linecast(
-            _col.bounds.center + new Vector3(_col.bounds.extents.x, 
-                                             heightCorrector * _col.bounds.extents.y, 
-                                             _col.bounds.extents.z + widthCorrector), 
-            _col.bounds.center + new Vector3(-_col.bounds.extents.x, 
-                                             heightCorrector * _col.bounds.extents.y, 
-                                             _col.bounds.extents.z + widthCorrector),
-            blockMask) || 
-                                        Physics.Linecast(
-            _col.bounds.center + new Vector3(-_col.bounds.extents.x,
-                                             heightCorrector * _col.bounds.extents.y, 
-                                             _col.bounds.extents.z + widthCorrector), 
-            _col.bounds.center + new Vector3(_col.bounds.extents.x, 
-                                             heightCorrector * _col.bounds.extents.y, 
-                                             _col.bounds.extents.z + widthCorrector), 
-            blockMask);
+        public bool IsHittingTopLeft => Physics.BoxCast(_col.bounds.center + new Vector3(
+                                                         0, 
+                                                         0, 
+                                                         _col.bounds.extents.z + Constants.BoxCastBounds.SideBoxPosDeport),
+                                                        new Vector3(
+                                                                    _col.bounds.extents.x - Constants.BoxCastBounds.SideBoxLengthCut, 
+                                                                    _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxLengthCut, 
+                                                                    Constants.BoxCastBounds.SideBoxHalfExtent / 2),
+                                                        Vector3.forward, 
+                                                        Quaternion.identity, 
+                                                        Constants.BoxCastBounds.SideCastDist, 
+                                                        blockMask);
         
         #endregion
         
         #region IsHittingBR
         
-        public bool IsHittingBottomRight => Physics.Linecast(
-            _col.bounds.center + new Vector3(-_col.bounds.extents.x, 
-                                             heightCorrector * _col.bounds.extents.y, 
-                                             -(_col.bounds.extents.z + widthCorrector)), 
-            _col.bounds.center + new Vector3(_col.bounds.extents.x, 
-                                             heightCorrector * _col.bounds.extents.y, 
-                                             -(_col.bounds.extents.z + widthCorrector)),
-            blockMask) ||
-                                            Physics.Linecast(
-            _col.bounds.center + new Vector3(_col.bounds.extents.x, 
-                                             heightCorrector * _col.bounds.extents.y, 
-                                             -(_col.bounds.extents.z + widthCorrector)), 
-            _col.bounds.center + new Vector3(-_col.bounds.extents.x, 
-                                             heightCorrector * _col.bounds.extents.y, 
-                                             -(_col.bounds.extents.z + widthCorrector)),
-            blockMask);
+        public bool IsHittingBottomRight => Physics.BoxCast(_col.bounds.center + new Vector3(
+                                                             0, 
+                                                             0, 
+                                                             -(_col.bounds.extents.z + Constants.BoxCastBounds.SideBoxPosDeport)),
+                                                            new Vector3(
+                                                                        _col.bounds.extents.x - Constants.BoxCastBounds.SideBoxLengthCut, 
+                                                                        _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxLengthCut, 
+                                                                        Constants.BoxCastBounds.SideBoxHalfExtent / 2),
+                                                            Vector3.back, 
+                                                            Quaternion.identity, 
+                                                            Constants.BoxCastBounds.SideCastDist, 
+                                                            blockMask);
         
         #endregion
         
         #region IsHittingBL
         
-        public bool IsHittingBottomLeft => Physics.Linecast(
-            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
-                                             heightCorrector * _col.bounds.extents.y, 
-                                             _col.bounds.extents.z), 
-            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
-                                             heightCorrector * _col.bounds.extents.y, 
-                                             -_col.bounds.extents.z),
-            blockMask) || 
-                                           Physics.Linecast(
-            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
-                                             heightCorrector * _col.bounds.extents.y, 
-                                             -_col.bounds.extents.z), 
-            _col.bounds.center + new Vector3(-(_col.bounds.extents.x + widthCorrector), 
-                                             heightCorrector * _col.bounds.extents.y, 
-                                             _col.bounds.extents.z),
-            blockMask);
+        public bool IsHittingBottomLeft => Physics.BoxCast(_col.bounds.center + new Vector3(
+                                                            -(_col.bounds.extents.x + Constants.BoxCastBounds.SideBoxPosDeport), 
+                                                            0, 
+                                                            0),
+                                                           new Vector3(
+                                                                       Constants.BoxCastBounds.SideBoxHalfExtent / 2, 
+                                                                       _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxLengthCut, 
+                                                                       _col.bounds.extents.z - Constants.BoxCastBounds.SideBoxLengthCut),
+                                                           Vector3.left, 
+                                                           Quaternion.identity, 
+                                                           Constants.BoxCastBounds.SideCastDist, 
+                                                           blockMask);
 
         #endregion
 
+        #region IsHittingGround
+
+        //raycast ou boxcast ?
+        public bool IsHittingGround => Physics.BoxCast(_col.bounds.center + new Vector3(
+                                                            0, 
+                                                            -(_col.bounds.extents.y - Constants.BoxCastBounds.DownBoxPosDeport), 
+                                                            0),
+                                                           new Vector3(
+                                                                       _col.bounds.extents.x, 
+                                                                       Constants.BoxCastBounds.DownBoxHalfExtent / 2, 
+                                                                       _col.bounds.extents.z),
+                                                           Vector3.down, 
+                                                           Quaternion.identity, 
+                                                           Constants.BoxCastBounds.DownCastDist, 
+                                                           blockMask);
+
+        #endregion
+        
         #region HasBlueAbove
 
         public List<ReceptorInter> TopReceps => _grabber.RecepRefs;
@@ -153,12 +184,13 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             _rb = GetComponent<Rigidbody>();
             _grabber = GetComponentInChildren<RecepsTopBlockGrabber>();
 
-            _rb.mass = 1000;
-            _rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
+            //_rb.mass = 1000;
+            //_rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
             _rb.isKinematic = true;
 
             _tempDir = Vector3.zero;
             IsOnTop = false;
+            _fallCurveCounter = 0;
 
             if (debugMod.hasLight)
             {
@@ -169,8 +201,29 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             OnReset();
         }
 
+        protected override void OnUpdate()
+        {
+            base.OnUpdate();
+            if (!HasWaveEnergy)
+                return;
+
+            if (_waveEnergyCounter <= 0)
+            {
+                HasWaveEnergy = false;
+                CurrentEnergyType = EnergyTypes.None;
+                return;
+            }
+
+            _waveEnergyCounter -= Time.deltaTime;
+        }
+
+        protected override void OnFixedUpdate()
+        {
+            SolidFall();
+        }
+
         #region Actions
-        
+
         public override void PlayerAction()
         {
             //Debug.Log($"player action {this}");
@@ -191,33 +244,31 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 case EnergyTypes.None:
                     _col.enabled = true;
                     hasElectricity = false;
-                    _isMovable = false;
-                    _rb.isKinematic = true;
-                    _rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
+                    _isMovable = true;
                     debugTextLocal = "";
                     break;
                 case EnergyTypes.Yellow:
                     _col.enabled = true;
                     hasElectricity = true;
-                    _isMovable = false;
-                    _rb.isKinematic = true;
-                    _rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
+                    _isMovable = true;
+                    //_rb.isKinematic = true;
+                    //_rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
                     debugTextLocal = "";
                     break;
                 case EnergyTypes.Green:
                     _col.enabled = false;
                     hasElectricity = false;
                     _isMovable = false;
-                    _rb.isKinematic = true;
-                    _rb.constraints = GetRBConstraints(RBCMode.Full);
+                    //_rb.isKinematic = true;
+                    //_rb.constraints = GetRBConstraints(RBCMode.Full);
                     debugTextLocal = "";
                     break;
                 case EnergyTypes.Blue:
                     _col.enabled = true;
                     hasElectricity = false;
                     _isMovable = true;
-                    _rb.isKinematic = false;
-                    _rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
+                    //_rb.isKinematic = true;
+                    //_rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
                     debugTextLocal = debugMod.debugString;
                     break;
                 default:
@@ -228,6 +279,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         
         #endregion
 
+        #region Inner Actions
+        
         private Vector3 SetDir(Vector3 dir) => (dir.x, dir.z) switch
         {
             (>= Constants.MinBlockMoveInputThreshold, <= Constants.MinBlockMoveInputThreshold) => IsHittingTopRight ? Vector3.zero : dir,
@@ -237,7 +290,23 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             _ => Vector3.zero
         };
 
-        public void MoveSolid(Vector3 dir) => _rb.position += dir;
+        private void SolidFall()
+        {
+            if (!_isMovable)
+                return;
+            
+            if (IsHittingGround)
+            {
+                if (_fallCurveCounter > 0)
+                    _fallCurveCounter = 0;
+                return;
+            }
+
+            _fallCurveCounter += Time.fixedDeltaTime;
+            transform.position -= new Vector3(0, fallCurve.Evaluate(_fallCurveCounter) * Time.fixedDeltaTime, 0);
+        }
+        
+        public void MoveSolid(Vector3 dir) => _rb.transform.position += dir;
             
         public void SetRBConstraints(RigidbodyConstraints constraints) => _rb.constraints = constraints;
         
@@ -246,8 +315,31 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             CurrentEnergyType = EnergyTypes.None;
         }
 
-        private void OnChangeColorLightDebug(EnergyTypes type) => InterLight.color = LightDebugger.DebugColor(type);
+        private void OnChangeColorLightDebug(EnergyTypes type)
+        {
+            if (InterLight is null)
+                return;
+            
+            InterLight.color = LightDebugger.DebugColor(type);
+        }
 
+        private int SortList(IReadOnlyList<EmitterInter> receps)
+        {
+            var baseDist = Vector3.Distance(receps[0].transform.position, transform.position);
+            var i = 0;
+            for (var j = 0 ; j < receps.Count ; j++)
+            {
+                var tempDist = Vector3.Distance(receps[j].transform.position, transform.position);
+                if (!(tempDist <= baseDist))
+                    continue;
+                
+                baseDist = tempDist;
+                i = j;
+            }
+
+            return i;
+        }
+        
         public static RigidbodyConstraints GetRBConstraints(RBCMode mode) => mode switch
         {
             RBCMode.Rota => RigidbodyConstraints.FreezeRotation,
@@ -257,6 +349,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, "nice try my guy")
         };
         
+        #endregion
+        
         #region Gizmos
         
         private void OnDrawGizmos()
@@ -265,37 +359,43 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
             var bounds = _col.bounds;
             
+            #region TR
+            
             //Top Right
-            Gizmos.DrawLine(bounds.center + new Vector3(bounds.extents.x + widthCorrector, 
-                                                        heightCorrector * bounds.extents.y,
-                                                        bounds.extents.z), 
-                             bounds.center + new Vector3(bounds.extents.x + widthCorrector, 
-                                                         heightCorrector * bounds.extents.y, 
-                                                         -bounds.extents.z));
+            Gizmos.DrawWireCube(bounds.center + new Vector3(bounds.extents.x + 0.1f, 0, 0),
+                                new Vector3(0.15f, bounds.size.y - 0.2f, bounds.size.z - 0.2f));
+            
+            #endregion
+            
+            #region BL
             
             //Bottom Left
-            Gizmos.DrawLine(bounds.center + new Vector3(-(bounds.extents.x + widthCorrector), 
-                                                        heightCorrector * bounds.extents.y,
-                                                        bounds.extents.z),
-                            bounds.center + new Vector3(-(bounds.extents.x + widthCorrector),
-                                                        heightCorrector * bounds.extents.y,
-                                                        -bounds.extents.z));
+            Gizmos.DrawWireCube(bounds.center + new Vector3(-(bounds.extents.x + 0.1f), 0, 0),
+                                new Vector3(0.15f, bounds.size.y - 0.2f, bounds.size.z - 0.2f));
+            
+            #endregion
+            
+            #region TL
             
             //Top Left
-            Gizmos.DrawLine(bounds.center + new Vector3(bounds.extents.x, 
-                                                        heightCorrector * bounds.extents.y, 
-                                                        bounds.extents.z + widthCorrector), 
-                            bounds.center + new Vector3(-bounds.extents.x, 
-                                                        heightCorrector * bounds.extents.y,
-                                                        bounds.extents.z + widthCorrector));
+            Gizmos.DrawWireCube(bounds.center + new Vector3(0, 0, bounds.extents.z + 0.1f),
+                                new Vector3(bounds.size.x - 0.2f, bounds.size.y - 0.2f, 0.15f));
+            
+            #endregion
+            
+            #region BR
             
             //Bottom Right
-            Gizmos.DrawLine(bounds.center + new Vector3(-bounds.extents.x, 
-                                                        heightCorrector * bounds.extents.y,
-                                                        -(bounds.extents.z + widthCorrector)), 
-                            bounds.center + new Vector3(bounds.extents.x,
-                                                        heightCorrector * bounds.extents.y, 
-                                                        -(bounds.extents.z + widthCorrector)));
+            Gizmos.DrawWireCube(bounds.center + new Vector3(0, 0, -(bounds.extents.z + 0.1f)),
+                                new Vector3(bounds.size.x - 0.2f, bounds.size.y - 0.2f, 0.15f));
+            #endregion
+
+            #region GC
+
+            Gizmos.DrawWireCube(bounds.center + new Vector3(0, -(bounds.extents.y/* - 0.03f*/), 0), 
+                new Vector3(bounds.size.x, 0.15f, bounds.size.z));
+
+            #endregion
         }
 
         #endregion
@@ -308,14 +408,13 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         [FieldCompletion] [SerializeField] private Transform pivot;
 
-        [Range(0.01f, 0.2f)] [SerializeField] private float widthCorrector;
-        [Range(-1, 1)] [SerializeField] private float heightCorrector;
-
         [SerializeField] private LayerMask blockMask;
+
+        [SerializeField] private AnimationCurve fallCurve;
         
         [FieldCompletion(FieldColor.Orange)]
         [SerializeField] private Collider _col;
-
+        
         private Rigidbody _rb;
 
         private RecepsTopBlockGrabber _grabber;
@@ -326,7 +425,15 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         private bool _isMovable;
 
+        private bool _hasWaveEnergy;
+
+        private bool _hasCableEnergy;
+
+        private float _waveEnergyCounter;
+        
         protected bool hasElectricity;
+
+        private float _fallCurveCounter;
 
         #endregion
     }
