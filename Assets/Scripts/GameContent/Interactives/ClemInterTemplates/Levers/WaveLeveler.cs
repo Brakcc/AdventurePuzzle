@@ -26,6 +26,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         public override void PlayerAction()
         {
             base.PlayerAction();
+            Level = 0;
             emitterRef.CurrentHeightLevel = Level;
         }
 
