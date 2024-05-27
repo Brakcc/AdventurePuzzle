@@ -10,7 +10,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
 
         public GameObject ImageF => imageVert;
 
-        public abstract short Level { get; set; }
+        public abstract sbyte Level { get; set; }
 
         public LeverOrientationMode LeverOrientationMode => leverOrientation;
 
@@ -45,7 +45,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         
         [SerializeField] private GameObject imageVert;
         
-        protected short _currentLevel;
+        protected sbyte _currentLevel;
 
         #endregion
     }

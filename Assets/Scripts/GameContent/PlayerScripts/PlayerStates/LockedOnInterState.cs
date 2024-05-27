@@ -194,8 +194,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                                    (position - _interRef.Pivot).z)) / 
                            new Vector2((position - _interRef.Pivot).x,
                                (position - _interRef.Pivot).z).magnitude;
-
-            Debug.Log($"{tempDotX}  {tempDotY}");
+            
             return (tempDotX, tempDotY) switch
             {
                 (>= Constants.PiByFourRadVal, <= Constants.PiByFourRadVal) => RelativeInterPos.TR,

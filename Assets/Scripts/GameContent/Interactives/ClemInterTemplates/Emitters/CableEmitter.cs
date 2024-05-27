@@ -17,8 +17,19 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             foreach (var n in nodes)
             {
-                if (n.dendrite is DentriteType.Receptor)
-                    n.receptorRef.EmitRef = this;
+                switch (n.dendrite)
+                {
+                    case DentriteType.Receptor:
+                        n.receptorRef.EmitsRef.Add(this);
+                        break;
+                    case DentriteType.Distributor:
+                        n.distributorRef.SetRef(this);
+                        break;
+                    case DentriteType.None:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(n), n.dendrite, "ta ...");
+                }
             }
         }
         
@@ -33,7 +44,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                         nodes[i].receptorRef.CurrentEnergyType = this[i].Type;
                         break;
                     case DentriteType.Distributor:
-                        nodes[i].nodeRef.IncomingCollectedEnergy = this[i].Type;
+                        nodes[i].distributorRef.IncomingCollectedEnergy = this[i].Type;
                         break;
                     case DentriteType.None:
                         break;
@@ -45,7 +56,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public override void PlayerAction()
         {
-            if (SourceDatasList.Count >= nodes.Length)
+            if (SourceCount >= nodes.Length)
                 return;
             
             if (PlayerEnergyM.EnergyType == EnergyTypes.None)
@@ -80,7 +91,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                     nodes[SourceCount - 1].receptorRef.OnReset();
                     break;
                 case DentriteType.Distributor:
-                    nodes[SourceCount - 1].nodeRef.IncomingCollectedEnergy = EnergyTypes.None;
+                    nodes[SourceCount - 1].distributorRef.IncomingCollectedEnergy = EnergyTypes.None;
                     break;
                 case DentriteType.None:
                     break;
@@ -90,6 +101,22 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
             SourceDatasList.RemoveAt(SourceCount - 1);
             base.PlayerCancel();
+        }
+
+        protected override void ForceAbsorbSources(EnergySourceInter[] sources)
+        {
+            if (sources.Length <= 0)
+                return;
+            
+            foreach (var s in sources)
+            {
+                if (SourceCount >= nodes.Length)
+                    break;
+                
+                SourceDatasList.Add(new SourceDatas(s));
+                s.OnForceAbsorb();
+            }
+            InterAction();
         }
 
         #endregion
