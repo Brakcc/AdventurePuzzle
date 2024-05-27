@@ -1,4 +1,4 @@
-﻿using GameContent.Interactives.ClemInterTemplates.Emitters;
+using GameContent.Interactives.ClemInterTemplates.Emitters;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates.Levers
@@ -22,6 +22,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         #endregion
         
         #region methodes
+
+        protected override void OnInit()
+        {
+            base.OnInit();
+            Level = distributorRef.StartingLevel;
+        }
 
         public override void PlayerAction()
         {

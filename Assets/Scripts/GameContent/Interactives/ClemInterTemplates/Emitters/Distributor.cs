@@ -46,6 +46,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public float BaseYRota => transform.rotation.eulerAngles.y;
 
+        public sbyte StartingLevel => (sbyte)(startingLevel - 1);
+
         #endregion
 
         #region methodes
@@ -53,8 +55,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         protected override void OnInit()
         {
             base.OnInit();
-            _currentLevel = 0;
-            _currentDistributionOrientation = GetOrientationArray(nodeMode, 0);
+            CurrentOrientationLevel = StartingLevel;
         }
 
         public override void InterAction()
@@ -152,6 +153,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         #endregion
         
         #region fields
+
+        [Range(1, 4)] [SerializeField] private sbyte startingLevel;
 
         [SerializeField] private NodeDatas[] nodeDatas;
 
