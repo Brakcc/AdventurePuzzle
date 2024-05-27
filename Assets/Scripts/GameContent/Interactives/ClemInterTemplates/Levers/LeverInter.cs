@@ -22,7 +22,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         {
             base.OnInit();
             debugTextLocal = "Maintain <b>E</b> to interact";
-            Level = 0;
         }
 
         public override void PlayerAction()
