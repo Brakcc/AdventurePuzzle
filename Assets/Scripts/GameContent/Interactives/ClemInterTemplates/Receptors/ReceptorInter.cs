@@ -77,6 +77,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 _hasCableEnergy = value;
             }
         }
+
+        protected Collider Collid => _col;
         
         #endregion
         
