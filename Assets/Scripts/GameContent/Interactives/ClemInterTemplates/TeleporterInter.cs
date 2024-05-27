@@ -23,7 +23,6 @@ namespace GameContent.Interactives.ClemInterTemplates
         
         public override void InterAction()
         {
-            Debug.Log(CurrentEnergyType);
             _justTeleported = false;
             _canTeleport = (CurrentEnergyType == EnergyTypes.Yellow);
             otherTeleporter._canTeleport = (CurrentEnergyType == EnergyTypes.Yellow);
