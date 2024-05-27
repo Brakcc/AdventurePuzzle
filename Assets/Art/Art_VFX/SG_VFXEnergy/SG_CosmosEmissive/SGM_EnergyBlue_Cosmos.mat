@@ -43,16 +43,16 @@ Material:
     m_Ints: []
     m_Floats:
     - _CellSize: 19.91
-    - _Emission: 4.03
+    - _Emission: 3.56
     - _Global_Emission: 1.95
-    - _OnOff: 0.96
+    - _OnOff: 1
     - _Opacity: -1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Speed: 0.034
     - _fresnel_opacity: -0.2
     m_Colors:
-    - _Color: {r: 0.042452812, g: 0.710452, b: 1, a: 1}
+    - _Color: {r: 0.40238073, g: 0.972549, b: 0, a: 1}
     - _Direction: {r: 0, g: 0.1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5307886720978623767
