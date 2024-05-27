@@ -15,7 +15,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         
         #region fields
         
-        [SerializeField] [Range(1, 3)] private short connectionID;
+        [SerializeField] [Range(2, 4)] private short connectionID;
         
         public DentriteType dendrite;
         

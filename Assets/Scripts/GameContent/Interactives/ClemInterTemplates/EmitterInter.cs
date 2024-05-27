@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates
 {
@@ -32,6 +33,7 @@ namespace GameContent.Interactives.ClemInterTemplates
         {
             SourceDatasList = new List<SourceDatas>();
             debugTextLocal = debugMod.debugString;
+            ForceAbsorbSources(preSetAbsorbSources);
         }
 
         public override void PlayerAction()
@@ -51,6 +53,14 @@ namespace GameContent.Interactives.ClemInterTemplates
             //Debug.Log($"inter action {this}");
             //Cahcnger les valeurs des receps
         }
+
+        protected abstract void ForceAbsorbSources(EnergySourceInter[] sources);
+        
+        #endregion
+
+        #region fields
+
+        [SerializeField] private EnergySourceInter[] preSetAbsorbSources;
 
         #endregion
     }
