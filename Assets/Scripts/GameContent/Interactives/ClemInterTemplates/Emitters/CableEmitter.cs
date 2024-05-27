@@ -56,7 +56,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public override void PlayerAction()
         {
-            if (SourceDatasList.Count >= nodes.Length)
+            if (SourceCount >= nodes.Length)
                 return;
             
             if (PlayerEnergyM.EnergyType == EnergyTypes.None)
@@ -101,6 +101,22 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
             SourceDatasList.RemoveAt(SourceCount - 1);
             base.PlayerCancel();
+        }
+
+        protected override void ForceAbsorbSources(EnergySourceInter[] sources)
+        {
+            if (sources.Length <= 0)
+                return;
+            
+            foreach (var s in sources)
+            {
+                if (SourceCount >= nodes.Length)
+                    break;
+                
+                SourceDatasList.Add(new SourceDatas(s));
+                s.OnForceAbsorb();
+            }
+            InterAction();
         }
 
         #endregion

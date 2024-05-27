@@ -10,7 +10,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
 
         public GameObject ImageF => imageVert;
 
-        public abstract short Level { get; set; }
+        public abstract sbyte Level { get; set; }
 
         public LeverOrientationMode LeverOrientationMode => leverOrientation;
 
@@ -22,7 +22,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         {
             base.OnInit();
             debugTextLocal = "Maintain <b>E</b> to interact";
-            Level = 0;
         }
 
         public override void PlayerAction()
@@ -45,7 +44,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         
         [SerializeField] private GameObject imageVert;
         
-        protected short _currentLevel;
+        protected sbyte _currentLevel;
 
         #endregion
     }

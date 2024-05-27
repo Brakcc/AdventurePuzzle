@@ -20,11 +20,6 @@ namespace GameContent.PlayerScripts
         
         #region methodes
 
-        private void Awake()
-        {
-            //instance = this;
-        }
-
         private void Start()
         {
             CurrentSource = new SourceDatas(null);
@@ -40,8 +35,6 @@ namespace GameContent.PlayerScripts
         #region fields
 
         [SerializeField] private bool getEnergyBack;
-
-        //public static PlayerEnergyM instance;
 
         #endregion
     }

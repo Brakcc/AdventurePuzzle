@@ -24,7 +24,7 @@ namespace GameContent.Interactives.ClemInterTemplates
         public SourceDatas(EnergySourceInter source = null)
         {
             Source = source;
-            Type = source == null ? EnergyTypes.None : source.EnergyType;
+            Type = source?.EnergyType ?? EnergyTypes.None;
         }
         
         #endregion

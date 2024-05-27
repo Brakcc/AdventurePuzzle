@@ -1,4 +1,4 @@
-﻿using GameContent.Interactives.ClemInterTemplates.Emitters;
+using GameContent.Interactives.ClemInterTemplates.Emitters;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates.Levers
@@ -7,46 +7,62 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
     {
         #region properties
 
-        public override short Level
+        public override sbyte Level
         {
             get => _currentLevel;
             set
             {
-                _currentLevel = (short)(value < 0 ? value + Constants.OrientationNumber : value % Constants.OrientationNumber);
+                _currentLevel = (sbyte)(value < 0 ? value + Constants.OrientationNumber : value % Constants.OrientationNumber);
                 PlayerAction();
             }
         }
 
-        private Transform NodeTrans => nodeRef.transform;
+        private Transform DistributorPivot => distributorRef.Pivot;
         
         #endregion
         
         #region methodes
 
+        protected override void OnInit()
+        {
+            base.OnInit();
+            Level = distributorRef.StartingLevel;
+        }
+
         public override void PlayerAction()
         {
             base.PlayerAction();
-            nodeRef.CurrentOrientationLevel = Level;
+            distributorRef.CurrentOrientationLevel = Level;
             UnMaxDanimAAjouter();
         }
         
         private void UnMaxDanimAAjouter()
         {
             //arreter d'avoir la flemme et faire le truc
-            //Debug.Log($"{nodeRef.CurrentDistribution[0]}  {nodeRef.CurrentDistribution[1]}  {nodeRef.CurrentDistribution[2]}  {nodeRef.CurrentDistribution[3]}");
+            
+            DistributorPivot.rotation = Quaternion.Euler(0, GetDistributorAngle(), 0);
         }
 
+        private float GetDistributorAngle() => Level switch
+        {
+            0 => distributorRef.BaseYRota + 0,
+            1 => distributorRef.BaseYRota + 90,
+            2 => distributorRef.BaseYRota + 180,
+            3 => distributorRef.BaseYRota + 270,
+            _ => distributorRef.BaseYRota + 0
+        };
+        
         private void OnDrawGizmos()
         {
             Gizmos.color = gizmosColor;
-            Gizmos.DrawLine(transform.position, nodeRef.transform.position);
+            Gizmos.DrawLine(transform.position, distributorRef.transform.position);
         }
 
         #endregion
 
         #region fields
 
-        [SerializeField] private Distributor nodeRef;
+        [SerializeField] private Distributor distributorRef;
 
         [SerializeField] private Color gizmosColor;
 
