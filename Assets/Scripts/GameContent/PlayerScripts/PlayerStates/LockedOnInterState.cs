@@ -294,6 +294,9 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void BlockFall()
         {
+            if(_interRef is null)
+                return;
+            
             if (!_interRef.IsHittingGround)
                 _blockFallCounter += Time.deltaTime;
             
