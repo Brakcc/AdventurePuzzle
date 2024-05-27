@@ -46,7 +46,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public float BaseYRota => transform.rotation.eulerAngles.y;
 
-        public sbyte StartingLevel => startingLevel;
+        public sbyte StartingLevel => (sbyte)(startingLevel - 1);
 
         #endregion
 
@@ -154,7 +154,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         #region fields
 
-        [Range(0, 3)] [SerializeField] private sbyte startingLevel;
+        [Range(1, 4)] [SerializeField] private sbyte startingLevel;
 
         [SerializeField] private NodeDatas[] nodeDatas;
 

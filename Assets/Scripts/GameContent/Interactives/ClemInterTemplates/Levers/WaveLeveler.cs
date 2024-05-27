@@ -23,10 +23,15 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         
         #region methodes
 
+        protected override void OnInit()
+        {
+            base.OnInit();
+            Level = 0;
+        }
+
         public override void PlayerAction()
         {
             base.PlayerAction();
-            Level = 0;
             emitterRef.CurrentHeightLevel = Level;
         }
 
