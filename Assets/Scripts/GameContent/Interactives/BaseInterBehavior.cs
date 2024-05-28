@@ -13,6 +13,8 @@ namespace GameContent.Interactives
         
         public float AngleWithPlayer { get; private set; }
 
+        protected bool HasCheckerRef => _checkerRef is not null;
+
         #endregion
 
         #region constructors
@@ -61,7 +63,7 @@ namespace GameContent.Interactives
         {
             if (hasDebugMod)
             {
-                Debug.Log($"{name} removed");
+                //Debug.Log($"{name} removed");
                 debugMod.debugText.enabled = false;
             }
             _isInRange = false;
