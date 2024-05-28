@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameContent.Interactives;
+using GameContent.Interactives.ClemInterTemplates;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
@@ -43,7 +44,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (!other.CompareTag("Interactible"))
                 return;
             
-            if (other.TryGetComponent<BaseInterBehavior>(out var inter))
+            if (other.TryGetComponent<BaseInterBehavior> (out var inter))
                 inter.AddSelf(this);
         }
         
