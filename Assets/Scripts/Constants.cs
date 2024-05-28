@@ -17,14 +17,15 @@ public static class Constants
     public const float RecepBlockedSpeedThreshold = 0.1f;
     public const float GrabGapThreshold = 0.25f;
     public const float MinWorldMoveSpeedThreshold = 0.005f;
-    public const short OrientationNumber = 4;
+    public const sbyte OrientationNumber = 4;
     public const int BitFlagRBConstraintRotaPlan = 122;
     public const float MaxFallCounterWhileGrabThreshold = 0.5f;
-    public const float MaxBlockFallCounterThreshold = 0.25f;
+    public const float MaxBlockFallCounterThreshold = 0.05f;
     public const float WaveEnergyDuration = 12.5f;
     public const float FirstQuarterAngleValue = 45;
     public const float ThirdQuarterAngleValue = 135;
     public const float PiByFourRadVal = 0.7071067f;
+    public const float ReMapNavMeshDelay = 1;
     public static readonly sbyte[] XShapeNodeArray = { 1, 1, 1, 1 };
     public static class BoxCastBounds
     {

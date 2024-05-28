@@ -34,6 +34,7 @@ namespace GameContent.Interactives.ClemInterTemplates
             SourceDatasList = new List<SourceDatas>();
             debugTextLocal = debugMod.debugString;
             ForceAbsorbSources(preSetAbsorbSources);
+            InterAction();
         }
 
         public override void PlayerAction()
