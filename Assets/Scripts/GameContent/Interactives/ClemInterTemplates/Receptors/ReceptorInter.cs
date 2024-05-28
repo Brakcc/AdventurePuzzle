@@ -269,6 +269,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                     //_rb.isKinematic = true;
                     //_rb.constraints = GetRBConstraints(RBCMode.Full);
                     debugTextLocal = "";
+                    if (HasCheckerRef)
+                        RemoveSelf();
                     break;
                 case EnergyTypes.Blue:
                     _col.enabled = true;
