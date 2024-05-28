@@ -58,6 +58,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             protected set => _isMovable = value;
         }
 
+        public void ToDelete()
+        {
+            Debug.Log(_isMovable);
+        }
+
         public bool HasWaveEnergy
         {
             get => _hasWaveEnergy;
@@ -77,6 +82,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 _hasCableEnergy = value;
             }
         }
+
+        protected Collider Collid => _col;
         
         #endregion
         
@@ -239,7 +246,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         public override void InterAction()
         {
-            //Debug.Log($"inter action {this}");
             switch (CurrentEnergyType)
             {
                 case EnergyTypes.None:
