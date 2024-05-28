@@ -1,5 +1,6 @@
 ﻿using Unity.AI.Navigation;
 using UnityEngine;
+using Utilities.CustomAttributes;
 
 namespace GameContent.Narration.Creature
 {
@@ -14,9 +15,12 @@ namespace GameContent.Narration.Creature
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.J))
+                mod.AffectsAgentType(0);
+            
             if (_reMapCounter <= Constants.ReMapNavMeshDelay)
             {
-                _reMapCounter += Time.deltaTime;
+                //_reMapCounter += Time.deltaTime;
                 return;
             }
             
@@ -29,8 +33,9 @@ namespace GameContent.Narration.Creature
         #region fields
 
         [SerializeField] private NavMeshSurface surface;
-        private NavMeshModifier mod;
+        [SerializeField] private NavMeshModifierVolume mod;
         
+        [ReadOnly]
         private float _reMapCounter;
 
         #endregion
