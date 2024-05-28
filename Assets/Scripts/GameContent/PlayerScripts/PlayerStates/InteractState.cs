@@ -30,13 +30,14 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             base.OnUpdate();
             
-            SetInteractTime();
             GetOtherActionInput();
             OnAction();
             
             SetCoyote();
             SetJumpBuffer();
             //OnInputVal();
+            
+            SetInteractTime();
         }
 
         public override void OnFixedUpdate()
@@ -66,7 +67,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         private void OnAction()
         {
-            if (_absorbTimeCounter > 0)
+            if (_absorbTimeCounter > 0.1f)
                 return;
 
             if (_checker.InterRef is null or ReceptorInter)
