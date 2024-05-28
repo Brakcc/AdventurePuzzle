@@ -23,10 +23,13 @@ namespace GameContent.Interactives.ClemInterTemplates
         
         public override void InterAction()
         {
+            base.InterAction();
+            
             _justTeleported = false;
             _canTeleport = (CurrentEnergyType == EnergyTypes.Yellow);
             otherTeleporter._canTeleport = (CurrentEnergyType == EnergyTypes.Yellow);
-            GetComponent<CapsuleCollider>().isTrigger = (CurrentEnergyType != EnergyTypes.Blue);
+            GetComponent<Collider>().isTrigger = (CurrentEnergyType != EnergyTypes.Blue);
+            otherTeleporter.GetComponent<Collider>().isTrigger = (CurrentEnergyType != EnergyTypes.Blue);
             
             GetComponent<MeshRenderer>().enabled = (CurrentEnergyType != EnergyTypes.Green && CurrentEnergyType != EnergyTypes.None);
             otherTeleporter.GetComponent<MeshRenderer>().enabled = (CurrentEnergyType != EnergyTypes.Green && CurrentEnergyType != EnergyTypes.None);
@@ -41,7 +44,6 @@ namespace GameContent.Interactives.ClemInterTemplates
                 GetComponent<MeshRenderer>().material.color = new Color32(65,105,225,255);
                 otherTeleporter.GetComponent<MeshRenderer>().material.color = new Color32(65,105,225,255);
             }
-            base.InterAction();
         }
 
         public override void OnReset()
