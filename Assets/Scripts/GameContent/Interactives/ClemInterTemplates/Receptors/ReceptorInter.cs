@@ -8,7 +8,6 @@ using Utilities.CustomAttributes.FieldColors;
 namespace GameContent.Interactives.ClemInterTemplates.Receptors
 {
     [RequireComponent(typeof(Collider))]
-    [RequireComponent(typeof(Rigidbody))]
     public class ReceptorInter : BaseInterBehavior
     {
         #region properties
@@ -156,16 +155,15 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         #endregion
 
         #region IsHittingGround
-
-        //raycast ou boxcast ?
+        
         public bool IsHittingGround => Physics.BoxCast(_col.bounds.center + new Vector3(
                                                             0, 
                                                             -(_col.bounds.extents.y - Constants.BoxCastBounds.DownBoxPosDeport), 
                                                             0),
                                                            new Vector3(
-                                                                       _col.bounds.extents.x, 
+                                                                       _col.bounds.extents.x - Constants.BoxCastBounds.SideBoxLengthCut, 
                                                                        Constants.BoxCastBounds.DownBoxHalfExtent / 2, 
-                                                                       _col.bounds.extents.z),
+                                                                       _col.bounds.extents.z - Constants.BoxCastBounds.SideBoxLengthCut),
                                                            Vector3.down, 
                                                            Quaternion.identity, 
                                                            Constants.BoxCastBounds.DownCastDist, 
@@ -189,12 +187,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         {
             hasElectricity = false;
             _col = GetComponent<Collider>();
-            _rb = GetComponent<Rigidbody>();
             _grabber = GetComponentInChildren<RecepsTopBlockGrabber>();
 
-            //_rb.mass = 1000;
-            //_rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
-            _rb.isKinematic = true;
 
             _tempDir = Vector3.zero;
             IsOnTop = false;
@@ -258,16 +252,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                     _col.enabled = true;
                     hasElectricity = true;
                     _isMovable = true;
-                    //_rb.isKinematic = true;
-                    //_rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
                     debugTextLocal = "";
                     break;
                 case EnergyTypes.Green:
                     _col.enabled = false;
                     hasElectricity = false;
                     _isMovable = false;
-                    //_rb.isKinematic = true;
-                    //_rb.constraints = GetRBConstraints(RBCMode.Full);
                     debugTextLocal = "";
                     if (HasCheckerRef)
                         RemoveSelf();
@@ -276,8 +266,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                     _col.enabled = true;
                     hasElectricity = false;
                     _isMovable = true;
-                    //_rb.isKinematic = true;
-                    //_rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
                     debugTextLocal = debugMod.debugString;
                     break;
                 default:
@@ -315,9 +303,9 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             transform.position -= new Vector3(0, fallCurve.Evaluate(_fallCurveCounter) * Time.fixedDeltaTime, 0);
         }
         
-        public void MoveSolid(Vector3 dir) => _rb.transform.position += dir;
+        public void MoveSolid(Vector3 dir) => transform.position += dir;
             
-        public void SetRBConstraints(RigidbodyConstraints constraints) => _rb.constraints = constraints;
+        //public void SetRBConstraints(RigidbodyConstraints constraints) => _rb.constraints = constraints;
         
         public virtual void OnReset()
         {
@@ -404,7 +392,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             #region GC
 
             Gizmos.DrawWireCube(bounds.center + new Vector3(0, -(bounds.extents.y/* - 0.03f*/), 0), 
-                new Vector3(bounds.size.x, 0.15f, bounds.size.z));
+                new Vector3(bounds.size.x - 0.2f, 0.15f, bounds.size.z - 0.2f));
 
             #endregion
         }
@@ -426,7 +414,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         [FieldCompletion(FieldColor.Orange)]
         [SerializeField] private Collider _col;
         
-        private Rigidbody _rb;
+        //private Rigidbody _rb;
 
         private RecepsTopBlockGrabber _grabber;
 

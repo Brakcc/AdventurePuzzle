@@ -9,7 +9,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region constructor
 
-        public CancelState(GameObject go) : base(go)
+        public CancelState(GameObject go, ControllerState state) : base(go, state)
         {
         }
 
@@ -57,7 +57,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                 return;
             }
             
-            _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+            _stateMachine.OnSwitchState("move");
         }
 
         private void GetOtherActionInputs()
@@ -81,7 +81,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                     PlayerEnergyM.OnSourceChangedDebug();
                 }
                 _checker.InterRef.PlayerCancel();
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+                _stateMachine.OnSwitchState("move");
                 return;
             }
 
@@ -92,7 +92,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                 PlayerEnergyM.OnSourceChangedDebug();
             }
             
-            _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+            _stateMachine.OnSwitchState("move");
         }
         
         #endregion
@@ -105,7 +105,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                 (!(_jumpBufferCounter >= 0) || !IsGrounded))
                 return;
             
-            _stateMachine.OnSwitchState(_stateMachine.playerStates[1]);
+            _stateMachine.OnSwitchState("jump");
         }
         
         private void SetCoyote()
@@ -139,7 +139,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             var input = _datasSo.moveInput.action.ReadValue<Vector2>();
            
             if (input.magnitude >= Constants.MinMoveInputValue)
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+                _stateMachine.OnSwitchState("move");
         }
         
         #endregion

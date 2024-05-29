@@ -29,7 +29,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             
             RecepRefs.Add(recep);
             recep.IsOnTop = true;
-            recep.SetRBConstraints((RigidbodyConstraints)112);
             //Debug.Log($"{recep.name}  added");
         }
 
@@ -44,7 +43,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             if (!RecepRefs.Contains(recep))
                 return;
             
-            recep.SetRBConstraints((RigidbodyConstraints)Constants.BitFlagRBConstraintRotaPlan);
             recep.IsOnTop = false;
             RecepRefs.Remove(recep);
             //Debug.Log($"{recep.name}  removed");

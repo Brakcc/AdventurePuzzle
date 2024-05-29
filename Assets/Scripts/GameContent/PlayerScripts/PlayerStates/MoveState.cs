@@ -9,7 +9,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region constructor
 
-        public MoveState(GameObject go) : base(go)
+        public MoveState(GameObject go, ControllerState state) : base(go, state)
         {
         }
 
@@ -41,6 +41,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             base.OnUpdate();
             
             var input = _datasSo.moveInput.action.ReadValue<Vector2>();
+            _analogInputMagnitude = input.magnitude;
             _inputDir = new Vector3(input.x, 0, input.y).normalized;
             
             GetInteractInputs();
@@ -51,9 +52,6 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             //Fall
             OnFall();
-
-            var position = _goRef.transform.position;
-            Debug.DrawLine(position, position + _goRef.transform.forward, Color.red);
         }
 
         public override void OnFixedUpdate()
@@ -68,7 +66,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void OnRotate()
         {
-            if (_inputDir.magnitude <= Constants.MinMoveInputValue)
+            if (_analogInputMagnitude <= Constants.MinMoveInputValue)
                 return;
             
             var angle = Vector3.Dot(_lastDir, _currentDir) / (_currentDir.magnitude * _lastDir.magnitude);
@@ -86,6 +84,9 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void OnMove()
         {
+            if (_analogInputMagnitude <= Constants.MinMoveInputValue)
+                return;
+            
             _currentDir = (_isoRightDir * _inputDir.x + _isoForwardDir * _inputDir.z).normalized;
             _cc.SimpleMove(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime));
         }
@@ -100,7 +101,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                 (!(_jumpBufferCounter >= 0) || !IsGrounded))
                 return;
             
-            _stateMachine.OnSwitchState(_stateMachine.playerStates[1]);
+            _stateMachine.OnSwitchState("jump");
         }
 
         private void SetCoyote()
@@ -176,6 +177,8 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private float _jumpBufferCounter;
 
+        private float _analogInputMagnitude;
+        
         private Vector3 _lastDir;
 
         #endregion

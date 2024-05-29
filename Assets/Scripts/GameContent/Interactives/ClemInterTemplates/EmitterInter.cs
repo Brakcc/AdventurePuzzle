@@ -37,6 +37,7 @@ namespace GameContent.Interactives.ClemInterTemplates
             
             await Task.Delay(500);
             ForceAbsorbSources(preSetAbsorbSources);
+            
         }
 
         public override void PlayerAction()
