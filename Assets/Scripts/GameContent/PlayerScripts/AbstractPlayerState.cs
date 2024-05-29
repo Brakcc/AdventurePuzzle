@@ -11,14 +11,18 @@ namespace GameContent.PlayerScripts
         protected bool IsGrounded => _cc.isGrounded;
 
         protected float Velocity => (_nextPos - _prevPos).magnitude;
+        
+        protected ControllerState StateFlag { get; }
 
         #endregion
         
         #region constructor
 
-        protected AbstractPlayerState(GameObject go)
+        protected AbstractPlayerState(GameObject go, ControllerState state)
         {
             _goRef = go;
+            StateFlag = state;
+            Debug.Log((short)state);
             _currentDir = _isoForwardDir;
         }
 

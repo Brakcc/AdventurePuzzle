@@ -7,7 +7,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region constructor
 
-        public InteractState(GameObject go) : base(go)
+        public InteractState(GameObject go, ControllerState state) : base(go, state)
         {
         }
 
@@ -56,7 +56,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                 return;
             }
             
-            _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+            _stateMachine.OnSwitchState("move");
         }
 
         private void GetOtherActionInput()
@@ -72,12 +72,12 @@ namespace GameContent.PlayerScripts.PlayerStates
 
             if (_checker.InterRef is null or ReceptorInter)
             {
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+                _stateMachine.OnSwitchState("move");
                 return;
             }
 
             _checker.InterRef.PlayerAction();
-            _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+            _stateMachine.OnSwitchState("move");
         }
         
         #endregion
@@ -90,7 +90,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                 (!(_jumpBufferCounter >= 0) || !IsGrounded))
                 return;
             
-            _stateMachine.OnSwitchState(_stateMachine.playerStates[1]);
+            _stateMachine.OnSwitchState("jump");
         }
         
         private void SetCoyote()
@@ -124,7 +124,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             var input = _datasSo.moveInput.action.ReadValue<Vector2>();
            
             if (input.magnitude >= Constants.MinMoveInputValue)
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+                _stateMachine.OnSwitchState("move");
         }
         
         #endregion

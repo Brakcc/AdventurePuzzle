@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using GameContent.PlayerScripts.PlayerDatas;
 using GameContent.PlayerScripts.PlayerStates;
+using GameContent.PlayerScripts.PlayerStates.ForcedStates;
 using UnityEngine;
 using Utilities.CustomAttributes;
 
@@ -9,6 +10,12 @@ namespace GameContent.PlayerScripts
     [RequireComponent(typeof(CharacterController))]
     public class PlayerStateMachine : MonoBehaviour
     {
+        #region properties
+
+        public ControllerState CurrentState { get; set; }
+
+        #endregion
+        
         #region methodes
 
         private void Awake()
@@ -17,24 +24,32 @@ namespace GameContent.PlayerScripts
             
             playerStates = new AbstractPlayerState[]
             {
-                new MoveState(go),
-                new JumpState(go),
-                new InteractState(go),
-                new CancelState(go),
-                new FallState(go),
-                new LockedOnInterState(go),
-                new LockedOnLeverState(go)
+                new IdleState(go, ControllerState.idle),
+                new MoveState(go, ControllerState.move),
+                new JumpState(go, ControllerState.jump),
+                new InteractState(go, ControllerState.interact),
+                new CancelState(go, ControllerState.cancel),
+                new FallState(go, ControllerState.fall),
+                new LockedOnInterState(go, ControllerState.locked),
+                new LockedOnLeverState(go, ControllerState.lever),
+                new CameraFocusState(go, ControllerState.camera),
+                new CinematicIdleForcedState(go, ControllerState.cineIdle),
+                new CinematicMoveForcedState(go, ControllerState.cineMove)
             };
 
             playerStatesDict = new Dictionary<string, AbstractPlayerState>
             {
-                {"move", playerStates[0]},
-                {"jump", playerStates[1]},
-                {"interact", playerStates[2]},
-                {"cancel", playerStates[3]},
-                {"fall", playerStates[4]},
-                {"locked", playerStates[5]},
-                {"lever", playerStates[6]}
+                {"idle", playerStates[0]},
+                {"move", playerStates[1]},
+                {"jump", playerStates[2]},
+                {"interact", playerStates[3]},
+                {"cancel", playerStates[4]},
+                {"fall", playerStates[5]},
+                {"locked", playerStates[6]},
+                {"lever", playerStates[7]},
+                {"camera", playerStates[8]},
+                {"cineIdle", playerStates[9]},
+                {"cineMove", playerStates[10]}
             };
             
             if (playerStates.Length == 0)
@@ -79,9 +94,7 @@ namespace GameContent.PlayerScripts
         
         public void OnSwitchState(string newState)
         {
-            _currentState.OnExitState(this);
-            _currentState = playerStatesDict[newState];
-            _currentState.OnEnterState(this);
+            OnSwitchState(playerStatesDict[newState]);
         }
         
         #endregion

@@ -80,7 +80,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         #region constructor
         
-        public LockedOnInterState(GameObject go) : base(go)
+        public LockedOnInterState(GameObject go, ControllerState state) : base(go, state)
         {
         }
         
@@ -95,10 +95,10 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             _interRef = _checker.InterRef as ReceptorInter;
             
-            _recepRefRb = _interRef!.GetComponent<Rigidbody>();
+            //_recepRefRb = _interRef!.GetComponent<Rigidbody>();
             //_recepRefRb.constraints = ReceptorInter.GetRBConstraints(RBCMode.Rota);
             
-            _tempDistFromPlayer = _interRef.DistFromPlayer;
+            _tempDistFromPlayer = _interRef!.DistFromPlayer;
             _fallCounter = 0;
             _blockFallCounter = 0;
             
@@ -113,7 +113,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             _stateMachine = null;
             _interRef = null;
-            _recepRefRb = null;
+            //_recepRefRb = null;
         }
 
         public override void OnUpdate()
@@ -142,17 +142,18 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             if (_datasSo.interactInput.action.IsPressed())
                 return;
-            
+            Debug.Log("back");
             _stateMachine.OnSwitchState("move");
         }
 
         private void DistFromInterCheck()
         {
-            //Debug.Log($"{_interRef.name} and {_interRef.DistFromPlayer} and {_tempDistFromPlayer + Constants.GrabGabThreshold}" );
-            
             if (_interRef.DistFromPlayer >= _tempDistFromPlayer + Constants.GrabGapThreshold ||
                 !_checker.InRangeInter.Contains(_interRef))
+            {
+                Debug.Log("dist");
                 _stateMachine.OnSwitchState("move");
+            }
         }
         
         private static LockDirectionMode GetBaseMoveDir(Vector3 fromVec)
@@ -271,7 +272,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             //obj move
             var tempDir = _currentDir * (Time.deltaTime * Constants.RecepMoveSpeedMultiplier);
-            _recepRefRb.transform.position += tempDir;
+            _interRef.transform.position += tempDir;
             foreach (var r in _interRef.TopReceps)
             {
                 r.TempDir = tempDir;
@@ -300,7 +301,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (!_interRef.IsHittingGround)
                 _blockFallCounter += Time.deltaTime;
             
-            if (_blockFallCounter >= Constants.MaxBlockFallCounterThreshold)
+            if (_blockFallCounter > Constants.MaxBlockFallCounterThreshold)
                 _stateMachine.OnSwitchState("move");
         }
 
@@ -312,7 +313,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private ReceptorInter _interRef;
 
-        private Rigidbody _recepRefRb;
+        //private Rigidbody _recepRefRb;
 
         private LockDirectionMode _directionMode;
 

@@ -6,7 +6,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region constructor
 
-        public FallState(GameObject go) : base(go)
+        public FallState(GameObject go, ControllerState state) : base(go, state)
         {
         }
 

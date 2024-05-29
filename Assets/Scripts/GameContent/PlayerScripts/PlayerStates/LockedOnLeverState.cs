@@ -8,7 +8,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region constructor
         
-        public LockedOnLeverState(GameObject go) : base(go)
+        public LockedOnLeverState(GameObject go, ControllerState state) : base(go, state)
         {
         }
         
