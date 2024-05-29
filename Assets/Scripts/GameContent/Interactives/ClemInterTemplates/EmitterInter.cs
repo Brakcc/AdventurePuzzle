@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates
@@ -29,12 +30,13 @@ namespace GameContent.Interactives.ClemInterTemplates
         
         #region methodes
         
-        protected override void OnInit()
+        protected override async void OnInit()
         {
             SourceDatasList = new List<SourceDatas>();
             debugTextLocal = debugMod.debugString;
+            
+            await Task.Delay(500);
             ForceAbsorbSources(preSetAbsorbSources);
-            InterAction();
         }
 
         public override void PlayerAction()
