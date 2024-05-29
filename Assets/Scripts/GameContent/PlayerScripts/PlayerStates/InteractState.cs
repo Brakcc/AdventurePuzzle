@@ -15,18 +15,16 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         #region methodes
         
-        public override void OnEnterState(PlayerStateMachine stateMachine)
+        public override void OnEnterState()
         {
-            _stateMachine = stateMachine;
-
             _absorbTimeCounter = _datasSo.interactDatasSo.absorbTime;
         }
 
-        public override void OnExitState(PlayerStateMachine stateMachine)
+        public override void OnExitState()
         {
         }
 
-        public override void OnUpdate()
+        public override sbyte OnUpdate()
         {
             base.OnUpdate();
             
@@ -38,12 +36,8 @@ namespace GameContent.PlayerScripts.PlayerStates
             //OnInputVal();
             
             SetInteractTime();
-        }
 
-        public override void OnFixedUpdate()
-        {
-            base.OnFixedUpdate();
-            //OnJump();
+            return 0;
         }
 
         #region absorb methodes

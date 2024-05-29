@@ -16,10 +16,8 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         #region methodes
         
-        public override void OnEnterState(PlayerStateMachine stateMachine)
+        public override void OnEnterState()
         {
-            _stateMachine = stateMachine;
-            
             _leverRef = _checker.InterRef as LeverInter;
             if (_leverRef!.LeverOrientationMode == LeverOrientationMode.Horizontal)
                 _leverRef.ImageD.SetActive(true);
@@ -31,16 +29,14 @@ namespace GameContent.PlayerScripts.PlayerStates
             _unNormalizedInput = Vector2.zero;
         }
 
-        public override void OnExitState(PlayerStateMachine stateMachine)
+        public override void OnExitState()
         {
-            _stateMachine = null;
-
             _leverRef.ImageD.SetActive(false);
             _leverRef.ImageF.SetActive(false);
             _leverRef = null;
         }
 
-        public override void OnUpdate()
+        public override sbyte OnUpdate()
         {
             base.OnUpdate();
             
@@ -48,13 +44,17 @@ namespace GameContent.PlayerScripts.PlayerStates
             _inputDir = new Vector3(_unNormalizedInput.x, 0, _unNormalizedInput.y).normalized;
             
             GetHoldInput();
+
+            return 0;
         }
 
-        public override void OnFixedUpdate()
+        public override sbyte OnFixedUpdate()
         {
             base.OnFixedUpdate();
             
             OnLeverManip();
+
+            return 0;
         }
 
         #region holding methodes

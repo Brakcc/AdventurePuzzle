@@ -1,11 +1,12 @@
 ﻿using GameContent.Interactives.ClemInterTemplates;
 using GameContent.Interactives.ClemInterTemplates.Levers;
 using GameContent.Interactives.ClemInterTemplates.Receptors;
+using GameContent.StateMachines;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    public class IdleState : AbstractPlayerState
+    public sealed class IdleState : AbstractPlayerState
     {
        #region constructor 
         
@@ -17,23 +18,23 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         #region methodes
 
-        public override void OnInit()
+        public override void OnInit(GenericStateMachine m)
         {
             _lastDir = _isoForwardDir;
-            base.OnInit();
+            base.OnInit(m);
         }
-
-        public override void OnEnterState(PlayerStateMachine stateMachine)
+        
+        public override void OnEnterState()
         {
-            _stateMachine = stateMachine;
+            
         }
 
-        public override void OnExitState(PlayerStateMachine stateMachine)
+        public override void OnExitState()
         {
-            _stateMachine = null;
+            
         }
 
-        public override void OnUpdate()
+        public override sbyte OnUpdate()
         {
             base.OnUpdate();
             
@@ -45,6 +46,8 @@ namespace GameContent.PlayerScripts.PlayerStates
 
             OnFall();
             OnMove();
+
+            return 0;
         }
 
         #region Move Switchers

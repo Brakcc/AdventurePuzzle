@@ -1,6 +1,7 @@
 ﻿using GameContent.Interactives.ClemInterTemplates;
 using GameContent.Interactives.ClemInterTemplates.Levers;
 using GameContent.Interactives.ClemInterTemplates.Receptors;
+using GameContent.StateMachines;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
@@ -17,26 +18,23 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         #region methodes
 
-        public override void OnInit()
+        public override void OnInit(GenericStateMachine m)
         {
             _lastDir = _isoForwardDir;
-            base.OnInit();
+            base.OnInit(m);
         }
 
-        public override void OnEnterState(PlayerStateMachine stateMachine)
+        public override void OnEnterState()
         {
-            _stateMachine = stateMachine;
-            
             _coyoteTimeCounter = _datasSo.jumpDatasSo.coyoteTime;
             _jumpBufferCounter = Constants.SecuValuUnderZero;
         }
 
-        public override void OnExitState(PlayerStateMachine stateMachine)
+        public override void OnExitState()
         {
-            _stateMachine = null;
         }
 
-        public override void OnUpdate()
+        public override sbyte OnUpdate()
         {
             base.OnUpdate();
             
@@ -52,14 +50,18 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             //Fall
             OnFall();
+
+            return 0;
         }
 
-        public override void OnFixedUpdate()
+        public override sbyte OnFixedUpdate()
         {
             base.OnFixedUpdate();
             OnMove();
             OnRotate();
             //OnJump();
+
+            return 0;
         }
 
         #region rotation methodes

@@ -8,13 +8,13 @@ namespace GameContent.PlayerScripts.PlayerStates
         idle = 0,
         move = 1,
         jump = 2,
-        interact = 4,
-        cancel = 8,
-        fall = 16,
-        locked = 32,
-        lever = 64,
-        camera = 128,
-        cineIdle = 256,
-        cineMove = 512
+        interact = 3,
+        cancel = 4,
+        fall = 5,
+        locked = 6,
+        lever = 7,
+        camera = 8,
+        cineIdle = 9,
+        cineMove = 10
     }
 }

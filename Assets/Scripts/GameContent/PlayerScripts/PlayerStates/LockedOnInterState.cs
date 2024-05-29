@@ -89,9 +89,9 @@ namespace GameContent.PlayerScripts.PlayerStates
         #region methodes
 
         // ReSharper disable Unity.PerformanceAnalysis
-        public override void OnEnterState(PlayerStateMachine stateMachine)
+        public override void OnEnterState()
         {
-            _stateMachine = stateMachine;
+            _stateMachine.CurrentState = ControllerState.locked;
             
             _interRef = _checker.InterRef as ReceptorInter;
             
@@ -106,17 +106,16 @@ namespace GameContent.PlayerScripts.PlayerStates
             _directionMode = GetBaseMoveDir(_relativePos);
         }
 
-        public override void OnExitState(PlayerStateMachine stateMachine)
+        public override void OnExitState()
         {
             _tempDistFromPlayer = 0;
             //_recepRefRb.constraints = ReceptorInter.GetRBConstraints(_interRef.IsOnTop ? RBCMode.Rota : RBCMode.RotaPlan);
             
-            _stateMachine = null;
             _interRef = null;
             //_recepRefRb = null;
         }
 
-        public override void OnUpdate()
+        public override sbyte OnUpdate()
         {
             base.OnUpdate();
             
@@ -125,15 +124,19 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             OnFall();
             GetHoldInput();
+
+            return 0;
         }
 
-        public override void OnFixedUpdate()
+        public override sbyte OnFixedUpdate()
         {
             base.OnFixedUpdate();
             
             OnMove();
             DistFromInterCheck();
             BlockFall();
+            
+            return 0;
         }
 
         #region holding methodes
@@ -142,7 +145,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             if (_datasSo.interactInput.action.IsPressed())
                 return;
-            Debug.Log("back");
+            
             _stateMachine.OnSwitchState("move");
         }
 
@@ -150,10 +153,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             if (_interRef.DistFromPlayer >= _tempDistFromPlayer + Constants.GrabGapThreshold ||
                 !_checker.InRangeInter.Contains(_interRef))
-            {
-                Debug.Log("dist");
                 _stateMachine.OnSwitchState("move");
-            }
+            
         }
         
         private static LockDirectionMode GetBaseMoveDir(Vector3 fromVec)
