@@ -66,10 +66,41 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1b55974d693429f4c8a3fc6e5b5f864c,
         type: 3}
       propertyPath: m_Name
-      value: Mesh_Ruine1
+      value: Prefab_Ruine1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1b55974d693429f4c8a3fc6e5b5f864c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3426224999768694227}
   m_SourcePrefab: {fileID: 100100000, guid: 1b55974d693429f4c8a3fc6e5b5f864c, type: 3}
+--- !u!1 &6869756632444602519 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1b55974d693429f4c8a3fc6e5b5f864c,
+    type: 3}
+  m_PrefabInstance: {fileID: 6023334238180586950}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &3426224999768694227
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6869756632444602519}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 102.98223, y: 100, z: 102.989395}
+  m_Center: {x: 0, y: 0, z: 0}
