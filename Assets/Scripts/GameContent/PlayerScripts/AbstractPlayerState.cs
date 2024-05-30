@@ -1,4 +1,5 @@
-﻿using GameContent.PlayerScripts.PlayerDatas;
+﻿using System.Collections;
+using GameContent.PlayerScripts.PlayerDatas;
 using GameContent.PlayerScripts.PlayerStates;
 using GameContent.StateMachines;
 using UnityEngine;
@@ -35,10 +36,6 @@ namespace GameContent.PlayerScripts
         #region base methodes
         
         protected static float ClampSymmetric(float val, float clamper) => Mathf.Clamp(val, -clamper, clamper);
-
-        public void SetStateMachine(PlayerStateMachine machine) => _stateMachine = machine;
-        
-        public void SetGameObject(GameObject go) => _goRef = go;
         
         public void SetCharaCont(CharacterController cc) => _cc = cc;
 
@@ -71,11 +68,14 @@ namespace GameContent.PlayerScripts
             return 0;
         }
 
+        public override IEnumerator OnCoroutine()
+        {
+            yield return null;
+        }
+
         #endregion
 
         #region fields
-        
-        protected PlayerStateMachine _stateMachine;
         
         protected CharacterController _cc;
 

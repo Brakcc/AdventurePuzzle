@@ -57,7 +57,8 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (_analogInputMagnitude <= Constants.MinMoveInputValue)
                 return;
             
-            _stateMachine.OnSwitchState("move");
+            //_stateMachine.OnSwitchState("move");
+            newStateMachine.SwitchState("move");
         }
         
         #endregion
@@ -68,7 +69,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             if (!IsGrounded)
             {
-                _stateMachine.OnSwitchState("fall");
+                //_stateMachine.OnSwitchState("fall");
+                newStateMachine.SwitchState("fall");
             }
         }
         
@@ -83,22 +85,27 @@ namespace GameContent.PlayerScripts.PlayerStates
                 switch (_checker.InterRef)
                 {
                     case null:
-                        _stateMachine.OnSwitchState("interact");
+                        //_stateMachine.OnSwitchState("interact");
+                        newStateMachine.SwitchState("interact");
                         return;
                     case ReceptorInter { IsMovable: true, CurrentEnergyType:EnergyTypes.Blue}:
-                        _stateMachine.OnSwitchState("locked");
+                        //_stateMachine.OnSwitchState("grab");
+                        newStateMachine.SwitchState("grab");
                         return;
                     case LeverInter : 
-                        _stateMachine.OnSwitchState("lever");
+                        //_stateMachine.OnSwitchState("lever");
+                        newStateMachine.SwitchState("lever");
                         return;
                     case not null:
-                        _stateMachine.OnSwitchState("interact");
+                        //_stateMachine.OnSwitchState("interact");
+                        newStateMachine.SwitchState("interact");
                         return;
                 }
             }
             
             if (_datasSo.cancelInput.action.WasPressedThisFrame())
-                _stateMachine.OnSwitchState("cancel");
+                //_stateMachine.OnSwitchState("cancel");
+                newStateMachine.SwitchState("cancel");
         }
 
         #endregion

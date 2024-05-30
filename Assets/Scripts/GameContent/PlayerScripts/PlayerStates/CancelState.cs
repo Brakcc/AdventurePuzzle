@@ -51,13 +51,15 @@ namespace GameContent.PlayerScripts.PlayerStates
                 return;
             }
             
-            _stateMachine.OnSwitchState("move");
+            //_stateMachine.OnSwitchState("move");
+            newStateMachine.SwitchState("move");
         }
 
         private void GetOtherActionInputs()
         {
             if (_datasSo.interactInput.action.WasPressedThisFrame() && _checker.InterRef is not null)
-                _stateMachine.OnSwitchState(_checker.InterRef is ReceptorInter or LeverInter ? "locked" : "interact");
+                //_stateMachine.OnSwitchState(_checker.InterRef is ReceptorInter or LeverInter ? "grab" : "interact");
+                newStateMachine.SwitchState(_checker.InterRef is ReceptorInter or LeverInter ? "grab" : "interact");
         }
         
         private void OnAction()
@@ -75,7 +77,8 @@ namespace GameContent.PlayerScripts.PlayerStates
                     PlayerEnergyM.OnSourceChangedDebug();
                 }
                 _checker.InterRef.PlayerCancel();
-                _stateMachine.OnSwitchState("move");
+                //_stateMachine.OnSwitchState("move");
+                newStateMachine.SwitchState("move");
                 return;
             }
 
@@ -86,7 +89,8 @@ namespace GameContent.PlayerScripts.PlayerStates
                 PlayerEnergyM.OnSourceChangedDebug();
             }
             
-            _stateMachine.OnSwitchState("move");
+            //_stateMachine.OnSwitchState("move");
+            newStateMachine.SwitchState("move");
         }
         
         #endregion
@@ -99,7 +103,8 @@ namespace GameContent.PlayerScripts.PlayerStates
                 (!(_jumpBufferCounter >= 0) || !IsGrounded))
                 return;
             
-            _stateMachine.OnSwitchState("jump");
+            //_stateMachine.OnSwitchState("jump");
+            newStateMachine.SwitchState("jump");
         }
         
         private void SetCoyote()
@@ -133,7 +138,8 @@ namespace GameContent.PlayerScripts.PlayerStates
             var input = _datasSo.moveInput.action.ReadValue<Vector2>();
            
             if (input.magnitude >= Constants.MinMoveInputValue)
-                _stateMachine.OnSwitchState("move");
+                //_stateMachine.OnSwitchState("move");
+                newStateMachine.SwitchState("move");
         }
         
         #endregion

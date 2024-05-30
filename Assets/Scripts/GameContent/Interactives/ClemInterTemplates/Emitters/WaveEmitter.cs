@@ -156,7 +156,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 datas.inBetweenLevelThreshold / 2 + datas.ampliCorrector || 
                 recepDatas[j - 1].ReceptorInter.HasCableEnergy)
                 yield break;
-
+            
             recepDatas[j - 1].ReceptorInter.HasWaveEnergy = true;
             recepDatas[j - 1].ReceptorInter.CurrentEnergyType = this[i - 1].Type;
         }

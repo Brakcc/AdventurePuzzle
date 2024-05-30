@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GameContent.PlayerScripts.PlayerDatas;
 using GameContent.PlayerScripts.PlayerStates;
 using GameContent.PlayerScripts.PlayerStates.ForcedStates;
@@ -26,8 +25,10 @@ namespace GameContent.PlayerScripts
         {
             _stateMachine = new GenericStateMachine(11);
             var go = gameObject;
+            var tempCc = GetComponent<CharacterController>();
 
-            pSD = new Dictionary<string, AbstractPlayerState>
+            //PlayerStateDictionary
+            var pSD = new Dictionary<string, AbstractPlayerState>
             {
                 {"idle", new IdleState(go, ControllerState.idle)},
                 {"move", new MoveState(go, ControllerState.move)},
@@ -35,70 +36,60 @@ namespace GameContent.PlayerScripts
                 {"interact", new InteractState(go, ControllerState.interact)},
                 {"cancel", new CancelState(go, ControllerState.cancel)},
                 {"fall", new FallState(go, ControllerState.fall)},
-                {"locked", new LockedOnInterState(go, ControllerState.locked)},
+                {"grab", new GrabOnInterState(go, ControllerState.grab)},
                 {"lever", new LockedOnLeverState(go, ControllerState.lever)},
                 {"camera", new CameraFocusState(go, ControllerState.camera)},
                 {"cineIdle", new CinematicIdleForcedState(go, ControllerState.cineIdle)},
                 {"cineMove", new CinematicMoveForcedState(go, ControllerState.cineMove)}
             };
             
-            _stateMachine.SetCallBacks((int)pSD["idle"].StateFlag, pSD["idle"].OnInit, pSD["idle"].OnEnterState, pSD["idle"].OnUpdate, pSD["idle"].OnFixedUpdate, pSD["idle"].OnExitState);
-            _stateMachine.SetCallBacks((int)pSD["move"].StateFlag, pSD["move"].OnInit, pSD["move"].OnEnterState, pSD["move"].OnUpdate, pSD["move"].OnFixedUpdate, pSD["move"].OnExitState);
-            _stateMachine.SetCallBacks((int)pSD["jump"].StateFlag, pSD["jump"].OnInit, pSD["jump"].OnEnterState, pSD["jump"].OnUpdate, pSD["jump"].OnFixedUpdate, pSD["jump"].OnExitState);
-            _stateMachine.SetCallBacks((int)pSD["idle"].StateFlag, pSD["idle"].OnInit, pSD["idle"].OnEnterState, pSD["idle"].OnUpdate, pSD["idle"].OnFixedUpdate, pSD["idle"].OnExitState);
-            _stateMachine.SetCallBacks((int)pSD["idle"].StateFlag, pSD["idle"].OnInit, pSD["idle"].OnEnterState, pSD["idle"].OnUpdate, pSD["idle"].OnFixedUpdate, pSD["idle"].OnExitState);
-            _stateMachine.SetCallBacks((int)pSD["idle"].StateFlag, pSD["idle"].OnInit, pSD["idle"].OnEnterState, pSD["idle"].OnUpdate, pSD["idle"].OnFixedUpdate, pSD["idle"].OnExitState);
-            _stateMachine.SetCallBacks((int)pSD["idle"].StateFlag, pSD["idle"].OnInit, pSD["idle"].OnEnterState, pSD["idle"].OnUpdate, pSD["idle"].OnFixedUpdate, pSD["idle"].OnExitState);
-            _stateMachine.SetCallBacks((int)pSD["idle"].StateFlag, pSD["idle"].OnInit, pSD["idle"].OnEnterState, pSD["idle"].OnUpdate, pSD["idle"].OnFixedUpdate, pSD["idle"].OnExitState);
-            _stateMachine.SetCallBacks((int)pSD["idle"].StateFlag, pSD["idle"].OnInit, pSD["idle"].OnEnterState, pSD["idle"].OnUpdate, pSD["idle"].OnFixedUpdate, pSD["idle"].OnExitState);
-            _stateMachine.SetCallBacks((int)pSD["idle"].StateFlag, pSD["idle"].OnInit, pSD["idle"].OnEnterState, pSD["idle"].OnUpdate, pSD["idle"].OnFixedUpdate, pSD["idle"].OnExitState);
-            _stateMachine.SetCallBacks((int)pSD["idle"].StateFlag, pSD["idle"].OnInit, pSD["idle"].OnEnterState, pSD["idle"].OnUpdate, pSD["idle"].OnFixedUpdate, pSD["idle"].OnExitState);
+            _stateMachine.SetCallBacks((int)pSD["idle"].StateFlag, "idle", pSD["idle"].OnInit, null, 
+                                       pSD["idle"].OnUpdate, pSD["idle"].OnFixedUpdate, null, null);
             
-            if (pSD.Count == 0)
-                return;
-
-            var tempCc = GetComponent<CharacterController>();
+            _stateMachine.SetCallBacks((int)pSD["move"].StateFlag, "move", pSD["move"].OnInit, pSD["move"].OnEnterState, 
+                                       pSD["move"].OnUpdate, pSD["move"].OnFixedUpdate, null, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["jump"].StateFlag, "jump", pSD["jump"].OnInit, pSD["jump"].OnEnterState, 
+                                       pSD["jump"].OnUpdate, pSD["jump"].OnFixedUpdate, null, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["interact"].StateFlag, "interact", pSD["interact"].OnInit, pSD["interact"].OnEnterState, 
+                                       pSD["interact"].OnUpdate, pSD["interact"].OnFixedUpdate, null, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["cancel"].StateFlag, "cancel", pSD["cancel"].OnInit, pSD["cancel"].OnEnterState, 
+                                       pSD["cancel"].OnUpdate, pSD["cancel"].OnFixedUpdate, null, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["fall"].StateFlag, "fall", pSD["fall"].OnInit, null, 
+                                       pSD["fall"].OnUpdate, pSD["fall"].OnFixedUpdate, pSD["fall"].OnExitState, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["grab"].StateFlag, "grab", pSD["grab"].OnInit, pSD["grab"].OnEnterState, 
+                                       pSD["grab"].OnUpdate, pSD["grab"].OnFixedUpdate, pSD["grab"].OnExitState, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["lever"].StateFlag, "lever", pSD["lever"].OnInit, pSD["lever"].OnEnterState, 
+                                       pSD["lever"].OnUpdate, pSD["lever"].OnFixedUpdate, pSD["lever"].OnExitState, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["camera"].StateFlag, "camera", pSD["idle"].OnInit, pSD["camera"].OnEnterState, 
+                                       pSD["camera"].OnUpdate, pSD["camera"].OnFixedUpdate, pSD["camera"].OnExitState, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["cineIdle"].StateFlag, "cineIdle", pSD["cineIdle"].OnInit, pSD["cineIdle"].OnEnterState, 
+                                       pSD["cineIdle"].OnUpdate, pSD["cineIdle"].OnFixedUpdate, pSD["cineIdle"].OnExitState, pSD["cineIdle"].OnCoroutine);
+            
+            _stateMachine.SetCallBacks((int)pSD["cineMove"].StateFlag, "cineMove", pSD["cineMove"].OnInit, pSD["cineMove"].OnEnterState, 
+                                       pSD["cineMove"].OnUpdate, pSD["cineMove"].OnFixedUpdate, pSD["cineMove"].OnExitState, pSD["cineMove"].OnCoroutine);
+            
             foreach (var state in pSD.Values)
             {
-                state.SetStateMachine(this);
                 state.SetCharaCont(tempCc);
                 state.SetDatas(datasSo);
                 state.SetChecker(checker);
                 state.OnInit(_stateMachine);
             }
-            
-            _currentState = pSD["idle"];
         }
 
-        private void Start()
-        {
-            if (pSD.Count == 0)
-                return;
-            
-            _currentState.OnEnterState();
-        }
-
-        private void Update()
-        {
-            _currentState.OnUpdate();
-        }
-
-        private void FixedUpdate()
-        {
-            _currentState.OnFixedUpdate();
-        }
+        private void Start() => _stateMachine.StartMachine();
         
-        public void OnSwitchState(AbstractPlayerState newState)
-        {
-            _currentState.OnExitState();
-            _currentState = newState;
-            _currentState.OnEnterState();
-        }
-        
-        public void OnSwitchState(string newState)
-        {
-            OnSwitchState(pSD[newState]);
-        }
+        private void Update() => _stateMachine.UpdateMachine();
+
+        private void FixedUpdate() => _stateMachine.FixedUpdateMachine();
         
         #endregion
         
@@ -109,10 +100,6 @@ namespace GameContent.PlayerScripts
         [FieldCompletion] public InterCheckerState checker;
 
         private GenericStateMachine _stateMachine;
-
-        private Dictionary<string, AbstractPlayerState> pSD; //playerStateDictionary
-        
-        private AbstractPlayerState _currentState;
 
         #endregion
     }

@@ -1,4 +1,4 @@
-﻿using GameContent.PlayerScripts;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace GameContent.StateMachines
@@ -25,6 +25,8 @@ namespace GameContent.StateMachines
         public abstract sbyte OnFixedUpdate();
 
         public abstract void OnExitState();
+
+        public abstract IEnumerator OnCoroutine();
 
         #endregion
         

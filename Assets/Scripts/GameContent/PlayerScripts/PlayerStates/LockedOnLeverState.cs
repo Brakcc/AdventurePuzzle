@@ -64,7 +64,8 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (_datasSo.interactInput.action.IsPressed())
                 return;
             
-            _stateMachine.OnSwitchState("move");
+            //_stateMachine.OnSwitchState("move");
+            newStateMachine.SwitchState("move");
         }
 
         private void OnLeverManip()

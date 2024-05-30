@@ -93,7 +93,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnGrounded()
         {
             if (IsGrounded)
-                _stateMachine.OnSwitchState("move");
+                //_stateMachine.OnSwitchState("move");
+                newStateMachine.SwitchState("move");
         }
 
         #endregion

@@ -11,7 +11,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         interact = 3,
         cancel = 4,
         fall = 5,
-        locked = 6,
+        grab = 6,
         lever = 7,
         camera = 8,
         cineIdle = 9,
