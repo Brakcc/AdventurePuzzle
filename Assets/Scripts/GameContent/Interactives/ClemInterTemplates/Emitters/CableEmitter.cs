@@ -31,6 +31,22 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                         throw new ArgumentOutOfRangeException(nameof(n), n.dendrite, "ta ...");
                 }
             }
+
+            #region VFX
+            
+            _matBlocks = new MaterialPropertyBlock[]
+            {
+                new(),
+                new(),
+                new(),
+                new()
+            };
+            for (var i = 0; i < _matBlocks.Length; i++)
+            {
+                datas.symbolRends[i].GetPropertyBlock(_matBlocks[i]);
+            }
+            
+            #endregion
         }
         
         public override void InterAction()
@@ -103,6 +119,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             SourceDatasList.RemoveAt(SourceCount - 1);
             base.PlayerCancel();
         }
+        
+        
 
         protected override void ForceAbsorbSources(EnergySourceInter[] sources)
         {
@@ -126,6 +144,24 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         [SerializeField] private NodeDatas[] nodes;
 
+        [SerializeField] private CableEmitterDatas datas;
+        
+        private MaterialPropertyBlock[] _matBlocks;
+
+        #endregion
+    }
+
+    [Serializable]
+    internal class CableEmitterDatas
+    {
+        #region fields
+        
+        [SerializeField] internal Renderer[] symbolRends;
+        
+        [SerializeField] internal Renderer[] symbolGreenVFX;
+        
+        [SerializeField] internal Renderer[] symbolBlueVFX;
+        
         #endregion
     }
 }

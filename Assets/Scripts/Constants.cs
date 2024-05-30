@@ -19,6 +19,8 @@ public static class Constants
     public const float MinWorldMoveSpeedThreshold = 0.005f;
     public const sbyte OrientationNumber = 4;
     public const int BitFlagRBConstraintRotaPlan = 122;
+    public const int MaxWaveEmitterEnergyContaints = 3;
+    public const float MonoWaveBeforeDelay = 0.85f;
     public const float MaxFallCounterWhileGrabThreshold = 0.5f;
     public const float MaxBlockFallCounterThreshold = 0.005f;
     public const float WaveEnergyDuration = 12.5f;

@@ -10,7 +10,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region constructor
 
-        public MoveState(GameObject go, ControllerState state) : base(go, state)
+        public MoveState(GameObject go, ControllerState state, PlayerStateMachine pM) : base(go, state, pM)
         {
         }
 
