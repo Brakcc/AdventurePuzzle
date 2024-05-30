@@ -276,6 +276,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             {
                 r.TempDir = tempDir;
                 r.MoveSolid(r.TempDir);
+                Debug.Log("TYY");
             }
         }
         

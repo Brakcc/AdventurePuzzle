@@ -2,32 +2,40 @@ using System.Globalization;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UIScripts
 {
     public class OptionsManager : MonoBehaviour
     {
-        [SerializeField] private GameObject optionsGroup;
+        private GameObject _optionsGroup;
         public TextAsset optionsFile;
         public TextAsset commandsFile;
 
         [SerializeField] private Slider sliderVolumePrincipal;
         [SerializeField] private Slider sliderVolumeMusique;
         [SerializeField] private Slider sliderVolumeSoundEffect;
+
+        [Header("Référencer Pause Group si on est dans un niveau." + "\n" + "Main Menu Manager seulement si on est dans le Menu Principal.")]
+        [SerializeField] private GameObject pauseGroup;
+        [SerializeField] private MainMenuManager mainMenuManager;
         
         private void Start()
         {
-            optionsGroup.SetActive(false);
+            _optionsGroup = transform.GetChild(0).gameObject;
+            _optionsGroup.SetActive(false);
         }
 
         public void ShowOptions()
         {
-            optionsGroup.SetActive(!optionsGroup.activeSelf);
-            if (SceneManager.GetActiveScene().name == "TitleScreen")
+            _optionsGroup.SetActive(!_optionsGroup.activeSelf);
+            if (pauseGroup is null)
             {
-                GetComponent<MainMenuManager>().optionsHere = optionsGroup.activeSelf;
+                mainMenuManager.optionsHere = _optionsGroup.activeSelf;
+            }
+            else 
+            {
+                pauseGroup.SetActive(!_optionsGroup.activeSelf);
             }
         }
         public void ChangeOptions(int whatOptionToChange)
@@ -42,32 +50,19 @@ namespace UIScripts
                 //Change optionsFile.
                 WriteFile(optionsFile, whatOptionToChange);
             }
-        }
-
-        void ReadFile(TextAsset fileWhoNeedsToBeRead, int lineNumber, int lenght)
-        {
-            string path = AssetDatabase.GetAssetPath(fileWhoNeedsToBeRead);
-            StreamReader reader = new StreamReader(path);
-            string lineString = null;
-            
-            for (int i = 0; i < lenght; i++)
+            else if (whatOptionToChange is > 3 and < 10)
             {
-                if (i == lineNumber)
-                {
-                    lineString = reader.ReadLine();
-                }
-                else
-                {
-                    reader.ReadLine();
-                }
+                //Change CommandsFile.
+                WriteFile(commandsFile, whatOptionToChange);
             }
-            Debug.Log(lineString);
-            reader.Close();
+            else
+            {
+                Debug.Log("Erreur. Mauvais renseignement dans les options. Regardez les commentaires de la fonction ChangeOptions pour plus d'informations.");
+            }
         }
 
         void WriteFile(TextAsset fileWhoNeedsToBeEdited, int line)
         {
-            
             string path = AssetDatabase.GetAssetPath(fileWhoNeedsToBeEdited);
             int numberOfLines = GetNumberOfLines(path);
             
@@ -107,7 +102,6 @@ namespace UIScripts
             
             for (int i = 0; i < numberOfLines; i++)
             {
-                Debug.Log(arrLines[i]);
                 writer.WriteLine(arrLines[i]);
             }
             writer.Close();
