@@ -8,9 +8,9 @@ namespace GameContent.PlayerScripts.PlayerStates
 {
     public sealed class IdleState : AbstractPlayerState
     {
-       #region constructor 
+        #region constructor 
         
-        public IdleState(GameObject go, ControllerState state) : base(go, state)
+        public IdleState(GameObject go, ControllerState state, PlayerStateMachine pM) : base(go, state, pM)
         {
         }
 
