@@ -58,8 +58,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             datas.monoWave.SetAnimationCurve("curve", curve);
             datas.monoWave.SetFloat("life", datas.waveSpeed);
             
-            #endregion
-
             if (PreSources.Length == 0)
             {
                 SwitchMaterial(SourceDatasList);
@@ -72,6 +70,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 tempSources[i] = new SourceDatas(PreSources[i]);
             }
             SwitchMaterial(tempSources);
+            
+            #endregion
         }
 
         public override void InterAction()
