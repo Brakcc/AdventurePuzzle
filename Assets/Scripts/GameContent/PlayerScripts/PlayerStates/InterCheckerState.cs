@@ -43,7 +43,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (!other.CompareTag("Interactible"))
                 return;
             
-            if (other.TryGetComponent<BaseInterBehavior>(out var inter))
+            if (other.TryGetComponent<BaseInterBehavior> (out var inter))
                 inter.AddSelf(this);
         }
         

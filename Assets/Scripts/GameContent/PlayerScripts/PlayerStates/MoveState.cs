@@ -1,5 +1,7 @@
-﻿using GameContent.Interactives.ClemInterTemplates.Levers;
+﻿using GameContent.Interactives.ClemInterTemplates;
+using GameContent.Interactives.ClemInterTemplates.Levers;
 using GameContent.Interactives.ClemInterTemplates.Receptors;
+using GameContent.StateMachines;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
@@ -8,7 +10,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region constructor
 
-        public MoveState(GameObject go) : base(go)
+        public MoveState(GameObject go, ControllerState state) : base(go, state)
         {
         }
 
@@ -16,30 +18,28 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         #region methodes
 
-        public override void OnInit()
+        public override void OnInit(GenericStateMachine m)
         {
             _lastDir = _isoForwardDir;
-            base.OnInit();
+            base.OnInit(m);
         }
 
-        public override void OnEnterState(PlayerStateMachine stateMachine)
+        public override void OnEnterState()
         {
-            _stateMachine = stateMachine;
-            
             _coyoteTimeCounter = _datasSo.jumpDatasSo.coyoteTime;
             _jumpBufferCounter = Constants.SecuValuUnderZero;
         }
 
-        public override void OnExitState(PlayerStateMachine stateMachine)
+        public override void OnExitState()
         {
-            _stateMachine = null;
         }
 
-        public override void OnUpdate()
+        public override sbyte OnUpdate()
         {
             base.OnUpdate();
             
             var input = _datasSo.moveInput.action.ReadValue<Vector2>();
+            _analogInputMagnitude = input.magnitude;
             _inputDir = new Vector3(input.x, 0, input.y).normalized;
             
             GetInteractInputs();
@@ -51,23 +51,24 @@ namespace GameContent.PlayerScripts.PlayerStates
             //Fall
             OnFall();
 
-            var position = _goRef.transform.position;
-            Debug.DrawLine(position, position + _goRef.transform.forward, Color.red);
+            return 0;
         }
 
-        public override void OnFixedUpdate()
+        public override sbyte OnFixedUpdate()
         {
             base.OnFixedUpdate();
             OnMove();
             OnRotate();
             //OnJump();
+
+            return 0;
         }
 
         #region rotation methodes
 
         private void OnRotate()
         {
-            if (_inputDir.magnitude <= Constants.MinMoveInputValue)
+            if (_analogInputMagnitude <= Constants.MinMoveInputValue)
                 return;
             
             var angle = Vector3.Dot(_lastDir, _currentDir) / (_currentDir.magnitude * _lastDir.magnitude);
@@ -85,6 +86,9 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void OnMove()
         {
+            if (_analogInputMagnitude <= Constants.MinMoveInputValue)
+                return;
+            
             _currentDir = (_isoRightDir * _inputDir.x + _isoForwardDir * _inputDir.z).normalized;
             _cc.SimpleMove(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime));
         }
@@ -99,7 +103,8 @@ namespace GameContent.PlayerScripts.PlayerStates
                 (!(_jumpBufferCounter >= 0) || !IsGrounded))
                 return;
             
-            _stateMachine.OnSwitchState(_stateMachine.playerStates[1]);
+            //_stateMachine.OnSwitchState("jump");
+            newStateMachine.SwitchState("jump");
         }
 
         private void SetCoyote()
@@ -135,22 +140,27 @@ namespace GameContent.PlayerScripts.PlayerStates
                 switch (_checker.InterRef)
                 {
                     case null:
-                        _stateMachine.OnSwitchState("interact");
+                        //_stateMachine.OnSwitchState("interact");
+                        newStateMachine.SwitchState("interact");
                         return;
-                    case ReceptorInter { IsMovable: true}:
-                        _stateMachine.OnSwitchState("locked");
+                    case ReceptorInter { IsMovable: true, CurrentEnergyType:EnergyTypes.Blue}:
+                        //_stateMachine.OnSwitchState("grab");
+                        newStateMachine.SwitchState("grab");
                         return;
                     case LeverInter : 
-                        _stateMachine.OnSwitchState("lever");
+                        //_stateMachine.OnSwitchState("lever");
+                        newStateMachine.SwitchState("lever");
                         return;
                     case not null:
-                        _stateMachine.OnSwitchState("interact");
+                        //_stateMachine.OnSwitchState("interact");
+                        newStateMachine.SwitchState("interact");
                         return;
                 }
             }
             
             if (_datasSo.cancelInput.action.WasPressedThisFrame())
-                _stateMachine.OnSwitchState("cancel");
+                //_stateMachine.OnSwitchState("cancel");
+                newStateMachine.SwitchState("cancel");
         }
 
         #endregion
@@ -161,7 +171,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             if (!IsGrounded)
             {
-                _stateMachine.OnSwitchState("fall");
+                //_stateMachine.OnSwitchState("fall");
+                newStateMachine.SwitchState("fall");
             }
         }
 
@@ -175,6 +186,8 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private float _jumpBufferCounter;
 
+        private float _analogInputMagnitude;
+        
         private Vector3 _lastDir;
 
         #endregion

@@ -9,12 +9,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
     {
         #region properties
 
-        public override short Level
+        public override sbyte Level
         {
             get => _currentLevel;
             set
             {
-                _currentLevel = (short)(value < 0 ? value + levelNumbers : value % levelNumbers);
+                _currentLevel = (sbyte)(value < 0 ? value + levelNumbers : value % levelNumbers);
                 PlayerAction();
             }
         }
@@ -22,6 +22,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         #endregion
         
         #region methodes
+
+        protected override void OnInit()
+        {
+            base.OnInit();
+            Level = 0;
+        }
 
         public override void PlayerAction()
         {
@@ -42,7 +48,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         [SerializeField] private WaveEmitter emitterRef;
         
         [FieldColorLerp(FieldColor.Red, FieldColor.Green, 0, 5)]
-        [Range(0, 5)] [SerializeField] private short levelNumbers;
+        [Range(0, 5)] [SerializeField] private sbyte levelNumbers;
 
         [SerializeField] private Color gizmosColor;
 

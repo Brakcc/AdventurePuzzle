@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d625f2bbdaf64a89a9f18c38e7eba721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasDebugMod: 1
+  hasDebugMod: 0
   debugMod:
     debugText: {fileID: 0}
     debugString: Maintain <color=#00ff00ff><b>Right Trigger</color></b> to interact

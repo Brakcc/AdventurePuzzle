@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ClemSceene.unity
+    path: Assets/Scenes/ClemSceene/ClemSceene.unity
     guid: a715f5e15b08b6a4498302c71b83c978
+  - enabled: 1
+    path: Assets/Scenes/UIScenes/TitleScreen.unity
+    guid: 7aac9544828fa824497cc411338b8741
   m_configObjects: {}

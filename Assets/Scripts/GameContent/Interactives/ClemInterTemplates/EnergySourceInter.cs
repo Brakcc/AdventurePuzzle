@@ -49,6 +49,17 @@ namespace GameContent.Interactives.ClemInterTemplates
             OnActionAnim("isActive", isActivated);
         }
 
+        public void OnForceAbsorb()
+        {
+            if (!isActivated)
+                return;
+
+            isActivated = false;
+            OnActionAnim("isActive", isActivated);
+        }
+        
+        #region anims et VFX
+        
         private void OnActionAnim(string arg, bool state)
         {
             animator.SetBool(arg, state);
@@ -58,6 +69,8 @@ namespace GameContent.Interactives.ClemInterTemplates
         {
             animator.SetBool(id, state);
         }
+        
+        #endregion
 
         #endregion
 

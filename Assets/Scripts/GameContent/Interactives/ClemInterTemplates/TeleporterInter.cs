@@ -19,40 +19,40 @@ namespace GameContent.Interactives.ClemInterTemplates
                 _teleportStart = false;
                 _playerToTeleport.position = otherTeleporter.transform.position;
             }
+            base.OnFixedUpdate();
         }
         
         public override void InterAction()
         {
-            Debug.Log(CurrentEnergyType);
+            base.InterAction();
+            
             _justTeleported = false;
-            _canTeleport = (CurrentEnergyType == EnergyTypes.Yellow);
-            otherTeleporter._canTeleport = (CurrentEnergyType == EnergyTypes.Yellow);
-            GetComponent<CapsuleCollider>().isTrigger = (CurrentEnergyType != EnergyTypes.Blue);
+            _canTeleport = (CurrentEnergyType == EnergyTypes.None);
+            otherTeleporter._canTeleport = (CurrentEnergyType == EnergyTypes.None);
             
-            GetComponent<MeshRenderer>().enabled = (CurrentEnergyType != EnergyTypes.Green && CurrentEnergyType != EnergyTypes.None);
-            otherTeleporter.GetComponent<MeshRenderer>().enabled = (CurrentEnergyType != EnergyTypes.Green && CurrentEnergyType != EnergyTypes.None);
+            GetComponent<Collider>().isTrigger = (CurrentEnergyType != EnergyTypes.Blue);
+            otherTeleporter.GetComponent<Collider>().isTrigger = (CurrentEnergyType != EnergyTypes.Blue);
             
-            if (CurrentEnergyType == EnergyTypes.Yellow)
+            if (CurrentEnergyType == EnergyTypes.Green)
             {
-                GetComponent<MeshRenderer>().material.color = new Color32(173,255,47,125);
-                otherTeleporter.GetComponent<MeshRenderer>().material.color = new Color32(173,255,47,125);
+                GetComponent<MeshRenderer>().material.color = new Color32(80,255,47,125);
+                otherTeleporter.GetComponent<MeshRenderer>().material.color = new Color32(80,255,47,125);
             }
             else if (CurrentEnergyType == EnergyTypes.Blue)
             {
                 GetComponent<MeshRenderer>().material.color = new Color32(65,105,225,255);
                 otherTeleporter.GetComponent<MeshRenderer>().material.color = new Color32(65,105,225,255);
             }
-            base.InterAction();
         }
 
         public override void OnReset()
         {
-            GetComponent<MeshRenderer>().enabled = false;
-            otherTeleporter.GetComponent<MeshRenderer>().enabled = false;
-            _canTeleport = false;
+            _canTeleport = true;
+            otherTeleporter._canTeleport = true;
             _justTeleported = false;
+            GetComponent<Collider>().isTrigger = true;
+            otherTeleporter.GetComponent<Collider>().isTrigger = true;
             
-            otherTeleporter._canTeleport = false;
             base.OnReset();
         }
 

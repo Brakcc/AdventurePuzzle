@@ -13,13 +13,15 @@ namespace GameContent.Interactives
         
         public float AngleWithPlayer { get; private set; }
 
+        protected bool HasCheckerRef => _checkerRef is not null;
+
         #endregion
 
         #region constructors
 
         ~BaseInterBehavior()
         {
-            Debug.Log($"{gameObject.name} removed");
+            //Debug.Log($"{gameObject.name} removed");
         }
 
         #endregion
