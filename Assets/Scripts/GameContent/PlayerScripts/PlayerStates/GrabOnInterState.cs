@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    public sealed class LockedOnInterState : AbstractPlayerState
+    public sealed class GrabOnInterState : AbstractPlayerState
     {
         #region properties
 
@@ -80,7 +80,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         #region constructor
         
-        public LockedOnInterState(GameObject go, ControllerState state) : base(go, state)
+        public GrabOnInterState(GameObject go, ControllerState state) : base(go, state)
         {
         }
         
@@ -89,10 +89,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         #region methodes
 
         // ReSharper disable Unity.PerformanceAnalysis
-        public override void OnEnterState(PlayerStateMachine stateMachine)
+        public override void OnEnterState()
         {
-            _stateMachine = stateMachine;
-            
             _interRef = _checker.InterRef as ReceptorInter;
             
             //_recepRefRb = _interRef!.GetComponent<Rigidbody>();
@@ -106,17 +104,16 @@ namespace GameContent.PlayerScripts.PlayerStates
             _directionMode = GetBaseMoveDir(_relativePos);
         }
 
-        public override void OnExitState(PlayerStateMachine stateMachine)
+        public override void OnExitState()
         {
             _tempDistFromPlayer = 0;
             //_recepRefRb.constraints = ReceptorInter.GetRBConstraints(_interRef.IsOnTop ? RBCMode.Rota : RBCMode.RotaPlan);
             
-            _stateMachine = null;
             _interRef = null;
             //_recepRefRb = null;
         }
 
-        public override void OnUpdate()
+        public override sbyte OnUpdate()
         {
             base.OnUpdate();
             
@@ -125,15 +122,19 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             OnFall();
             GetHoldInput();
+
+            return 0;
         }
 
-        public override void OnFixedUpdate()
+        public override sbyte OnFixedUpdate()
         {
             base.OnFixedUpdate();
             
             OnMove();
             DistFromInterCheck();
             BlockFall();
+            
+            return 0;
         }
 
         #region holding methodes
@@ -142,18 +143,18 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             if (_datasSo.interactInput.action.IsPressed())
                 return;
-            Debug.Log("back");
-            _stateMachine.OnSwitchState("move");
+            
+            //_stateMachine.OnSwitchState("move");
+            newStateMachine.SwitchState("move");
         }
 
         private void DistFromInterCheck()
         {
             if (_interRef.DistFromPlayer >= _tempDistFromPlayer + Constants.GrabGapThreshold ||
                 !_checker.InRangeInter.Contains(_interRef))
-            {
-                Debug.Log("dist");
-                _stateMachine.OnSwitchState("move");
-            }
+                //_stateMachine.OnSwitchState("move");
+                newStateMachine.SwitchState("move");
+            
         }
         
         private static LockDirectionMode GetBaseMoveDir(Vector3 fromVec)
@@ -290,7 +291,8 @@ namespace GameContent.PlayerScripts.PlayerStates
                 _fallCounter += Time.deltaTime;
             
             if (_fallCounter >= Constants.MaxFallCounterWhileGrabThreshold)
-                _stateMachine.OnSwitchState("fall");
+                //_stateMachine.OnSwitchState("fall");
+                newStateMachine.SwitchState("fall");
         }
 
         private void BlockFall()
@@ -302,7 +304,8 @@ namespace GameContent.PlayerScripts.PlayerStates
                 _blockFallCounter += Time.deltaTime;
             
             if (_blockFallCounter > Constants.MaxBlockFallCounterThreshold)
-                _stateMachine.OnSwitchState("move");
+                //_stateMachine.OnSwitchState("move");
+                newStateMachine.SwitchState("move");
         }
 
         #endregion

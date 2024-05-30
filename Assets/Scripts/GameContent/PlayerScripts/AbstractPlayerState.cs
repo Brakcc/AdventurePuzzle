@@ -1,10 +1,12 @@
-﻿using GameContent.PlayerScripts.PlayerDatas;
+﻿using System.Collections;
+using GameContent.PlayerScripts.PlayerDatas;
 using GameContent.PlayerScripts.PlayerStates;
+using GameContent.StateMachines;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts
 {
-    public abstract class AbstractPlayerState
+    public abstract class AbstractPlayerState : AbstractGenericState
     {
         #region properties
         
@@ -12,17 +14,15 @@ namespace GameContent.PlayerScripts
 
         protected float Velocity => (_nextPos - _prevPos).magnitude;
         
-        protected ControllerState StateFlag { get; }
+        public ControllerState StateFlag { get; }
 
         #endregion
         
         #region constructor
 
-        protected AbstractPlayerState(GameObject go, ControllerState state)
+        protected AbstractPlayerState(GameObject go, ControllerState state) : base(go)
         {
-            _goRef = go;
             StateFlag = state;
-            Debug.Log((short)state);
             _currentDir = _isoForwardDir;
         }
 
@@ -36,8 +36,6 @@ namespace GameContent.PlayerScripts
         #region base methodes
         
         protected static float ClampSymmetric(float val, float clamper) => Mathf.Clamp(val, -clamper, clamper);
-
-        public void SetGameObject(GameObject go) => _goRef = go;
         
         public void SetCharaCont(CharacterController cc) => _cc = cc;
 
@@ -49,31 +47,35 @@ namespace GameContent.PlayerScripts
         
         #region methodes to herit
 
-        public virtual void OnInit()
+        public override void OnInit(GenericStateMachine machine)
         {
+            newStateMachine = machine;
+            
             _prevPos = _goRef.transform.position;
             _nextPos = _goRef.transform.position;
         }
 
-        public virtual void OnUpdate() {}
+        public override sbyte OnUpdate()
+        {
+            return 0;
+        }
         
-        public virtual void OnFixedUpdate()
+        public override sbyte OnFixedUpdate()
         {
             _prevPos = _nextPos;
             _nextPos = _goRef.transform.position;
+
+            return 0;
         }
 
-        public abstract void OnEnterState(PlayerStateMachine stateMachine);
-
-        public abstract void OnExitState(PlayerStateMachine stateMachine);
+        public override IEnumerator OnCoroutine()
+        {
+            yield return null;
+        }
 
         #endregion
 
         #region fields
-
-        protected PlayerStateMachine _stateMachine;
-
-        protected GameObject _goRef;
         
         protected CharacterController _cc;
 

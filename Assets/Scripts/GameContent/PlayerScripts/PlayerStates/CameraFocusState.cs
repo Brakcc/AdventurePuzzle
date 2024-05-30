@@ -2,18 +2,18 @@
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
-    public class CameraFocusState : AbstractPlayerState
+    public sealed class CameraFocusState : AbstractPlayerState
     {
         public CameraFocusState(GameObject go, ControllerState state) : base(go, state)
         {
         }
-
-        public override void OnEnterState(PlayerStateMachine stateMachine)
+        
+        public override void OnEnterState()
         {
             throw new System.NotImplementedException();
         }
 
-        public override void OnExitState(PlayerStateMachine stateMachine)
+        public override void OnExitState()
         {
             throw new System.NotImplementedException();
         }

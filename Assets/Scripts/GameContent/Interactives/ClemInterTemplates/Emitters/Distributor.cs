@@ -82,10 +82,17 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             foreach (var n in nodeDatas)
             {
                 var tempE = CurrentDistribution[n.ConnectionID] == 1 ? TransmittedEnergy : EnergyTypes.None;
-                //Debug.Log($"{n.dendrite} {n.receptorRef?.name} {n.distributorRef?.name} {n.ConnectionID}");
                 switch(n.dendrite)
                 {
-                    case DentriteType.Receptor:
+                    case DentriteType.Receptor when tempE is EnergyTypes.None && !n.receptorRef.HasWaveEnergy:
+                        n.receptorRef.HasCableEnergy = false;
+                        n.receptorRef.CurrentEnergyType = tempE;
+                        break;
+                    case DentriteType.Receptor when tempE is EnergyTypes.None && n.receptorRef.HasWaveEnergy:
+                        break;
+                    case DentriteType.Receptor when tempE is not EnergyTypes.None:
+                        n.receptorRef.HasCableEnergy = true;
+                        n.receptorRef.HasWaveEnergy = false;
                         n.receptorRef.CurrentEnergyType = tempE;
                         break;
                     case DentriteType.Distributor:

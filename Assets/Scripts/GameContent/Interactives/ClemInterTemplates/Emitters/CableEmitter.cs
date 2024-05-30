@@ -41,6 +41,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 {
                     case DentriteType.Receptor:
                         nodes[i].receptorRef.HasCableEnergy = true;
+                        nodes[i].receptorRef.HasWaveEnergy = false;
                         nodes[i].receptorRef.CurrentEnergyType = this[i].Type;
                         break;
                     case DentriteType.Distributor:
@@ -86,7 +87,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
             switch (nodes[SourceCount - 1].dendrite)
             {
-                case DentriteType.Receptor:
+                case DentriteType.Receptor when !nodes[SourceCount - 1].receptorRef.HasWaveEnergy || nodes[SourceCount - 1].receptorRef.HasCableEnergy:
                     nodes[SourceCount - 1].receptorRef.HasCableEnergy = false;
                     nodes[SourceCount - 1].receptorRef.OnReset();
                     break;

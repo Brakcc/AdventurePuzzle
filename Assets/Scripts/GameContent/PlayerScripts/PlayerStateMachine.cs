@@ -2,6 +2,7 @@
 using GameContent.PlayerScripts.PlayerDatas;
 using GameContent.PlayerScripts.PlayerStates;
 using GameContent.PlayerScripts.PlayerStates.ForcedStates;
+using GameContent.StateMachines;
 using UnityEngine;
 using Utilities.CustomAttributes;
 
@@ -14,102 +15,91 @@ namespace GameContent.PlayerScripts
 
         public ControllerState CurrentState { get; set; }
 
+        public GenericStateMachine Machine => _stateMachine;
+
         #endregion
         
         #region methodes
 
         private void Awake()
         {
+            _stateMachine = new GenericStateMachine(11);
             var go = gameObject;
-            
-            playerStates = new AbstractPlayerState[]
-            {
-                new IdleState(go, ControllerState.idle),
-                new MoveState(go, ControllerState.move),
-                new JumpState(go, ControllerState.jump),
-                new InteractState(go, ControllerState.interact),
-                new CancelState(go, ControllerState.cancel),
-                new FallState(go, ControllerState.fall),
-                new LockedOnInterState(go, ControllerState.locked),
-                new LockedOnLeverState(go, ControllerState.lever),
-                new CameraFocusState(go, ControllerState.camera),
-                new CinematicIdleForcedState(go, ControllerState.cineIdle),
-                new CinematicMoveForcedState(go, ControllerState.cineMove)
-            };
-
-            playerStatesDict = new Dictionary<string, AbstractPlayerState>
-            {
-                {"idle", playerStates[0]},
-                {"move", playerStates[1]},
-                {"jump", playerStates[2]},
-                {"interact", playerStates[3]},
-                {"cancel", playerStates[4]},
-                {"fall", playerStates[5]},
-                {"locked", playerStates[6]},
-                {"lever", playerStates[7]},
-                {"camera", playerStates[8]},
-                {"cineIdle", playerStates[9]},
-                {"cineMove", playerStates[10]}
-            };
-            
-            if (playerStates.Length == 0)
-                return;
-
             var tempCc = GetComponent<CharacterController>();
-            foreach (var state in playerStates)
+
+            //PlayerStateDictionary
+            var pSD = new Dictionary<string, AbstractPlayerState>
+            {
+                {"idle", new IdleState(go, ControllerState.idle)},
+                {"move", new MoveState(go, ControllerState.move)},
+                {"jump", new JumpState(go, ControllerState.jump)},
+                {"interact", new InteractState(go, ControllerState.interact)},
+                {"cancel", new CancelState(go, ControllerState.cancel)},
+                {"fall", new FallState(go, ControllerState.fall)},
+                {"grab", new GrabOnInterState(go, ControllerState.grab)},
+                {"lever", new LockedOnLeverState(go, ControllerState.lever)},
+                {"camera", new CameraFocusState(go, ControllerState.camera)},
+                {"cineIdle", new CinematicIdleForcedState(go, ControllerState.cineIdle)},
+                {"cineMove", new CinematicMoveForcedState(go, ControllerState.cineMove)}
+            };
+            
+            _stateMachine.SetCallBacks((int)pSD["idle"].StateFlag, "idle", pSD["idle"].OnInit, null, 
+                                       pSD["idle"].OnUpdate, pSD["idle"].OnFixedUpdate, null, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["move"].StateFlag, "move", pSD["move"].OnInit, pSD["move"].OnEnterState, 
+                                       pSD["move"].OnUpdate, pSD["move"].OnFixedUpdate, null, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["jump"].StateFlag, "jump", pSD["jump"].OnInit, pSD["jump"].OnEnterState, 
+                                       pSD["jump"].OnUpdate, pSD["jump"].OnFixedUpdate, null, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["interact"].StateFlag, "interact", pSD["interact"].OnInit, pSD["interact"].OnEnterState, 
+                                       pSD["interact"].OnUpdate, pSD["interact"].OnFixedUpdate, null, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["cancel"].StateFlag, "cancel", pSD["cancel"].OnInit, pSD["cancel"].OnEnterState, 
+                                       pSD["cancel"].OnUpdate, pSD["cancel"].OnFixedUpdate, null, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["fall"].StateFlag, "fall", pSD["fall"].OnInit, null, 
+                                       pSD["fall"].OnUpdate, pSD["fall"].OnFixedUpdate, pSD["fall"].OnExitState, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["grab"].StateFlag, "grab", pSD["grab"].OnInit, pSD["grab"].OnEnterState, 
+                                       pSD["grab"].OnUpdate, pSD["grab"].OnFixedUpdate, pSD["grab"].OnExitState, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["lever"].StateFlag, "lever", pSD["lever"].OnInit, pSD["lever"].OnEnterState, 
+                                       pSD["lever"].OnUpdate, pSD["lever"].OnFixedUpdate, pSD["lever"].OnExitState, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["camera"].StateFlag, "camera", pSD["idle"].OnInit, pSD["camera"].OnEnterState, 
+                                       pSD["camera"].OnUpdate, pSD["camera"].OnFixedUpdate, pSD["camera"].OnExitState, null);
+            
+            _stateMachine.SetCallBacks((int)pSD["cineIdle"].StateFlag, "cineIdle", pSD["cineIdle"].OnInit, pSD["cineIdle"].OnEnterState, 
+                                       pSD["cineIdle"].OnUpdate, pSD["cineIdle"].OnFixedUpdate, pSD["cineIdle"].OnExitState, pSD["cineIdle"].OnCoroutine);
+            
+            _stateMachine.SetCallBacks((int)pSD["cineMove"].StateFlag, "cineMove", pSD["cineMove"].OnInit, pSD["cineMove"].OnEnterState, 
+                                       pSD["cineMove"].OnUpdate, pSD["cineMove"].OnFixedUpdate, pSD["cineMove"].OnExitState, pSD["cineMove"].OnCoroutine);
+            
+            foreach (var state in pSD.Values)
             {
                 state.SetCharaCont(tempCc);
                 state.SetDatas(datasSo);
                 state.SetChecker(checker);
-                state.OnInit();
+                state.OnInit(_stateMachine);
             }
-            
-            _currentState = playerStates[0];
         }
 
-        private void Start()
-        {
-            if (playerStates.Length == 0)
-                return;
-            
-            _currentState.OnEnterState(this);
-        }
-
-        private void Update()
-        {
-            _currentState.OnUpdate();
-        }
-
-        private void FixedUpdate()
-        {
-            _currentState.OnFixedUpdate();
-        }
-
-        public void OnSwitchState(AbstractPlayerState newState)
-        {
-            _currentState.OnExitState(this);
-            _currentState = newState;
-            _currentState.OnEnterState(this);
-        }
+        private void Start() => _stateMachine.StartMachine();
         
-        public void OnSwitchState(string newState)
-        {
-            OnSwitchState(playerStatesDict[newState]);
-        }
+        private void Update() => _stateMachine.UpdateMachine();
+
+        private void FixedUpdate() => _stateMachine.FixedUpdateMachine();
         
         #endregion
         
         #region fields
         
-        public AbstractPlayerState[] playerStates;
-
-        private Dictionary<string, AbstractPlayerState> playerStatesDict;
-            
         [FieldCompletion] [SerializeField] protected BasePlayerDatasSO datasSo;
 
         [FieldCompletion] public InterCheckerState checker;
-        
-        private AbstractPlayerState _currentState;
+
+        private GenericStateMachine _stateMachine;
 
         #endregion
     }

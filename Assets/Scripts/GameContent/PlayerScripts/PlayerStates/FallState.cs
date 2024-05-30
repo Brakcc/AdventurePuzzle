@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameContent.StateMachines;
+using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
@@ -14,24 +15,23 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         #region methodes
         
-        public override void OnInit()
+        public override void OnInit(GenericStateMachine m)
         {
             _lastDir = _isoForwardDir;
-            base.OnInit();
-        }
-        
-        public override void OnEnterState(PlayerStateMachine stateMachine)
-        {
-            _stateMachine = stateMachine;
+            base.OnInit(m);
         }
 
-        public override void OnExitState(PlayerStateMachine stateMachine)
+        public override void OnEnterState()
+        {
+            
+        }
+
+        public override void OnExitState()
         {
             _lerpCoef = 0;
-            _stateMachine = null;
         }
-        
-        public override void OnUpdate()
+
+        public override sbyte OnUpdate()
         {
             base.OnUpdate();
             
@@ -40,15 +40,19 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             OnGrounded();
             SetLerpCoef();
+
+            return 0;
         }
 
-        public override void OnFixedUpdate()
+        public override sbyte OnFixedUpdate()
         {
             base.OnFixedUpdate();
             OnMove();
             OnRotate();
+
+            return 0;
         }
-        
+
         #region rotation mathodes
 
         private void OnRotate()
@@ -89,7 +93,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnGrounded()
         {
             if (IsGrounded)
-                _stateMachine.OnSwitchState("move");
+                //_stateMachine.OnSwitchState("move");
+                newStateMachine.SwitchState("move");
         }
 
         #endregion

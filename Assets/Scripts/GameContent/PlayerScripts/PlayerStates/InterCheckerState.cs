@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameContent.Interactives;
-using GameContent.Interactives.ClemInterTemplates;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
