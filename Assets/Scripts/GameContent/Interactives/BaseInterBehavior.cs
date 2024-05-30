@@ -13,6 +13,8 @@ namespace GameContent.Interactives
         
         public float AngleWithPlayer { get; private set; }
 
+        protected bool HasCheckerRef => _checkerRef is not null;
+
         #endregion
 
         #region constructors

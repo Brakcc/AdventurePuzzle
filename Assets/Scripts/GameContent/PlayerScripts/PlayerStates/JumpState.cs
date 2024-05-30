@@ -6,7 +6,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region constructor
 
-        public JumpState(GameObject go) : base(go)
+        public JumpState(GameObject go, ControllerState state) : base(go, state)
         {
         }
 
@@ -14,10 +14,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         #region methodes
         
-        public override void OnEnterState(PlayerStateMachine stateMachine)
+        public override void OnEnterState()
         {
-            _stateMachine = stateMachine;
-            
             //_rb.drag = 0;
             _jumpTimer = Constants.JumpTimerAfterInput;
             
@@ -28,25 +26,28 @@ namespace GameContent.PlayerScripts.PlayerStates
             //_rb.AddForce(_goRef.transform.up * _datasSo.jumpDatasSo.jumpForce, ForceMode.Impulse);
         }
 
-        public override void OnExitState(PlayerStateMachine stateMachine)
+        public override void OnExitState()
         {
-            _stateMachine = null;
         }
 
-        public override void OnUpdate()
+        public override sbyte OnUpdate()
         {
             base.OnUpdate();
             
             GetInputVal();
             GetJumpTimer();
+
+            return 0;
         }
 
-        public override void OnFixedUpdate()
+        public override sbyte OnFixedUpdate()
         {
             base.OnFixedUpdate();
             OnMove();
             OnLand();
             ClampVelocity();
+
+            return 0;
         }
 
         #region move methodes
@@ -84,7 +85,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnLand()
         {
             if (_jumpTimer <= 0 && IsGrounded)
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+                //_stateMachine.OnSwitchState("move");
+                newStateMachine.SwitchState("move");
         }
 
         #endregion

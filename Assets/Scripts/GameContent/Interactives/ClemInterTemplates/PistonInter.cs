@@ -1,6 +1,5 @@
 using GameContent.Interactives.ClemInterTemplates.Receptors;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace GameContent.Interactives.ClemInterTemplates
 {
