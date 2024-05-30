@@ -9,7 +9,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region properties
 
-        public BaseInterBehavior InterRef { get; private set; }
+        public BaseInterBehavior InterRef { get; set; } //TO CHANGE : SET PRIVATE LATER
 
         public List<BaseInterBehavior> InRangeInter { get; private set; }
 

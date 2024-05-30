@@ -1,4 +1,5 @@
 using GameContent.Interactives.ClemInterTemplates;
+using GameContent.PlayerScripts;
 using GameContent.PlayerScripts.PlayerStates;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,12 +15,15 @@ namespace UIScripts
         private TeleporterInter _myTelepData;
         [SerializeField] private InputActionAsset pushAction;
         private bool _buttonPressed;
-        private Quaternion rotationOfView;
+        private Transform _myParent;
+        private bool _lockZorX;
+        private float _valueLock;
+        private bool _takeFirstValues;
         
         void Start()
         {
             _myTelepData = GetComponent<TeleporterInter>();
-            
+            _myParent = transform.parent;
             _myPlayerWhoPush = null;
         }
 
@@ -27,33 +31,42 @@ namespace UIScripts
         {
             if (_myPlayerWhoPush != null)
             {
-                if (!_buttonPressed && pushAction["Interact"].WasPressedThisFrame())
+                MoveFunction();
+            }
+        }
+
+        void MoveFunction()
+        {
+            _canBeMoved = pushAction["Interact"].IsPressed();
+
+            if (_canBeMoved && _myTelepData.blue)
+            {
+                /*if (_lockZorX)
                 {
-                    _buttonPressed = true;
-                    rotationOfView = _myPlayerWhoPush.rotation;
-                }
-                _canBeMoved = pushAction["Interact"].IsPressed();
-                
-                if (_canBeMoved && _myTelepData.blue)
-                {
-                    _myPlayerWhoPush.rotation = rotationOfView;
-                    _myPlayerWhoPush.GetComponent<Rigidbody>();
-                    _myPlayerWhoPush.GetComponent<Rigidbody>().constraints = _direction ? RigidbodyConstraints.FreezePositionZ : RigidbodyConstraints.FreezePositionX;
-                    
-                    if (_myPlayerWhoPush.position != _stockedPos)
-                    {
-                        MoveTele();
-                    }
+                    var position = _myPlayerWhoPush.position;
+                    position = new Vector3(position.x, position.y , _valueLock);
+                    _myPlayerWhoPush.position = position;
                 }
                 else
                 {
-                    _myPlayerWhoPush.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                }
+                    var position = _myPlayerWhoPush.position;
+                    position = new Vector3(_valueLock, position.y , position.z);
+                    _myPlayerWhoPush.position = position;
+                }*/
                 
-                if (_buttonPressed && pushAction["Interact"].WasReleasedThisFrame())
+                _myPlayerWhoPush.GetComponent<PlayerStateMachine>().CurrentState = ControllerState.grab;
+                _myPlayerWhoPush.GetChild(1).GetComponent<InterCheckerState>().InterRef = GetComponent<TeleporterInter>();
+
+                transform.parent = _myPlayerWhoPush;
+                    
+                if (_myPlayerWhoPush.position != _stockedPos)
                 {
-                    _buttonPressed = false;
+                    MoveTele();
                 }
+            }
+            else
+            {
+                transform.parent = _myParent.transform;
             }
         }
 
@@ -86,14 +99,13 @@ namespace UIScripts
 
         void MoveTele()
         {
-            Debug.Log("RRR");
             var position1 = _myPlayerWhoPush.position;
             
             //bool onTheSameLevel = !((position1.y - _stockedPos.y) > 1 || (position1.y - _stockedPos.y) < -1);
             bool onTheSameLevel = true; //
 
             //Debug.Log(onTheSameLevel);
-            if (onTheSameLevel)
+            /*if (onTheSameLevel)
             {
                 var position = transform.position;
                 if (_direction)
@@ -110,7 +122,7 @@ namespace UIScripts
                         position.y,
                         position.z - (position1.z - _stockedPos.z));
                 }
-            }
+            }*/
         }
 
         private void OnTriggerEnter(Collider playerCheckBox)

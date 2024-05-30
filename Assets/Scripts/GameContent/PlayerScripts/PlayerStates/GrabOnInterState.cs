@@ -315,7 +315,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         #region fields
 
-        private ReceptorInter _interRef;
+        private ReceptorInter _interRef; //Likely change
 
         //private Rigidbody _recepRefRb;
 
