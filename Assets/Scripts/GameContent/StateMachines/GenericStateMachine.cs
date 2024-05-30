@@ -30,7 +30,7 @@ namespace GameContent.StateMachines
 
         #region methodes
 
-        public void SetCallBacks(int stateID,
+        public void SetCallBacks(byte stateID,
             string stateName,
             Action<GenericStateMachine> init, 
             Action enter, 

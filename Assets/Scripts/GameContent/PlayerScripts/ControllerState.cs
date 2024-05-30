@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace GameContent.PlayerScripts.PlayerStates
+namespace GameContent.PlayerScripts
 {
     [Flags]
-    public enum ControllerState
+    public enum ControllerState : byte
     {
         idle = 0,
         move = 1,

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3370466015805032737
+--- !u!114 &-6342071454378515961
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Test
+  m_Name: M_Escalier_Moss
   m_Shader: {fileID: -6465566751694194690, guid: 03caf838c69d71040bfc262802735d00,
     type: 3}
   m_Parent: {fileID: 0}
@@ -38,11 +38,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - MainTex:
-        m_Texture: {fileID: 2800000, guid: 17412eab6bbbe0d4384864d31a3427da, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2e343afae82912d498a89313e44d61fb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AOTex:
-        m_Texture: {fileID: 2800000, guid: baf0459d443a8774f8dbe73e8043c75a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 74f46381e973c704aa52713346cb3f33, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -82,11 +82,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MossTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2c833b3a0e60c6c4b85e843663abc0da, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: 8997ae8683bca0645a9fd11a7ee47967, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3251ad7ae4cefb84b860fe0a27789f83, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -150,10 +150,10 @@ Material:
     m_Colors:
     - _AOColor: {r: 1, g: 1, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.745283, g: 0.26366144, b: 0.40590084, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MossColor: {r: 0.6926296, g: 1, b: 0.6273585, a: 0}
-    - _MossDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _MossColor: {r: 1, g: 1, b: 1, a: 0}
+    - _MossDirection: {r: 0, g: 1, b: 0, a: 0}
     - _SecondShadowColor: {r: 0.5647059, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0.9607843, g: 0.81960785, b: 0.81960785, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

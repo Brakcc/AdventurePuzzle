@@ -82,7 +82,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MossTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2c833b3a0e60c6c4b85e843663abc0da, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
@@ -152,8 +152,8 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.7076807, g: 0.7483453, b: 0.8773585, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MossColor: {r: 0.6926296, g: 1, b: 0.6273585, a: 0}
-    - _MossDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _MossColor: {r: 1, g: 1, b: 1, a: 0}
+    - _MossDirection: {r: 0, g: 1, b: 0, a: 0}
     - _SecondShadowColor: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0.49056596, g: 0.49056596, b: 0.49056596, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

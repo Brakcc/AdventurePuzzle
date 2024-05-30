@@ -11,6 +11,8 @@ namespace GameContent.Interactives.ClemInterTemplates
         protected List<SourceDatas> SourceDatasList { get; private set; }
 
         public int SourceCount => SourceDatasList.Count;
+
+        protected EnergySourceInter[] PreSources => preSetAbsorbSources;
         
         protected SourceDatas this[int id]
         {

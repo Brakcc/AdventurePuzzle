@@ -80,7 +80,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         #region constructor
         
-        public GrabOnInterState(GameObject go, ControllerState state) : base(go, state)
+        public GrabOnInterState(GameObject go, ControllerState state, PlayerStateMachine pM) : base(go, state, pM)
         {
         }
         
