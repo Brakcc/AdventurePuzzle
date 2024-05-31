@@ -32,9 +32,9 @@ namespace GameContent.StateMachines
         
         #region fields
 
-        protected GenericStateMachine newStateMachine;
+        protected GenericStateMachine stateMachine;
         
-        protected GameObject _goRef;
+        protected readonly GameObject _goRef;
 
         #endregion
     }

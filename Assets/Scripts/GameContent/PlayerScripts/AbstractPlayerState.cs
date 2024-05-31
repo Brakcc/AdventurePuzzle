@@ -46,7 +46,7 @@ namespace GameContent.PlayerScripts
 
         public override void OnInit(GenericStateMachine machine)
         {
-            newStateMachine = machine;
+            stateMachine = machine;
             
             _prevPos = _goRef.transform.position;
             _nextPos = _goRef.transform.position;
