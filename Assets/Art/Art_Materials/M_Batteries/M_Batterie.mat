@@ -38,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - MainTex:
-        m_Texture: {fileID: 2800000, guid: 141c3a664c0d7db4aae7ed1ff218f4d2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5b998956a5f69e64aba3d835c6b57070, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AOTex:
@@ -154,7 +154,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MossColor: {r: 0.6926296, g: 1, b: 0.6273585, a: 0}
     - _MossDirection: {r: 0, g: 0, b: 0, a: 0}
-    - _SecondShadowColor: {r: 0.5660378, g: 0.16287015, b: 0.07208972, a: 1}
+    - _SecondShadowColor: {r: 0.40438437, g: 0.2743414, b: 0.4245283, a: 1}
     - _ShadowColor: {r: 1, g: 0.7688679, b: 0.7688679, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
