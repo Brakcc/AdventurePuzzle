@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using GameContent.Interactives.ClemInterTemplates.Receptors;
 using GameContent.PlayerScripts;
 using UnityEngine;
@@ -12,6 +13,9 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         protected override void OnInit()
         {
             base.OnInit();
+
+            _canInteract = true;
+            
             if (nodes.Length == 0)
                 return;
             
@@ -31,7 +35,9 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                         throw new ArgumentOutOfRangeException(nameof(n), n.dendrite, "ta ...");
                 }
             }
-
+            
+            return;
+            
             #region VFX
             
             _matBlocks = new MaterialPropertyBlock[]
@@ -48,7 +54,18 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             #endregion
         }
-        
+
+        protected override void OnUpdate()
+        {
+            base.OnUpdate();
+            
+            if (!_canInteract)
+                _actionBlockerThreshold += Time.deltaTime;
+
+            if (_actionBlockerThreshold >= Constants.ActionBlockerThreshold)
+                _canInteract = true;
+        }
+
         public override void InterAction()
         {
             for (var i = 0; i < SourceCount; i++)
@@ -73,6 +90,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public override void PlayerAction()
         {
+            if (!_canInteract)
+                return;
+
+            _canInteract = false;
+            
             if (SourceCount >= nodes.Length)
                 return;
             
@@ -82,12 +104,22 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             SourceDatasList.Add(PlayerEnergyM.CurrentSource);
             PlayerEnergyM.CurrentSource = new SourceDatas();
             PlayerEnergyM.OnSourceChangedDebug();
+
+            var tempVFX = SourceDatasList[SourceCount - 1].Type is EnergyTypes.Green
+                ? datas.greenPartSys[SourceCount - 1]
+                : datas.bluePartSys[SourceCount - 1];
+            StartCoroutine(OnPartLive(tempVFX));
             
             InterAction();
         }
 
         public override void PlayerCancel()
         {
+            if (!_canInteract)
+                return;
+
+            _canInteract = false;
+            
             if (SourceCount <= 0)
                 return;
 
@@ -115,12 +147,32 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nodes), nodes[SourceCount - 1].dendrite, "et bah non ca passe pas");
             }
-
+            
+            var tempVFX = SourceDatasList[SourceCount - 1].Type is EnergyTypes.Green
+                ? datas.greenPartSys[SourceCount - 1]
+                : datas.bluePartSys[SourceCount - 1];
+            OnPartDeath(tempVFX);
+            
             SourceDatasList.RemoveAt(SourceCount - 1);
             base.PlayerCancel();
         }
+
+        #region VFX Parts
         
+        private static IEnumerator OnPartLive(ParticleSystem part)
+        {
+            part.Play();
+            yield return new WaitForSeconds(Constants.VFXDatas.BatteryPartLifeSpan);
+            part.Pause();
+        }
+
+        private static void OnPartDeath(ParticleSystem part)
+        {
+            part.time = Constants.VFXDatas.BatteryPartLifeSpan;
+            part.Play();
+        }
         
+        #endregion
 
         protected override void ForceAbsorbSources(EnergySourceInter[] sources)
         {
@@ -134,6 +186,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 
                 SourceDatasList.Add(new SourceDatas(s));
                 s.OnForceAbsorb();
+                
+                var tempVFX = SourceDatasList[SourceCount - 1].Type is EnergyTypes.Green
+                    ? datas.greenPartSys[SourceCount - 1]
+                    : datas.bluePartSys[SourceCount - 1];
+                StartCoroutine(OnPartLive(tempVFX));
             }
             InterAction();
         }
@@ -148,6 +205,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         private MaterialPropertyBlock[] _matBlocks;
 
+        private float _actionBlockerThreshold;
+
+        private bool _canInteract;
+
         #endregion
     }
 
@@ -161,7 +222,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         [SerializeField] internal Renderer[] symbolGreenVFX;
         
         [SerializeField] internal Renderer[] symbolBlueVFX;
+
+        [SerializeField] internal ParticleSystem[] bluePartSys;
         
+        [SerializeField] internal ParticleSystem[] greenPartSys;
+
         #endregion
     }
 }
