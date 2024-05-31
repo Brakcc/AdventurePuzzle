@@ -19,6 +19,8 @@ namespace GameContent.PlayerScripts.PlayerDatas
 
         [FieldCompletion] public InputActionReference cancelInput;
         
+        [FieldCompletion] public InputActionReference cameraInput;
+        
         [FieldCompletion(_checkedColor: FieldColor.Green)] public MoveDatasSO moveDatasSo;
 
         [FieldCompletion(_checkedColor: FieldColor.Green)] public JumpDatasSO jumpDatasSo;

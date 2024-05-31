@@ -7,7 +7,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region constructor
 
-        public InteractState(GameObject go, ControllerState state) : base(go, state)
+        public InteractState(GameObject go, ControllerState state, PlayerStateMachine pM) : base(go, state, pM)
         {
         }
 
@@ -50,15 +50,13 @@ namespace GameContent.PlayerScripts.PlayerStates
                 return;
             }
             
-            //_stateMachine.OnSwitchState("move");
-            newStateMachine.SwitchState("move");
+            stateMachine.SwitchState("move");
         }
 
         private void GetOtherActionInput()
         {
             if (_datasSo.cancelInput.action.WasPressedThisFrame())
-                //_stateMachine.OnSwitchState("cancel");
-                newStateMachine.SwitchState("cancel");
+                stateMachine.SwitchState("cancel");
         }
         
         private void OnAction()
@@ -68,14 +66,12 @@ namespace GameContent.PlayerScripts.PlayerStates
 
             if (_checker.InterRef is null or ReceptorInter)
             {
-                //_stateMachine.OnSwitchState("move");
-                newStateMachine.SwitchState("move");
+                stateMachine.SwitchState("move");
                 return;
             }
 
             _checker.InterRef.PlayerAction();
-            //_stateMachine.OnSwitchState("move");
-            newStateMachine.SwitchState("move");
+            stateMachine.SwitchState("move");
         }
         
         #endregion
@@ -88,8 +84,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                 (!(_jumpBufferCounter >= 0) || !IsGrounded))
                 return;
             
-            //_stateMachine.OnSwitchState("jump");
-            newStateMachine.SwitchState("jump");
+            stateMachine.SwitchState("jump");
         }
         
         private void SetCoyote()
@@ -123,8 +118,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             var input = _datasSo.moveInput.action.ReadValue<Vector2>();
            
             if (input.magnitude >= Constants.MinMoveInputValue)
-                //_stateMachine.OnSwitchState("move");
-                newStateMachine.SwitchState("move");
+                stateMachine.SwitchState("move");
         }
         
         #endregion

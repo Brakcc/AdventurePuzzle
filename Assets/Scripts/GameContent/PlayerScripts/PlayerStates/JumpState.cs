@@ -6,7 +6,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region constructor
 
-        public JumpState(GameObject go, ControllerState state) : base(go, state)
+        public JumpState(GameObject go, ControllerState state, PlayerStateMachine pM) : base(go, state, pM)
         {
         }
 
@@ -85,8 +85,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnLand()
         {
             if (_jumpTimer <= 0 && IsGrounded)
-                //_stateMachine.OnSwitchState("move");
-                newStateMachine.SwitchState("move");
+                stateMachine.SwitchState("move");
         }
 
         #endregion
