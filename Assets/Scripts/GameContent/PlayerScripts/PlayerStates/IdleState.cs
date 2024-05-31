@@ -36,7 +36,8 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override sbyte OnUpdate()
         {
-            base.OnUpdate();
+            if (base.OnUpdate() == 1)
+                return 2;
             
             var input = _datasSo.moveInput.action.ReadValue<Vector2>();
             _analogInputMagnitude = input.magnitude;
