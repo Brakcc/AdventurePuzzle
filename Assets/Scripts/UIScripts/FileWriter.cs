@@ -28,7 +28,7 @@ namespace UIScripts
                 //Change CommandsFile.
                 WriteFile(commandsFile, whatOptionToChange-3, newValue);
             }
-            else if (whatOptionToChange is > 9 and < 15)
+            else if (whatOptionToChange is > 9 and < 24)
             {
                 //Change SaveFile.
                 WriteFile(saveFilesFile, whatOptionToChange-9, newValue);
@@ -83,10 +83,10 @@ namespace UIScripts
         }
         
         
-        protected string ReadFile(int lineNumber)
+        protected string ReadFile(int lineNumber, TextAsset fileToRead)
         {
             lineNumber -= 10;
-            string path = AssetDatabase.GetAssetPath(saveFilesFile);
+            string path = AssetDatabase.GetAssetPath(fileToRead);
             StreamReader reader = new StreamReader(path);
             string lineString = null;
 
