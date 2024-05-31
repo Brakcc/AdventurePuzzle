@@ -85,8 +85,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnLand()
         {
             if (_jumpTimer <= 0 && IsGrounded)
-                //_stateMachine.OnSwitchState("move");
-                newStateMachine.SwitchState("move");
+                stateMachine.SwitchState("move");
         }
 
         #endregion

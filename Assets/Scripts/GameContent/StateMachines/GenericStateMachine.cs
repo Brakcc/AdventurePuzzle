@@ -6,18 +6,13 @@ namespace GameContent.StateMachines
 {
     public sealed class GenericStateMachine
     {
-        #region properties
-
-        
-
-        #endregion
-
         #region constructor
 
         public GenericStateMachine(int stateNumber)
         {
             _stateNumber = stateNumber;
             _stateDict = new Dictionary<string, int>();
+            _stateNames = new string[stateNumber];
             _initStates = new Action<GenericStateMachine>[stateNumber];
             _enterStates = new Action[stateNumber];
             _updateStates = new Func<sbyte>[stateNumber];
@@ -43,6 +38,7 @@ namespace GameContent.StateMachines
             cine = false;
             locked = false;
             _stateDict.Add(stateName, stateID);
+            _stateNames[stateID] = stateName;
             _initStates[stateID] = init;
             _enterStates[stateID] = enter;
             _updateStates[stateID] = update;
@@ -51,6 +47,14 @@ namespace GameContent.StateMachines
             _coroutineStates[stateID] = coroutines;
         }
 
+        public void InitMachine()
+        {
+            foreach (var i in _initStates)
+            {
+                i?.Invoke(this);
+            }
+        }
+        
         public void StartMachine()
         {
             if (_stateNumber <= 0)
@@ -88,7 +92,10 @@ namespace GameContent.StateMachines
 
         public void SwitchState(string toState)
         {
-            SwitchState(_stateDict[toState]);
+            if (!_stateDict.TryGetValue(toState, out var value))
+                return;
+            
+            SwitchState(value);
         }
 
         public void ForceState(int toState)
@@ -107,10 +114,15 @@ namespace GameContent.StateMachines
 
         public void ForceState(string toState)
         {
-            ForceState(_stateDict[toState]);
+            if (!_stateDict.TryGetValue(toState, out var value))
+                return;
+            
+            ForceState(value);
         }
 
         public static implicit operator int(GenericStateMachine m) => m._currentState;
+
+        public static implicit operator string(GenericStateMachine m) => m._stateNames[m._currentState];
         
         #endregion
 
@@ -121,6 +133,8 @@ namespace GameContent.StateMachines
         private readonly int _stateNumber;
         
         private readonly Dictionary<string, int> _stateDict;
+
+        private readonly string[] _stateNames;
         
         private readonly Action<GenericStateMachine>[] _initStates;
 

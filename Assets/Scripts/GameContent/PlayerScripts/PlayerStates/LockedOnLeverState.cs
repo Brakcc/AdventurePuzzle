@@ -64,8 +64,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (_datasSo.interactInput.action.IsPressed())
                 return;
             
-            //_stateMachine.OnSwitchState("move");
-            newStateMachine.SwitchState("move");
+            stateMachine.SwitchState("move");
         }
 
         private void OnLeverManip()
@@ -102,8 +101,6 @@ namespace GameContent.PlayerScripts.PlayerStates
                     default:
                         throw new ArgumentOutOfRangeException($"{_leverRef.LeverOrientationMode} ah", "well shit...");
                 }
-            
-                //Debug.Log($"{_leverRef.name} + {_leverRef.Level}");
             }
 
             

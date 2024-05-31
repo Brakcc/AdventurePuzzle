@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Cinemachine;
+using GameContent.CameraScripts;
 using GameContent.PlayerScripts.PlayerDatas;
 using GameContent.PlayerScripts.PlayerStates;
 using GameContent.PlayerScripts.PlayerStates.ForcedStates;
@@ -20,6 +22,10 @@ namespace GameContent.PlayerScripts
         public BasePlayerDatasSO DatasSo => datasSo;
 
         public InterCheckerState CheckerState => checker;
+
+        public CinemachineVirtualCamera ActiveCamera => activeCamera;
+
+        public CameraDatas CurrentCameraDatas { get; set; } = new();
         
         public CharacterController CharaCont => GetComponent<CharacterController>();
 
@@ -72,7 +78,7 @@ namespace GameContent.PlayerScripts
             _stateMachine.SetCallBacks((byte)ControllerState.lever, "lever", pSD["lever"].OnInit, pSD["lever"].OnEnterState, 
                                        pSD["lever"].OnUpdate, pSD["lever"].OnFixedUpdate, pSD["lever"].OnExitState, null);
             
-            _stateMachine.SetCallBacks((byte)ControllerState.camera, "camera", pSD["idle"].OnInit, pSD["camera"].OnEnterState, 
+            _stateMachine.SetCallBacks((byte)ControllerState.camera, "camera", pSD["camera"].OnInit, pSD["camera"].OnEnterState, 
                                        pSD["camera"].OnUpdate, pSD["camera"].OnFixedUpdate, pSD["camera"].OnExitState, null);
             
             _stateMachine.SetCallBacks((byte)ControllerState.cineIdle, "cineIdle", pSD["cineIdle"].OnInit, pSD["cineIdle"].OnEnterState, 
@@ -80,9 +86,8 @@ namespace GameContent.PlayerScripts
             
             _stateMachine.SetCallBacks((byte)ControllerState.cineMove, "cineMove", pSD["cineMove"].OnInit, pSD["cineMove"].OnEnterState, 
                                        pSD["cineMove"].OnUpdate, pSD["cineMove"].OnFixedUpdate, pSD["cineMove"].OnExitState, pSD["cineMove"].OnCoroutine);
-            
-            foreach (var state in pSD.Values)
-                state.OnInit(_stateMachine);
+
+            _stateMachine.InitMachine();
         }
 
         private void Start() => _stateMachine.StartMachine();
@@ -99,6 +104,8 @@ namespace GameContent.PlayerScripts
 
         [FieldCompletion] [SerializeField] private InterCheckerState checker;
 
+        [FieldCompletion] [SerializeField] private CinemachineVirtualCamera activeCamera;
+        
         private GenericStateMachine _stateMachine;
 
         #endregion
