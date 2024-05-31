@@ -7,7 +7,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region constructor
 
-        public FallState(GameObject go, ControllerState state) : base(go, state)
+        public FallState(GameObject go, ControllerState state, PlayerStateMachine pM) : base(go, state, pM)
         {
         }
 
@@ -93,8 +93,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnGrounded()
         {
             if (IsGrounded)
-                //_stateMachine.OnSwitchState("move");
-                newStateMachine.SwitchState("move");
+                stateMachine.SwitchState("move");
         }
 
         #endregion
