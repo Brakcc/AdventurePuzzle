@@ -413,8 +413,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         
         [FieldCompletion(FieldColor.Orange)]
         [SerializeField] private Collider _col;
-        
-        //private Rigidbody _rb;
 
         private RecepsTopBlockGrabber _grabber;
 
