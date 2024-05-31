@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using Cinemachine;
+using GameContent.CameraScripts;
 using GameContent.PlayerScripts.PlayerDatas;
 using GameContent.PlayerScripts.PlayerStates;
 using GameContent.StateMachines;
@@ -24,9 +26,11 @@ namespace GameContent.PlayerScripts
         {
             StateFlag = state;
             _currentDir = _isoForwardDir;
+            _playerMachine = playerMachine;
             _cc = playerMachine.CharaCont;
             _checker = playerMachine.CheckerState;
             _datasSo = playerMachine.DatasSo;
+            _activeCamera = playerMachine.ActiveCamera;
         }
 
         ~AbstractPlayerState()
@@ -54,6 +58,24 @@ namespace GameContent.PlayerScripts
 
         public override sbyte OnUpdate()
         {
+            if (stateMachine == "camera")
+                return 1;
+
+            if (_playerMachine.CamLerpCoef < 0.001f)
+            {
+                return 2;
+            }
+
+            _activeCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>().Damping =
+                new Vector3(_playerMachine.CamLerpCoef * Constants.VFXDatas.CameraDamping,
+                            _playerMachine.CamLerpCoef * Constants.VFXDatas.CameraDamping,
+                            _playerMachine.CamLerpCoef * Constants.VFXDatas.CameraDamping);
+            _playerMachine.CamLerpCoef -= Time.deltaTime;
+            
+            _playerMachine.TransitionCamDatas.pivot.position = Vector3.Lerp(_playerMachine.InitCamDatas.pivot.position, 
+                                                                            _playerMachine.CurrentCameraDatas.pivot.position,
+                                                                            _playerMachine.CamLerpCoef);
+            
             return 0;
         }
         
@@ -74,11 +96,17 @@ namespace GameContent.PlayerScripts
 
         #region fields
         
-        protected CharacterController _cc;
+        protected readonly CharacterController _cc;
 
-        protected BasePlayerDatasSO _datasSo;
+        protected readonly BasePlayerDatasSO _datasSo;
 
-        protected InterCheckerState _checker;
+        protected readonly InterCheckerState _checker;
+
+        protected readonly CinemachineVirtualCamera _activeCamera;
+
+        protected readonly PlayerStateMachine _playerMachine;
+
+        protected CameraDatas _initCam;
         
         protected Vector3 _currentDir;
         

@@ -6,6 +6,7 @@ using GameContent.PlayerScripts.PlayerStates;
 using GameContent.PlayerScripts.PlayerStates.ForcedStates;
 using GameContent.StateMachines;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utilities.CustomAttributes;
 
 namespace GameContent.PlayerScripts
@@ -25,7 +26,13 @@ namespace GameContent.PlayerScripts
 
         public CinemachineVirtualCamera ActiveCamera => activeCamera;
 
-        public CameraDatas CurrentCameraDatas { get; set; } = new();
+        internal CameraDatas CurrentCameraDatas { get; set; } = new();
+
+        internal CameraDatas TransitionCamDatas => transCamDatas;
+        
+        internal CameraDatas InitCamDatas => initCamDatas;
+        
+        internal float CamLerpCoef { get; set; } = 0;
         
         public CharacterController CharaCont => GetComponent<CharacterController>();
 
@@ -105,6 +112,10 @@ namespace GameContent.PlayerScripts
         [FieldCompletion] [SerializeField] private InterCheckerState checker;
 
         [FieldCompletion] [SerializeField] private CinemachineVirtualCamera activeCamera;
+
+        [SerializeField] private CameraDatas initCamDatas;
+        
+        [SerializeField] private CameraDatas transCamDatas;
         
         private GenericStateMachine _stateMachine;
 
