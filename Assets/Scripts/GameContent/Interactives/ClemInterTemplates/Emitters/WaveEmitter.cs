@@ -26,7 +26,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             {
                 var prevLevel = _currentLevel;
                 _currentLevel = value;
-                datas.levelText.text = _currentLevel.ToString();
+                //datas.levelText.text = _currentLevel.ToString();
                 datas.sphere.position += Vector3.up * (datas.inBetweenLevelThreshold * (_currentLevel - prevLevel));
             }
         }
@@ -49,23 +49,38 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             recepDatas.Sort(Compare);
             
             #region VFX
+
+            _matBlock = new MaterialPropertyBlock();
+            datas.sphereRend.GetPropertyBlock(_matBlock);
             
             var curve = new AnimationCurve(new Keyframe(0, 0, 2, 3), 
                                            new Keyframe(datas.waveSpeed, datas.maxDistHit));
             datas.monoWave.SetAnimationCurve("curve", curve);
             datas.monoWave.SetFloat("life", datas.waveSpeed);
             
+            if (PreSources.Length == 0)
+            {
+                SwitchMaterial(SourceDatasList);
+                return;
+            }
+            
+            var tempSources = new SourceDatas[PreSources.Length];
+            for (var i = 0; i < PreSources.Length; i++)
+            {
+                tempSources[i] = new SourceDatas(PreSources[i]);
+            }
+            SwitchMaterial(tempSources);
+            
             #endregion
         }
 
         public override void InterAction()
         {
-            //ton père le conifère
         }
 
         public override void PlayerAction()
         {
-            if (SourceCount >= recepDatas.Count)
+            if (SourceCount >= Constants.MaxWaveEmitterEnergyContaints)
                 return;
             
             if (PlayerEnergyM.EnergyType == EnergyTypes.None)
@@ -76,6 +91,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             PlayerEnergyM.OnSourceChangedDebug();
             
             recepDatas.Sort(Compare);
+            SwitchMaterial(SourceDatasList);
         }
 
         public override void PlayerCancel()
@@ -95,6 +111,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             SourceDatasList.RemoveAt(SourceCount - 1);
             base.PlayerCancel();
+            
+            SwitchMaterial(SourceDatasList);
         }
 
         protected override void OnUpdate()
@@ -119,6 +137,55 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             var i = SourceCount;
             while (i > 0)
             {
+                #region VFX
+                
+                var tempGO1 = Instantiate(datas.waveVFXs[0], datas.sphere.position, Quaternion.identity);
+                if (tempGO1.TryGetComponent<ParticleSystem>(out var v1))
+                {
+                    v1.Play();
+                    Destroy(tempGO1, v1.main.duration);
+                }
+                else
+                {
+                    Destroy(tempGO1);
+                }
+                
+                #endregion
+                
+                yield return new WaitForSeconds(Constants.MonoWaveBeforeDelay);
+                
+                #region VFX
+                
+                if (this[i - 1].Type == EnergyTypes.Green)
+                {
+                    var tempGO2 = Instantiate(datas.waveVFXs[1], datas.sphere.position, Quaternion.identity);
+                    if (tempGO2.TryGetComponent<ParticleSystem>(out var v2))
+                    {
+                        v2.Play();
+                        Destroy(tempGO2, v2.main.duration);
+                    }
+                    else
+                    {
+                        Destroy(tempGO2);
+                    }
+                }
+
+                if (this[i - 1].Type == EnergyTypes.Blue)
+                {
+                    var tempGO3 = Instantiate(datas.waveVFXs[2], datas.sphere.position, Quaternion.identity);
+                    if (tempGO3.TryGetComponent<ParticleSystem>(out var v3))
+                    {
+                        v3.Play();
+                        Destroy(tempGO3, v3.main.duration);
+                    }
+                    else
+                    {
+                        Destroy(tempGO3);
+                    }
+                }
+                
+                #endregion
+                
                 var j = RecepCount;
                 while (j > 0)
                 {
@@ -144,8 +211,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                                                           SourceDatas.GetTypedColor(this[i - 1].Type).b * 255,
                                                           SourceDatas.GetTypedColor(this[i - 1].Type).a * 0.2f));
 
-            
-            datas.monoWave.Play();
+            //datas.monoWave.Play();
             
             #endregion
             
@@ -161,6 +227,50 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             recepDatas[j - 1].ReceptorInter.CurrentEnergyType = this[i - 1].Type;
         }
 
+        #region VFX Mats
+        
+        private void SwitchMaterial(IReadOnlyList<SourceDatas> energies)
+        {
+            switch (energies.Count)
+            {
+                case 0:
+                    _matBlock.SetFloat(TwoColor, 0);
+                    _matBlock.SetFloat(ThreeColor, 0);
+                    _matBlock.SetColor(Color01, Color.black);
+                    break;
+                case 1:
+                    _matBlock.SetFloat(TwoColor, 0);
+                    _matBlock.SetFloat(ThreeColor, 0);
+                    _matBlock.SetColor(Color01, GetEnergyColor(energies[0].Type));
+                    break;
+                case 2:
+                    _matBlock.SetFloat(TwoColor, 1);
+                    _matBlock.SetFloat(ThreeColor, 0);
+                    _matBlock.SetColor(Color01, GetEnergyColor(energies[0].Type));
+                    _matBlock.SetColor(Color02, GetEnergyColor(energies[1].Type));
+                    break;
+                case >= 3:
+                    _matBlock.SetFloat(TwoColor, 1);
+                    _matBlock.SetFloat(ThreeColor, 1);
+                    _matBlock.SetColor(Color01, GetEnergyColor(energies[0].Type));
+                    _matBlock.SetColor(Color02, GetEnergyColor(energies[1].Type));
+                    _matBlock.SetColor(Color03, GetEnergyColor(energies[2].Type));
+                    break;
+            }
+            datas.sphereRend.SetPropertyBlock(_matBlock);
+        }
+
+        private static Color GetEnergyColor(EnergyTypes type) => type switch
+        {
+            EnergyTypes.None => Color.black,
+            EnergyTypes.Yellow => Color.yellow,
+            EnergyTypes.Blue => new Color(0, 158/255f, 1),
+            EnergyTypes.Green => new Color(0, 219/255f, 119/255f),
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, "ta race")
+        };
+        
+        #endregion
+        
         protected override void ForceAbsorbSources(EnergySourceInter[] sources)
         {
             if (sources.Length <= 0)
@@ -211,6 +321,18 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         private sbyte _currentLevel;
         
         private float _tripleWavesDelayCounter;
+        
+        private MaterialPropertyBlock _matBlock;
+        
+        private static readonly int Color01 = Shader.PropertyToID("_Color01");
+        
+        private static readonly int Color02 = Shader.PropertyToID("_Color_02");
+        
+        private static readonly int Color03 = Shader.PropertyToID("_Color_03");
+        
+        private static readonly int TwoColor = Shader.PropertyToID("_2Couleurs");
+
+        private static readonly int ThreeColor = Shader.PropertyToID("_3Couleurs");
 
         #endregion
     }
@@ -244,11 +366,15 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         [FieldColorLerp(0, 1)]
         [Range(0, 1)] [SerializeField] internal float ampliCorrector;
         
-        [FieldColorLerp(0, 1)]
-        [Range(0, 1)] [SerializeField] internal float levelCorrector; //yPosSphereCorrector
+        [FieldColorLerp(-2, 2)]
+        [Range(-2, 2)] [SerializeField] internal float levelCorrector; //yPosSphereCorrector
 
         [FieldCompletion]
         [SerializeField] internal VisualEffect monoWave;
+
+        [SerializeField] internal GameObject[] waveVFXs;
+
+        [SerializeField] internal Renderer sphereRend;
         
         [SerializeField] internal bool drawDebugCube;
         [SerializeField] internal Color gizmosColor;

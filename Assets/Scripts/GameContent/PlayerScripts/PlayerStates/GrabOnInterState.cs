@@ -80,7 +80,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         #region constructor
         
-        public GrabOnInterState(GameObject go, ControllerState state) : base(go, state)
+        public GrabOnInterState(GameObject go, ControllerState state, PlayerStateMachine pM) : base(go, state, pM)
         {
         }
         
@@ -88,13 +88,9 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         #region methodes
 
-        // ReSharper disable Unity.PerformanceAnalysis
         public override void OnEnterState()
         {
             _interRef = _checker.InterRef as ReceptorInter;
-            
-            //_recepRefRb = _interRef!.GetComponent<Rigidbody>();
-            //_recepRefRb.constraints = ReceptorInter.GetRBConstraints(RBCMode.Rota);
             
             _tempDistFromPlayer = _interRef!.DistFromPlayer;
             _fallCounter = 0;
@@ -107,10 +103,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         public override void OnExitState()
         {
             _tempDistFromPlayer = 0;
-            //_recepRefRb.constraints = ReceptorInter.GetRBConstraints(_interRef.IsOnTop ? RBCMode.Rota : RBCMode.RotaPlan);
             
             _interRef = null;
-            //_recepRefRb = null;
         }
 
         public override sbyte OnUpdate()
@@ -144,16 +138,14 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (_datasSo.interactInput.action.IsPressed())
                 return;
             
-            //_stateMachine.OnSwitchState("move");
-            newStateMachine.SwitchState("move");
+            stateMachine.SwitchState("move");
         }
 
         private void DistFromInterCheck()
         {
             if (_interRef.DistFromPlayer >= _tempDistFromPlayer + Constants.GrabGapThreshold ||
                 !_checker.InRangeInter.Contains(_interRef))
-                //_stateMachine.OnSwitchState("move");
-                newStateMachine.SwitchState("move");
+                stateMachine.SwitchState("move");
             
         }
         
@@ -292,8 +284,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                 _fallCounter += Time.deltaTime;
             
             if (_fallCounter >= Constants.MaxFallCounterWhileGrabThreshold)
-                //_stateMachine.OnSwitchState("fall");
-                newStateMachine.SwitchState("fall");
+                stateMachine.SwitchState("fall");
         }
 
         private void BlockFall()
@@ -305,8 +296,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                 _blockFallCounter += Time.deltaTime;
             
             if (_blockFallCounter > Constants.MaxBlockFallCounterThreshold)
-                //_stateMachine.OnSwitchState("move");
-                newStateMachine.SwitchState("move");
+                stateMachine.SwitchState("move");
         }
 
         #endregion
@@ -316,8 +306,6 @@ namespace GameContent.PlayerScripts.PlayerStates
         #region fields
 
         private ReceptorInter _interRef; //Likely change
-
-        //private Rigidbody _recepRefRb;
 
         private LockDirectionMode _directionMode;
 

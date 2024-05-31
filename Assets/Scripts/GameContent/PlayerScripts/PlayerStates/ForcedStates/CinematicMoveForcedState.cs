@@ -4,7 +4,7 @@ namespace GameContent.PlayerScripts.PlayerStates.ForcedStates
 {
     public sealed class CinematicMoveForcedState : AbstractPlayerState
     {
-        public CinematicMoveForcedState(GameObject go, ControllerState state) : base(go, state)
+        public CinematicMoveForcedState(GameObject go, ControllerState state, PlayerStateMachine pM) : base(go, state, pM)
         {
         }
         

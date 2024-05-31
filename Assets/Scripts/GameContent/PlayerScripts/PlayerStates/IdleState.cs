@@ -8,9 +8,9 @@ namespace GameContent.PlayerScripts.PlayerStates
 {
     public sealed class IdleState : AbstractPlayerState
     {
-       #region constructor 
+        #region constructor 
         
-        public IdleState(GameObject go, ControllerState state) : base(go, state)
+        public IdleState(GameObject go, ControllerState state, PlayerStateMachine pM) : base(go, state, pM)
         {
         }
 
@@ -43,7 +43,8 @@ namespace GameContent.PlayerScripts.PlayerStates
             _inputDir = new Vector3(input.x, 0, input.y).normalized;
 
             GatherInteractionInputs();
-
+            OnCam();
+            
             OnFall();
             OnMove();
 
@@ -57,8 +58,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (_analogInputMagnitude <= Constants.MinMoveInputValue)
                 return;
             
-            //_stateMachine.OnSwitchState("move");
-            newStateMachine.SwitchState("move");
+            stateMachine.SwitchState("move");
         }
         
         #endregion
@@ -69,8 +69,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             if (!IsGrounded)
             {
-                //_stateMachine.OnSwitchState("fall");
-                newStateMachine.SwitchState("fall");
+                stateMachine.SwitchState("fall");
             }
         }
         
@@ -80,32 +79,40 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void GatherInteractionInputs()
         {
+            if (stateMachine == "camera")
+                return;
+            
             if (_datasSo.interactInput.action.WasPressedThisFrame())
             {
                 switch (_checker.InterRef)
                 {
                     case null:
-                        //_stateMachine.OnSwitchState("interact");
-                        newStateMachine.SwitchState("interact");
+                        stateMachine.SwitchState("interact");
                         return;
                     case ReceptorInter { IsMovable: true, CurrentEnergyType:EnergyTypes.Blue}:
-                        //_stateMachine.OnSwitchState("grab");
-                        newStateMachine.SwitchState("grab");
+                        stateMachine.SwitchState("grab");
                         return;
-                    case LeverInter : 
-                        //_stateMachine.OnSwitchState("lever");
-                        newStateMachine.SwitchState("lever");
+                    case LeverInter :
+                        stateMachine.SwitchState("lever");
                         return;
                     case not null:
-                        //_stateMachine.OnSwitchState("interact");
-                        newStateMachine.SwitchState("interact");
+                        stateMachine.SwitchState("interact");
                         return;
                 }
             }
             
             if (_datasSo.cancelInput.action.WasPressedThisFrame())
-                //_stateMachine.OnSwitchState("cancel");
-                newStateMachine.SwitchState("cancel");
+                stateMachine.SwitchState("cancel");
+        }
+
+        #endregion
+
+        #region cam Switchers
+
+        private void OnCam()
+        {
+            if (_datasSo.cameraInput.action.WasPressedThisFrame())
+                stateMachine.SwitchState("camera");
         }
 
         #endregion

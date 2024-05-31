@@ -20,15 +20,18 @@ namespace GameContent.PlayerScripts
         
         #region constructor
 
-        protected AbstractPlayerState(GameObject go, ControllerState state) : base(go)
+        protected AbstractPlayerState(GameObject go, ControllerState state, PlayerStateMachine playerMachine) : base(go)
         {
             StateFlag = state;
             _currentDir = _isoForwardDir;
+            _cc = playerMachine.CharaCont;
+            _checker = playerMachine.CheckerState;
+            _datasSo = playerMachine.DatasSo;
         }
 
         ~AbstractPlayerState()
         {
-            Debug.Log($"{this} removed");
+            //Debug.Log($"{this} removed");
         }
         
         #endregion
@@ -36,12 +39,6 @@ namespace GameContent.PlayerScripts
         #region base methodes
         
         protected static float ClampSymmetric(float val, float clamper) => Mathf.Clamp(val, -clamper, clamper);
-        
-        public void SetCharaCont(CharacterController cc) => _cc = cc;
-
-        public void SetDatas(BasePlayerDatasSO datasSo) => _datasSo = datasSo;
-
-        public void SetChecker(InterCheckerState checker) => _checker = checker;
 
         #endregion
         
@@ -49,7 +46,7 @@ namespace GameContent.PlayerScripts
 
         public override void OnInit(GenericStateMachine machine)
         {
-            newStateMachine = machine;
+            stateMachine = machine;
             
             _prevPos = _goRef.transform.position;
             _nextPos = _goRef.transform.position;
