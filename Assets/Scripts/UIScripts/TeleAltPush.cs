@@ -38,7 +38,7 @@ namespace UIScripts
         void MoveFunction()
         {
             _canBeMoved = pushAction["Interact"].IsPressed();
-
+            
             if (_canBeMoved && _myTelepData.blue)
             {
                 /*if (_lockZorX)
