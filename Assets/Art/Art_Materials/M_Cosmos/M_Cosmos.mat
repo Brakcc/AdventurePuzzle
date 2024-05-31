@@ -148,13 +148,13 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _AOColor: {r: 0.6037736, g: 0.37878248, b: 0.4840501, a: 0}
+    - _AOColor: {r: 0.5, g: 0.011792451, b: 0.23448369, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MossColor: {r: 0.6926296, g: 1, b: 0.6273585, a: 0}
     - _MossDirection: {r: 0, g: 0, b: 0, a: 0}
-    - _SecondShadowColor: {r: 0.5566038, g: 0.41745284, b: 0.41745284, a: 0}
-    - _ShadowColor: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
+    - _SecondShadowColor: {r: 0.5943396, g: 0.24390353, b: 0.4244556, a: 0}
+    - _ShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
