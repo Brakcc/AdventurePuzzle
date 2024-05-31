@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
+using Utilities.CustomAttributes;
 
 namespace GameContent.CameraScripts
 {
     [System.Serializable]
     public struct CameraDatas
     {
-        public Vector3 pivot;
-        public Vector3 arm;
+        [FieldCompletion] public Transform pivot;
+        [FieldCompletion] public Transform arm;
 
-        public CameraDatas(Vector3 pivot = default, Vector3 arm = default)
+        public CameraDatas(Transform pivot = default, Transform arm = default)
         {
             this.pivot = pivot;
             this.arm = arm;

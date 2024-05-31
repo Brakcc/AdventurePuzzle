@@ -44,5 +44,6 @@ public static class Constants
     public static class VFXDatas
     {
         internal const float BatteryPartLifeSpan = 5;
+        internal const float CameraDamping = 3.5f;
     }
 }
