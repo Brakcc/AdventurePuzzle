@@ -51,8 +51,8 @@ namespace GameContent.Interactives
             if (hasDebugMod)
             {
                 //Debug.Log($"{name} added");
-                debugMod.debugText.enabled = true;
-                debugMod.debugText.text = debugTextLocal;
+                //debugMod.debugText.enabled = true;
+                //debugMod.debugText.text = debugTextLocal;
             }
             _isInRange = true;
             _checkerRef = checker;
@@ -64,7 +64,7 @@ namespace GameContent.Interactives
             if (hasDebugMod)
             {
                 //Debug.Log($"{name} removed");
-                debugMod.debugText.enabled = false;
+                //debugMod.debugText.enabled = false;
             }
             _isInRange = false;
             _checkerRef.InRangeInter.Remove(this);
