@@ -24,15 +24,13 @@ namespace GameContent.PlayerScripts
 
         public InterCheckerState CheckerState => checker;
 
-        public CinemachineVirtualCamera ActiveCamera => activeCamera;
-
-        internal CameraDatas CurrentCameraDatas { get; set; } = new();
+        internal CameraDatas CurrentCameraDatas { get; set; }
 
         internal CameraDatas TransitionCamDatas => transCamDatas;
         
         internal CameraDatas InitCamDatas => initCamDatas;
         
-        internal float CamLerpCoef { get; set; } = 0;
+        internal float CamLerpCoef { get; set; }
         
         public CharacterController CharaCont => GetComponent<CharacterController>();
 
@@ -110,8 +108,6 @@ namespace GameContent.PlayerScripts
         [FieldCompletion] [SerializeField] private BasePlayerDatasSO datasSo;
 
         [FieldCompletion] [SerializeField] private InterCheckerState checker;
-
-        [FieldCompletion] [SerializeField] private CinemachineVirtualCamera activeCamera;
 
         [SerializeField] private CameraDatas initCamDatas;
         
