@@ -1,78 +1,72 @@
+using System;
+using System.Collections;
 using System.Globalization;
-using System.IO;
-using UnityEditor;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace UIScripts
 {
-    public class OptionsManager : MonoBehaviour
+    public class OptionsManager : FileWriter
     {
-        [SerializeField] private GameObject optionsGroup;
-        public TextAsset optionsFile;
-        public TextAsset commandsFile;
+        private GameObject _optionsGroup;
 
         [SerializeField] private Slider sliderVolumePrincipal;
         [SerializeField] private Slider sliderVolumeMusique;
         [SerializeField] private Slider sliderVolumeSoundEffect;
+
+        [Header("Référencer Pause Group si on est dans un niveau." + "\n" + "Main Menu Manager seulement si on est dans le Menu Principal.")]
+        [SerializeField] private GameObject pauseGroup;
+        [SerializeField] private MainMenuManager mainMenuManager;
+
+        [SerializeField] private GameObject waitForInputGroup;
+        private bool _newKeyPressed;
+        private bool _waitForInput;
+        private KeyCode _theNewKeyCode;
+
+        [SerializeField] private InputActionAsset myInputAction;
         
         private void Start()
         {
-            optionsGroup.SetActive(false);
+            waitForInputGroup.SetActive(false);
+            _theNewKeyCode = KeyCode.None;
+            _optionsGroup = transform.GetChild(0).gameObject;
+            _optionsGroup.SetActive(false);
+        }
+
+        private void Update()
+        {
+            if (_waitForInput)
+            {
+                foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
+                {
+                    if (Input.GetKey(key))
+                    {
+                        _theNewKeyCode = key;
+                        Debug.Log(key);
+                        _newKeyPressed = true;
+                        _waitForInput = false;
+                    }
+                }
+            }
         }
 
         public void ShowOptions()
         {
-            optionsGroup.SetActive(!optionsGroup.activeSelf);
-            if (SceneManager.GetActiveScene().name == "TitleScreen")
+            _optionsGroup.SetActive(!_optionsGroup.activeSelf);
+            if (pauseGroup == null)
             {
-                GetComponent<MainMenuManager>().optionsHere = optionsGroup.activeSelf;
+                mainMenuManager.optionsHere = _optionsGroup.activeSelf;
             }
-        }
-        public void ChangeOptions(int whatOptionToChange)
-        {
-            /*
-             * Options : General Volume (1), Music Volume (2), Sound Effect Volume (3)
-             * Controls : Controles (up : 4, down : 5, left : 6, right : 7, action : 8, pause : 9)
-             */
-            
-            if (whatOptionToChange is < 4 and > 0)
+            else 
             {
-                //Change optionsFile.
-                WriteFile(optionsFile, whatOptionToChange);
+                pauseGroup.SetActive(!_optionsGroup.activeSelf);
             }
         }
 
-        void ReadFile(TextAsset fileWhoNeedsToBeRead, int lineNumber, int lenght)
+        public void ChangeVolumeOptions(int line)
         {
-            string path = AssetDatabase.GetAssetPath(fileWhoNeedsToBeRead);
-            StreamReader reader = new StreamReader(path);
-            string lineString = null;
-            
-            for (int i = 0; i < lenght; i++)
-            {
-                if (i == lineNumber)
-                {
-                    lineString = reader.ReadLine();
-                }
-                else
-                {
-                    reader.ReadLine();
-                }
-            }
-            Debug.Log(lineString);
-            reader.Close();
-        }
-
-        void WriteFile(TextAsset fileWhoNeedsToBeEdited, int line)
-        {
-            
-            string path = AssetDatabase.GetAssetPath(fileWhoNeedsToBeEdited);
-            int numberOfLines = GetNumberOfLines(path);
-            
-            
-
             string newValue = "0";
             switch (line)
             {
@@ -86,46 +80,35 @@ namespace UIScripts
                     newValue = sliderVolumeSoundEffect.value.ToString(CultureInfo.CurrentCulture);
                     break;
             }
-            
-            StreamReader reader = new StreamReader(path);
-            string[] arrLines = new string[numberOfLines];
-            
-            for (int i = 0; i < numberOfLines; i++)
-            {
-                if (i+1 == line)
-                {
-                    arrLines[i] = newValue;
-                    reader.ReadLine();
-                }
-                else
-                {
-                    arrLines[i] = reader.ReadLine();
-                }
-            }
-            reader.Close();
-            using StreamWriter writer = new StreamWriter(path);
-            
-            for (int i = 0; i < numberOfLines; i++)
-            {
-                Debug.Log(arrLines[i]);
-                writer.WriteLine(arrLines[i]);
-            }
-            writer.Close();
-            
-            
+
+            ChangeFile(line, newValue);
         }
 
-        int GetNumberOfLines(string myPath)
+        public void ChangeKey(bool actionOrPauseKey)
         {
-            //Get Number of Lines in a Reader
-            int count = 0;
-            StreamReader countReader = new StreamReader(myPath);
-            while ((countReader.ReadLine()) != null)
+            //Debug.Log("Pls press key");
+            waitForInputGroup.SetActive(true);
+            StartCoroutine(TestWaitTime(actionOrPauseKey));
+            _waitForInput = true;
+        }
+        IEnumerator TestWaitTime(bool actionOrPauseKey)
+        {
+            yield return new WaitUntil(() => _newKeyPressed);
+            Debug.Log("KeyPushed");
+            _newKeyPressed = false;
+            waitForInputGroup.SetActive(false);
+
+            if (actionOrPauseKey)
             {
-                count++;
+                //Debug.Log(_theNewKeyCode.SelectedName(true));
+                //myInputAction["Interact"].AddBinding(_theNewKeyCode.DisplayName());
             }
-            countReader.Close();
-            return count;
+            else
+            {
+                //myInputAction["Pause"].AddBinding(_theNewKeyCode.DisplayName());
+            }
+
+            _theNewKeyCode = KeyCode.None;
         }
     }
 }

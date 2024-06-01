@@ -270,6 +270,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             {
                 r.TempDir = tempDir;
                 r.MoveSolid(r.TempDir);
+                Debug.Log("TYY");
             }
         }
         
@@ -304,7 +305,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         #region fields
 
-        private ReceptorInter _interRef;
+        private ReceptorInter _interRef; //Likely change
 
         private LockDirectionMode _directionMode;
 
