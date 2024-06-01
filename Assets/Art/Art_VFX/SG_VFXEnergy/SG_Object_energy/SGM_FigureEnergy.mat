@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SGM_FigureGreenEnergy
+  m_Name: SGM_FigureEnergy
   m_Shader: {fileID: -6465566751694194690, guid: 9bd3b30e991b8db4c8bc3f586cfb66b2,
     type: 3}
   m_Parent: {fileID: 0}
@@ -24,7 +24,19 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _DefaultTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_a415ad5d88774551b02bbe032504b199_Out_0_Texture2D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_dde031cedc044fadb7aa0e55053ed935_Out_0_Texture2D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -44,12 +56,19 @@ Material:
     m_Floats:
     - _Brightness: 0
     - _Brightness_rim: 4.27
-    - _OnOff: 0
+    - _OnOff: 1
+    - _On_Energy_fade: 0
+    - _On_Green_Off_Blue: 1
+    - _OpacityFade: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Rim_power: 0.36
     m_Colors:
-    - _Color: {r: 0, g: 1, b: 0.028639317, a: 1}
+    - _BlueColor: {r: 0, g: 0.6836567, b: 1, a: 1}
+    - _Color: {r: 0.09411766, g: 0.7686275, b: 0.9294118, a: 1}
+    - _DefaultColor: {r: 1, g: 0.80626684, b: 0.1745283, a: 0}
+    - _GreenColor: {r: 0, g: 0.8113208, b: 0.2934008, a: 0}
+    - _SecondShadowColor: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0.49056596, g: 0.49056596, b: 0.49056596, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7020912664968871473
