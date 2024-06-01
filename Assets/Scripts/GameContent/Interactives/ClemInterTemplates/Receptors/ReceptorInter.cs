@@ -201,6 +201,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             }
             
             OnReset();
+
+            _matBlock = new MaterialPropertyBlock();
         }
 
         protected override void OnUpdate()
@@ -413,6 +415,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         
         [FieldCompletion(FieldColor.Orange)]
         [SerializeField] private Collider _col;
+
+        [SerializeField] private Renderer rend;
+
+        private MaterialPropertyBlock _matBlock;
 
         private RecepsTopBlockGrabber _grabber;
 
