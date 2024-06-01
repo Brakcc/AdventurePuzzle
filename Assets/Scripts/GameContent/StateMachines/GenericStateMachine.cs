@@ -66,12 +66,18 @@ namespace GameContent.StateMachines
         
         public void UpdateMachine()
         {
+            if (locked)
+                return;
+            
             if (_updateStates[_currentState] != null)
                 _updateStates[_currentState]();
         }
 
         public void FixedUpdateMachine()
         {
+            if (locked)
+                return;
+            
             if (_fixedUpdateStates[_currentState] != null)
                 _fixedUpdateStates[_currentState]();
         }
