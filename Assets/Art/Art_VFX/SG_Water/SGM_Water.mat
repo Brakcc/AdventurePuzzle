@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _CausticTex:
-        m_Texture: {fileID: 2800000, guid: 3a9638e16af3ac941a1f38cd438ad68a, type: 3}
+        m_Texture: {fileID: 2800000, guid: c901ec5081746f547bedfb7fb5d5040a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RefractionNormal:
@@ -47,7 +47,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Distance: 2.34
-    - _FoamAmount: 6.31
+    - _FoamAmount: 4.52
     - _FoamCutoff: 6.96
     - _FoamScale: 2.73
     - _FoamSpeed: 4.29
@@ -60,12 +60,13 @@ Material:
     - _Scale: 0.88
     - _tiling: 2.71
     m_Colors:
-    - _DeepColor: {r: 0.14297792, g: 0.2202703, b: 0.4811321, a: 0}
+    - _DeepColor: {r: 0, g: 0.29543516, b: 0.5471698, a: 0}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 0}
     - _Refraction_Scale_2: {r: 0.9, g: 0.9, b: 0, a: 0}
     - _Refraction_scale_1: {r: 1, g: 1, b: 0, a: 0}
-    - _SurfaceColor: {r: 0, g: 0.5180764, b: 1, a: 0}
-    - _Vector2: {r: 0.5, g: 1, b: 0, a: 0}
+    - _SurfaceColor: {r: 0, g: 0.37360406, b: 0.46226418, a: 0}
+    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
+    - _Vector2: {r: 1.2, g: 1.2, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8100529920262818952
 MonoBehaviour:
