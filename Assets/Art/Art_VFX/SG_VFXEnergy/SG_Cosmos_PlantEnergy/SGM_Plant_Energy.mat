@@ -24,12 +24,28 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AOTex:
+        m_Texture: {fileID: 2800000, guid: 67ab0e0a9bd82b14bb17a3510fd9fc88, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 000b404f55bf5bc4e8aaaded225bc4ba, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Mask:
         m_Texture: {fileID: 2800000, guid: d2305eefcc5588d41a219ab84dee311e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 2800000, guid: d38d6ae13a772e742adcd1a49527c6e2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture2D:
         m_Texture: {fileID: 2800000, guid: 000b404f55bf5bc4e8aaaded225bc4ba, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_a12eab0b7ca946b98ba89d3d13a6fd00_Out_0_Texture2D:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2D_1:
@@ -54,18 +70,32 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Brightness: 0
     - _CellSize: 20
     - _Emission: 5
-    - _Global_Emission: 1.95
-    - _OnOff: 1
-    - _Opacity: -1
+    - _EnergyEmission: 0.45
+    - _Global_Emission: 1
+    - _Mask_Opacity: 1.194
+    - _OffBrightness: 0.78
+    - _OnOff: 0
+    - _On_Energy_fade: 0
+    - _On_Green_Off_Blue: 1
+    - _Opacity: -0.87
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Speed: 0.017
-    - _fresnel_opacity: -0.2
+    - _fresnel_opacity: -0.11
+    - _globalemission: 0.72
     m_Colors:
-    - _Color: {r: 0.15686274, g: 0.9372549, b: 0.5095041, a: 0.6509804}
+    - _AOColor: {r: 0.5471698, g: 0, b: 0, a: 0}
+    - _BlueColor: {r: 0, g: 0.67825866, b: 1, a: 0}
+    - _BulbColor: {r: 0.16460484, g: 0.254717, b: 0.19162622, a: 0}
+    - _Color: {r: 0.1568627, g: 0.9372549, b: 0.509504, a: 1}
+    - _DefaultColor: {r: 1, g: 1, b: 1, a: 0}
     - _Direction: {r: 0, g: 0.1, b: 0, a: 0}
+    - _GreenColor: {r: 0, g: 0.8207547, b: 0.27154836, a: 0}
+    - _OffColor: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 0}
+    - _ShadowColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5307886720978623767
 MonoBehaviour:
