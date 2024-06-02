@@ -26,17 +26,16 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         public override void OnEnterState()
         {
-            
         }
 
         public override void OnExitState()
         {
-            
         }
 
         public override sbyte OnUpdate()
         {
-            base.OnUpdate();
+            if (base.OnUpdate() == 1 || base.OnUpdate() == 0)
+                return 2;
             
             var input = _datasSo.moveInput.action.ReadValue<Vector2>();
             _analogInputMagnitude = input.magnitude;

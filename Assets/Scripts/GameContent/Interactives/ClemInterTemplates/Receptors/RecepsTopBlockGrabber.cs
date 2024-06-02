@@ -28,8 +28,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 return;
             
             RecepRefs.Add(recep);
-            recep.IsOnTop = true;
-            //Debug.Log($"{recep.name}  added");
         }
 
         private void OnTriggerExit(Collider other)
@@ -43,9 +41,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             if (!RecepRefs.Contains(recep))
                 return;
             
-            recep.IsOnTop = false;
             RecepRefs.Remove(recep);
-            //Debug.Log($"{recep.name}  removed");
         }
 
         private void OnDrawGizmos()

@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using Cinemachine;
+using GameContent.CameraScripts;
 using GameContent.PlayerScripts.PlayerDatas;
 using GameContent.PlayerScripts.PlayerStates;
 using GameContent.StateMachines;
@@ -24,6 +26,7 @@ namespace GameContent.PlayerScripts
         {
             StateFlag = state;
             _currentDir = _isoForwardDir;
+            _playerMachine = playerMachine;
             _cc = playerMachine.CharaCont;
             _checker = playerMachine.CheckerState;
             _datasSo = playerMachine.DatasSo;
@@ -54,6 +57,24 @@ namespace GameContent.PlayerScripts
 
         public override sbyte OnUpdate()
         {
+            if (stateMachine == "camera")
+                return 1;
+
+            if (_playerMachine.CamLerpCoef < 0.001f)
+            {
+                return 2;
+            }
+            
+            _playerMachine.CamLerpCoef -= Time.deltaTime;
+            
+            _playerMachine.TransitionCamDatas.pivot.position = Vector3.Lerp(_playerMachine.InitCamDatas.pivot.position, 
+                                                                            _playerMachine.CurrentCameraDatas.pivot.position,
+                                                                            _playerMachine.CamLerpCoef);
+            
+            _playerMachine.TransitionCamDatas.arm.position = Vector3.Lerp(_playerMachine.InitCamDatas.arm.position, 
+                                                                            _playerMachine.CurrentCameraDatas.arm.position,
+                                                                            _playerMachine.CamLerpCoef);
+            
             return 0;
         }
         
@@ -74,11 +95,13 @@ namespace GameContent.PlayerScripts
 
         #region fields
         
-        protected CharacterController _cc;
+        protected readonly CharacterController _cc;
 
-        protected BasePlayerDatasSO _datasSo;
+        protected readonly BasePlayerDatasSO _datasSo;
 
-        protected InterCheckerState _checker;
+        protected readonly InterCheckerState _checker;
+
+        protected readonly PlayerStateMachine _playerMachine;
         
         protected Vector3 _currentDir;
         
