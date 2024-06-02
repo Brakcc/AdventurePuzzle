@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DebuggingClem;
 using UnityEngine;
 using Utilities.CustomAttributes;
 using Utilities.CustomAttributes.FieldColors;
@@ -21,12 +20,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             {
                 _currentAppliedEnergy = value;
                 InterAction();
-                if (hasDebugMod && debugMod.hasLight)
-                    OnChangeColorLightDebug(_currentAppliedEnergy);
             }
         }
-        
-        private Light InterLight { get; set; }
 
         public List<EmitterInter> EmitsRef { get; } = new();
 
@@ -174,8 +169,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         #region HasBlueAbove
 
         public List<ReceptorInter> TopReceps => _grabber.RecepRefs;
-        
-        public bool IsOnTop { get; set; }
 
         #endregion
         
@@ -191,14 +184,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
 
             _tempDir = Vector3.zero;
-            IsOnTop = false;
             _fallCurveCounter = 0;
-
-            if (debugMod.hasLight)
-            {
-                InterLight = debugMod.debugLight;
-                OnChangeColorLightDebug(CurrentEnergyType);
-            }
             
             OnReset();
 
@@ -268,7 +254,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                     _col.enabled = true;
                     hasElectricity = false;
                     _isMovable = true;
-                    debugTextLocal = debugMod.debugString;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(_currentAppliedEnergy), _currentAppliedEnergy,
@@ -306,8 +291,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         }
         
         public void MoveSolid(Vector3 dir) => transform.position += dir;
-            
-        //public void SetRBConstraints(RigidbodyConstraints constraints) => _rb.constraints = constraints;
         
         public virtual void OnReset()
         {
@@ -315,14 +298,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         }
 
         public float GetDistFromEmit(EmitterInter emit) => Vector3.Distance(emit.transform.position, transform.position);
-        
-        private void OnChangeColorLightDebug(EnergyTypes type)
-        {
-            if (InterLight is null)
-                return;
-            
-            InterLight.color = LightDebugger.DebugColor(type);
-        }
 
         private int SortList(IReadOnlyList<EmitterInter> receps)
         {

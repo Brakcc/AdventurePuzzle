@@ -185,6 +185,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _col: {fileID: 8071874948182192384}
+  rend: {fileID: 0}
 --- !u!1 &7157516096769952508
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +270,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &629899463796012315
 Transform:
   m_ObjectHideFlags: 0

@@ -17,7 +17,6 @@ namespace GameContent.Interactives.ClemInterTemplates
         protected override void OnInit()
         {
             base.OnInit();
-            debugTextLocal = debugMod.debugString;
         }
 
         public override void PlayerAction()
