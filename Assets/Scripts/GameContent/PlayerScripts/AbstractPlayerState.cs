@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using Cinemachine;
-using GameContent.CameraScripts;
 using GameContent.PlayerScripts.PlayerDatas;
 using GameContent.PlayerScripts.PlayerStates;
 using GameContent.StateMachines;

@@ -13,7 +13,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         #region Inner Infos
         
-        public EnergyTypes CurrentEnergyType
+        public virtual EnergyTypes CurrentEnergyType
         {
             get => _currentAppliedEnergy;
             set
@@ -45,16 +45,20 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             get => _tempDir;
             set => _tempDir = SetDir(value);
         }
+
+        protected virtual bool HasElectricity
+        {
+            get => hasElectricity;
+            set
+            {
+                hasElectricity = value;
+            }
+        }
         
         public bool IsMovable
         {
             get => _isMovable;
             protected set => _isMovable = value;
-        }
-
-        public void ToDelete()
-        {
-            Debug.Log(_isMovable);
         }
 
         public bool HasWaveEnergy
@@ -178,22 +182,27 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         protected override void OnInit()
         {
-            hasElectricity = false;
+            HasElectricity = false;
             _col = GetComponent<Collider>();
             _grabber = GetComponentInChildren<RecepsTopBlockGrabber>();
-
 
             _tempDir = Vector3.zero;
             _fallCurveCounter = 0;
             
             OnReset();
 
+            _vFXLerpCoef = 0;
+            _vFXGreenOn = 0;
             _matBlock = new MaterialPropertyBlock();
+            rend.GetPropertyBlock(_matBlock);
         }
 
         protected override void OnUpdate()
         {
             base.OnUpdate();
+            
+            SetBlockEffect();
+            
             if (!HasWaveEnergy)
                 return;
 
@@ -231,28 +240,25 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             switch (CurrentEnergyType)
             {
                 case EnergyTypes.None:
-                    _col.enabled = true;
-                    hasElectricity = false;
+                    //_col.isTrigger = false; //Si pas de Stay en Green
+                    HasElectricity = true;
                     _isMovable = true;
-                    debugTextLocal = "";
                     break;
                 case EnergyTypes.Yellow:
-                    _col.enabled = true;
-                    hasElectricity = true;
+                    //_col.isTrigger = false; //Si pas de Stay en Green
+                    HasElectricity = true;
                     _isMovable = true;
-                    debugTextLocal = "";
                     break;
                 case EnergyTypes.Green:
-                    _col.enabled = false;
-                    hasElectricity = false;
+                    _col.isTrigger = true;
+                    HasElectricity = false;
                     _isMovable = false;
-                    debugTextLocal = "";
                     if (HasCheckerRef)
                         RemoveSelf();
                     break;
                 case EnergyTypes.Blue:
-                    _col.enabled = true;
-                    hasElectricity = false;
+                    //_col.isTrigger = false; //Si pas de Stay en Green
+                    HasElectricity = false;
                     _isMovable = true;
                     break;
                 default:
@@ -264,7 +270,19 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         #endregion
 
         #region Inner Actions
-        
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (CurrentEnergyType is EnergyTypes.Green)
+                return;
+            
+            if (other.CompareTag("Player"))
+                return;
+            
+            _canSwitch = true;
+            _col.isTrigger = false;
+        }
+
         private Vector3 SetDir(Vector3 dir) => (dir.x, dir.z) switch
         {
             (>= Constants.MinBlockMoveInputThreshold, <= Constants.MinBlockMoveInputThreshold) => IsHittingTopRight ? Vector3.zero : dir,
@@ -315,6 +333,66 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
             return i;
         }
+
+        #region VFX
+        
+        private void SetBlockEffect()
+        {
+            if (!_canSwitch)
+                return;
+            
+            if (CurrentEnergyType is EnergyTypes.Blue && _vFXLerpCoef < 1f)
+            {
+                _vFXLerpCoef += Time.fixedDeltaTime;
+                
+                if (_vFXLerpCoef > 0 && Mathf.Approximately(_vFXGreenOn, 1))
+                {
+                    _vFXGreenOn = 0;
+                    _matBlock.SetFloat(GreenE, Mathf.RoundToInt(_vFXGreenOn));
+                }
+                
+                _matBlock.SetFloat(FadeE, Mathf.Abs(_vFXLerpCoef));
+                rend.SetPropertyBlock(_matBlock);
+            }
+            
+            if (CurrentEnergyType is EnergyTypes.Green && _vFXLerpCoef > -1f)
+            {
+                _vFXLerpCoef -= Time.fixedDeltaTime;
+                
+                if (_vFXLerpCoef < 0 && Mathf.Approximately(_vFXGreenOn, 0))
+                {
+                    _vFXGreenOn = 1;
+                    _matBlock.SetFloat(GreenE, Mathf.RoundToInt(_vFXGreenOn));
+                }
+
+                if (Mathf.Approximately(_vFXLerpCoef, -1f))
+                    _canSwitch = false;
+                
+                _matBlock.SetFloat(FadeE, Mathf.Abs(_vFXLerpCoef));
+                rend.SetPropertyBlock(_matBlock);
+            }
+            
+            if (CurrentEnergyType is EnergyTypes.None && Mathf.Abs(_vFXLerpCoef) > 0f)
+            {
+                switch (_vFXLerpCoef)
+                {
+                    case > 0f:
+                        _vFXLerpCoef -= Time.fixedDeltaTime;
+                        break;
+                    case < 0f:
+                        _vFXLerpCoef += Time.fixedDeltaTime;
+                        break;
+                }
+
+                if (Mathf.Abs(_vFXLerpCoef) is < 0.01f and > 0f)
+                    _vFXLerpCoef = 0;
+                
+                _matBlock.SetFloat(FadeE, Mathf.Abs(_vFXLerpCoef));
+                rend.SetPropertyBlock(_matBlock);
+            }
+        }
+        
+        #endregion
         
         public static RigidbodyConstraints GetRBConstraints(RBCMode mode) => mode switch
         {
@@ -380,8 +458,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         #region fields
 
-        [FieldCompletion] [SerializeField] private Animator animator;
-
         [FieldCompletion] [SerializeField] private Transform pivot;
 
         [SerializeField] private LayerMask blockMask;
@@ -412,6 +488,16 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         protected bool hasElectricity;
 
         private float _fallCurveCounter;
+
+        private float _vFXLerpCoef;
+
+        private float _vFXGreenOn;
+
+        private bool _canSwitch;
+
+        private static readonly int GreenE = Shader.PropertyToID("_On_Green_Off_Blue");
+
+        private static readonly int FadeE = Shader.PropertyToID("_On_Energy_fade");
 
         #endregion
     }

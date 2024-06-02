@@ -1,5 +1,4 @@
 using GameContent.Interactives.ClemInterTemplates.Receptors;
-using UIScripts;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates
