@@ -1997,8 +1997,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8597722545419746389}
   - component: {fileID: 5943487136462044189}
-  - component: {fileID: 8735622172687671219}
   - component: {fileID: 2385062318484638618}
+  - component: {fileID: 8735622172687671219}
   m_Layer: 30
   m_Name: AboveGrabber
   m_TagString: Untagged
@@ -2042,19 +2042,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.475658, y: 0.5400001, z: 6.921163}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8735622172687671219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4901165997499743867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 119a1c507a4a4582aad525bf9df764ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  col: {fileID: 5943487136462044189}
 --- !u!54 &2385062318484638618
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2082,6 +2069,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8735622172687671219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4901165997499743867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119a1c507a4a4582aad525bf9df764ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  col: {fileID: 5943487136462044189}
 --- !u!1 &7760513663751307510
 GameObject:
   m_ObjectHideFlags: 0
