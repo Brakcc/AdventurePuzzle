@@ -24,15 +24,13 @@ namespace GameContent.PlayerScripts
 
         public InterCheckerState CheckerState => checker;
 
-        public CinemachineVirtualCamera ActiveCamera => activeCamera;
-
-        internal CameraDatas CurrentCameraDatas { get; set; } = new();
+        internal CameraDatas CurrentCameraDatas { get; set; }
 
         internal CameraDatas TransitionCamDatas => transCamDatas;
         
         internal CameraDatas InitCamDatas => initCamDatas;
         
-        internal float CamLerpCoef { get; set; } = 0;
+        internal float CamLerpCoef { get; set; }
         
         public CharacterController CharaCont => GetComponent<CharacterController>();
 
@@ -86,7 +84,7 @@ namespace GameContent.PlayerScripts
                                        pSD["lever"].OnUpdate, pSD["lever"].OnFixedUpdate, pSD["lever"].OnExitState, null);
             
             _stateMachine.SetCallBacks((byte)ControllerState.camera, "camera", pSD["camera"].OnInit, pSD["camera"].OnEnterState, 
-                                       pSD["camera"].OnUpdate, pSD["camera"].OnFixedUpdate, pSD["camera"].OnExitState, null);
+                                       pSD["camera"].OnUpdate, pSD["camera"].OnFixedUpdate, null, null);
             
             _stateMachine.SetCallBacks((byte)ControllerState.cineIdle, "cineIdle", pSD["cineIdle"].OnInit, pSD["cineIdle"].OnEnterState, 
                                        pSD["cineIdle"].OnUpdate, pSD["cineIdle"].OnFixedUpdate, pSD["cineIdle"].OnExitState, pSD["cineIdle"].OnCoroutine);
@@ -110,8 +108,6 @@ namespace GameContent.PlayerScripts
         [FieldCompletion] [SerializeField] private BasePlayerDatasSO datasSo;
 
         [FieldCompletion] [SerializeField] private InterCheckerState checker;
-
-        [FieldCompletion] [SerializeField] private CinemachineVirtualCamera activeCamera;
 
         [SerializeField] private CameraDatas initCamDatas;
         

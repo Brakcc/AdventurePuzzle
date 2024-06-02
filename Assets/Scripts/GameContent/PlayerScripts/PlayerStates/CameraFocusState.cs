@@ -1,5 +1,4 @@
-﻿using Cinemachine;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
@@ -20,22 +19,11 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (_playerMachine.CurrentCameraDatas.pivot == default)
             {
                 stateMachine.SwitchState("idle");
-                return;
             }
-
-            _activeCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>().Damping = 
-                new Vector3(Constants.VFXDatas.CameraDamping, 
-                            Constants.VFXDatas.CameraDamping, 
-                            Constants.VFXDatas.CameraDamping);
-             
-            _activeCamera.m_Follow = _playerMachine.CurrentCameraDatas.arm;
-            _activeCamera.m_LookAt = _playerMachine.TransitionCamDatas.pivot;
         }
 
         public override void OnExitState()
         {
-            _activeCamera.m_Follow = _playerMachine.InitCamDatas.arm;
-            _activeCamera.m_LookAt = _playerMachine.TransitionCamDatas.pivot;
         }
 
         public override sbyte OnUpdate()
@@ -57,6 +45,10 @@ namespace GameContent.PlayerScripts.PlayerStates
 
             _playerMachine.TransitionCamDatas.pivot.position = Vector3.Lerp(_playerMachine.InitCamDatas.pivot.position, 
                                                                             _playerMachine.CurrentCameraDatas.pivot.position,
+                                                                            _playerMachine.CamLerpCoef);
+            
+            _playerMachine.TransitionCamDatas.arm.position = Vector3.Lerp(_playerMachine.InitCamDatas.arm.position, 
+                                                                            _playerMachine.CurrentCameraDatas.arm.position,
                                                                             _playerMachine.CamLerpCoef);
         }
         

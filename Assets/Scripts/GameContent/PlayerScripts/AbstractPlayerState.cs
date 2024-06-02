@@ -30,7 +30,6 @@ namespace GameContent.PlayerScripts
             _cc = playerMachine.CharaCont;
             _checker = playerMachine.CheckerState;
             _datasSo = playerMachine.DatasSo;
-            _activeCamera = playerMachine.ActiveCamera;
         }
 
         ~AbstractPlayerState()
@@ -65,15 +64,15 @@ namespace GameContent.PlayerScripts
             {
                 return 2;
             }
-
-            _activeCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>().Damping =
-                new Vector3(_playerMachine.CamLerpCoef * Constants.VFXDatas.CameraDamping,
-                            _playerMachine.CamLerpCoef * Constants.VFXDatas.CameraDamping,
-                            _playerMachine.CamLerpCoef * Constants.VFXDatas.CameraDamping);
+            
             _playerMachine.CamLerpCoef -= Time.deltaTime;
             
             _playerMachine.TransitionCamDatas.pivot.position = Vector3.Lerp(_playerMachine.InitCamDatas.pivot.position, 
                                                                             _playerMachine.CurrentCameraDatas.pivot.position,
+                                                                            _playerMachine.CamLerpCoef);
+            
+            _playerMachine.TransitionCamDatas.arm.position = Vector3.Lerp(_playerMachine.InitCamDatas.arm.position, 
+                                                                            _playerMachine.CurrentCameraDatas.arm.position,
                                                                             _playerMachine.CamLerpCoef);
             
             return 0;
@@ -102,11 +101,7 @@ namespace GameContent.PlayerScripts
 
         protected readonly InterCheckerState _checker;
 
-        protected readonly CinemachineVirtualCamera _activeCamera;
-
         protected readonly PlayerStateMachine _playerMachine;
-
-        protected CameraDatas _initCam;
         
         protected Vector3 _currentDir;
         
