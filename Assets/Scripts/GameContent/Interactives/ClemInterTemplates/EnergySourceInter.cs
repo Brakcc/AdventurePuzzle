@@ -14,11 +14,6 @@ namespace GameContent.Interactives.ClemInterTemplates
         
         #region methodes
 
-        protected override void OnInit()
-        {
-            base.OnInit();
-        }
-
         public override void PlayerAction()
         {
             if (!isActivated)

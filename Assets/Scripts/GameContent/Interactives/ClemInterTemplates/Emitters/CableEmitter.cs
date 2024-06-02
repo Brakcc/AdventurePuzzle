@@ -108,7 +108,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             var tempVFX = SourceDatasList[SourceCount - 1].Type is EnergyTypes.Green
                 ? datas.greenPartSys[SourceCount - 1]
                 : datas.bluePartSys[SourceCount - 1];
-            StartCoroutine(OnPartLive(tempVFX));
+            OnPartLive(tempVFX);
             
             InterAction();
         }
@@ -159,10 +159,9 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         #region VFX Parts
         
-        private static IEnumerator OnPartLive(ParticleSystem part)
+        private static void OnPartLive(ParticleSystem part)
         {
             part.Play();
-            yield return new WaitForSeconds(Constants.VFXDatas.BatteryPartLifeSpan);
             part.Pause();
         }
 
@@ -190,7 +189,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 var tempVFX = SourceDatasList[SourceCount - 1].Type is EnergyTypes.Green
                     ? datas.greenPartSys[SourceCount - 1]
                     : datas.bluePartSys[SourceCount - 1];
-                StartCoroutine(OnPartLive(tempVFX));
+                OnPartLive(tempVFX);
             }
             InterAction();
         }
