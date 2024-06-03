@@ -179,6 +179,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   _col: {fileID: 8071874948182192384}
   rend: {fileID: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 2147483648
 --- !u!1 &7157516096769952508
 GameObject:
   m_ObjectHideFlags: 0

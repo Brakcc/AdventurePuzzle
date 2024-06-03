@@ -88,7 +88,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         #region IsHittingTR
         
         public bool IsHittingTopRight => Physics.BoxCast(_col.bounds.center + new Vector3(
-                                                          _col.bounds.extents.x + Constants.BoxCastBounds.SideBoxPosDeport, 
+                                                          _col.bounds.extents.x - Constants.BoxCastBounds.SideBoxPosDeport, 
                                                           0, 
                                                           0),
                                                          new Vector3(
@@ -107,7 +107,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         public bool IsHittingTopLeft => Physics.BoxCast(_col.bounds.center + new Vector3(
                                                          0, 
                                                          0, 
-                                                         _col.bounds.extents.z + Constants.BoxCastBounds.SideBoxPosDeport),
+                                                         _col.bounds.extents.z - Constants.BoxCastBounds.SideBoxPosDeport),
                                                         new Vector3(
                                                                     _col.bounds.extents.x - Constants.BoxCastBounds.SideBoxLengthCut, 
                                                                     _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxLengthCut, 
@@ -124,7 +124,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         public bool IsHittingBottomRight => Physics.BoxCast(_col.bounds.center + new Vector3(
                                                              0, 
                                                              0, 
-                                                             -(_col.bounds.extents.z + Constants.BoxCastBounds.SideBoxPosDeport)),
+                                                             -(_col.bounds.extents.z - Constants.BoxCastBounds.SideBoxPosDeport)),
                                                             new Vector3(
                                                                         _col.bounds.extents.x - Constants.BoxCastBounds.SideBoxLengthCut, 
                                                                         _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxLengthCut, 
@@ -139,7 +139,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         #region IsHittingBL
         
         public bool IsHittingBottomLeft => Physics.BoxCast(_col.bounds.center + new Vector3(
-                                                            -(_col.bounds.extents.x + Constants.BoxCastBounds.SideBoxPosDeport), 
+                                                            -(_col.bounds.extents.x - Constants.BoxCastBounds.SideBoxPosDeport), 
                                                             0, 
                                                             0),
                                                            new Vector3(
@@ -173,6 +173,15 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         #region HasBlueAbove
 
         public List<ReceptorInter> TopReceps => _grabber.RecepRefs;
+
+        #endregion
+
+        #region PlayerCheck
+
+        private bool HasInstantPlayer =>
+            // ReSharper disable once Unity.PreferNonAllocApi
+            Physics.OverlapBox(_col.bounds.center,
+                               _col.bounds.extents, Quaternion.identity, playerLayer).Length != 0;
 
         #endregion
         
@@ -241,13 +250,23 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             {
                 case EnergyTypes.None:
                     //_col.isTrigger = false; //Si pas de Stay en Green
-                    HasElectricity = true;
                     _isMovable = true;
+                    if (!HasInstantPlayer)
+                    {
+                        _canSwitch = true;
+                        _col.isTrigger = false;
+                    }
+                    HasElectricity = true;
                     break;
                 case EnergyTypes.Yellow:
                     //_col.isTrigger = false; //Si pas de Stay en Green
-                    HasElectricity = true;
                     _isMovable = true;
+                    if (!HasInstantPlayer)
+                    {
+                        _canSwitch = true;
+                        _col.isTrigger = false;
+                    }
+                    HasElectricity = true;
                     break;
                 case EnergyTypes.Green:
                     _col.isTrigger = true;
@@ -258,8 +277,13 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                     break;
                 case EnergyTypes.Blue:
                     //_col.isTrigger = false; //Si pas de Stay en Green
-                    HasElectricity = false;
                     _isMovable = true;
+                    if (!HasInstantPlayer)
+                    {
+                        _canSwitch = true;
+                        _col.isTrigger = false;
+                    }
+                    HasElectricity = false;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(_currentAppliedEnergy), _currentAppliedEnergy,
@@ -270,7 +294,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         #endregion
 
         #region Inner Actions
-
+        
         private void OnTriggerExit(Collider other)
         {
             if (CurrentEnergyType is EnergyTypes.Green)
@@ -416,7 +440,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             #region TR
             
             //Top Right
-            Gizmos.DrawWireCube(bounds.center + new Vector3(bounds.extents.x + 0.1f, 0, 0),
+            Gizmos.DrawWireCube(bounds.center + new Vector3(bounds.extents.x - 0.1f, 0, 0),
                                 new Vector3(0.15f, bounds.size.y - 0.2f, bounds.size.z - 0.2f));
             
             #endregion
@@ -424,7 +448,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             #region BL
             
             //Bottom Left
-            Gizmos.DrawWireCube(bounds.center + new Vector3(-(bounds.extents.x + 0.1f), 0, 0),
+            Gizmos.DrawWireCube(bounds.center + new Vector3(-(bounds.extents.x - 0.1f), 0, 0),
                                 new Vector3(0.15f, bounds.size.y - 0.2f, bounds.size.z - 0.2f));
             
             #endregion
@@ -432,7 +456,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             #region TL
             
             //Top Left
-            Gizmos.DrawWireCube(bounds.center + new Vector3(0, 0, bounds.extents.z + 0.1f),
+            Gizmos.DrawWireCube(bounds.center + new Vector3(0, 0, bounds.extents.z - 0.1f),
                                 new Vector3(bounds.size.x - 0.2f, bounds.size.y - 0.2f, 0.15f));
             
             #endregion
@@ -440,7 +464,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             #region BR
             
             //Bottom Right
-            Gizmos.DrawWireCube(bounds.center + new Vector3(0, 0, -(bounds.extents.z + 0.1f)),
+            Gizmos.DrawWireCube(bounds.center + new Vector3(0, 0, -(bounds.extents.z - 0.1f)),
                                 new Vector3(bounds.size.x - 0.2f, bounds.size.y - 0.2f, 0.15f));
             #endregion
 
@@ -468,6 +492,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         [SerializeField] private Collider _col;
 
         [SerializeField] private Renderer rend;
+
+        [SerializeField] private LayerMask playerLayer;
 
         private MaterialPropertyBlock _matBlock;
 

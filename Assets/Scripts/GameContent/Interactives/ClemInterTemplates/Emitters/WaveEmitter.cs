@@ -236,7 +236,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 case 0:
                     _matBlock.SetFloat(TwoColor, 0);
                     _matBlock.SetFloat(ThreeColor, 0);
-                    _matBlock.SetColor(Color01, Color.black);
+                    _matBlock.SetColor(Color01, GetEnergyColor(EnergyTypes.None));
                     break;
                 case 1:
                     _matBlock.SetFloat(TwoColor, 0);
