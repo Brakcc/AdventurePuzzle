@@ -29,6 +29,7 @@ public static class Constants
     internal const float PiByFourRadVal = 0.7071067f;
     internal const float ReMapNavMeshDelay = 1;
     internal const float ActionBlockerThreshold = 2f;
+    internal const int PlayerLayer = 31;
     internal static readonly sbyte[] XShapeNodeArray = { 1, 1, 1, 1 };
     public static class BoxCastBounds
     {
@@ -43,7 +44,9 @@ public static class Constants
 
     public static class VFXDatas
     {
-        internal const float BatteryPartLifeSpan = 5;
+        internal const float BatteryPartLifeSpan = 1.85f;
+        internal const float BetteryAppearLifeSpan = 6.5f;
+        internal const float BatteryDisapLifeSpan = 4.5f;
         internal const float CameraDamping = 3.5f;
     }
 }

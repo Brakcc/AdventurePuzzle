@@ -15,6 +15,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             base.OnInit();
 
             _canInteract = true;
+            _actionBlockerThreshold = 0;
             
             if (nodes.Length == 0)
                 return;
@@ -36,9 +37,26 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 }
             }
             
-            return;
-            
             #region VFX
+
+            _lerpCoefs = new float[] { 0, 0, 0, 0 };
+            
+            foreach (var r in datas.stacks)
+            {
+                r.enabled = false;
+            }
+
+            _stackMats = new MaterialPropertyBlock[]
+            {
+                new(),
+                new(),
+                new(),
+                new()
+            };
+            for (var i = 0; i < _stackMats.Length; i++)
+            {
+                datas.stacks[i].GetPropertyBlock(_stackMats[i]);
+            }
             
             _matBlocks = new MaterialPropertyBlock[]
             {
@@ -51,6 +69,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             {
                 datas.symbolRends[i].GetPropertyBlock(_matBlocks[i]);
             }
+
+            for (var i = 0; i < 4; i++)
+            {
+                _matBlocks[i].SetFloat(EmissionImplication, 0);
+                datas.symbolRends[i].SetPropertyBlock(_matBlocks[i]);
+            }
             
             #endregion
         }
@@ -59,11 +83,18 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         {
             base.OnUpdate();
             
-            if (!_canInteract)
-                _actionBlockerThreshold += Time.deltaTime;
+            SetSymbols();
+            
+            if (_canInteract)
+                return;
+            
+            _actionBlockerThreshold += Time.deltaTime;
 
-            if (_actionBlockerThreshold >= Constants.ActionBlockerThreshold)
-                _canInteract = true;
+            if (!(_actionBlockerThreshold >= Constants.ActionBlockerThreshold))
+                return;
+            
+            _actionBlockerThreshold = 0;
+            _canInteract = true;
         }
 
         public override void InterAction()
@@ -105,10 +136,31 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             PlayerEnergyM.CurrentSource = new SourceDatas();
             PlayerEnergyM.OnSourceChangedDebug();
 
-            var tempVFX = SourceDatasList[SourceCount - 1].Type is EnergyTypes.Green
-                ? datas.greenPartSys[SourceCount - 1]
-                : datas.bluePartSys[SourceCount - 1];
-            StartCoroutine(OnPartLive(tempVFX));
+            #region VFX
+            
+            switch (SourceDatasList[SourceCount - 1].Type)
+            {
+                case EnergyTypes.Green:
+                    StartCoroutine(OnPartLive(datas.greenAppearPartSys, 
+                                              datas.stacks[SourceCount - 1],
+                                              datas.vFXPos[SourceCount - 1].position, 
+                                              SourceDatasList[SourceCount - 1].Type));
+                    break;
+                case EnergyTypes.Blue:
+                    StartCoroutine(OnPartLive(datas.blueAppearPartSys,
+                                              datas.stacks[SourceCount - 1],
+                                              datas.vFXPos[SourceCount - 1].position, 
+                                              SourceDatasList[SourceCount - 1].Type));
+                    break;
+                case EnergyTypes.None:
+                    break;
+                case EnergyTypes.Yellow:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            #endregion
             
             InterAction();
         }
@@ -147,32 +199,30 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nodes), nodes[SourceCount - 1].dendrite, "et bah non ca passe pas");
             }
+
+            #region VFX
             
-            var tempVFX = SourceDatasList[SourceCount - 1].Type is EnergyTypes.Green
-                ? datas.greenPartSys[SourceCount - 1]
-                : datas.bluePartSys[SourceCount - 1];
-            OnPartDeath(tempVFX);
+            switch (SourceDatasList[SourceCount - 1].Type)
+            {
+                case EnergyTypes.Green:
+                    OnPartDeath(datas.greenDisapPartSys, datas.stacks[SourceCount - 1], datas.vFXPos[SourceCount - 1].position);
+                    break;
+                case EnergyTypes.Blue:
+                    OnPartDeath(datas.blueDisapPartSys, datas.stacks[SourceCount - 1], datas.vFXPos[SourceCount - 1].position);
+                    break;
+                case EnergyTypes.None:
+                    break;
+                case EnergyTypes.Yellow:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            #endregion
             
             SourceDatasList.RemoveAt(SourceCount - 1);
             base.PlayerCancel();
         }
-
-        #region VFX Parts
-        
-        private static IEnumerator OnPartLive(ParticleSystem part)
-        {
-            part.Play();
-            yield return new WaitForSeconds(Constants.VFXDatas.BatteryPartLifeSpan);
-            part.Pause();
-        }
-
-        private static void OnPartDeath(ParticleSystem part)
-        {
-            part.time = Constants.VFXDatas.BatteryPartLifeSpan;
-            part.Play();
-        }
-        
-        #endregion
 
         protected override void ForceAbsorbSources(EnergySourceInter[] sources)
         {
@@ -187,13 +237,146 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 SourceDatasList.Add(new SourceDatas(s));
                 s.OnForceAbsorb();
                 
-                var tempVFX = SourceDatasList[SourceCount - 1].Type is EnergyTypes.Green
-                    ? datas.greenPartSys[SourceCount - 1]
-                    : datas.bluePartSys[SourceCount - 1];
-                StartCoroutine(OnPartLive(tempVFX));
+                #region VFX
+                
+                switch (SourceDatasList[SourceCount - 1].Type)
+                {
+                    case EnergyTypes.Green:
+                        StartCoroutine(OnPartLive(datas.greenAppearPartSys, 
+                                                  datas.stacks[SourceCount - 1], 
+                                                  datas.vFXPos[SourceCount - 1].position, 
+                                                  SourceDatasList[SourceCount - 1].Type));
+                        break;
+                    case EnergyTypes.Blue:
+                        StartCoroutine(OnPartLive(datas.blueAppearPartSys, 
+                                                  datas.stacks[SourceCount - 1], 
+                                                  datas.vFXPos[SourceCount - 1].position, 
+                                                  SourceDatasList[SourceCount - 1].Type));
+                        break;
+                    case EnergyTypes.None:
+                        break;
+                    case EnergyTypes.Yellow:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                
+                #endregion
             }
             InterAction();
         }
+
+        #region VFX Parts
+        
+        // ReSharper disable Unity.PerformanceAnalysis
+        private IEnumerator OnPartLive(GameObject part, Renderer rend, Vector3 atPos, EnergyTypes type)
+        {
+            var tempPart = Instantiate(part, atPos, Quaternion.identity);
+            var p = tempPart.GetComponentInChildren<ParticleSystem>();
+            
+            p.Play();
+            Destroy(tempPart, Constants.VFXDatas.BetteryAppearLifeSpan);
+            
+            
+            _matBlocks[SourceCount - 1].SetColor(EmissionColor, GetMeshColor(type));
+            datas.symbolRends[SourceCount - 1].SetPropertyBlock(_matBlocks[SourceCount - 1]);
+
+            yield return new WaitForSeconds(Constants.VFXDatas.BatteryPartLifeSpan);
+
+            rend.enabled = true;
+            _stackMats[SourceCount - 1].SetFloat(GreenBlue, type is EnergyTypes.Green ? 1 : 0);
+            
+            rend.SetPropertyBlock(_stackMats[SourceCount - 1]);
+        }
+
+        private static void OnPartDeath(GameObject part, Renderer rend, Vector3 atPos)
+        {
+            var tempPart = Instantiate(part, atPos, Quaternion.identity);
+            var p = tempPart.GetComponentInChildren<ParticleSystem>();
+            
+            p.Play();
+            Destroy(tempPart, Constants.VFXDatas.BatteryDisapLifeSpan);
+
+            rend.enabled = false;
+        }
+
+        private void SetSymbols()
+        {
+            #region Lerp Coefs
+            
+            switch (SourceCount)
+            {
+                case 0:
+                    if (_lerpCoefs[0] > 0)
+                        _lerpCoefs[0] -= Time.deltaTime;
+                    if (_lerpCoefs[1] > 0)
+                        _lerpCoefs[1] -= Time.deltaTime;
+                    if (_lerpCoefs[2] > 0)
+                        _lerpCoefs[2] -= Time.deltaTime;
+                    if (_lerpCoefs[3] > 0)
+                        _lerpCoefs[3] -= Time.deltaTime;
+                    break;
+                case 1:
+                    if (_lerpCoefs[0] < 1)
+                        _lerpCoefs[0] += Time.deltaTime;
+                    if (_lerpCoefs[1] > 0)
+                        _lerpCoefs[1] -= Time.deltaTime;
+                    if (_lerpCoefs[2] > 0)
+                        _lerpCoefs[2] -= Time.deltaTime;
+                    if (_lerpCoefs[3] > 0)
+                        _lerpCoefs[3] -= Time.deltaTime;
+                    break;
+                case 2:
+                    if (_lerpCoefs[0] < 1)
+                        _lerpCoefs[0] += Time.deltaTime;
+                    if (_lerpCoefs[1] < 1)
+                        _lerpCoefs[1] += Time.deltaTime;
+                    if (_lerpCoefs[2] > 0)
+                        _lerpCoefs[2] -= Time.deltaTime;
+                    if (_lerpCoefs[3] > 0)
+                        _lerpCoefs[3] -= Time.deltaTime;
+                    break;
+                case 3:
+                    if (_lerpCoefs[0] < 1)
+                        _lerpCoefs[0] += Time.deltaTime;
+                    if (_lerpCoefs[1] < 1)
+                        _lerpCoefs[1] += Time.deltaTime;
+                    if (_lerpCoefs[2] < 1)
+                        _lerpCoefs[2] += Time.deltaTime;
+                    if (_lerpCoefs[3] > 0)
+                        _lerpCoefs[3] -= Time.deltaTime;
+                    break;
+                case 4:
+                    if (_lerpCoefs[0] < 1)
+                        _lerpCoefs[0] += Time.deltaTime;
+                    if (_lerpCoefs[1] < 1)
+                        _lerpCoefs[1] += Time.deltaTime;
+                    if (_lerpCoefs[2] < 1)
+                        _lerpCoefs[2] += Time.deltaTime;
+                    if (_lerpCoefs[3] < 1)
+                        _lerpCoefs[3] += Time.deltaTime;
+                    break;
+            }
+            
+            #endregion
+
+            for (var i = 0; i < 4; i++)
+            {
+                _matBlocks[i].SetFloat(EmissionImplication, _lerpCoefs[i]);
+                datas.symbolRends[i].SetPropertyBlock(_matBlocks[i]);
+            }
+        }
+        
+        private static Color GetMeshColor(EnergyTypes type) => type switch
+        {
+            EnergyTypes.None => Color.white,
+            EnergyTypes.Yellow => Color.white,
+            EnergyTypes.Green => new Color(0, 1, 167 / 255f, 1),
+            EnergyTypes.Blue => new Color(0, 135 / 255f, 1, 1),
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+        };
+        
+        #endregion
 
         #endregion
 
@@ -205,9 +388,19 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         private MaterialPropertyBlock[] _matBlocks;
 
+        private MaterialPropertyBlock[] _stackMats;
+
         private float _actionBlockerThreshold;
 
         private bool _canInteract;
+
+        private float[] _lerpCoefs;
+        
+        private static readonly int EmissionImplication = Shader.PropertyToID("_emissionImplication");
+        
+        private static readonly int EmissionColor = Shader.PropertyToID("_emissionColor");
+
+        private static readonly int GreenBlue = Shader.PropertyToID("_On_Green_Off_Blue");
 
         #endregion
     }
@@ -218,14 +411,18 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         #region fields
         
         [SerializeField] internal Renderer[] symbolRends;
-        
-        [SerializeField] internal Renderer[] symbolGreenVFX;
-        
-        [SerializeField] internal Renderer[] symbolBlueVFX;
 
-        [SerializeField] internal ParticleSystem[] bluePartSys;
+        [SerializeField] internal Transform[] vFXPos;
+
+        [SerializeField] internal Renderer[] stacks;
         
-        [SerializeField] internal ParticleSystem[] greenPartSys;
+        [SerializeField] internal GameObject blueAppearPartSys;
+        
+        [SerializeField] internal GameObject greenAppearPartSys;
+
+        [SerializeField] internal GameObject blueDisapPartSys;
+        
+        [SerializeField] internal GameObject greenDisapPartSys;
 
         #endregion
     }

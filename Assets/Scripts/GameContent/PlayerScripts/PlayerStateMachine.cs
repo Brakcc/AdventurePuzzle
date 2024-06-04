@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
-using Cinemachine;
 using GameContent.CameraScripts;
 using GameContent.PlayerScripts.PlayerDatas;
 using GameContent.PlayerScripts.PlayerStates;
 using GameContent.PlayerScripts.PlayerStates.ForcedStates;
 using GameContent.StateMachines;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utilities.CustomAttributes;
 
 namespace GameContent.PlayerScripts
