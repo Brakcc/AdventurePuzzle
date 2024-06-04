@@ -4,6 +4,7 @@ using UnityEngine;
 namespace GameContent.Interactives.ClemInterTemplates.Receptors
 {
     [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Rigidbody))]
     public class RecepsTopBlockGrabber : MonoBehaviour
     {
         #region properties
@@ -17,6 +18,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         private void Start()
         {
             RecepRefs = new List<ReceptorInter>();
+            GetComponent<Rigidbody>().isKinematic = true;
         }
 
         private void OnTriggerEnter(Collider other)

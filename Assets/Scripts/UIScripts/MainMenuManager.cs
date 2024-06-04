@@ -18,7 +18,7 @@ namespace UIScripts
             
             if (!optionsHere)
             {
-                SceneManager.LoadScene(sceneName == "LoadSave" ? ReadFile(10, saveFilesFile) : sceneName);
+                //SceneManager.LoadScene(sceneName == "LoadSave" ? ReadFile(10, saveFilesFile) : sceneName);
             }
         }
 
