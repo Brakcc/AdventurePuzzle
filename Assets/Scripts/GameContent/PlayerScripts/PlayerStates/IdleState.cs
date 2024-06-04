@@ -34,6 +34,8 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override sbyte OnUpdate()
         {
+            OnCam();
+            
             if (base.OnUpdate() == 1 || base.OnUpdate() == 0)
                 return 2;
             
@@ -42,7 +44,6 @@ namespace GameContent.PlayerScripts.PlayerStates
             _inputDir = new Vector3(input.x, 0, input.y).normalized;
 
             GatherInteractionInputs();
-            OnCam();
             
             OnFall();
             OnMove();

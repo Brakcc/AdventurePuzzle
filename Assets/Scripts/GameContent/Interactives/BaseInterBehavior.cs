@@ -1,7 +1,5 @@
-﻿using DebuggingClem;
-using GameContent.PlayerScripts.PlayerStates;
+﻿using GameContent.PlayerScripts.PlayerStates;
 using UnityEngine;
-using Utilities.CustomAttributes;
 
 namespace GameContent.Interactives
 {
