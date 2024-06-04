@@ -6,6 +6,7 @@ using GameContent.PlayerScripts.PlayerStates;
 using GameContent.PlayerScripts.PlayerStates.ForcedStates;
 using GameContent.StateMachines;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utilities.CustomAttributes;
 
 namespace GameContent.PlayerScripts
@@ -23,9 +24,13 @@ namespace GameContent.PlayerScripts
 
         public InterCheckerState CheckerState => checker;
 
-        public CinemachineVirtualCamera ActiveCamera => activeCamera;
+        internal CameraDatas CurrentCameraDatas { get; set; }
 
-        public CameraDatas CurrentCameraDatas { get; set; } = new();
+        internal CameraDatas TransitionCamDatas => transCamDatas;
+        
+        internal CameraDatas InitCamDatas => initCamDatas;
+        
+        internal float CamLerpCoef { get; set; }
         
         public CharacterController CharaCont => GetComponent<CharacterController>();
 
@@ -79,7 +84,7 @@ namespace GameContent.PlayerScripts
                                        pSD["lever"].OnUpdate, pSD["lever"].OnFixedUpdate, pSD["lever"].OnExitState, null);
             
             _stateMachine.SetCallBacks((byte)ControllerState.camera, "camera", pSD["camera"].OnInit, pSD["camera"].OnEnterState, 
-                                       pSD["camera"].OnUpdate, pSD["camera"].OnFixedUpdate, pSD["camera"].OnExitState, null);
+                                       pSD["camera"].OnUpdate, pSD["camera"].OnFixedUpdate, null, null);
             
             _stateMachine.SetCallBacks((byte)ControllerState.cineIdle, "cineIdle", pSD["cineIdle"].OnInit, pSD["cineIdle"].OnEnterState, 
                                        pSD["cineIdle"].OnUpdate, pSD["cineIdle"].OnFixedUpdate, pSD["cineIdle"].OnExitState, pSD["cineIdle"].OnCoroutine);
@@ -104,7 +109,9 @@ namespace GameContent.PlayerScripts
 
         [FieldCompletion] [SerializeField] private InterCheckerState checker;
 
-        [FieldCompletion] [SerializeField] private CinemachineVirtualCamera activeCamera;
+        [SerializeField] private CameraDatas initCamDatas;
+        
+        [SerializeField] private CameraDatas transCamDatas;
         
         private GenericStateMachine _stateMachine;
 

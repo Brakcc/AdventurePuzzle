@@ -35,7 +35,6 @@ namespace GameContent.Interactives.ClemInterTemplates
         protected override async void OnInit()
         {
             SourceDatasList = new List<SourceDatas>();
-            debugTextLocal = debugMod.debugString;
             
             await Task.Delay(500);
             ForceAbsorbSources(preSetAbsorbSources);

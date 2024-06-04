@@ -48,12 +48,6 @@ namespace GameContent.Interactives
 
         public void AddSelf(InterCheckerState checker)
         {
-            if (hasDebugMod)
-            {
-                //Debug.Log($"{name} added");
-                debugMod.debugText.enabled = true;
-                debugMod.debugText.text = debugTextLocal;
-            }
             _isInRange = true;
             _checkerRef = checker;
             _checkerRef.InRangeInter.Add(this);
@@ -61,11 +55,6 @@ namespace GameContent.Interactives
 
         public void RemoveSelf()
         {
-            if (hasDebugMod)
-            {
-                //Debug.Log($"{name} removed");
-                debugMod.debugText.enabled = false;
-            }
             _isInRange = false;
             _checkerRef.InRangeInter.Remove(this);
             _checkerRef = null;
@@ -102,9 +91,6 @@ namespace GameContent.Interactives
         #endregion
         
         #region fields
-
-        [SerializeField] protected bool hasDebugMod;
-        [ShowIfBoolTrue("hasDebugMod")] [SerializeField] protected DebugModDatas debugMod;
         
         private InterCheckerState _checkerRef;
         
