@@ -39,6 +39,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             #region VFX
 
+            _lerpCoefs = new float[] { 0, 0, 0, 0 };
+            
             foreach (var r in datas.stacks)
             {
                 r.enabled = false;
@@ -66,6 +68,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             for (var i = 0; i < _matBlocks.Length; i++)
             {
                 datas.symbolRends[i].GetPropertyBlock(_matBlocks[i]);
+            }
+
+            for (var i = 0; i < 4; i++)
+            {
+                _matBlocks[i].SetFloat(EmissionImplication, 0);
+                datas.symbolRends[i].SetPropertyBlock(_matBlocks[i]);
             }
             
             #endregion
@@ -268,15 +276,17 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             p.Play();
             Destroy(tempPart, Constants.VFXDatas.BetteryAppearLifeSpan);
+            
+            
+            _matBlocks[SourceCount - 1].SetColor(EmissionColor, GetMeshColor(type));
+            datas.symbolRends[SourceCount - 1].SetPropertyBlock(_matBlocks[SourceCount - 1]);
 
             yield return new WaitForSeconds(Constants.VFXDatas.BatteryPartLifeSpan);
 
             rend.enabled = true;
             _stackMats[SourceCount - 1].SetFloat(GreenBlue, type is EnergyTypes.Green ? 1 : 0);
-            _matBlocks[SourceCount - 1].SetColor(EmissionColor, GetMeshColor(type));
             
             rend.SetPropertyBlock(_stackMats[SourceCount - 1]);
-            datas.symbolRends[SourceCount - 1].SetPropertyBlock(_matBlocks[SourceCount - 1]);
         }
 
         private static void OnPartDeath(GameObject part, Renderer rend, Vector3 atPos)
@@ -292,15 +302,77 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         private void SetSymbols()
         {
+            #region Lerp Coefs
             
+            switch (SourceCount)
+            {
+                case 0:
+                    if (_lerpCoefs[0] > 0)
+                        _lerpCoefs[0] -= Time.deltaTime;
+                    if (_lerpCoefs[1] > 0)
+                        _lerpCoefs[1] -= Time.deltaTime;
+                    if (_lerpCoefs[2] > 0)
+                        _lerpCoefs[2] -= Time.deltaTime;
+                    if (_lerpCoefs[3] > 0)
+                        _lerpCoefs[3] -= Time.deltaTime;
+                    break;
+                case 1:
+                    if (_lerpCoefs[0] < 1)
+                        _lerpCoefs[0] += Time.deltaTime;
+                    if (_lerpCoefs[1] > 0)
+                        _lerpCoefs[1] -= Time.deltaTime;
+                    if (_lerpCoefs[2] > 0)
+                        _lerpCoefs[2] -= Time.deltaTime;
+                    if (_lerpCoefs[3] > 0)
+                        _lerpCoefs[3] -= Time.deltaTime;
+                    break;
+                case 2:
+                    if (_lerpCoefs[0] < 1)
+                        _lerpCoefs[0] += Time.deltaTime;
+                    if (_lerpCoefs[1] < 1)
+                        _lerpCoefs[1] += Time.deltaTime;
+                    if (_lerpCoefs[2] > 0)
+                        _lerpCoefs[2] -= Time.deltaTime;
+                    if (_lerpCoefs[3] > 0)
+                        _lerpCoefs[3] -= Time.deltaTime;
+                    break;
+                case 3:
+                    if (_lerpCoefs[0] < 1)
+                        _lerpCoefs[0] += Time.deltaTime;
+                    if (_lerpCoefs[1] < 1)
+                        _lerpCoefs[1] += Time.deltaTime;
+                    if (_lerpCoefs[2] < 1)
+                        _lerpCoefs[2] += Time.deltaTime;
+                    if (_lerpCoefs[3] > 0)
+                        _lerpCoefs[3] -= Time.deltaTime;
+                    break;
+                case 4:
+                    if (_lerpCoefs[0] < 1)
+                        _lerpCoefs[0] += Time.deltaTime;
+                    if (_lerpCoefs[1] < 1)
+                        _lerpCoefs[1] += Time.deltaTime;
+                    if (_lerpCoefs[2] < 1)
+                        _lerpCoefs[2] += Time.deltaTime;
+                    if (_lerpCoefs[3] < 1)
+                        _lerpCoefs[3] += Time.deltaTime;
+                    break;
+            }
+            
+            #endregion
+
+            for (var i = 0; i < 4; i++)
+            {
+                _matBlocks[i].SetFloat(EmissionImplication, _lerpCoefs[i]);
+                datas.symbolRends[i].SetPropertyBlock(_matBlocks[i]);
+            }
         }
         
         private static Color GetMeshColor(EnergyTypes type) => type switch
         {
             EnergyTypes.None => Color.white,
             EnergyTypes.Yellow => Color.white,
-            EnergyTypes.Green => new Color(0, 135 / 255f, 1, 1),
-            EnergyTypes.Blue => new Color(0, 1, 167 / 255f, 1),
+            EnergyTypes.Green => new Color(0, 1, 167 / 255f, 1),
+            EnergyTypes.Blue => new Color(0, 135 / 255f, 1, 1),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
         
@@ -321,6 +393,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         private float _actionBlockerThreshold;
 
         private bool _canInteract;
+
+        private float[] _lerpCoefs;
         
         private static readonly int EmissionImplication = Shader.PropertyToID("_emissionImplication");
         
