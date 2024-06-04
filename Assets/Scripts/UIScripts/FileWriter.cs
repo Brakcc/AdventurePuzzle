@@ -1,12 +1,14 @@
+using System.IO;
 using UnityEngine;
+using System;
 
 namespace UIScripts
 {
     public class FileWriter : MonoBehaviour
     {
-        public TextAsset optionsFile;
-        public TextAsset commandsFile;
-        [SerializeField] public TextAsset saveFilesFile;
+        //public File optionsFile;
+        //public File commandsFile;
+        //[SerializeField] public TextAsset saveFilesFile;
         
         public void ChangeFile(int whatOptionToChange, string newValue)
         {
@@ -16,6 +18,7 @@ namespace UIScripts
              * SaveFiles : SaveFiles (CurrentScene : 10, Save1 : 11, Save2 : 12, Save3 : 13, CurrentSaveNumber : 14)
              */
             
+            /*
             if (whatOptionToChange is < 4 and > 0)
             {
                 //Change optionsFile.
@@ -34,15 +37,17 @@ namespace UIScripts
             else
             {
                 Debug.Log("Erreur. Mauvais renseignement dans les options. Regardez les commentaires de la fonction ChangeOptions pour plus d'informations.");
-            }
+            }/*
         }
         
         void WriteFile(TextAsset fileWhoNeedsToBeEdited, int line, string valueToChange)
         {
-            /*string path = AssetDatabase.GetAssetPath(fileWhoNeedsToBeEdited);
+            /*
+            //var path = Resources.Load<TextAsset>(fileWhoNeedsToBeEdited.ToString());
+            var path = fileWhoNeedsToBeEdited.ToString();
             int numberOfLines = GetNumberOfLines(path);
             
-            StreamReader reader = new StreamReader(path);
+            
             string[] arrLines = new string[numberOfLines];
             
             for (int i = 0; i < numberOfLines; i++)
@@ -64,12 +69,14 @@ namespace UIScripts
             {
                 writer.WriteLine(arrLines[i]);
             }
-            writer.Close();*/
+            writer.Close();
+            */
         }
 
         int GetNumberOfLines(string myPath)
         {
-            /*//Get Number of Lines in a Reader
+            /*
+            //Get Number of Lines in a Reader
             int count = 0;
             StreamReader countReader = new StreamReader(myPath);
             while ((countReader.ReadLine()) != null)
@@ -77,19 +84,32 @@ namespace UIScripts
                 count++;
             }
             countReader.Close();
-            return count;*/
-            return 0;
-        }
+            return count;
+            */
+            return 0; //
+         }
         
         
         protected string ReadFile(int lineNumber, TextAsset fileToRead)
         {
-            /*lineNumber -= 10;
-            string path = AssetDatabase.GetAssetPath(fileToRead);
-            StreamReader reader = new StreamReader(path);
+            /*
+            if (lineNumber is > 3 and < 10)
+            {
+                lineNumber -= 4;
+            }
+            else if (lineNumber is > 9 and < 24)
+            {
+                lineNumber -= 10;
+            }
+            else
+            {
+                lineNumber -= 1;
+            }
+
+            
             string lineString = null;
 
-            int lenght = GetNumberOfLines(path);
+            int lenght = GetNumberOfLines($"UIScripts / Save Files");
             
             for (int i = 0; i < lenght; i++)
             {
@@ -101,10 +121,13 @@ namespace UIScripts
                 {
                     reader.ReadLine();
                 }
+                Debug.Log(reader.ReadLine());
             }
             reader.Close();
-            return lineString;*/
-            return "";
+            return lineString;
+            */
+            return "ee";
         }
     }
+        
 }

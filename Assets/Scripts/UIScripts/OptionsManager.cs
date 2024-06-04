@@ -32,6 +32,8 @@ namespace UIScripts
             _theNewKeyCode = KeyCode.None;
             _optionsGroup = transform.GetChild(0).gameObject;
             _optionsGroup.SetActive(false);
+
+            SetUpCommands();
         }
 
         private void Update()
@@ -49,6 +51,18 @@ namespace UIScripts
                     }
                 }
             }
+        }
+
+        private void SetUpCommands()
+        {
+            /*
+            Debug.Log(ReadFile(1, optionsFile));
+            string value1 = ReadFile(1, optionsFile);
+            Debug.Log(value1);
+            sliderVolumePrincipal.value = (float) Convert.ToDouble(value1);
+            sliderVolumeMusique.value = float.Parse(ReadFile(1, optionsFile));
+            sliderVolumeSoundEffect.value = float.Parse(ReadFile(2, optionsFile));
+            */
         }
 
         public void ShowOptions()
@@ -85,7 +99,7 @@ namespace UIScripts
 
         public void ChangeKey(bool actionOrPauseKey)
         {
-            //Debug.Log("Pls press key");
+            Debug.Log("Pls press key");
             waitForInputGroup.SetActive(true);
             StartCoroutine(TestWaitTime(actionOrPauseKey));
             _waitForInput = true;
@@ -99,12 +113,11 @@ namespace UIScripts
 
             if (actionOrPauseKey)
             {
-                //Debug.Log(_theNewKeyCode.SelectedName(true));
-                //myInputAction["Interact"].AddBinding(_theNewKeyCode.DisplayName());
+                myInputAction["Interact"].AddBinding(_theNewKeyCode.ToString());
             }
             else
             {
-                //myInputAction["Pause"].AddBinding(_theNewKeyCode.DisplayName());
+                myInputAction["Pause"].AddBinding(_theNewKeyCode.ToString());
             }
 
             _theNewKeyCode = KeyCode.None;
