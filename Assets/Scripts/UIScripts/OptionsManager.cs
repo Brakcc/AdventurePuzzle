@@ -100,12 +100,11 @@ namespace UIScripts
 
             if (actionOrPauseKey)
             {
-                Debug.Log(_theNewKeyCode.SelectedName(true));
-                myInputAction["Interact"].AddBinding(_theNewKeyCode.DisplayName());
+                myInputAction["Interact"].AddBinding(_theNewKeyCode.ToString());
             }
             else
             {
-                myInputAction["Pause"].AddBinding(_theNewKeyCode.DisplayName());
+                myInputAction["Pause"].AddBinding(_theNewKeyCode.ToString());
             }
 
             _theNewKeyCode = KeyCode.None;

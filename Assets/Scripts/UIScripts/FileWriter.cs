@@ -41,7 +41,8 @@ namespace UIScripts
         
         void WriteFile(TextAsset fileWhoNeedsToBeEdited, int line, string valueToChange)
         {
-            string path = AssetDatabase.GetAssetPath(fileWhoNeedsToBeEdited);
+            //var path = Resources.Load<TextAsset>(fileWhoNeedsToBeEdited.ToString());
+            var path = fileWhoNeedsToBeEdited.ToString();
             int numberOfLines = GetNumberOfLines(path);
             
             StreamReader reader = new StreamReader(path);
@@ -86,7 +87,7 @@ namespace UIScripts
         protected string ReadFile(int lineNumber, TextAsset fileToRead)
         {
             lineNumber -= 10;
-            string path = AssetDatabase.GetAssetPath(fileToRead);
+            var path = fileToRead.ToString();
             StreamReader reader = new StreamReader(path);
             string lineString = null;
 
