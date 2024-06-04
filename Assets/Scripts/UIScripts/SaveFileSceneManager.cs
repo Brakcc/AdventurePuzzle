@@ -12,6 +12,7 @@ namespace UIScripts
 
         public void ChangeSaveFile(int numberOfTheSaveFile)
         {
+            /*
             numberOfTheSaveFile += 10;
             
             switch (numberOfTheSaveFile)
@@ -32,6 +33,7 @@ namespace UIScripts
                     Debug.Log("Error. Badly Referenced Line to Change. See OptionsManager for more info. - Dav");
                     break;
             }
+            */
         }
     }
 }
