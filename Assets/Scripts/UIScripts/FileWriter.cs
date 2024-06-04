@@ -39,7 +39,8 @@ namespace UIScripts
         
         void WriteFile(TextAsset fileWhoNeedsToBeEdited, int line, string valueToChange)
         {
-            /*string path = AssetDatabase.GetAssetPath(fileWhoNeedsToBeEdited);
+            //var path = Resources.Load<TextAsset>(fileWhoNeedsToBeEdited.ToString());
+            var path = fileWhoNeedsToBeEdited.ToString();
             int numberOfLines = GetNumberOfLines(path);
             
             StreamReader reader = new StreamReader(path);
@@ -64,12 +65,12 @@ namespace UIScripts
             {
                 writer.WriteLine(arrLines[i]);
             }
-            writer.Close();*/
+            writer.Close();
         }
 
         int GetNumberOfLines(string myPath)
         {
-            /*//Get Number of Lines in a Reader
+            //Get Number of Lines in a Reader
             int count = 0;
             StreamReader countReader = new StreamReader(myPath);
             while ((countReader.ReadLine()) != null)
@@ -77,15 +78,14 @@ namespace UIScripts
                 count++;
             }
             countReader.Close();
-            return count;*/
-            return 0;
+            return count;
         }
         
         
         protected string ReadFile(int lineNumber, TextAsset fileToRead)
         {
-            /*lineNumber -= 10;
-            string path = AssetDatabase.GetAssetPath(fileToRead);
+            lineNumber -= 10;
+            var path = fileToRead.ToString();
             StreamReader reader = new StreamReader(path);
             string lineString = null;
 
@@ -103,8 +103,7 @@ namespace UIScripts
                 }
             }
             reader.Close();
-            return lineString;*/
-            return "";
+            return lineString;
         }
     }
 }
