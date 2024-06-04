@@ -133,6 +133,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   _col: {fileID: 8432772202858898988}
   rend: {fileID: 8923682603737902446}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 2147483648
   teleporterRef: {fileID: 7345823610371286365}
   topPoser: {fileID: 6157907129169449687}
 --- !u!1 &960492636747518751
@@ -931,5 +934,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   _col: {fileID: 7433629708988770}
   rend: {fileID: 6233933448870393463}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 2147483648
   teleporterRef: {fileID: 1963146569761553509}
   topPoser: {fileID: 1075216335867155356}

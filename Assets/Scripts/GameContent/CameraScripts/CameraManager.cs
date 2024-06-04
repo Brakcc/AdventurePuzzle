@@ -8,14 +8,22 @@ namespace GameContent.CameraScripts
         
         private void Update()
         {
-            transform.position = playerRef.position;
+            transform.position = Vector3.SmoothDamp(transform.position,
+                                                    playerRef.position,
+                                                    ref _vel,
+                                                    followDamping);
         }
         
         #endregion
 
         #region fields
 
+        [Range(0, 1)]
+        [SerializeField] private float followDamping;
+        
         [SerializeField] private Transform playerRef;
+
+        private Vector3 _vel;
 
         #endregion
     }

@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c066b67981cd8d546a537e7b71d9aeee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followDamping: 0.25
   playerRef: {fileID: 0}
 --- !u!1 &3131402452738518865
 GameObject:
@@ -122,6 +123,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CamPivot
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819586051850880367, guid: cb733919c0bf25d44ac648ac75ec5176,
+        type: 3}
+      propertyPath: followDamping
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 4421822969379765780, guid: cb733919c0bf25d44ac648ac75ec5176,
         type: 3}

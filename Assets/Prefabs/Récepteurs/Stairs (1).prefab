@@ -1987,6 +1987,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   _col: {fileID: 49311683241326511}
   rend: {fileID: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 2147483648
 --- !u!1 &4901165997499743867
 GameObject:
   m_ObjectHideFlags: 0
