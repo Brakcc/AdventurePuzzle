@@ -98,7 +98,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                                                          Vector3.right,
                                                          Quaternion.identity, 
                                                          Constants.BoxCastBounds.SideCastDist, 
-                                                         blockMask);
+                                                         blockMask,
+                                                         QueryTriggerInteraction.Ignore);
         
         #endregion
         
@@ -115,7 +116,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                                                         Vector3.forward, 
                                                         Quaternion.identity, 
                                                         Constants.BoxCastBounds.SideCastDist, 
-                                                        blockMask);
+                                                        blockMask,
+                                                        QueryTriggerInteraction.Ignore);
         
         #endregion
         
@@ -132,7 +134,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                                                             Vector3.back, 
                                                             Quaternion.identity, 
                                                             Constants.BoxCastBounds.SideCastDist, 
-                                                            blockMask);
+                                                            blockMask,
+                                                            QueryTriggerInteraction.Ignore);
         
         #endregion
         
@@ -149,7 +152,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                                                            Vector3.left, 
                                                            Quaternion.identity, 
                                                            Constants.BoxCastBounds.SideCastDist, 
-                                                           blockMask);
+                                                           blockMask,
+                                                           QueryTriggerInteraction.Ignore);
 
         #endregion
 
@@ -251,8 +255,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 case EnergyTypes.None:
                     //_col.isTrigger = false; //Si pas de Stay en Green
                     _isMovable = true;
-                    _col.isTrigger = true;
-                    _col.enabled = true;
+                    //_col.isTrigger = true;
+                    //_col.enabled = true;
                     if (!HasInstantPlayer)
                     {
                         _canSwitch = true;
@@ -263,8 +267,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 case EnergyTypes.Yellow:
                     //_col.isTrigger = false; //Si pas de Stay en Green
                     _isMovable = true;
-                    _col.isTrigger = true;
-                    _col.enabled = true;
+                    //_col.isTrigger = true;
+                    //_col.enabled = true;
                     if (!HasInstantPlayer)
                     {
                         _canSwitch = true;
@@ -274,17 +278,17 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                     break;
                 case EnergyTypes.Green:
                     _col.isTrigger = true;
-                    _col.enabled = false;
+                    //_col.enabled = false;
                     HasElectricity = false;
-                    _isMovable = false;
+                    _isMovable = true;
                     if (HasCheckerRef)
                         RemoveSelf();
                     break;
                 case EnergyTypes.Blue:
                     //_col.isTrigger = false; //Si pas de Stay en Green
                     _isMovable = true;
-                    _col.isTrigger = true;
-                    _col.enabled = true;
+                    //_col.isTrigger = true;
+                    //_col.enabled = true;
                     if (!HasInstantPlayer)
                     {
                         _canSwitch = true;
