@@ -251,6 +251,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 case EnergyTypes.None:
                     //_col.isTrigger = false; //Si pas de Stay en Green
                     _isMovable = true;
+                    _col.isTrigger = true;
+                    _col.enabled = true;
                     if (!HasInstantPlayer)
                     {
                         _canSwitch = true;
@@ -261,6 +263,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 case EnergyTypes.Yellow:
                     //_col.isTrigger = false; //Si pas de Stay en Green
                     _isMovable = true;
+                    _col.isTrigger = true;
+                    _col.enabled = true;
                     if (!HasInstantPlayer)
                     {
                         _canSwitch = true;
@@ -270,6 +274,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                     break;
                 case EnergyTypes.Green:
                     _col.isTrigger = true;
+                    _col.enabled = false;
                     HasElectricity = false;
                     _isMovable = false;
                     if (HasCheckerRef)
@@ -278,6 +283,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 case EnergyTypes.Blue:
                     //_col.isTrigger = false; //Si pas de Stay en Green
                     _isMovable = true;
+                    _col.isTrigger = true;
+                    _col.enabled = true;
                     if (!HasInstantPlayer)
                     {
                         _canSwitch = true;
