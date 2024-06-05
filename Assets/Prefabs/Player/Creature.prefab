@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4011638924989848691}
   - component: {fileID: 3463681068875511883}
   - component: {fileID: 8883666221216371074}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Creature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2682495270301382815}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 24.41, y: 0.795, z: -14.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 6979129788322145544}
   - component: {fileID: 7519903093333160457}
   - component: {fileID: 6474962606598090681}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Graph
   m_TagString: Untagged
   m_Icon: {fileID: 0}
