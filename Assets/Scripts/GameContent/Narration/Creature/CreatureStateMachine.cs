@@ -41,15 +41,8 @@ namespace GameContent.Narration.Creature
 
         private void SetVertPos()
         {
-            if (IsGrounded)
-            {
-                _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
-                _rb.position = new Vector3(_rb.position.x, _rb.position.y, _rb.position.z);
-            }
-            else
-            {
-                _rb.velocity = new Vector3(_rb.velocity.x, _vertVelocity, _rb.velocity.z);
-            }
+            var velocity = _rb.velocity;
+            _rb.velocity = IsGrounded ? new Vector3(velocity.x, 0, velocity.z) : new Vector3(velocity.x, _vertVelocity, velocity.z);
         }
         
         private void SetGravity()
@@ -85,7 +78,7 @@ namespace GameContent.Narration.Creature
         {
             var tempDir = GetDir(playerRef.position);
             var tempVel = tempDir * creatureSpeed;
-
+            
             _rb.velocity = new Vector3(tempVel.x, _rb.velocity.y, tempVel.z);
         }
         
