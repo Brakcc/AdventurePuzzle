@@ -18,7 +18,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             _actionBlockerThreshold = 0;
             
             if (nodes.Length == 0)
-                return;
+                goto SkipInit;
             
             foreach (var n in nodes)
             {
@@ -36,6 +36,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                         throw new ArgumentOutOfRangeException(nameof(n), n.dendrite, "ta ...");
                 }
             }
+            
+            SkipInit:
             
             #region VFX
 
@@ -68,14 +70,26 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             for (var i = 0; i < _matBlocks.Length; i++)
             {
                 datas.symbolRends[i].GetPropertyBlock(_matBlocks[i]);
-            }
-
-            for (var i = 0; i < 4; i++)
-            {
                 _matBlocks[i].SetFloat(EmissionImplication, 0);
                 datas.symbolRends[i].SetPropertyBlock(_matBlocks[i]);
             }
-            
+
+            _cableMats = new MaterialPropertyBlock[nodes.Length];
+            for (var i = 0; i < nodes.Length; i++)
+            {
+                _cableMats[i] = new MaterialPropertyBlock();
+            }
+            for (var n = 0; n < nodes.Length; n++)
+            {
+                foreach (var r in nodes[n].cableRends)
+                {
+                    r.GetPropertyBlock(_cableMats[n]);
+                    _cableMats[n].SetFloat(EmissionFade, 0);
+                    _cableMats[n].SetFloat(GreenBlue, 0);
+                    r.SetPropertyBlock(_cableMats[n]);
+                }
+            }
+
             #endregion
         }
 
@@ -84,6 +98,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             base.OnUpdate();
             
             SetSymbols();
+            SetCableRends();
             
             if (_canInteract)
                 return;
@@ -145,12 +160,16 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                                               datas.stacks[SourceCount - 1],
                                               datas.vFXPos[SourceCount - 1].position, 
                                               SourceDatasList[SourceCount - 1].Type));
+                    _cableMats[SourceCount - 1].SetFloat(GreenBlue, 1);
+                    nodes[SourceCount - 1].SetProperties(_cableMats[SourceCount - 1]);
                     break;
                 case EnergyTypes.Blue:
                     StartCoroutine(OnPartLive(datas.blueAppearPartSys,
                                               datas.stacks[SourceCount - 1],
                                               datas.vFXPos[SourceCount - 1].position, 
                                               SourceDatasList[SourceCount - 1].Type));
+                    _cableMats[SourceCount - 1].SetFloat(GreenBlue, 0);
+                    nodes[SourceCount - 1].SetProperties(_cableMats[SourceCount - 1]);
                     break;
                 case EnergyTypes.None:
                     break;
@@ -366,6 +385,15 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 datas.symbolRends[i].SetPropertyBlock(_matBlocks[i]);
             }
         }
+
+        private void SetCableRends()
+        {
+            for (var i = 0; i < nodes.Length; i++)
+            {
+                _cableMats[i].SetFloat(EmissionFade, _lerpCoefs[i]);
+                nodes[i].SetProperties(_cableMats[i]);
+            }
+        }
         
         private static Color GetMeshColor(EnergyTypes type) => type switch
         {
@@ -390,6 +418,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         private MaterialPropertyBlock[] _stackMats;
 
+        private MaterialPropertyBlock[] _cableMats;
+
         private float _actionBlockerThreshold;
 
         private bool _canInteract;
@@ -400,6 +430,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         private static readonly int EmissionColor = Shader.PropertyToID("_emissionColor");
 
+        private static readonly int EmissionFade = Shader.PropertyToID("_On_Energy_fade");
+        
         private static readonly int GreenBlue = Shader.PropertyToID("_On_Green_Off_Blue");
 
         #endregion
