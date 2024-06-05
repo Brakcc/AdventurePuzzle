@@ -14,13 +14,44 @@ namespace GameContent.Interactives.ClemInterTemplates
         
         #region methodes
 
+        protected override void OnInit()
+        {
+            base.OnInit();
+
+            _lerpCoef = 0;
+
+            _matBlock = new MaterialPropertyBlock();
+            rend.GetPropertyBlock(_matBlock);
+            _matBlock.SetFloat(EnergyFade, _lerpCoef);
+        }
+
+        protected override void OnUpdate()
+        {
+            base.OnUpdate();
+
+            switch (isActivated)
+            {
+                case true when _lerpCoef < 1:
+                    _lerpCoef += Time.deltaTime;
+                    break;
+                case false when _lerpCoef > 0:
+                    _lerpCoef -= Time.deltaTime;
+                    break;
+                default:
+                    return;
+            }
+
+            _matBlock.SetFloat(EnergyFade, _lerpCoef);
+            rend.SetPropertyBlock(_matBlock);
+        }
+
         public override void PlayerAction()
         {
             if (!isActivated)
                 return;
             
             isActivated = false;
-            OnActionAnim("isActive", isActivated);
+            //OnActionAnim("isActive", isActivated);
 
             if (PlayerEnergyM.EnergyType != EnergyTypes.None)
             {
@@ -40,7 +71,7 @@ namespace GameContent.Interactives.ClemInterTemplates
             
             //mettre des lien renderer ou vfx pour montrer la libération de l'energie ?
             isActivated = true;
-            OnActionAnim("isActive", isActivated);
+            //OnActionAnim("isActive", isActivated);
         }
 
         public void OnForceAbsorb()
@@ -49,7 +80,7 @@ namespace GameContent.Interactives.ClemInterTemplates
                 return;
 
             isActivated = false;
-            OnActionAnim("isActive", isActivated);
+            //OnActionAnim("isActive", isActivated);
         }
         
         #region anims et VFX
@@ -72,7 +103,15 @@ namespace GameContent.Interactives.ClemInterTemplates
 
         [SerializeField] private EnergyTypes baseType;
 
-        [FieldCompletion] [SerializeField] private Animator animator; 
+        [FieldCompletion] [SerializeField] private Animator animator;
+
+        [SerializeField] private Renderer rend;
+
+        private MaterialPropertyBlock _matBlock;
+
+        private float _lerpCoef;
+        
+        private static readonly int EnergyFade = Shader.PropertyToID("_On_Energy_fade");
 
         #endregion
     }
