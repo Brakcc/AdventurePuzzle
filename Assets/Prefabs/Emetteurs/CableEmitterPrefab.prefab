@@ -1853,7 +1853,7 @@ MonoBehaviour:
   preSetAbsorbSources: []
   nodes:
   - connectionID: 0
-    dendrite: 1
+    dendrite: 0
     distributorRef: {fileID: 0}
     receptorRef: {fileID: 0}
   datas:
