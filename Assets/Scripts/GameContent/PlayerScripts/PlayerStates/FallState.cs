@@ -17,7 +17,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         public override void OnInit(GenericStateMachine m)
         {
-            _lastDir = _isoForwardDir;
+            _lastDir = IsoForwardDir;
             base.OnInit(m);
         }
 
@@ -75,7 +75,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void OnMove()
         {
-            _currentDir = (_isoRightDir * _inputDir.x + _isoForwardDir * _inputDir.z).normalized;
+            _currentDir = (IsoRightDir * _inputDir.x + IsoForwardDir * _inputDir.z).normalized;
 
             _cc.SimpleMove(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime * 0.5f));
             _cc.Move(Vector3.down * (Mathf.Lerp(0, _datasSo.fallDatasSo.fallSpeed, _lerpCoef) * Time.deltaTime));
