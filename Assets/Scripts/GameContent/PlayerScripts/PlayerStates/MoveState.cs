@@ -152,6 +152,18 @@ namespace GameContent.PlayerScripts.PlayerStates
                     case LeverInter:
                         stateMachine.SwitchState("lever");
                         return;
+                    case EmitterInter:
+                        if (PlayerEnergyM.EnergyType is not EnergyTypes.None)
+                            _datasSo.interactDatasSo.OnVFX(0, _goRef.transform.position, 
+                                                           _goRef.transform.rotation);
+                        stateMachine.SwitchState("interact");
+                        break;
+                    case EnergySourceInter @ref:
+                        if (@ref.IsActivated)
+                            _datasSo.interactDatasSo.OnVFX(@ref.EnergyType is EnergyTypes.Green ? (byte)3 : (byte)4, _goRef.transform.position, 
+                                                       _goRef.transform.rotation);
+                        stateMachine.SwitchState("interact");
+                        return;
                     case not null:
                         stateMachine.SwitchState("interact");
                         return;
