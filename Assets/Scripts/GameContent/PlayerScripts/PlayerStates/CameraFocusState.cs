@@ -19,11 +19,17 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (_playerMachine.CurrentCameraDatas.pivot == default)
             {
                 stateMachine.SwitchState("idle");
+                return;
             }
+
+            _playerMachine.InitCamManager.IsFocused = true;
+            _playerMachine.TransCamManager.IsFocused = true;
         }
 
         public override void OnExitState()
         {
+            _playerMachine.InitCamManager.IsFocused = false;
+            _playerMachine.TransCamManager.IsFocused = false;
         }
 
         public override sbyte OnUpdate()

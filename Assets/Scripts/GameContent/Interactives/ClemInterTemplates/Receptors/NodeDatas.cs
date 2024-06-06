@@ -12,6 +12,18 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         public short ConnectionID => (short)(connectionID - 1);
 
         #endregion
+
+        #region methodes
+
+        public void SetProperties(MaterialPropertyBlock mB)
+        {
+            foreach (var c in cableRends)
+            {
+                c.SetPropertyBlock(mB);
+            }
+        }
+
+        #endregion
         
         #region fields
         
@@ -24,7 +36,9 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         
         [ShowIfTrue("dendrite", new[] { (int)DentriteType.Receptor })]
         [FieldCompletion] public ReceptorInter receptorRef;
-        
+
+        public Renderer[] cableRends;
+
         #endregion
     }
 
