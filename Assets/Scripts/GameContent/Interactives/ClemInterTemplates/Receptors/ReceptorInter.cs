@@ -98,7 +98,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                                                          Vector3.right,
                                                          Quaternion.identity, 
                                                          Constants.BoxCastBounds.SideCastDist, 
-                                                         blockMask);
+                                                         blockMask,
+                                                         QueryTriggerInteraction.Ignore);
         
         #endregion
         
@@ -115,7 +116,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                                                         Vector3.forward, 
                                                         Quaternion.identity, 
                                                         Constants.BoxCastBounds.SideCastDist, 
-                                                        blockMask);
+                                                        blockMask,
+                                                        QueryTriggerInteraction.Ignore);
         
         #endregion
         
@@ -132,7 +134,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                                                             Vector3.back, 
                                                             Quaternion.identity, 
                                                             Constants.BoxCastBounds.SideCastDist, 
-                                                            blockMask);
+                                                            blockMask,
+                                                            QueryTriggerInteraction.Ignore);
         
         #endregion
         
@@ -149,7 +152,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                                                            Vector3.left, 
                                                            Quaternion.identity, 
                                                            Constants.BoxCastBounds.SideCastDist, 
-                                                           blockMask);
+                                                           blockMask,
+                                                           QueryTriggerInteraction.Ignore);
 
         #endregion
 
@@ -249,20 +253,18 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             switch (CurrentEnergyType)
             {
                 case EnergyTypes.None:
-                    //_col.isTrigger = false; //Si pas de Stay en Green
-                    _isMovable = true;
                     if (!HasInstantPlayer)
                     {
+                        _isMovable = true;
                         _canSwitch = true;
                         _col.isTrigger = false;
                     }
                     HasElectricity = true;
                     break;
                 case EnergyTypes.Yellow:
-                    //_col.isTrigger = false; //Si pas de Stay en Green
-                    _isMovable = true;
                     if (!HasInstantPlayer)
                     {
+                        _isMovable = true;
                         _canSwitch = true;
                         _col.isTrigger = false;
                     }
@@ -271,15 +273,14 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 case EnergyTypes.Green:
                     _col.isTrigger = true;
                     HasElectricity = false;
-                    _isMovable = false;
+                    _isMovable = true;
                     if (HasCheckerRef)
                         RemoveSelf();
                     break;
                 case EnergyTypes.Blue:
-                    //_col.isTrigger = false; //Si pas de Stay en Green
-                    _isMovable = true;
                     if (!HasInstantPlayer)
                     {
+                        _isMovable = true;
                         _canSwitch = true;
                         _col.isTrigger = false;
                     }
@@ -305,6 +306,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             
             _canSwitch = true;
             _col.isTrigger = false;
+            _isMovable = true;
         }
 
         private Vector3 SetDir(Vector3 dir) => (dir.x, dir.z) switch
@@ -318,8 +320,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         private void SolidFall()
         {
-            if (!_isMovable)
-                return;
+            /*if (!_isMovable)
+                return;*/
             
             if (IsHittingGround)
             {
