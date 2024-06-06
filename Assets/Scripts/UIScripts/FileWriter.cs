@@ -1,111 +1,151 @@
+using System.Globalization;
 using System.IO;
-using UnityEditor;
+using JetBrains.Annotations;
 using UnityEngine;
+using Utilities;
+
+// ReSharper disable CompareOfFloatsByEqualityOperator
 
 namespace UIScripts
 {
     public class FileWriter : MonoBehaviour
     {
-        public TextAsset optionsFile;
-        public TextAsset commandsFile;
-        [SerializeField] public TextAsset saveFilesFile;
+        public float mainVolumeValue;
+        public float musicVolumeValue;
+        public float soundEffectVolumeValue;
+
+        public string actionTouchName;
+        public string pauseTouchName;
+
+        public int saveChosen;
+        public Vector3 newPosCheckpoint;
         
-        public void ChangeFile(int whatOptionToChange, string newValue)
+        protected void WriteData (int whichFileToChange, 
+            [CanBeNull] float[] sliderValues = null, 
+            [CanBeNull] string[] inputValues = null, 
+            int saveFileNumber = 1, float xPos = 1f, float yPos = 1f, float zPos = 1f)
         {
-            /*
-             * Options : General Volume (1), Music Volume (2), Sound Effect Volume (3)
-             * Controls : Controles (up : 4, down : 5, left : 6, right : 7, action : 8, pause : 9)
-             * SaveFiles : SaveFiles (CurrentScene : 10, Save1 : 11, Save2 : 12, Save3 : 13, CurrentSaveNumber : 14)
-             */
-            
-            if (whatOptionToChange is < 4 and > 0)
+            string path;
+            switch (whichFileToChange)
             {
-                //Change optionsFile.
-                WriteFile(optionsFile, whatOptionToChange, newValue);
+                case 1: //Sound
+                    path = Application.persistentDataPath + "/soundData.data";
+                    if (sliderValues is { Length: > 2 })
+                    {
+                        DataSound soundData = new(sliderValues[0], sliderValues[1], sliderValues[2]);
+                        File.WriteAllText(path, soundData.generalVolume.ToString(CultureInfo.CurrentCulture) 
+                                                + "\n" + soundData.musicVolume.ToString(CultureInfo.CurrentCulture) 
+                                                + "\n" + soundData.soundEffectsVolume.ToString(CultureInfo.CurrentCulture));
+                    }
+                    else
+                    { Debug.Log("Missing Sound Reference"); }
+                    break;
+                
+                case 2 : //Commands
+                    path = Application.persistentDataPath + "/commandsData.data";
+                    if (inputValues is { Length: 2 }) 
+                    {
+                        if (File.Exists(Application.persistentDataPath + "/commandsData.data"))
+                        {
+                            File.Delete(Application.persistentDataPath + "/commandsData.data");
+                        }
+                        DataCommands commandsData = new(inputValues[0], inputValues[1]);
+                        File.WriteAllText(path, commandsData.actionCommandName + ";"
+                                                + "\n" + commandsData.pauseCommandName);
+                    }
+                    else{Debug.Log("Missing Commands Reference");}
+                    break;
+                case 3 : //Checkpoint
+                    path = Application.persistentDataPath + "/saveData.data";
+                    if (xPos != 1f && yPos != 1f && zPos != 1f)
+                    {
+                        DataSave saveData = new(saveFileNumber, new Vector3(xPos, yPos, zPos));
+                        File.WriteAllText(path, saveData.saveChosen + ";"
+                                                + "\n" + saveData.save1X + ";" + "\n" + saveData.save1Y + ";" + "\n" + saveData.save1Z + ";" 
+                                                + "\n" + saveData.save2X + ";" + "\n" + saveData.save2Y + ";" + "\n" + saveData.save2Y + ";"
+                                                + "\n" + saveData.save3X + ";" + "\n" + saveData.save3Y + ";" + "\n" + saveData.save3Y );
+                    }
+                    else{Debug.Log("Missing Position or SaveFile Reference");}
+                    break;
+                case 4 :
+                    path = Application.persistentDataPath + "/saveData.data";
+                    break;
             }
-            else if (whatOptionToChange is > 3 and < 10)
+        }
+
+        protected string[] LoadValues(int whichValuesToLoad)
+        {
+            string path = "";
+            switch (whichValuesToLoad)
             {
-                //Change CommandsFile.
-                WriteFile(commandsFile, whatOptionToChange-3, newValue);
+                case 1 :
+                    path = Application.persistentDataPath + "/soundData.data";
+                    break;
+                case 2 :
+                    path = Application.persistentDataPath + "/commandsData.data";
+                    break;
+                case 3 :
+                    path = Application.persistentDataPath + "/saveData.data";
+                    break;
             }
-            else if (whatOptionToChange is > 9 and < 24)
+
+            if (File.Exists(path))
             {
-                //Change SaveFile.
-                WriteFile(saveFilesFile, whatOptionToChange-9, newValue);
+                string data;
+                string[] dataArray;
+                data = File.ReadAllText(path);
+                
+                dataArray = Fonctions.UnpackData(data);
+                return dataArray;
             }
             else
-            {
-                Debug.Log("Erreur. Mauvais renseignement dans les options. Regardez les commentaires de la fonction ChangeOptions pour plus d'informations.");
-            }
-        }
-        
-        void WriteFile(TextAsset fileWhoNeedsToBeEdited, int line, string valueToChange)
-        {
-            //var path = Resources.Load<TextAsset>(fileWhoNeedsToBeEdited.ToString());
-            var path = fileWhoNeedsToBeEdited.ToString();
-            int numberOfLines = GetNumberOfLines(path);
-            
-            StreamReader reader = new StreamReader(path);
-            string[] arrLines = new string[numberOfLines];
-            
-            for (int i = 0; i < numberOfLines; i++)
-            {
-                if (i+1 == line)
-                {
-                    arrLines[i] = valueToChange;
-                    reader.ReadLine();
-                }
-                else
-                {
-                    arrLines[i] = reader.ReadLine();
-                }
-            }
-            reader.Close();
-            using StreamWriter writer = new StreamWriter(path);
-            
-            for (int i = 0; i < numberOfLines; i++)
-            {
-                writer.WriteLine(arrLines[i]);
-            }
-            writer.Close();
-        }
+            { return null; }
 
-        int GetNumberOfLines(string myPath)
-        {
-            //Get Number of Lines in a Reader
-            int count = 0;
-            StreamReader countReader = new StreamReader(myPath);
-            while ((countReader.ReadLine()) != null)
-            {
-                count++;
-            }
-            countReader.Close();
-            return count;
-        }
+        } 
         
-        
-        protected string ReadFile(int lineNumber, TextAsset fileToRead)
+        protected void LoadData(int whichFileToLoad)
         {
-            lineNumber -= 10;
-            var path = fileToRead.ToString();
-            StreamReader reader = new StreamReader(path);
-            string lineString = null;
-
-            int lenght = GetNumberOfLines(path);
-            
-            for (int i = 0; i < lenght; i++)
+            if (LoadValues(whichFileToLoad) != null)
             {
-                if (i == lineNumber)
+                switch (whichFileToLoad)
                 {
-                    lineString = reader.ReadLine();
-                }
-                else
-                {
-                    reader.ReadLine();
+                    case 1 : //Sound
+                        mainVolumeValue = float.Parse(LoadValues(whichFileToLoad)[0]);
+                        musicVolumeValue = float.Parse(LoadValues(whichFileToLoad)[1]);
+                        musicVolumeValue = float.Parse(LoadValues(whichFileToLoad)[2]);
+                        break;
+                    
+                    case 2 : //Command
+                        actionTouchName = LoadValues(whichFileToLoad)[0];
+                        pauseTouchName = LoadValues(whichFileToLoad)[1];
+                        break;
+                    
+                    case 3 : //Saves
+                        saveChosen = int.Parse(LoadValues(whichFileToLoad)[0]);
+                        switch (saveChosen)
+                        {
+                            case 1 :
+                                newPosCheckpoint = new Vector3(
+                                    float.Parse(LoadValues(whichFileToLoad)[1]),
+                                    float.Parse(LoadValues(whichFileToLoad)[2]),
+                                    float.Parse(LoadValues(whichFileToLoad)[3]));
+                                break;
+                            case 2 :
+                                newPosCheckpoint = new Vector3(
+                                    float.Parse(LoadValues(whichFileToLoad)[4]),
+                                    float.Parse(LoadValues(whichFileToLoad)[5]),
+                                    float.Parse(LoadValues(whichFileToLoad)[6]));
+                                break;
+                            case 3 :
+                                newPosCheckpoint = new Vector3(
+                                    float.Parse(LoadValues(whichFileToLoad)[7]),
+                                    float.Parse(LoadValues(whichFileToLoad)[8]),
+                                    float.Parse(LoadValues(whichFileToLoad)[9]));
+                                break;
+                        }
+                        break;
                 }
             }
-            reader.Close();
-            return lineString;
         }
     }
 }

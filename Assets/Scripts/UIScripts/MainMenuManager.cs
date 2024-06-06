@@ -9,6 +9,7 @@ namespace UIScripts
 
         private void Start()
         {
+            Debug.Log(Application.persistentDataPath);
             optionsHere = false;
         }
 
@@ -18,7 +19,8 @@ namespace UIScripts
             
             if (!optionsHere)
             {
-                SceneManager.LoadScene(sceneName == "LoadSave" ? ReadFile(10, saveFilesFile) : sceneName);
+                //SceneManager.LoadScene(sceneName == "LoadSave" ? ReadFile(10, saveFilesFile) : sceneName);
+                SceneManager.LoadScene("MartinLD");
             }
         }
 
