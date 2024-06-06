@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using System.IO;
 using JetBrains.Annotations;
@@ -10,16 +11,25 @@ namespace UIScripts
 {
     public class FileWriter : MonoBehaviour
     {
-        public float mainVolumeValue;
-        public float musicVolumeValue;
-        public float soundEffectVolumeValue;
+        [HideInInspector] public float mainVolumeValue;
+        [HideInInspector] public float musicVolumeValue;
+        [HideInInspector] public float soundEffectVolumeValue;
 
-        public string actionTouchName;
-        public string pauseTouchName;
+        [HideInInspector] public string actionTouchName;
+        [HideInInspector] public string pauseTouchName;
 
-        public int saveChosen;
-        public Vector3 newPosCheckpoint;
-        
+        [HideInInspector] public int saveChosen = 1;
+        [HideInInspector] public Vector3 newPosCheckpoint;
+
+        private void Start()
+        {
+            if (saveChosen == 0)
+            {
+                WriteData(4,null,null, 1, 0.5f,0.5f,0.5f);
+                saveChosen = 1;
+            }
+        }
+
         protected void WriteData (int whichFileToChange, 
             [CanBeNull] float[] sliderValues = null, 
             [CanBeNull] string[] inputValues = null, 
@@ -33,9 +43,11 @@ namespace UIScripts
                     if (sliderValues is { Length: > 2 })
                     {
                         DataSound soundData = new(sliderValues[0], sliderValues[1], sliderValues[2]);
-                        File.WriteAllText(path, soundData.generalVolume.ToString(CultureInfo.CurrentCulture) 
-                                                + "\n" + soundData.musicVolume.ToString(CultureInfo.CurrentCulture) 
+                        File.WriteAllText(path, soundData.generalVolume.ToString(CultureInfo.CurrentCulture) + ";"
+                                                + "\n" + soundData.musicVolume.ToString(CultureInfo.CurrentCulture) + ";"
                                                 + "\n" + soundData.soundEffectsVolume.ToString(CultureInfo.CurrentCulture));
+                        
+                        LoadData(1);
                     }
                     else
                     { Debug.Log("Missing Sound Reference"); }
@@ -52,6 +64,8 @@ namespace UIScripts
                         DataCommands commandsData = new(inputValues[0], inputValues[1]);
                         File.WriteAllText(path, commandsData.actionCommandName + ";"
                                                 + "\n" + commandsData.pauseCommandName);
+                        
+                        LoadData(2);
                     }
                     else{Debug.Log("Missing Commands Reference");}
                     break;
@@ -62,15 +76,25 @@ namespace UIScripts
                         DataSave saveData = new(saveFileNumber, new Vector3(xPos, yPos, zPos));
                         File.WriteAllText(path, saveData.saveChosen + ";"
                                                 + "\n" + saveData.save1X + ";" + "\n" + saveData.save1Y + ";" + "\n" + saveData.save1Z + ";" 
-                                                + "\n" + saveData.save2X + ";" + "\n" + saveData.save2Y + ";" + "\n" + saveData.save2Y + ";"
-                                                + "\n" + saveData.save3X + ";" + "\n" + saveData.save3Y + ";" + "\n" + saveData.save3Y );
+                                                + "\n" + saveData.save2X + ";" + "\n" + saveData.save2Y + ";" + "\n" + saveData.save2Z + ";"
+                                                + "\n" + saveData.save3X + ";" + "\n" + saveData.save3Y + ";" + "\n" + saveData.save3Z );
+                        
+                        LoadData(3);
+                        
                     }
                     else{Debug.Log("Missing Position or SaveFile Reference");}
+                    
                     break;
                 case 4 :
                     path = Application.persistentDataPath + "/saveData.data";
+                    File.WriteAllText(path, saveFileNumber + ";"
+                                                            + "\n" + float.Parse(LoadValues(3)[1]) + ";" + "\n" + float.Parse(LoadValues(3)[2]) + ";" + "\n" + float.Parse(LoadValues(3)[3]) + ";" 
+                                                            + "\n" + float.Parse(LoadValues(3)[4]) + ";" + "\n" +float.Parse(LoadValues(3)[5]) + ";" + "\n" + float.Parse(LoadValues(3)[6]) + ";"
+                                                            + "\n" + float.Parse(LoadValues(3)[7]) + ";" + "\n" + float.Parse(LoadValues(3)[8]) + ";" + "\n" + float.Parse(LoadValues(3)[9]) );
+                    LoadData(3);
                     break;
             }
+            
         }
 
         protected string[] LoadValues(int whichValuesToLoad)
@@ -99,7 +123,9 @@ namespace UIScripts
                 return dataArray;
             }
             else
-            { return null; }
+            {
+                return null;
+            }
 
         } 
         
@@ -112,7 +138,7 @@ namespace UIScripts
                     case 1 : //Sound
                         mainVolumeValue = float.Parse(LoadValues(whichFileToLoad)[0]);
                         musicVolumeValue = float.Parse(LoadValues(whichFileToLoad)[1]);
-                        musicVolumeValue = float.Parse(LoadValues(whichFileToLoad)[2]);
+                        soundEffectVolumeValue = float.Parse(LoadValues(whichFileToLoad)[2]);
                         break;
                     
                     case 2 : //Command

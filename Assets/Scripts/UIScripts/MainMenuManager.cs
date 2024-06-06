@@ -15,12 +15,9 @@ namespace UIScripts
 
         public void ChargeScene(string sceneName)
         {
-            //Say LoadSave to load the selected save.
-            
             if (!optionsHere)
             {
-                //SceneManager.LoadScene(sceneName == "LoadSave" ? ReadFile(10, saveFilesFile) : sceneName);
-                SceneManager.LoadScene("MartinLD");
+                SceneManager.LoadScene(sceneName);
             }
         }
 
