@@ -149,17 +149,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d625f2bbdaf64a89a9f18c38e7eba721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasDebugMod: 0
-  debugMod:
-    debugText: {fileID: 0}
-    debugString: Maintain <color=#00ff00ff><b>Right Trigger</color></b> to interact
-    hasLight: 1
-    debugLight: {fileID: 5634824172621036040}
-  animator: {fileID: 0}
   pivot: {fileID: 5190737938463608986}
   blockMask:
     serializedVersion: 2
-    m_Bits: 127
+    m_Bits: 95
   fallCurve:
     serializedVersion: 2
     m_Curve:
@@ -185,7 +178,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _col: {fileID: 8071874948182192384}
-  rend: {fileID: 0}
+  rend: {fileID: 2311121222739014366}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 2147483648
 --- !u!1 &7157516096769952508
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,6 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5165825124088343160}
   - component: {fileID: 7121984382196441923}
+  - component: {fileID: 8625809978018420595}
   - component: {fileID: 1068703671613109979}
   m_Layer: 30
   m_Name: AboveGrabber
@@ -240,6 +237,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.75, y: 0.5, z: 0.75}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &8625809978018420595
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7157516096769952508}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &1068703671613109979
 MonoBehaviour:
   m_ObjectHideFlags: 0

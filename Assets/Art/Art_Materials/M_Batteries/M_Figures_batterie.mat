@@ -238,6 +238,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_2701eec41b1e477fb1b2a48a47c3fdfd_Out_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: c901ec5081746f547bedfb7fb5d5040a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ThicknessMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -307,6 +311,8 @@ Material:
     - _BumpScale: 0
     - _BumpScaleMatcap: 1
     - _CameraRolling_Stabilizer: 0
+    - _Caustics: 0
+    - _Caustics_brighness: 0
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _ClippingMatteMode: 0
@@ -556,7 +562,8 @@ Material:
     - _BaseColor: {r: 0.41509432, g: 0.1938412, b: 0.1938412, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColorMaskColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 0.8664021, b: 0.5235849, a: 1}
+    - _Caustics_direction: {r: 0, g: 1, b: 0, a: 0}
+    - _Color: {r: 1, g: 0.8078123, b: 0.3160377, a: 1}
     - _ColorShift: {r: 0, g: 0, b: 0, a: 1}
     - _Color_1: {r: 0.6926296, g: 1, b: 0.6273585, a: 0}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
@@ -585,6 +592,7 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _Tiling_Caustics: {r: 1, g: 1, b: 0, a: 0}
     - _TransmittanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _UVDetailsMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}

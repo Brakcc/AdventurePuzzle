@@ -1,9 +1,11 @@
-﻿using Unity.AI.Navigation;
+﻿using System;
+using Unity.AI.Navigation;
 using UnityEngine;
 using Utilities.CustomAttributes;
 
 namespace GameContent.Narration.Creature
 {
+    [Obsolete]
     public class NavMeshGenerator : MonoBehaviour
     {
         #region methodes

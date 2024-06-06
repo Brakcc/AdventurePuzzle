@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
-using Cinemachine;
 using GameContent.CameraScripts;
 using GameContent.PlayerScripts.PlayerDatas;
 using GameContent.PlayerScripts.PlayerStates;
 using GameContent.PlayerScripts.PlayerStates.ForcedStates;
 using GameContent.StateMachines;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utilities.CustomAttributes;
 
 namespace GameContent.PlayerScripts
@@ -26,11 +24,17 @@ namespace GameContent.PlayerScripts
 
         internal CameraDatas CurrentCameraDatas { get; set; }
 
-        internal CameraDatas TransitionCamDatas => transCamDatas;
+        public CameraDatas TransitionCamDatas => transCamDatas;
         
-        internal CameraDatas InitCamDatas => initCamDatas;
+        public CameraDatas InitCamDatas => initCamDatas;
+
+        public CameraManager InitCamManager => initCamManager;
+
+        public CameraManager TransCamManager => transCamManager;
         
         internal float CamLerpCoef { get; set; }
+        
+        public static int InitCamAngle => InitialCameraAngle;
         
         public CharacterController CharaCont => GetComponent<CharacterController>();
 
@@ -109,11 +113,17 @@ namespace GameContent.PlayerScripts
 
         [FieldCompletion] [SerializeField] private InterCheckerState checker;
 
+        [FieldCompletion] [SerializeField] private CameraManager initCamManager;
+
+        [FieldCompletion] [SerializeField] private CameraManager transCamManager;
+        
         [SerializeField] private CameraDatas initCamDatas;
         
         [SerializeField] private CameraDatas transCamDatas;
         
         private GenericStateMachine _stateMachine;
+
+        private const int InitialCameraAngle = 45;
 
         #endregion
     }
