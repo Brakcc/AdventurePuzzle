@@ -29,6 +29,8 @@ namespace UIScripts
                         save1X = newPos.x;
                         save1Y = newPos.y;
                         save1Z = newPos.z;
+                        Debug.Log(newPos.x);
+                        Debug.Log(save1X);
                         break;
 
                     case 2:
@@ -48,6 +50,7 @@ namespace UIScripts
             {
                 saveChosen = saveChoose;
             }
+            
         }
     }
 }

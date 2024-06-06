@@ -51,7 +51,7 @@ Material:
     - _FoamCutoff: 6.96
     - _FoamScale: 2.73
     - _FoamSpeed: 4.29
-    - _NormalDeep: 0.58
+    - _NormalDeep: 1.63
     - _NormalStrength: 0.4
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -61,14 +61,14 @@ Material:
     - _tiling: 2.71
     m_Colors:
     - _Caustics_direction: {r: 0, g: 0.07, b: 0, a: 0}
-    - _DeepColor: {r: 0, g: 0.29543516, b: 0.5471698, a: 0}
+    - _DeepColor: {r: 0.13955145, g: 0.1998125, b: 0.6037736, a: 0}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 0}
     - _RefractionSpeed_Direction: {r: 0, g: 0.12, b: 0, a: 0}
     - _RefractionSpeed_direction2: {r: 0.01, g: 0, b: 0, a: 0}
-    - _Refraction_Scale_2: {r: 2, g: 2, b: 0, a: 0}
-    - _Refraction_scale_1: {r: 4, g: 4, b: 0, a: 0}
-    - _SurfaceColor: {r: 0, g: 0.37360406, b: 0.46226418, a: 0}
-    - _Tiling: {r: 4, g: 4, b: 0, a: 0}
+    - _Refraction_Scale_2: {r: 2, g: 5, b: 0, a: 0}
+    - _Refraction_scale_1: {r: 4, g: 10, b: 0, a: 0}
+    - _SurfaceColor: {r: 0.19037023, g: 0.50800467, b: 0.5849056, a: 0}
+    - _Tiling: {r: 4, g: 10, b: 0, a: 0}
     - _Vector2: {r: 1.2, g: 1.2, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8100529920262818952
