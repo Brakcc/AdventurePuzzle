@@ -88,7 +88,7 @@ namespace GameContent.PlayerScripts
                                        pSD["lever"].OnUpdate, pSD["lever"].OnFixedUpdate, pSD["lever"].OnExitState, null);
             
             _stateMachine.SetCallBacks((byte)ControllerState.camera, "camera", pSD["camera"].OnInit, pSD["camera"].OnEnterState, 
-                                       pSD["camera"].OnUpdate, pSD["camera"].OnFixedUpdate, null, null);
+                                       pSD["camera"].OnUpdate, pSD["camera"].OnFixedUpdate, pSD["camera"].OnExitState, null);
             
             _stateMachine.SetCallBacks((byte)ControllerState.cineIdle, "cineIdle", pSD["cineIdle"].OnInit, pSD["cineIdle"].OnEnterState, 
                                        pSD["cineIdle"].OnUpdate, pSD["cineIdle"].OnFixedUpdate, pSD["cineIdle"].OnExitState, pSD["cineIdle"].OnCoroutine);
