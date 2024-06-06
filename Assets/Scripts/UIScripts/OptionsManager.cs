@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Globalization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -32,8 +31,7 @@ namespace UIScripts
             _theNewKeyCode = KeyCode.None;
             _optionsGroup = transform.GetChild(0).gameObject;
             _optionsGroup.SetActive(false);
-
-            SetUpCommands();
+            
         }
 
         private void Update()
@@ -53,18 +51,6 @@ namespace UIScripts
             }
         }
 
-        private void SetUpCommands()
-        {
-            /*
-            Debug.Log(ReadFile(1, optionsFile));
-            string value1 = ReadFile(1, optionsFile);
-            Debug.Log(value1);
-            sliderVolumePrincipal.value = (float) Convert.ToDouble(value1);
-            sliderVolumeMusique.value = float.Parse(ReadFile(1, optionsFile));
-            sliderVolumeSoundEffect.value = float.Parse(ReadFile(2, optionsFile));
-            */
-        }
-
         public void ShowOptions()
         {
             _optionsGroup.SetActive(!_optionsGroup.activeSelf);
@@ -78,23 +64,17 @@ namespace UIScripts
             }
         }
 
-        public void ChangeVolumeOptions(int line)
+        public void ChangeVolumeOptions()
         {
-            string newValue = "0";
-            switch (line)
-            {
-                case 1:
-                    newValue = sliderVolumePrincipal.value.ToString(CultureInfo.CurrentCulture);
-                    break;
-                case 2:
-                    newValue = sliderVolumeMusique.value.ToString(CultureInfo.CurrentCulture);
-                    break;
-                case 3:
-                    newValue = sliderVolumeSoundEffect.value.ToString(CultureInfo.CurrentCulture);
-                    break;
-            }
-
-            ChangeFile(line, newValue);
+            float[] arraySound = new float[3];
+            float volPrincValue = sliderVolumePrincipal.value;
+            float volMusiqueValue = sliderVolumeMusique.value;
+            float volSoundEffectValue = sliderVolumeSoundEffect.value;
+            arraySound[0] = volPrincValue;
+            arraySound[1] = volMusiqueValue;
+            arraySound[2] = volSoundEffectValue;
+            
+            WriteData(1, arraySound);
         }
 
         public void ChangeKey(bool actionOrPauseKey)
@@ -111,14 +91,23 @@ namespace UIScripts
             _newKeyPressed = false;
             waitForInputGroup.SetActive(false);
 
+            string[] arrayCommands = new string[2];
+            
             if (actionOrPauseKey)
             {
                 myInputAction["Interact"].AddBinding(_theNewKeyCode.ToString());
+                arrayCommands[0] = _theNewKeyCode.ToString();
+                arrayCommands[1] = LoadValues(2)[1];
+                
             }
             else
             {
                 myInputAction["Pause"].AddBinding(_theNewKeyCode.ToString());
+                arrayCommands[0] = LoadValues(2)[0];
+                arrayCommands[1] = _theNewKeyCode.ToString();
             }
+            
+            WriteData(2, null, arrayCommands);
 
             _theNewKeyCode = KeyCode.None;
         }

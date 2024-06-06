@@ -1574,9 +1574,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 010153d52d2c9f24ba9612c33c544abd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsFile: {fileID: 4900000, guid: 6c8ea6f6121bc25488ced4e02c84698c, type: 3}
-  commandsFile: {fileID: 4900000, guid: 12f40084db34e6c4c993873724b1a822, type: 3}
-  saveFilesFile: {fileID: 4900000, guid: 7afc935575630a64fa341a355dbeb118, type: 3}
+  mainVolumeValue: 0
+  musicVolumeValue: 0
+  soundEffectVolumeValue: 0
+  actionTouchName: 
+  pauseTouchName: 
+  saveChosen: 0
+  newPosCheckpoint: {x: 0, y: 0, z: 0}
   optionsHere: 0
 --- !u!1 &1902434312
 GameObject:
@@ -2046,6 +2050,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1465673804984080521, guid: 8c23dab963abdda41a7f8bce352845ce,
         type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1465673804984080521, guid: 8c23dab963abdda41a7f8bce352845ce,
+        type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2093994594}
@@ -2202,6 +2211,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6570997644057065624, guid: 8c23dab963abdda41a7f8bce352845ce,
         type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570997644057065624, guid: 8c23dab963abdda41a7f8bce352845ce,
+        type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2093994594}
@@ -2214,6 +2228,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8619905971276767845, guid: 8c23dab963abdda41a7f8bce352845ce,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8619905971276767845, guid: 8c23dab963abdda41a7f8bce352845ce,
         type: 3}

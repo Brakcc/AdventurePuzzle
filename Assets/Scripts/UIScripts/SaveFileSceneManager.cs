@@ -12,28 +12,21 @@ namespace UIScripts
 
         public void ChangeSaveFile(int numberOfTheSaveFile)
         {
-            /*
-            numberOfTheSaveFile += 10;
-            
             switch (numberOfTheSaveFile)
             {
-                case 11:
-                    ChangeFile(10, ReadFile(11, saveFilesFile));
-                    ChangeFile(14,"1");
+                case 1:
+                    WriteData(3, null, null, 1, default);
                     break;
-                case 12 :
-                    ChangeFile(10, ReadFile(12, saveFilesFile));
-                    ChangeFile(14,"2");
+                case 2 :
+                    WriteData(3, null, null, 2, default);
                     break;
-                case 13 :
-                    ChangeFile(10, ReadFile(13, saveFilesFile));
-                    ChangeFile(14,"3");
+                case 3 :
+                    WriteData(3, null, null, 3, default);
                     break;
                 default:
                     Debug.Log("Error. Badly Referenced Line to Change. See OptionsManager for more info. - Dav");
                     break;
             }
-            */
         }
     }
 }

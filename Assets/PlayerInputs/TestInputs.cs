@@ -73,6 +73,15 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""6f13049a-3ce5-4bf4-8b8b-44afa83957bd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -425,6 +434,39 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CameraFocus"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb6b46c3-22c3-4c74-8833-65f33921832e"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4d312c9a-5544-4481-975e-6b66337a334c"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""85dba468-83d1-49ad-b929-a90fe69889ba"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1017,6 +1059,7 @@ namespace UnityEngine.InputSystem
             m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
             m_Player_CameraFocus = m_Player.FindAction("CameraFocus", throwIfNotFound: true);
+            m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1095,6 +1138,7 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Cancel;
         private readonly InputAction m_Player_Interact;
         private readonly InputAction m_Player_CameraFocus;
+        private readonly InputAction m_Player_Pause;
         public struct PlayerActions
         {
             private @TestInputs m_Wrapper;
@@ -1104,6 +1148,7 @@ namespace UnityEngine.InputSystem
             public InputAction @Cancel => m_Wrapper.m_Player_Cancel;
             public InputAction @Interact => m_Wrapper.m_Player_Interact;
             public InputAction @CameraFocus => m_Wrapper.m_Player_CameraFocus;
+            public InputAction @Pause => m_Wrapper.m_Player_Pause;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1128,6 +1173,9 @@ namespace UnityEngine.InputSystem
                 @CameraFocus.started += instance.OnCameraFocus;
                 @CameraFocus.performed += instance.OnCameraFocus;
                 @CameraFocus.canceled += instance.OnCameraFocus;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1147,6 +1195,9 @@ namespace UnityEngine.InputSystem
                 @CameraFocus.started -= instance.OnCameraFocus;
                 @CameraFocus.performed -= instance.OnCameraFocus;
                 @CameraFocus.canceled -= instance.OnCameraFocus;
+                @Pause.started -= instance.OnPause;
+                @Pause.performed -= instance.OnPause;
+                @Pause.canceled -= instance.OnPause;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1334,6 +1385,7 @@ namespace UnityEngine.InputSystem
             void OnCancel(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
             void OnCameraFocus(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
