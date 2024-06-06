@@ -7,12 +7,14 @@ namespace GameContent.CameraScripts
     {
         #region properties
 
+        public bool IsFocused { get; set; }
+        
         public float AngleOverride
         {
             set
             {
                 _angleOverride = value;
-                transform.DORotate(new Vector3(0, _angleOverride, 0), 2f);
+                transform.DORotate(new Vector3(0, _angleOverride, 0), 1f);
             }
         }
 
@@ -22,6 +24,9 @@ namespace GameContent.CameraScripts
 
         private void Update()
         {
+            if (IsFocused)
+                return;
+            
             transform.position = Vector3.SmoothDamp(transform.position,
                                                     playerRef.position,
                                                     ref _vel,
