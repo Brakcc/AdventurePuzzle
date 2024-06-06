@@ -81,6 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingLevel: 0
   nodeDatas: []
+  selfRend: {fileID: 3366328572703489724}
   levelText: {fileID: 8504878196153169434}
   nodeMode: 0
   pivot: {fileID: 7469965339783239343}
@@ -725,6 +726,12 @@ PrefabInstance:
 --- !u!4 &1180455520665148314 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8026694194484526008, guid: 06ab53ddc44cd3347975753c714b3299,
+    type: 3}
+  m_PrefabInstance: {fileID: 9152820623835504674}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3366328572703489724 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5886983018184744606, guid: 06ab53ddc44cd3347975753c714b3299,
     type: 3}
   m_PrefabInstance: {fileID: 9152820623835504674}
   m_PrefabAsset: {fileID: 0}
