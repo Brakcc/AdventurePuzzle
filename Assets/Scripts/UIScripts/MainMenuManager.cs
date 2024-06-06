@@ -9,16 +9,15 @@ namespace UIScripts
 
         private void Start()
         {
+            Debug.Log(Application.persistentDataPath);
             optionsHere = false;
         }
 
         public void ChargeScene(string sceneName)
         {
-            //Say LoadSave to load the selected save.
-            
             if (!optionsHere)
             {
-                //SceneManager.LoadScene(sceneName == "LoadSave" ? ReadFile(10, saveFilesFile) : sceneName);
+                SceneManager.LoadScene(sceneName);
             }
         }
 

@@ -822,7 +822,7 @@ MonoBehaviour:
       - m_Target: {fileID: 3201830893995290943}
         m_TargetAssemblyTypeName: UIScripts.OptionsManager, Assembly-CSharp
         m_MethodName: ChangeVolumeOptions
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2144,7 +2144,7 @@ MonoBehaviour:
       - m_Target: {fileID: 3201830893995290943}
         m_TargetAssemblyTypeName: UIScripts.OptionsManager, Assembly-CSharp
         m_MethodName: ChangeVolumeOptions
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3111,12 +3111,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6043deb7918ee643b7deb396effc1b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsFile: {fileID: 4900000, guid: 6c8ea6f6121bc25488ced4e02c84698c, type: 3}
-  commandsFile: {fileID: 4900000, guid: 12f40084db34e6c4c993873724b1a822, type: 3}
-  saveFilesFile: {fileID: 4900000, guid: 7afc935575630a64fa341a355dbeb118, type: 3}
+  mainVolumeValue: 0
+  musicVolumeValue: 0
+  soundEffectVolumeValue: 0
+  actionTouchName: 
+  pauseTouchName: 
+  saveChosen: 0
+  newPosCheckpoint: {x: 0, y: 0, z: 0}
   sliderVolumePrincipal: {fileID: 1465673804984080521}
   sliderVolumeMusique: {fileID: 8619905971276767845}
   sliderVolumeSoundEffect: {fileID: 6570997644057065624}
   pauseGroup: {fileID: 0}
   mainMenuManager: {fileID: 0}
   waitForInputGroup: {fileID: 3569935527264657506}
+  myInputAction: {fileID: -944628639613478452, guid: f20ae6420c757bf438b1fdf422f5ca7f,
+    type: 3}

@@ -20,7 +20,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnInit(GenericStateMachine m)
         {
-            _lastDir = _isoForwardDir;
+            _lastDir = IsoForwardDir;
             base.OnInit(m);
         }
         

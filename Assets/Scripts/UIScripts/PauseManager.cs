@@ -10,19 +10,19 @@ namespace UIScripts
         private OptionsManager _myOptionsManager;
         private GameObject _pauseGroup;
         public bool pauseEnabled;
-        
-        [SerializeField] private TextAsset saveFile;
+        public Transform firstTransformPos;
 
         private void Start()
         {
+            Time.timeScale = 1;
             _pauseGroup = transform.GetChild(0).gameObject;
             _pauseGroup.SetActive(false);
-            
+            _myOptionsManager = transform.parent.GetChild(1).GetComponent<OptionsManager>();
         }
 
         void Update()
         {
-            if (Input.GetKeyDown(pauseTouch))
+            if (_myOptionsManager.myInputAction["Pause"].triggered)
             {
                 ShowPause();
             }
@@ -39,6 +39,12 @@ namespace UIScripts
         public void SaveAndQuit()
         {
             SceneManager.LoadScene("TitleScreen");
+        }
+
+        public void GoBackToPreviousCheckPoint()
+        {
+            if (pauseEnabled){ShowPause();}
+            CheckpointManager.CheckMInstance.SendToCheckpoint();
         }
     }
 }

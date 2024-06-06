@@ -40,13 +40,15 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             base.OnInit();
             
             if (recepDatas.Count == 0)
-                return;
+                goto SkipInit;
             
             foreach (var r in recepDatas)
             {
                 r.ReceptorInter.EmitsRef.Add(this);
             }
             recepDatas.Sort(Compare);
+            
+            SkipInit:
             
             #region VFX
 

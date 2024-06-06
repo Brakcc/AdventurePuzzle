@@ -13,6 +13,10 @@ namespace GameContent.PlayerScripts
         protected bool IsGrounded => _cc.isGrounded;
 
         protected float Velocity => (_nextPos - _prevPos).magnitude;
+
+        protected Vector3 IsoRightDir => _playerMachine is null ? new Vector3(1, 0, -1) : _playerMachine.TransCamManager.transform.right;
+
+        protected Vector3 IsoForwardDir => _playerMachine is null ? new Vector3(1, 0, 1) : _playerMachine.TransCamManager.transform.forward;
         
         public ControllerState StateFlag { get; }
 
@@ -23,7 +27,7 @@ namespace GameContent.PlayerScripts
         protected AbstractPlayerState(GameObject go, ControllerState state, PlayerStateMachine playerMachine) : base(go)
         {
             StateFlag = state;
-            _currentDir = _isoForwardDir;
+            _currentDir = IsoForwardDir;
             _playerMachine = playerMachine;
             _cc = playerMachine.CharaCont;
             _checker = playerMachine.CheckerState;
@@ -48,9 +52,10 @@ namespace GameContent.PlayerScripts
         public override void OnInit(GenericStateMachine machine)
         {
             stateMachine = machine;
-            
-            _prevPos = _goRef.transform.position;
-            _nextPos = _goRef.transform.position;
+
+            var p = _goRef.transform.position;
+            _prevPos = p;
+            _nextPos = p;
         }
 
         public override sbyte OnUpdate()
@@ -104,10 +109,6 @@ namespace GameContent.PlayerScripts
         protected Vector3 _currentDir;
         
         protected Vector3 _inputDir;
-
-        protected readonly Vector3 _isoRightDir = new(1, 0, -1);
-        
-        protected readonly Vector3 _isoForwardDir = new(1, 0, 1);
 
         private Vector3 _prevPos;
 

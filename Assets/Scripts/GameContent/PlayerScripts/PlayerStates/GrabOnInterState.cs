@@ -21,7 +21,8 @@ namespace GameContent.PlayerScripts.PlayerStates
                                                         Vector3.right, 
                                                         Quaternion.identity, 
                                                         0.1f, 
-                                                        _datasSo.collisionDatasSo.blockMask);
+                                                        _datasSo.collisionDatasSo.blockMask,
+                                                        QueryTriggerInteraction.Ignore);
         
         #endregion
         
@@ -38,7 +39,8 @@ namespace GameContent.PlayerScripts.PlayerStates
                                                         Vector3.forward, 
                                                         Quaternion.identity, 
                                                         0.1f, 
-                                                        _datasSo.collisionDatasSo.blockMask);
+                                                        _datasSo.collisionDatasSo.blockMask,
+                                                        QueryTriggerInteraction.Ignore);
         
         #endregion
         
@@ -55,7 +57,8 @@ namespace GameContent.PlayerScripts.PlayerStates
                                                         Vector3.back, 
                                                         Quaternion.identity, 
                                                         0.1f, 
-                                                        _datasSo.collisionDatasSo.blockMask);
+                                                        _datasSo.collisionDatasSo.blockMask,
+                                                        QueryTriggerInteraction.Ignore);
 
         #endregion
         
@@ -72,7 +75,8 @@ namespace GameContent.PlayerScripts.PlayerStates
                                                         Vector3.left, 
                                                         Quaternion.identity, 
                                                         0.1f, 
-                                                        _datasSo.collisionDatasSo.blockMask);
+                                                        _datasSo.collisionDatasSo.blockMask,
+                                                        QueryTriggerInteraction.Ignore);
         
         #endregion
         
@@ -96,7 +100,10 @@ namespace GameContent.PlayerScripts.PlayerStates
             _fallCounter = 0;
             _blockFallCounter = 0;
             
-            _relativePos = GetRelativePos();
+            _relativePos = GetRelativePos((IsoForwardDir + IsoRightDir).normalized, (IsoForwardDir - IsoRightDir).normalized);
+            _absolutePos = GetRelativePos(Vector3.right, Vector3.forward);
+            _absoluteAngle = getAbsoluteAngle();
+            
             _directionMode = GetBaseMoveDir(_relativePos);
         }
 
@@ -171,11 +178,23 @@ namespace GameContent.PlayerScripts.PlayerStates
             _ => throw new ArgumentOutOfRangeException(nameof(pos), pos, "et bah non")
         };
 
-        private RelativeInterPos GetRelativePos()
+        private AbsoluteAngle getAbsoluteAngle()
+        {
+            if (Vector3.Dot(IsoForwardDir, new Vector3(1, 0, -1)) > 0.9f)
+                return AbsoluteAngle.a135;
+            
+            if (Vector3.Dot(IsoForwardDir, new Vector3(-1, 0, 1)) > 0.9f)
+                return AbsoluteAngle.am45;
+            
+            if (Vector3.Dot(IsoForwardDir, new Vector3(-1, 0, -1)) > 0.9f)
+                return AbsoluteAngle.am135;
+            
+            return AbsoluteAngle.a45;
+        }
+        
+        private RelativeInterPos GetRelativePos(Vector3 right, Vector3 forward)
         {
             var position = _goRef.transform.position;
-            var right = Vector3.right;
-            var forward = Vector3.forward;
             
             var tempDotX = Vector2.Dot(new Vector2(right.x, right.z),
                                new Vector2((position - _interRef.Pivot).x,
@@ -198,6 +217,86 @@ namespace GameContent.PlayerScripts.PlayerStates
                 _ => RelativeInterPos.TR
             };
         }
+
+        #region blocks Boundaries
+
+        private bool GetBlockTR(AbsoluteAngle a) => a switch
+        {
+            AbsoluteAngle.a45 => _interRef.IsHittingTopRight,
+            AbsoluteAngle.am45 => _interRef.IsHittingTopLeft,
+            AbsoluteAngle.a135 => _interRef.IsHittingBottomRight,
+            AbsoluteAngle.am135 => _interRef.IsHittingBottomLeft,
+            _ => throw new ArgumentOutOfRangeException(nameof(a), a, "aha CHEEEEEH")
+        };
+
+        private bool GetBlockTL(AbsoluteAngle a) => a switch
+        {
+            AbsoluteAngle.a45 => _interRef.IsHittingTopLeft,
+            AbsoluteAngle.am45 => _interRef.IsHittingBottomLeft,
+            AbsoluteAngle.a135 => _interRef.IsHittingTopRight,
+            AbsoluteAngle.am135 => _interRef.IsHittingBottomRight,
+            _ => throw new ArgumentOutOfRangeException(nameof(a), a, "aha CHEEEEEH")
+        };
+
+        private bool GetBlockBR(AbsoluteAngle a) => a switch
+        {
+            AbsoluteAngle.a45 => _interRef.IsHittingBottomRight,
+            AbsoluteAngle.am45 => _interRef.IsHittingTopRight,
+            AbsoluteAngle.a135 => _interRef.IsHittingBottomLeft,
+            AbsoluteAngle.am135 => _interRef.IsHittingTopLeft,
+            _ => throw new ArgumentOutOfRangeException(nameof(a), a, "aha CHEEEEEH")
+        };
+
+        private bool GetBlockBL(AbsoluteAngle a) => a switch
+        {
+            AbsoluteAngle.a45 => _interRef.IsHittingBottomLeft,
+            AbsoluteAngle.am45 => _interRef.IsHittingBottomRight,
+            AbsoluteAngle.a135 => _interRef.IsHittingTopLeft,
+            AbsoluteAngle.am135 => _interRef.IsHittingTopRight,
+            _ => throw new ArgumentOutOfRangeException(nameof(a), a, "aha CHEEEEEH")
+        };
+
+        #endregion
+
+        #region player Boundaries
+
+        private bool GetPlayerTR(AbsoluteAngle a) => a switch
+        {
+            AbsoluteAngle.a45 => PlayerHittingTR,
+            AbsoluteAngle.am45 => PlayerHittingTL,
+            AbsoluteAngle.a135 => PlayerHittingBR,
+            AbsoluteAngle.am135 => PlayerHittingBL,
+            _ => throw new ArgumentOutOfRangeException(nameof(a), a, "aha CHEEEEEH")
+        };
+        
+        private bool GetPlayerTL(AbsoluteAngle a) => a switch
+        {
+            AbsoluteAngle.a45 => PlayerHittingTL,
+            AbsoluteAngle.am45 => PlayerHittingBL,
+            AbsoluteAngle.a135 => PlayerHittingTR,
+            AbsoluteAngle.am135 => PlayerHittingBR,
+            _ => throw new ArgumentOutOfRangeException(nameof(a), a, "aha CHEEEEEH")
+        };
+        
+        private bool GetPlayerBR(AbsoluteAngle a) => a switch
+        {
+            AbsoluteAngle.a45 => PlayerHittingBR,
+            AbsoluteAngle.am45 => PlayerHittingTR,
+            AbsoluteAngle.a135 => PlayerHittingBL,
+            AbsoluteAngle.am135 => PlayerHittingTL,
+            _ => throw new ArgumentOutOfRangeException(nameof(a), a, "aha CHEEEEEH")
+        };
+        
+        private bool GetPlayerBL(AbsoluteAngle a) => a switch
+        {
+            AbsoluteAngle.a45 => PlayerHittingBL,
+            AbsoluteAngle.am45 => PlayerHittingBR,
+            AbsoluteAngle.a135 => PlayerHittingTL,
+            AbsoluteAngle.am135 => PlayerHittingTR,
+            _ => throw new ArgumentOutOfRangeException(nameof(a), a, "aha CHEEEEEH")
+        };
+
+        #endregion
         
         #endregion
         
@@ -213,48 +312,48 @@ namespace GameContent.PlayerScripts.PlayerStates
                 #region TR
                 
                 RelativeInterPos.TR when _inputDir is { x: > 0, z: > 0 } =>
-                    _interRef.IsHittingTopRight || PlayerHittingTR
+                    GetBlockTR(_absoluteAngle) || GetPlayerTR(_absoluteAngle)
                         ? Vector3.zero
-                        : (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
-                RelativeInterPos.TR when _inputDir is { x: < 0, z: < 0 } => _interRef.IsHittingBottomLeft
+                        : ((IsoForwardDir + IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                RelativeInterPos.TR when _inputDir is { x: < 0, z: < 0 } => GetBlockBL(_absoluteAngle)
                     ? Vector3.zero
-                    : (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                    : ((IsoForwardDir + IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
                 
                 #endregion
                 
                 #region BR
                 
                 RelativeInterPos.BR when _inputDir is { x: > 0, z: < 0 } =>
-                    _interRef.IsHittingBottomRight || PlayerHittingBR
+                    GetBlockBR(_absoluteAngle) || GetPlayerBR(_absoluteAngle)
                         ? Vector3.zero
-                        : (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
-                RelativeInterPos.BR when _inputDir is { x: < 0, z: > 0 } => _interRef.IsHittingTopLeft
+                        : ((IsoForwardDir - IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                RelativeInterPos.BR when _inputDir is { x: < 0, z: > 0 } => GetBlockTL(_absoluteAngle)
                     ? Vector3.zero
-                    : (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                    : ((IsoForwardDir - IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
                 
                 #endregion
                 
                 #region TL
                     
-                RelativeInterPos.TL when _inputDir is { x: > 0, z: < 0 } => _interRef.IsHittingBottomRight
+                RelativeInterPos.TL when _inputDir is { x: > 0, z: < 0 } => GetBlockBR(_absoluteAngle)
                     ? Vector3.zero
-                    : (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                    : ((IsoForwardDir - IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
                 RelativeInterPos.TL when _inputDir is { x: < 0, z: > 0 } =>
-                    _interRef.IsHittingTopLeft || PlayerHittingTL
+                    GetBlockTL(_absoluteAngle) || GetPlayerTL(_absoluteAngle)
                         ? Vector3.zero
-                        : (Vector3.forward * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                        : ((IsoForwardDir - IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
                 
                 #endregion
                 
                 #region BL
                 
-                RelativeInterPos.BL when _inputDir is { x: > 0, z: > 0 } => _interRef.IsHittingTopRight
+                RelativeInterPos.BL when _inputDir is { x: > 0, z: > 0 } => GetBlockTR(_absoluteAngle)
                     ? Vector3.zero
-                    : (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                    : ((IsoForwardDir + IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
                 RelativeInterPos.BL when _inputDir is { x: < 0, z: < 0 } =>
-                    _interRef.IsHittingBottomLeft || PlayerHittingBL
+                    GetBlockBL(_absoluteAngle) || GetPlayerBL(_absoluteAngle)
                         ? Vector3.zero
-                        : (Vector3.right * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                        : ((IsoForwardDir + IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
                 
                 #endregion
                 
@@ -310,6 +409,12 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private RelativeInterPos _relativePos;
 
+        private RelativeInterPos _absolutePos;
+
+        private AbsoluteAngle _absoluteAngle;
+        
+        private Vector3 _fInput;
+
         private float _tempDistFromPlayer;
 
         private float _fallCounter;
@@ -326,6 +431,14 @@ namespace GameContent.PlayerScripts.PlayerStates
         None
     }
 
+    internal enum AbsoluteAngle
+    {
+        a45,
+        a135,
+        am45,
+        am135
+    }
+    
     internal enum RelativeInterPos
     {
         TR,

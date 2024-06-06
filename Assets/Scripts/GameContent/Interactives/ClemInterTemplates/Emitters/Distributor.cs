@@ -56,6 +56,36 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         {
             base.OnInit();
             CurrentOrientationLevel = StartingLevel;
+
+            _lerpCoefs = new float[]{0,0,0,0};
+
+            #region VFX
+
+            _cableMats = new MaterialPropertyBlock[nodeDatas.Length];
+            for (var i = 0; i < _cableMats.Length; i++)
+            {
+                _cableMats[i] = new MaterialPropertyBlock();
+            }
+
+            for (var n = 0; n < nodeDatas.Length; n++)
+            {
+                foreach (var r in nodeDatas[n].cableRends)
+                {
+                    r.GetPropertyBlock(_cableMats[n]);
+                    _cableMats[n].SetFloat(EmissionFade, 0);
+                    _cableMats[n].SetFloat(GreenBlue, 0);
+                    r.SetPropertyBlock(_cableMats[n]);
+                }
+            }
+            
+            #endregion
+        }
+
+        protected override void OnUpdate()
+        {
+            base.OnUpdate();
+            
+            SetLerpCoefs();
         }
 
         public override void InterAction()
@@ -95,6 +125,9 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                         n.receptorRef.HasWaveEnergy = false;
                         n.receptorRef.CurrentEnergyType = tempE;
                         break;
+                    case DentriteType.Distributor when tempE is EnergyTypes.None:
+                        n.distributorRef.IncomingCollectedEnergy = tempE;
+                        break;
                     case DentriteType.Distributor:
                         n.distributorRef.IncomingCollectedEnergy = tempE;
                         break;
@@ -102,6 +135,20 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(n), n.dendrite, "mais voila mais c'etait sur en fait");
+                }
+
+                switch (TransmittedEnergy)
+                {
+                    case EnergyTypes.None:
+                        break;
+                    case EnergyTypes.Yellow:
+                        break;
+                    case EnergyTypes.Green:
+                        break;
+                    case EnergyTypes.Blue:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }
@@ -156,6 +203,28 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 }
             }
         }
+
+        private void SetLerpCoefs()
+        {
+            foreach (var n in nodeDatas)
+            {
+                switch (CurrentDistribution[n.ConnectionID])
+                {
+                    case 0 when _lerpCoefs[n.ConnectionID] > 0:
+                        _lerpCoefs[n.ConnectionID] -= Time.deltaTime;
+                        break;
+                    case 1 when _lerpCoefs[n.ConnectionID] < 1:
+                        _lerpCoefs[n.ConnectionID] += Time.deltaTime;
+                        break;
+                }
+            }
+
+            for (var i = 0; i < nodeDatas.Length; i++)
+            {
+                _cableMats[i].SetFloat(EmissionFade, _lerpCoefs[i]);
+                nodeDatas[i].SetProperties(_cableMats[i]);
+            }
+        }
         
         #endregion
         
@@ -171,6 +240,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         [SerializeField] private Transform pivot;
 
+        private MaterialPropertyBlock[] _cableMats;
+        
         private EnergyTypes _incomingCollectedEnergy;
 
         private EnergyTypes _transmittedEnergy;
@@ -178,6 +249,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         private sbyte[] _currentDistributionOrientation;
         
         private sbyte _currentLevel;
+
+        private float[] _lerpCoefs;
+
+        private static readonly int EmissionFade = Shader.PropertyToID("_On_Energy_fade");
+        
+        private static readonly int GreenBlue = Shader.PropertyToID("_On_Green_Off_Blue");
 
         #endregion
     }

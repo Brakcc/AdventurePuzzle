@@ -79,7 +79,7 @@ Material:
     - _OffBrightness: 1
     - _OnOff: 1
     - _On_Energy_fade: 0
-    - _On_Green_Off_Blue: 1
+    - _On_Green_Off_Blue: 0
     - _Opacity: -1
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -88,12 +88,12 @@ Material:
     - _globalemission: 1
     m_Colors:
     - _AOColor: {r: 0.5849056, g: 0, b: 0, a: 0}
-    - _BlueColor: {r: 0, g: 0.66610146, b: 1, a: 0}
+    - _BlueColor: {r: 0.3160377, g: 0.77201277, b: 1, a: 0}
     - _BulbColor: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.15686274, g: 0.9372549, b: 0.5095041, a: 0.6509804}
     - _DefaultColor: {r: 1, g: 1, b: 1, a: 0}
     - _Direction: {r: 0, g: 0.1, b: 0, a: 0}
-    - _GreenColor: {r: 0, g: 0.8862745, b: 0.29322574, a: 1}
+    - _GreenColor: {r: 0.25943398, g: 1, b: 0.50519705, a: 1}
     - _OffColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 0}
     - _ShadowColor: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 0}
   m_BuildTextureStacks: []

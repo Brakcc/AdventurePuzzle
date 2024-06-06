@@ -47,7 +47,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _2Couleurs: 1
-    - _3Couleurs: 1
+    - _3Couleurs: 0
     - _Boolean: 0
     - _Contrast: 0.04
     - _Emissive: 2
@@ -58,9 +58,9 @@ Material:
     - _WaveCount: 2.13
     m_Colors:
     - _Color: {r: 0, g: 1, b: 0.543379, a: 0}
-    - _Color01: {r: 0, g: 0.8588236, b: 0.46666664, a: 1}
+    - _Color01: {r: 0, g: 0.8490566, b: 0.2908873, a: 1}
     - _Color_02: {r: 0, g: 0.61943907, b: 1, a: 0}
-    - _Color_03: {r: 1, g: 0.41981128, b: 0.6848372, a: 0}
+    - _Color_03: {r: 0, g: 1, b: 0.19254398, a: 0}
     - _Color_1: {r: 0, g: 0.61943907, b: 1, a: 0}
     - _Color_2: {r: 1, g: 0.8981068, b: 0.3443396, a: 0}
   m_BuildTextureStacks: []
