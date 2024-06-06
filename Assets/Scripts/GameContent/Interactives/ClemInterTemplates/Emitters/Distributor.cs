@@ -34,7 +34,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             set
             {
                 _currentLevel = value;
-                levelText.text = _currentLevel.ToString();
+                levelText.text = (_currentLevel + 1).ToString();
                 _currentDistributionOrientation = GetOrientationArray(nodeMode, _currentLevel);
                 InterAction();
             }
@@ -57,17 +57,22 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             base.OnInit();
             CurrentOrientationLevel = StartingLevel;
 
-            _lerpCoefs = new float[]{0,0,0,0};
+            _lerpCoefs = new float[]{0,0,0,0,0};
 
             #region VFX
 
-            _cableMats = new MaterialPropertyBlock[nodeDatas.Length];
+            _cableMats = new MaterialPropertyBlock[nodeDatas.Length + 1];
             for (var i = 0; i < _cableMats.Length; i++)
             {
                 _cableMats[i] = new MaterialPropertyBlock();
             }
 
-            for (var n = 0; n < nodeDatas.Length; n++)
+            selfRend.GetPropertyBlock(_cableMats[0]);
+            _cableMats[0].SetFloat(EmissionFade, 0);
+            _cableMats[0].SetFloat(GreenBlue, 0);
+            selfRend.SetPropertyBlock(_cableMats[0]);
+            
+            for (var n = 1; n < nodeDatas.Length; n++)
             {
                 foreach (var r in nodeDatas[n].cableRends)
                 {
@@ -86,6 +91,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             base.OnUpdate();
             
             SetLerpCoefs();
+
+            //Debug.Log($"{_lerpCoefs[0]}_{_lerpCoefs[1]}_{_lerpCoefs[2]}_{_lerpCoefs[3]}_{_lerpCoefs[4]}_");
         }
 
         public override void InterAction()
@@ -136,20 +143,34 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                     default:
                         throw new ArgumentOutOfRangeException(nameof(n), n.dendrite, "mais voila mais c'etait sur en fait");
                 }
-
-                switch (TransmittedEnergy)
-                {
-                    case EnergyTypes.None:
-                        break;
-                    case EnergyTypes.Yellow:
-                        break;
-                    case EnergyTypes.Green:
-                        break;
-                    case EnergyTypes.Blue:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+            }
+            
+            switch (TransmittedEnergy)
+            {
+                case EnergyTypes.None:
+                    break;
+                case EnergyTypes.Yellow:
+                    break;
+                case EnergyTypes.Green:
+                    for (var i = 0; i < nodeDatas.Length; i++)
+                    {
+                        _cableMats[i + 1].SetFloat(GreenBlue, 1);
+                        nodeDatas[i].SetProperties(_cableMats[i + 1]);
+                    }
+                    _cableMats[0].SetFloat(GreenBlue, 1);
+                    selfRend.SetPropertyBlock(_cableMats[0]);
+                    break;
+                case EnergyTypes.Blue:
+                    for (var i = 0; i < nodeDatas.Length; i++)
+                    {
+                        _cableMats[i + 1].SetFloat(GreenBlue, 0);
+                        nodeDatas[i].SetProperties(_cableMats[i + 1]);
+                    }
+                    _cableMats[0].SetFloat(GreenBlue, 0);
+                    selfRend.SetPropertyBlock(_cableMats[0]);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
         
@@ -206,24 +227,45 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         private void SetLerpCoefs()
         {
-            foreach (var n in nodeDatas)
+            if (CurrentDistribution[0] == 0 || TransmittedEnergy is EnergyTypes.None)
             {
-                switch (CurrentDistribution[n.ConnectionID])
+                for (var i = 1; i < _lerpCoefs.Length; i++)
                 {
-                    case 0 when _lerpCoefs[n.ConnectionID] > 0:
-                        _lerpCoefs[n.ConnectionID] -= Time.deltaTime;
+                    if (_lerpCoefs[i] > 0)
+                        _lerpCoefs[i] -= Time.deltaTime;
+                }
+                if (_lerpCoefs[0] > 0)
+                    _lerpCoefs[0] -= Time.deltaTime;
+                goto SetColors;
+            }
+            if (CurrentDistribution[0] != 0 && TransmittedEnergy is not EnergyTypes.None)
+            {
+                if (_lerpCoefs[0] < 1)
+                    _lerpCoefs[0] += Time.deltaTime;
+            }
+
+            for (var i = 1; i < _lerpCoefs.Length; i++)
+            {
+                switch (CurrentDistribution[i - 1])
+                {
+                    case 0 when _lerpCoefs[i] > 0:
+                        _lerpCoefs[i] -= Time.deltaTime;
                         break;
-                    case 1 when _lerpCoefs[n.ConnectionID] < 1:
-                        _lerpCoefs[n.ConnectionID] += Time.deltaTime;
+                    case 1 when _lerpCoefs[i] < 1:
+                        _lerpCoefs[i] += Time.deltaTime;
                         break;
                 }
             }
 
+            SetColors:
+            
             for (var i = 0; i < nodeDatas.Length; i++)
             {
-                _cableMats[i].SetFloat(EmissionFade, _lerpCoefs[i]);
-                nodeDatas[i].SetProperties(_cableMats[i]);
+                _cableMats[i + 1].SetFloat(EmissionFade, _lerpCoefs[nodeDatas[i].ConnectionID + 1]);
+                nodeDatas[i].SetProperties(_cableMats[i + 1]);
             }
+            _cableMats[0].SetFloat(EmissionFade,_lerpCoefs[0]);
+            selfRend.SetPropertyBlock(_cableMats[0]);
         }
         
         #endregion
@@ -233,6 +275,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         [Range(1, 4)] [SerializeField] private sbyte startingLevel;
 
         [SerializeField] private NodeDatas[] nodeDatas;
+
+        [SerializeField] private Renderer selfRend;
 
         [SerializeField] private TMP_Text levelText;
 
