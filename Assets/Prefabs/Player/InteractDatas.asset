@@ -14,3 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   absorbTime: 0
   applyTime: 0
+  EnergyPosCloseVFX: {fileID: 5310422681175567222, guid: 1b17b24110387c747a46a0685c6bec6d,
+    type: 3}
+  GreenDepVFX: {fileID: 7116694753117930473, guid: 5a4881763b74b064f83d72c92e6993ba,
+    type: 3}
+  BlueDepVFX: {fileID: 5658452047046861116, guid: 6ce2777376fcd89498abbedc77c0c97c,
+    type: 3}
+  GreenSourceVFX: {fileID: 7116694753117930473, guid: 5a4881763b74b064f83d72c92e6993ba,
+    type: 3}
+  BlueSourceVFX: {fileID: 5658452047046861116, guid: 6ce2777376fcd89498abbedc77c0c97c,
+    type: 3}

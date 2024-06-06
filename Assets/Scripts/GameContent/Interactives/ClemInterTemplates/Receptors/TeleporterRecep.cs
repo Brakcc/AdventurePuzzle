@@ -23,9 +23,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             set
             {
                 base.HasElectricity = value;
-                teleporterRef.hasElectricity = true;
-                Collid.isTrigger = hasElectricity;
-                teleporterRef.Collid.isTrigger = hasElectricity;
+                teleporterRef.hasElectricity = hasElectricity;
             }
         }
 

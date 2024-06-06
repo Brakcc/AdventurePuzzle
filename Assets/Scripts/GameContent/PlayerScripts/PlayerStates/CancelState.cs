@@ -70,6 +70,8 @@ namespace GameContent.PlayerScripts.PlayerStates
                 if (_checker.InterRef is not EmitterInter && PlayerEnergyM.EnergyType != EnergyTypes.None ||
                     _checker.InterRef is EmitterInter { SourceCount: 0 } && PlayerEnergyM.EnergyType != EnergyTypes.None)
                 {
+                    _datasSo.interactDatasSo.OnVFX(PlayerEnergyM.EnergyType is EnergyTypes.Green ? (byte)1 : (byte)2, _goRef.transform.position, 
+                                                   Quaternion.LookRotation(PlayerEnergyM.CurrentSource.Source.transform.position - _goRef.transform.position));
                     PlayerEnergyM.CurrentSource.Source.InterAction();
                     PlayerEnergyM.CurrentSource = new SourceDatas();
                     PlayerEnergyM.OnSourceChangedDebug();
@@ -81,11 +83,12 @@ namespace GameContent.PlayerScripts.PlayerStates
 
             if (_checker.InterRef is null && PlayerEnergyM.EnergyType != EnergyTypes.None)
             {
+                _datasSo.interactDatasSo.OnVFX(PlayerEnergyM.EnergyType is EnergyTypes.Green ? (byte)1 : (byte)2, _goRef.transform.position, 
+                                               Quaternion.LookRotation(PlayerEnergyM.CurrentSource.Source.transform.position - _goRef.transform.position));
                 PlayerEnergyM.CurrentSource.Source.InterAction();
                 PlayerEnergyM.CurrentSource = new SourceDatas();
                 PlayerEnergyM.OnSourceChangedDebug();
             }
-            
             stateMachine.SwitchState("move");
         }
         
