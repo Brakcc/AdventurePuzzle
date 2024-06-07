@@ -10,7 +10,6 @@ namespace UIScripts
         
         private void Start()
         {
-            Debug.Log(Application.streamingAssetsPath);
             CheckMInstance = this;
             
             if (File.Exists(Application.persistentDataPath + "/saveData.data"))
