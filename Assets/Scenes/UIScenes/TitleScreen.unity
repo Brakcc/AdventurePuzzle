@@ -215,7 +215,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: HabillageLD_Juin
+          m_StringArgument: MartinLD
           m_BoolArgument: 0
         m_CallState: 1
 --- !u!114 &3678826
@@ -2298,7 +2298,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5983719434841068388, guid: 8c23dab963abdda41a7f8bce352845ce, type: 3}
+    - {fileID: 6882249780611443813, guid: 8c23dab963abdda41a7f8bce352845ce, type: 3}
+    - {fileID: 3569935527264657506, guid: 8c23dab963abdda41a7f8bce352845ce, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c23dab963abdda41a7f8bce352845ce, type: 3}
