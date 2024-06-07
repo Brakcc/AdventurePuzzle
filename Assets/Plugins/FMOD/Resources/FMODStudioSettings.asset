@@ -670,10 +670,10 @@ MonoBehaviour:
   m_Name: FMODStudioSettings
   m_EditorClassIdentifier: 
   switchSettingsMigration: 1
-  HasSourceProject: 1
-  HasPlatforms: 1
-  sourceProjectPath: ../../../../../Program Files/FMOD SoundSystem/FMOD Studio 2.02.22/Projects/CosmosFMOD/CosmosFMOD.fspro
-  sourceBankPath: ../../../../../Program Files/FMOD SoundSystem/FMOD Studio 2.02.22/Projects/CosmosFMOD/Build
+  HasSourceProject: 0
+  HasPlatforms: 0
+  sourceProjectPath: ../../../../../Program Files/FMODSoundSystem/FMOD Studio 2.02.22/Projects/CosmosFMOD/CosmosFMOD.fspro
+  sourceBankPath: Bank/Desktop
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
@@ -682,7 +682,7 @@ MonoBehaviour:
   AutomaticSampleLoading: 0
   EncryptionKey: 
   ImportType: 1
-  TargetAssetPath: FMODBanks
+  TargetAssetPath: 
   TargetBankFolder: 
   EventLinkage: 0
   LoggingLevel: 2
@@ -697,6 +697,7 @@ MonoBehaviour:
   MasterBanks:
   - Master
   Banks:
+  - All
   - Ambience
   - Music
   - SFX
