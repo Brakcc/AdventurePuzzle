@@ -146,7 +146,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                     case null:
                         stateMachine.SwitchState("interact");
                         return;
-                    case ReceptorInter { IsMovable: true, CurrentEnergyType:EnergyTypes.Blue}:
+                    case ReceptorInter { IsMovable: true, CanSwitch: true, CurrentEnergyType:EnergyTypes.Blue}:
                         stateMachine.SwitchState("grab");
                         return;
                     case LeverInter:
