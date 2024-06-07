@@ -20,6 +20,8 @@ namespace GameContent.PlayerScripts
 
         public BasePlayerDatasSO DatasSo => datasSo;
 
+        public Animator PlayerAnimator => animator;
+
         public InterCheckerState CheckerState => checker;
 
         internal CameraDatas CurrentCameraDatas { get; set; }
@@ -111,6 +113,8 @@ namespace GameContent.PlayerScripts
         
         [FieldCompletion] [SerializeField] private BasePlayerDatasSO datasSo;
 
+        [FieldCompletion] [SerializeField] private Animator animator;
+        
         [FieldCompletion] [SerializeField] private InterCheckerState checker;
 
         [FieldCompletion] [SerializeField] private CameraManager initCamManager;
