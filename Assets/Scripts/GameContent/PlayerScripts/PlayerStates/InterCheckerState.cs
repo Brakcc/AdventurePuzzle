@@ -9,7 +9,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region properties
 
-        public BaseInterBehavior InterRef { get; private set; }
+        public BaseInterBehavior InterRef { get; set; } //TO CHANGE : SET PRIVATE LATER
 
         public List<BaseInterBehavior> InRangeInter { get; private set; }
 
@@ -31,7 +31,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                         InterRef = null;
                     return;
                 case >= 2:
-                    InRangeInter.Sort(CompareIntersByAngle);
+                    InRangeInter.Sort(CompareIntersByParams);
                     break;
             }
 
@@ -43,7 +43,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (!other.CompareTag("Interactible"))
                 return;
             
-            if (other.TryGetComponent<BaseInterBehavior>(out var inter))
+            if (other.TryGetComponent<BaseInterBehavior> (out var inter))
                 inter.AddSelf(this);
         }
         
@@ -68,6 +68,10 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         private static readonly Comparison<BaseInterBehavior> CompareIntersByAngle = (a, b) =>
             Mathf.RoundToInt(Mathf.Sign(a.AngleWithPlayer - b.AngleWithPlayer));
+
+        private static readonly Comparison<BaseInterBehavior> CompareIntersByParams = (a, b) =>
+            Mathf.RoundToInt(Mathf.Sign(a.DistFromPlayer - b.DistFromPlayer)) / 2 *
+            (Mathf.RoundToInt(Mathf.Sign(a.AngleWithPlayer - b.AngleWithPlayer)) / 2);
 
         #endregion
     }

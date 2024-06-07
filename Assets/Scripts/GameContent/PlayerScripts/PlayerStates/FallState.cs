@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameContent.StateMachines;
+using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
@@ -6,7 +7,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region constructor
 
-        public FallState(GameObject go) : base(go)
+        public FallState(GameObject go, ControllerState state, PlayerStateMachine pM) : base(go, state, pM)
         {
         }
 
@@ -14,24 +15,23 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         #region methodes
         
-        public override void OnInit()
+        public override void OnInit(GenericStateMachine m)
         {
-            _lastDir = _isoForwardDir;
-            base.OnInit();
-        }
-        
-        public override void OnEnterState(PlayerStateMachine stateMachine)
-        {
-            _stateMachine = stateMachine;
+            _lastDir = IsoForwardDir;
+            base.OnInit(m);
         }
 
-        public override void OnExitState(PlayerStateMachine stateMachine)
+        public override void OnEnterState()
+        {
+            
+        }
+
+        public override void OnExitState()
         {
             _lerpCoef = 0;
-            _stateMachine = null;
         }
-        
-        public override void OnUpdate()
+
+        public override sbyte OnUpdate()
         {
             base.OnUpdate();
             
@@ -40,15 +40,19 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             OnGrounded();
             SetLerpCoef();
+
+            return 0;
         }
 
-        public override void OnFixedUpdate()
+        public override sbyte OnFixedUpdate()
         {
             base.OnFixedUpdate();
             OnMove();
             OnRotate();
+
+            return 0;
         }
-        
+
         #region rotation mathodes
 
         private void OnRotate()
@@ -71,7 +75,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         private void OnMove()
         {
-            _currentDir = (_isoRightDir * _inputDir.x + _isoForwardDir * _inputDir.z).normalized;
+            _currentDir = (IsoRightDir * _inputDir.x + IsoForwardDir * _inputDir.z).normalized;
 
             _cc.SimpleMove(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime * 0.5f));
             _cc.Move(Vector3.down * (Mathf.Lerp(0, _datasSo.fallDatasSo.fallSpeed, _lerpCoef) * Time.deltaTime));
@@ -89,7 +93,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnGrounded()
         {
             if (IsGrounded)
-                _stateMachine.OnSwitchState("move");
+                stateMachine.SwitchState("move");
         }
 
         #endregion

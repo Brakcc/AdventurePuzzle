@@ -1,5 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates
 {
@@ -9,14 +10,19 @@ namespace GameContent.Interactives.ClemInterTemplates
 
         protected List<SourceDatas> SourceDatasList { get; private set; }
 
-        protected int Count => SourceDatasList.Count;
+        public int SourceCount => SourceDatasList.Count;
+
+        protected EnergySourceInter[] PreSources => preSetAbsorbSources;
         
         protected SourceDatas this[int id]
         {
             get
             {
                 if (id < 0 || id >= SourceDatasList.Count)
-                    throw new ArgumentOutOfRangeException(nameof(id), id, "too bad");
+                {
+                    //throw new ArgumentOutOfRangeException(nameof(id), id, "too bad");
+                    return new SourceDatas(null);
+                }
 
                 return SourceDatasList[id];
             }
@@ -26,10 +32,12 @@ namespace GameContent.Interactives.ClemInterTemplates
         
         #region methodes
         
-        protected override void OnInit()
+        protected override async void OnInit()
         {
             SourceDatasList = new List<SourceDatas>();
-            debugTextLocal = debugMod.debugString;
+            
+            await Task.Delay(500);
+            ForceAbsorbSources(preSetAbsorbSources);
         }
 
         public override void PlayerAction()
@@ -49,6 +57,14 @@ namespace GameContent.Interactives.ClemInterTemplates
             //Debug.Log($"inter action {this}");
             //Cahcnger les valeurs des receps
         }
+
+        protected abstract void ForceAbsorbSources(EnergySourceInter[] sources);
+        
+        #endregion
+
+        #region fields
+
+        [SerializeField] private EnergySourceInter[] preSetAbsorbSources;
 
         #endregion
     }

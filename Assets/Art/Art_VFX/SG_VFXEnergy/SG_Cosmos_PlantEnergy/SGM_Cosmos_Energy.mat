@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SGM_Cosmos_Energy
+  m_Shader: {fileID: -6465566751694194690, guid: cb04060f81f9f374cb6292b96c4f4c9a,
+    type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AOTex:
+        m_Texture: {fileID: 2800000, guid: 07e3661a35e97024291cc54b919f6ad7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 2f8520173d1fe934e8d7b4d1e7982613, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 2800000, guid: c3a3a2b63525b19439f0d216ea84c35f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 2800000, guid: df9771d5812ef574aac14ea0954789d8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_a12eab0b7ca946b98ba89d3d13a6fd00_Out_0_Texture2D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2D_1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2D_2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Brightness: 0
+    - _CellSize: 20
+    - _Emission: 5
+    - _EnergyEmission: 0.29
+    - _Global_Emission: 1.95
+    - _Mask_Opacity: 2.42
+    - _OffBrightness: 1
+    - _OnOff: 1
+    - _On_Energy_fade: 0
+    - _On_Green_Off_Blue: 0
+    - _Opacity: -1
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Speed: 0.017
+    - _fresnel_opacity: -0.3
+    - _globalemission: 1
+    m_Colors:
+    - _AOColor: {r: 0.5849056, g: 0, b: 0, a: 0}
+    - _BlueColor: {r: 0.3160377, g: 0.77201277, b: 1, a: 0}
+    - _BulbColor: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.15686274, g: 0.9372549, b: 0.5095041, a: 0.6509804}
+    - _DefaultColor: {r: 1, g: 1, b: 1, a: 0}
+    - _Direction: {r: 0, g: 0.1, b: 0, a: 0}
+    - _GreenColor: {r: 0.25943398, g: 1, b: 0.50519705, a: 1}
+    - _OffColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 0}
+    - _ShadowColor: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 0}
+  m_BuildTextureStacks: []
+--- !u!114 &5307886720978623767
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7

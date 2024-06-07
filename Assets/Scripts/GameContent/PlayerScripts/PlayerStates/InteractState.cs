@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameContent.Interactives.ClemInterTemplates.Receptors;
+using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
 {
@@ -6,7 +7,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region constructor
 
-        public InteractState(GameObject go) : base(go)
+        public InteractState(GameObject go, ControllerState state, PlayerStateMachine pM) : base(go, state, pM)
         {
         }
 
@@ -14,34 +15,29 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         #region methodes
         
-        public override void OnEnterState(PlayerStateMachine stateMachine)
+        public override void OnEnterState()
         {
-            _stateMachine = stateMachine;
-
             _absorbTimeCounter = _datasSo.interactDatasSo.absorbTime;
         }
 
-        public override void OnExitState(PlayerStateMachine stateMachine)
+        public override void OnExitState()
         {
         }
 
-        public override void OnUpdate()
+        public override sbyte OnUpdate()
         {
             base.OnUpdate();
             
-            SetInteractTime();
             GetOtherActionInput();
             OnAction();
             
             SetCoyote();
             SetJumpBuffer();
             //OnInputVal();
-        }
+            
+            SetInteractTime();
 
-        public override void OnFixedUpdate()
-        {
-            base.OnFixedUpdate();
-            //OnJump();
+            return 0;
         }
 
         #region absorb methodes
@@ -54,28 +50,28 @@ namespace GameContent.PlayerScripts.PlayerStates
                 return;
             }
             
-            _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+            stateMachine.SwitchState("move");
         }
 
         private void GetOtherActionInput()
         {
             if (_datasSo.cancelInput.action.WasPressedThisFrame())
-                _stateMachine.OnSwitchState("cancel");
+                stateMachine.SwitchState("cancel");
         }
         
         private void OnAction()
         {
-            if (_absorbTimeCounter > 0)
+            if (_absorbTimeCounter > 0.1f)
                 return;
 
-            if (_checker.InterRef is null)
+            if (_checker.InterRef is null or ReceptorInter)
             {
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+                stateMachine.SwitchState("move");
                 return;
             }
 
             _checker.InterRef.PlayerAction();
-            _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+            stateMachine.SwitchState("move");
         }
         
         #endregion
@@ -88,7 +84,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                 (!(_jumpBufferCounter >= 0) || !IsGrounded))
                 return;
             
-            _stateMachine.OnSwitchState(_stateMachine.playerStates[1]);
+            stateMachine.SwitchState("jump");
         }
         
         private void SetCoyote()
@@ -122,7 +118,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             var input = _datasSo.moveInput.action.ReadValue<Vector2>();
            
             if (input.magnitude >= Constants.MinMoveInputValue)
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+                stateMachine.SwitchState("move");
         }
         
         #endregion

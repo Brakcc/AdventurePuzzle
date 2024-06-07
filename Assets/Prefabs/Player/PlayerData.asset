@@ -20,8 +20,11 @@ MonoBehaviour:
     type: 3}
   cancelInput: {fileID: -8374691165920661904, guid: f20ae6420c757bf438b1fdf422f5ca7f,
     type: 3}
+  cameraInput: {fileID: 4130442420927128548, guid: f20ae6420c757bf438b1fdf422f5ca7f,
+    type: 3}
   moveDatasSo: {fileID: 11400000, guid: a8b61752c681c1c4fb869b60d9201abb, type: 2}
   jumpDatasSo: {fileID: 11400000, guid: 1cbea9f684825214a99b882fe1f9e099, type: 2}
   fallDatasSo: {fileID: 11400000, guid: 09caf1f147c68d640b1d41167e916c56, type: 2}
   groundingDatasSo: {fileID: 11400000, guid: 54541c7887a7f2340a32f35d75591300, type: 2}
   interactDatasSo: {fileID: 11400000, guid: 329b336c7b60d5d40b3dd7bf68c3832f, type: 2}
+  collisionDatasSo: {fileID: 11400000, guid: 3c2535abb4139db4ea1c828dda14ee2e, type: 2}

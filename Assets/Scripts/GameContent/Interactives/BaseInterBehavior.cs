@@ -1,7 +1,5 @@
-﻿using DebuggingClem;
-using GameContent.PlayerScripts.PlayerStates;
+﻿using GameContent.PlayerScripts.PlayerStates;
 using UnityEngine;
-using Utilities.CustomAttributes;
 
 namespace GameContent.Interactives
 {
@@ -12,6 +10,17 @@ namespace GameContent.Interactives
         public float DistFromPlayer { get; private set; }
         
         public float AngleWithPlayer { get; private set; }
+
+        protected bool HasCheckerRef => _checkerRef is not null;
+
+        #endregion
+
+        #region constructors
+
+        ~BaseInterBehavior()
+        {
+            //Debug.Log($"{gameObject.name} removed");
+        }
 
         #endregion
         
@@ -27,6 +36,34 @@ namespace GameContent.Interactives
 
         private void Update()
         {
+            OnUpdate();
+        }
+
+        private void FixedUpdate()
+        {
+            OnFixedUpdate();
+        }
+
+        public void AddSelf(InterCheckerState checker)
+        {
+            _isInRange = true;
+            _checkerRef = checker;
+            _checkerRef.InRangeInter.Add(this);
+        }
+
+        public void RemoveSelf()
+        {
+            _isInRange = false;
+            _checkerRef.InRangeInter.Remove(this);
+            _checkerRef = null;
+        }
+        
+        #region Methodes a hériter
+        
+        protected virtual void OnInit() {}
+
+        protected virtual void OnUpdate()
+        {
             if (!_isInRange) 
                 return;
 
@@ -39,49 +76,19 @@ namespace GameContent.Interactives
             AngleWithPlayer = Vector3.Angle(vecPlayerToTrans, _checkerRef.transform.forward);
         }
 
-        public void AddSelf(InterCheckerState checker)
-        {
-            if (hasDebugMod)
-            {
-                //Debug.Log($"{name} added");
-                debugMod.debugText.enabled = true;
-                debugMod.debugText.text = debugTextLocal;
-            }
-            _isInRange = true;
-            _checkerRef = checker;
-            _checkerRef.InRangeInter.Add(this);
-        }
-
-        public void RemoveSelf()
-        {
-            if (hasDebugMod)
-            {
-                //Debug.Log($"{name} removed");
-                debugMod.debugText.enabled = false;
-            }
-            _isInRange = false;
-            _checkerRef.InRangeInter.Remove(this);
-            _checkerRef = null;
-        }
+        protected virtual void OnFixedUpdate() {}
         
-        #region Methodes a hériter
-        
-        protected virtual void OnInit() {}
-
-        public abstract void PlayerAction();
+        public virtual void PlayerAction() {}
 
         public virtual void PlayerCancel() {}
 
-        public abstract void InterAction();
+        public virtual void InterAction() {}
     
         #endregion
         
         #endregion
         
         #region fields
-
-        [SerializeField] protected bool hasDebugMod;
-        [ShowIfBoolTrue("hasDebugMod")] [SerializeField] protected DebugModDatas debugMod;
         
         private InterCheckerState _checkerRef;
         
