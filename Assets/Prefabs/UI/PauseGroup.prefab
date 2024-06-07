@@ -300,9 +300,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseButton: {fileID: 3871649566387323476}
   pauseTouch: 27
-  pauseGroup: {fileID: 2303090231862147297}
   pauseEnabled: 0
-  saveFile: {fileID: 4900000, guid: 7afc935575630a64fa341a355dbeb118, type: 3}
+  firstTransformPos: {fileID: 0}
 --- !u!1 &3029193382300347940
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,6 +714,7 @@ GameObject:
   - component: {fileID: 7745127807580375789}
   - component: {fileID: 8481082220925805523}
   - component: {fileID: 7717708350735462966}
+  - component: {fileID: 6266887495260594951}
   m_Layer: 0
   m_Name: Pause Button
   m_TagString: Untagged
@@ -836,6 +836,37 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+--- !u!114 &6266887495260594951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3871649566387323476}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -728876306
+      Data2: 1167414019
+      Data3: 2123342510
+      Data4: -1343341116
+    Path: event:/Menus/UIpauseOuvre
+  Event: 
+  PlayEvent: 20
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &3903595861916324268
 GameObject:
   m_ObjectHideFlags: 0

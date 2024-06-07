@@ -1,5 +1,4 @@
-using System.Runtime.CompilerServices;
-using UnityEngine;
+using UnityEngine; 
 
 namespace UIScripts
 {
@@ -10,6 +9,7 @@ namespace UIScripts
         
         private void Start()
         {
+            Debug.Log(Application.streamingAssetsPath);
             CheckMInstance = this;
             LoadData(3);
             if (!(newPosCheckpoint is { x: 0, y: 0, z: 0 }))
