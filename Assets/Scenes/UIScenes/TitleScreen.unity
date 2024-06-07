@@ -215,7 +215,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: HabillageLD_Juin
+          m_StringArgument: MartinLD
           m_BoolArgument: 0
         m_CallState: 1
 --- !u!114 &3678826
@@ -522,6 +522,7 @@ GameObject:
   - component: {fileID: 817040301}
   - component: {fileID: 817040300}
   - component: {fileID: 817040299}
+  - component: {fileID: 817040302}
   m_Layer: 0
   m_Name: OptionsButton
   m_TagString: Untagged
@@ -642,7 +643,38 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 817040297}
-  m_CullTransparentMesh: 1
+  m_CullTransparentMesh: 0
+--- !u!114 &817040302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817040297}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1187130298
+      Data2: 1167580676
+      Data3: 457672126
+      Data4: -426933985
+    Path: event:/Menus/UIclick
+  Event: 
+  PlayEvent: 19
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &821486816
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,6 +1613,7 @@ MonoBehaviour:
   pauseTouchName: 
   saveChosen: 0
   newPosCheckpoint: {x: 0, y: 0, z: 0}
+  audioKey: UIclick
   optionsHere: 0
 --- !u!1 &1902434312
 GameObject:
@@ -1592,8 +1625,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1902434315}
   - component: {fileID: 1902434314}
-  - component: {fileID: 1902434313}
   - component: {fileID: 1902434316}
+  - component: {fileID: 1902434317}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1601,14 +1634,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1902434313
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1902434312}
-  m_Enabled: 1
 --- !u!20 &1902434314
 Camera:
   m_ObjectHideFlags: 0
@@ -1719,6 +1744,19 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &1902434317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902434312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 1902434312}
 --- !u!1 &1970325476
 GameObject:
   m_ObjectHideFlags: 0
@@ -2260,7 +2298,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5983719434841068388, guid: 8c23dab963abdda41a7f8bce352845ce, type: 3}
+    - {fileID: 6882249780611443813, guid: 8c23dab963abdda41a7f8bce352845ce, type: 3}
+    - {fileID: 3569935527264657506, guid: 8c23dab963abdda41a7f8bce352845ce, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c23dab963abdda41a7f8bce352845ce, type: 3}
