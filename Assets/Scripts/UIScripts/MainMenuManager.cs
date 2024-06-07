@@ -1,3 +1,5 @@
+using System.Diagnostics.Tracing;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,6 +7,8 @@ namespace UIScripts
 {
     public class MainMenuManager : FileWriter
     {
+        [SerializeField] private string audioKey = default;
+        
         [HideInInspector] public bool optionsHere;
 
         private void Start()
@@ -23,6 +27,8 @@ namespace UIScripts
 
         public void QuitGame()
         {
+            var audioevent = RuntimeManager.CreateInstance(audioKey);
+            audioevent.start();
             if (!optionsHere)
             {
                 Application.Quit();
