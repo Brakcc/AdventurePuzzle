@@ -109,6 +109,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_2701eec41b1e477fb1b2a48a47c3fdfd_Out_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: c901ec5081746f547bedfb7fb5d5040a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -130,6 +134,8 @@ Material:
     - _Brightness: 0
     - _Brightness_Rim: 2
     - _BumpScale: 1
+    - _Caustics: 0
+    - _Caustics_brighness: 0
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -168,6 +174,7 @@ Material:
     m_Colors:
     - _AOColor: {r: 0.41988966, g: 0, b: 0.4433962, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Caustics_direction: {r: 0, g: 1, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MossColor: {r: 0.6926296, g: 1, b: 0.6273585, a: 0}
@@ -177,4 +184,5 @@ Material:
     - _Second_ShadowColor: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0.8679245, g: 0.749199, b: 0.749199, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _Tiling_Caustics: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
