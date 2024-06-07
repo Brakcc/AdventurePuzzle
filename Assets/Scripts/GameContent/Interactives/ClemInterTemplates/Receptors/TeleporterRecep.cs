@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Utilities.CustomAttributes;
 
 namespace GameContent.Interactives.ClemInterTemplates.Receptors
@@ -30,6 +31,49 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         #endregion
         
         #region methodes
+
+        public override void InterAction()
+        {
+            switch (CurrentEnergyType)
+            {
+                case EnergyTypes.None:
+                    if (!HasInstantPlayer)
+                    {
+                        CanSwitch = true;
+                        IsMovable = true;
+                        Collid.isTrigger = true;
+                    }
+                    HasElectricity = true;
+                    break;
+                case EnergyTypes.Yellow:
+                    if (!HasInstantPlayer)
+                    {
+                        CanSwitch = true;
+                        IsMovable = true;
+                        Collid.isTrigger = true;
+                    }
+                    HasElectricity = true;
+                    break;
+                case EnergyTypes.Green:
+                    Collid.isTrigger = true;
+                    HasElectricity = false;
+                    IsMovable = true;
+                    if (HasCheckerRef)
+                        RemoveSelf();
+                    break;
+                case EnergyTypes.Blue:
+                    if (!HasInstantPlayer)
+                    {
+                        IsMovable = true;
+                        CanSwitch = true;
+                        Collid.isTrigger = false;
+                    }
+                    HasElectricity = false;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
 
         private void OnTriggerEnter(Collider other)
         {
