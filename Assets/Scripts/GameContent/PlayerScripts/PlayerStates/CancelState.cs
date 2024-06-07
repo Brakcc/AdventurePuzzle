@@ -9,7 +9,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region constructor
 
-        public CancelState(GameObject go) : base(go)
+        public CancelState(GameObject go, ControllerState state, PlayerStateMachine pM) : base(go, state, pM)
         {
         }
 
@@ -17,18 +17,16 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         #region methodes
         
-        public override void OnEnterState(PlayerStateMachine stateMachine)
+        public override void OnEnterState()
         {
-            _stateMachine = stateMachine;
-
             _applyTimeCounter = _datasSo.interactDatasSo.applyTime;
         }
 
-        public override void OnExitState(PlayerStateMachine stateMachine)
+        public override void OnExitState()
         {
         }
 
-        public override void OnUpdate()
+        public override sbyte OnUpdate()
         {
             base.OnUpdate();
             
@@ -39,12 +37,8 @@ namespace GameContent.PlayerScripts.PlayerStates
             SetCoyote();
             SetJumpBuffer();
             //OnInputVal();
-        }
 
-        public override void OnFixedUpdate()
-        {
-            base.OnFixedUpdate();
-            //OnJump();
+            return 0;
         }
 
         #region cancel methodes
@@ -57,13 +51,13 @@ namespace GameContent.PlayerScripts.PlayerStates
                 return;
             }
             
-            _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+            stateMachine.SwitchState("move");
         }
 
         private void GetOtherActionInputs()
         {
             if (_datasSo.interactInput.action.WasPressedThisFrame() && _checker.InterRef is not null)
-                _stateMachine.OnSwitchState(_checker.InterRef is ReceptorInter or LeverInter ? "locked" : "interact");
+                stateMachine.SwitchState(_checker.InterRef is ReceptorInter or LeverInter ? "grab" : "interact");
         }
         
         private void OnAction()
@@ -76,23 +70,26 @@ namespace GameContent.PlayerScripts.PlayerStates
                 if (_checker.InterRef is not EmitterInter && PlayerEnergyM.EnergyType != EnergyTypes.None ||
                     _checker.InterRef is EmitterInter { SourceCount: 0 } && PlayerEnergyM.EnergyType != EnergyTypes.None)
                 {
+                    _datasSo.interactDatasSo.OnVFX(PlayerEnergyM.EnergyType is EnergyTypes.Green ? (byte)1 : (byte)2, _goRef.transform.position, 
+                                                   Quaternion.LookRotation(PlayerEnergyM.CurrentSource.Source.transform.position - _goRef.transform.position));
                     PlayerEnergyM.CurrentSource.Source.InterAction();
                     PlayerEnergyM.CurrentSource = new SourceDatas();
                     PlayerEnergyM.OnSourceChangedDebug();
                 }
                 _checker.InterRef.PlayerCancel();
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+                stateMachine.SwitchState("move");
                 return;
             }
 
             if (_checker.InterRef is null && PlayerEnergyM.EnergyType != EnergyTypes.None)
             {
+                _datasSo.interactDatasSo.OnVFX(PlayerEnergyM.EnergyType is EnergyTypes.Green ? (byte)1 : (byte)2, _goRef.transform.position, 
+                                               Quaternion.LookRotation(PlayerEnergyM.CurrentSource.Source.transform.position - _goRef.transform.position));
                 PlayerEnergyM.CurrentSource.Source.InterAction();
                 PlayerEnergyM.CurrentSource = new SourceDatas();
                 PlayerEnergyM.OnSourceChangedDebug();
             }
-            
-            _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+            stateMachine.SwitchState("move");
         }
         
         #endregion
@@ -105,7 +102,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                 (!(_jumpBufferCounter >= 0) || !IsGrounded))
                 return;
             
-            _stateMachine.OnSwitchState(_stateMachine.playerStates[1]);
+            stateMachine.SwitchState("jump");
         }
         
         private void SetCoyote()
@@ -139,7 +136,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             var input = _datasSo.moveInput.action.ReadValue<Vector2>();
            
             if (input.magnitude >= Constants.MinMoveInputValue)
-                _stateMachine.OnSwitchState(_stateMachine.playerStates[0]);
+                stateMachine.SwitchState("move");
         }
         
         #endregion

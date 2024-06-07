@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameContent.Interactives;
-using GameContent.Interactives.ClemInterTemplates;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
@@ -10,7 +9,7 @@ namespace GameContent.PlayerScripts.PlayerStates
     {
         #region properties
 
-        public BaseInterBehavior InterRef { get; private set; }
+        public BaseInterBehavior InterRef { get; set; } //TO CHANGE : SET PRIVATE LATER
 
         public List<BaseInterBehavior> InRangeInter { get; private set; }
 

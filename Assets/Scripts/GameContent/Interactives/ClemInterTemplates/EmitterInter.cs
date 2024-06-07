@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates
@@ -10,6 +11,8 @@ namespace GameContent.Interactives.ClemInterTemplates
         protected List<SourceDatas> SourceDatasList { get; private set; }
 
         public int SourceCount => SourceDatasList.Count;
+
+        protected EnergySourceInter[] PreSources => preSetAbsorbSources;
         
         protected SourceDatas this[int id]
         {
@@ -29,12 +32,12 @@ namespace GameContent.Interactives.ClemInterTemplates
         
         #region methodes
         
-        protected override void OnInit()
+        protected override async void OnInit()
         {
             SourceDatasList = new List<SourceDatas>();
-            debugTextLocal = debugMod.debugString;
+            
+            await Task.Delay(500);
             ForceAbsorbSources(preSetAbsorbSources);
-            InterAction();
         }
 
         public override void PlayerAction()

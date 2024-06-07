@@ -34,7 +34,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             set
             {
                 _currentLevel = value;
-                levelText.text = _currentLevel.ToString();
+                levelText.text = (_currentLevel + 1).ToString();
                 _currentDistributionOrientation = GetOrientationArray(nodeMode, _currentLevel);
                 InterAction();
             }
@@ -56,6 +56,43 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         {
             base.OnInit();
             CurrentOrientationLevel = StartingLevel;
+
+            _lerpCoefs = new float[]{0,0,0,0,0};
+
+            #region VFX
+
+            _cableMats = new MaterialPropertyBlock[nodeDatas.Length + 1];
+            for (var i = 0; i < _cableMats.Length; i++)
+            {
+                _cableMats[i] = new MaterialPropertyBlock();
+            }
+
+            selfRend.GetPropertyBlock(_cableMats[0]);
+            _cableMats[0].SetFloat(EmissionFade, 0);
+            _cableMats[0].SetFloat(GreenBlue, 0);
+            selfRend.SetPropertyBlock(_cableMats[0]);
+            
+            for (var n = 1; n < nodeDatas.Length; n++)
+            {
+                foreach (var r in nodeDatas[n].cableRends)
+                {
+                    r.GetPropertyBlock(_cableMats[n]);
+                    _cableMats[n].SetFloat(EmissionFade, 0);
+                    _cableMats[n].SetFloat(GreenBlue, 0);
+                    r.SetPropertyBlock(_cableMats[n]);
+                }
+            }
+            
+            #endregion
+        }
+
+        protected override void OnUpdate()
+        {
+            base.OnUpdate();
+            
+            SetLerpCoefs();
+
+            //Debug.Log($"{_lerpCoefs[0]}_{_lerpCoefs[1]}_{_lerpCoefs[2]}_{_lerpCoefs[3]}_{_lerpCoefs[4]}_");
         }
 
         public override void InterAction()
@@ -82,11 +119,21 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             foreach (var n in nodeDatas)
             {
                 var tempE = CurrentDistribution[n.ConnectionID] == 1 ? TransmittedEnergy : EnergyTypes.None;
-                //Debug.Log($"{n.dendrite} {n.receptorRef?.name} {n.distributorRef?.name} {n.ConnectionID}");
                 switch(n.dendrite)
                 {
-                    case DentriteType.Receptor:
+                    case DentriteType.Receptor when tempE is EnergyTypes.None && !n.receptorRef.HasWaveEnergy:
+                        n.receptorRef.HasCableEnergy = false;
                         n.receptorRef.CurrentEnergyType = tempE;
+                        break;
+                    case DentriteType.Receptor when tempE is EnergyTypes.None && n.receptorRef.HasWaveEnergy:
+                        break;
+                    case DentriteType.Receptor when tempE is not EnergyTypes.None:
+                        n.receptorRef.HasCableEnergy = true;
+                        n.receptorRef.HasWaveEnergy = false;
+                        n.receptorRef.CurrentEnergyType = tempE;
+                        break;
+                    case DentriteType.Distributor when tempE is EnergyTypes.None:
+                        n.distributorRef.IncomingCollectedEnergy = tempE;
                         break;
                     case DentriteType.Distributor:
                         n.distributorRef.IncomingCollectedEnergy = tempE;
@@ -96,6 +143,34 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                     default:
                         throw new ArgumentOutOfRangeException(nameof(n), n.dendrite, "mais voila mais c'etait sur en fait");
                 }
+            }
+            
+            switch (TransmittedEnergy)
+            {
+                case EnergyTypes.None:
+                    break;
+                case EnergyTypes.Yellow:
+                    break;
+                case EnergyTypes.Green:
+                    for (var i = 0; i < nodeDatas.Length; i++)
+                    {
+                        _cableMats[i + 1].SetFloat(GreenBlue, 1);
+                        nodeDatas[i].SetProperties(_cableMats[i + 1]);
+                    }
+                    _cableMats[0].SetFloat(GreenBlue, 1);
+                    selfRend.SetPropertyBlock(_cableMats[0]);
+                    break;
+                case EnergyTypes.Blue:
+                    for (var i = 0; i < nodeDatas.Length; i++)
+                    {
+                        _cableMats[i + 1].SetFloat(GreenBlue, 0);
+                        nodeDatas[i].SetProperties(_cableMats[i + 1]);
+                    }
+                    _cableMats[0].SetFloat(GreenBlue, 0);
+                    selfRend.SetPropertyBlock(_cableMats[0]);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
         
@@ -149,6 +224,49 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 }
             }
         }
+
+        private void SetLerpCoefs()
+        {
+            if (CurrentDistribution[0] == 0 || TransmittedEnergy is EnergyTypes.None)
+            {
+                for (var i = 1; i < _lerpCoefs.Length; i++)
+                {
+                    if (_lerpCoefs[i] > 0)
+                        _lerpCoefs[i] -= Time.deltaTime;
+                }
+                if (_lerpCoefs[0] > 0)
+                    _lerpCoefs[0] -= Time.deltaTime;
+                goto SetColors;
+            }
+            if (CurrentDistribution[0] != 0 && TransmittedEnergy is not EnergyTypes.None)
+            {
+                if (_lerpCoefs[0] < 1)
+                    _lerpCoefs[0] += Time.deltaTime;
+            }
+
+            for (var i = 1; i < _lerpCoefs.Length; i++)
+            {
+                switch (CurrentDistribution[i - 1])
+                {
+                    case 0 when _lerpCoefs[i] > 0:
+                        _lerpCoefs[i] -= Time.deltaTime;
+                        break;
+                    case 1 when _lerpCoefs[i] < 1:
+                        _lerpCoefs[i] += Time.deltaTime;
+                        break;
+                }
+            }
+
+            SetColors:
+            
+            for (var i = 0; i < nodeDatas.Length; i++)
+            {
+                _cableMats[i + 1].SetFloat(EmissionFade, _lerpCoefs[nodeDatas[i].ConnectionID + 1]);
+                nodeDatas[i].SetProperties(_cableMats[i + 1]);
+            }
+            _cableMats[0].SetFloat(EmissionFade,_lerpCoefs[0]);
+            selfRend.SetPropertyBlock(_cableMats[0]);
+        }
         
         #endregion
         
@@ -158,12 +276,16 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         [SerializeField] private NodeDatas[] nodeDatas;
 
+        [SerializeField] private Renderer selfRend;
+
         [SerializeField] private TMP_Text levelText;
 
         [SerializeField] private CableNodeMode nodeMode;
         
         [SerializeField] private Transform pivot;
 
+        private MaterialPropertyBlock[] _cableMats;
+        
         private EnergyTypes _incomingCollectedEnergy;
 
         private EnergyTypes _transmittedEnergy;
@@ -171,6 +293,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         private sbyte[] _currentDistributionOrientation;
         
         private sbyte _currentLevel;
+
+        private float[] _lerpCoefs;
+
+        private static readonly int EmissionFade = Shader.PropertyToID("_On_Energy_fade");
+        
+        private static readonly int GreenBlue = Shader.PropertyToID("_On_Green_Off_Blue");
 
         #endregion
     }

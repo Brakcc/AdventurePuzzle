@@ -4,6 +4,7 @@ using UnityEngine;
 namespace GameContent.Interactives.ClemInterTemplates.Receptors
 {
     [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Rigidbody))]
     public class RecepsTopBlockGrabber : MonoBehaviour
     {
         #region properties
@@ -17,6 +18,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         private void Start()
         {
             RecepRefs = new List<ReceptorInter>();
+            GetComponent<Rigidbody>().isKinematic = true;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -28,9 +30,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 return;
             
             RecepRefs.Add(recep);
-            recep.IsOnTop = true;
-            recep.SetRBConstraints((RigidbodyConstraints)112);
-            //Debug.Log($"{recep.name}  added");
         }
 
         private void OnTriggerExit(Collider other)
@@ -44,10 +43,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             if (!RecepRefs.Contains(recep))
                 return;
             
-            recep.SetRBConstraints((RigidbodyConstraints)Constants.BitFlagRBConstraintRotaPlan);
-            recep.IsOnTop = false;
             RecepRefs.Remove(recep);
-            //Debug.Log($"{recep.name}  removed");
         }
 
         private void OnDrawGizmos()

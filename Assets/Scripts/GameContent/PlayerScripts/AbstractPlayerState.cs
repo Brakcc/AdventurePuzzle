@@ -1,10 +1,12 @@
-﻿using GameContent.PlayerScripts.PlayerDatas;
+﻿using System.Collections;
+using GameContent.PlayerScripts.PlayerDatas;
 using GameContent.PlayerScripts.PlayerStates;
+using GameContent.StateMachines;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts
 {
-    public abstract class AbstractPlayerState
+    public abstract class AbstractPlayerState : AbstractGenericState
     {
         #region properties
         
@@ -12,19 +14,29 @@ namespace GameContent.PlayerScripts
 
         protected float Velocity => (_nextPos - _prevPos).magnitude;
 
+        protected Vector3 IsoRightDir => _playerMachine is null ? new Vector3(1, 0, -1) : _playerMachine.TransCamManager.transform.right;
+
+        protected Vector3 IsoForwardDir => _playerMachine is null ? new Vector3(1, 0, 1) : _playerMachine.TransCamManager.transform.forward;
+        
+        public ControllerState StateFlag { get; }
+
         #endregion
         
         #region constructor
 
-        protected AbstractPlayerState(GameObject go)
+        protected AbstractPlayerState(GameObject go, ControllerState state, PlayerStateMachine playerMachine) : base(go)
         {
-            _goRef = go;
-            _currentDir = _isoForwardDir;
+            StateFlag = state;
+            _currentDir = IsoForwardDir;
+            _playerMachine = playerMachine;
+            _cc = playerMachine.CharaCont;
+            _checker = playerMachine.CheckerState;
+            _datasSo = playerMachine.DatasSo;
         }
 
         ~AbstractPlayerState()
         {
-            Debug.Log($"{this} removed");
+            //Debug.Log($"{this} removed");
         }
         
         #endregion
@@ -33,57 +45,70 @@ namespace GameContent.PlayerScripts
         
         protected static float ClampSymmetric(float val, float clamper) => Mathf.Clamp(val, -clamper, clamper);
 
-        public void SetGameObject(GameObject go) => _goRef = go;
-        
-        public void SetCharaCont(CharacterController cc) => _cc = cc;
-
-        public void SetDatas(BasePlayerDatasSO datasSo) => _datasSo = datasSo;
-
-        public void SetChecker(InterCheckerState checker) => _checker = checker;
-
         #endregion
         
         #region methodes to herit
 
-        public virtual void OnInit()
+        public override void OnInit(GenericStateMachine machine)
         {
-            _prevPos = _goRef.transform.position;
-            _nextPos = _goRef.transform.position;
+            stateMachine = machine;
+
+            var p = _goRef.transform.position;
+            _prevPos = p;
+            _nextPos = p;
         }
 
-        public virtual void OnUpdate() {}
+        public override sbyte OnUpdate()
+        {
+            if (stateMachine == "camera")
+                return 1;
+
+            if (_playerMachine.CamLerpCoef < 0.001f)
+            {
+                return 2;
+            }
+            
+            _playerMachine.CamLerpCoef -= Time.deltaTime;
+            
+            _playerMachine.TransitionCamDatas.pivot.position = Vector3.Lerp(_playerMachine.InitCamDatas.pivot.position, 
+                                                                            _playerMachine.CurrentCameraDatas.pivot.position,
+                                                                            _playerMachine.CamLerpCoef);
+            
+            _playerMachine.TransitionCamDatas.arm.position = Vector3.Lerp(_playerMachine.InitCamDatas.arm.position, 
+                                                                            _playerMachine.CurrentCameraDatas.arm.position,
+                                                                            _playerMachine.CamLerpCoef);
+            
+            return 0;
+        }
         
-        public virtual void OnFixedUpdate()
+        public override sbyte OnFixedUpdate()
         {
             _prevPos = _nextPos;
             _nextPos = _goRef.transform.position;
+
+            return 0;
         }
 
-        public abstract void OnEnterState(PlayerStateMachine stateMachine);
-
-        public abstract void OnExitState(PlayerStateMachine stateMachine);
+        public override IEnumerator OnCoroutine()
+        {
+            yield return null;
+        }
 
         #endregion
 
         #region fields
-
-        protected PlayerStateMachine _stateMachine;
-
-        protected GameObject _goRef;
         
-        protected CharacterController _cc;
+        protected readonly CharacterController _cc;
 
-        protected BasePlayerDatasSO _datasSo;
+        protected readonly BasePlayerDatasSO _datasSo;
 
-        protected InterCheckerState _checker;
+        protected readonly InterCheckerState _checker;
+
+        protected readonly PlayerStateMachine _playerMachine;
         
         protected Vector3 _currentDir;
         
         protected Vector3 _inputDir;
-
-        protected readonly Vector3 _isoRightDir = new(1, 0, -1);
-        
-        protected readonly Vector3 _isoForwardDir = new(1, 0, 1);
 
         private Vector3 _prevPos;
 

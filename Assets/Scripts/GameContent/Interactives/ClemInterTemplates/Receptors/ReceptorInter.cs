@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DebuggingClem;
 using UnityEngine;
 using Utilities.CustomAttributes;
 using Utilities.CustomAttributes.FieldColors;
@@ -8,26 +7,21 @@ using Utilities.CustomAttributes.FieldColors;
 namespace GameContent.Interactives.ClemInterTemplates.Receptors
 {
     [RequireComponent(typeof(Collider))]
-    [RequireComponent(typeof(Rigidbody))]
     public class ReceptorInter : BaseInterBehavior
     {
         #region properties
 
         #region Inner Infos
         
-        public EnergyTypes CurrentEnergyType
+        public virtual EnergyTypes CurrentEnergyType
         {
             get => _currentAppliedEnergy;
             set
             {
                 _currentAppliedEnergy = value;
                 InterAction();
-                if (hasDebugMod && debugMod.hasLight)
-                    OnChangeColorLightDebug(_currentAppliedEnergy);
             }
         }
-        
-        private Light InterLight { get; set; }
 
         public List<EmitterInter> EmitsRef { get; } = new();
 
@@ -51,16 +45,26 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             get => _tempDir;
             set => _tempDir = SetDir(value);
         }
+
+        protected virtual bool HasElectricity
+        {
+            get => hasElectricity;
+            set
+            {
+                hasElectricity = value;
+            }
+        }
+
+        public bool CanSwitch
+        {
+            get => _canSwitch;
+            protected set => _canSwitch = value;
+        }
         
         public bool IsMovable
         {
             get => _isMovable;
             protected set => _isMovable = value;
-        }
-
-        public void ToDelete()
-        {
-            Debug.Log(_isMovable);
         }
 
         public bool HasWaveEnergy
@@ -90,7 +94,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         #region IsHittingTR
         
         public bool IsHittingTopRight => Physics.BoxCast(_col.bounds.center + new Vector3(
-                                                          _col.bounds.extents.x + Constants.BoxCastBounds.SideBoxPosDeport, 
+                                                          _col.bounds.extents.x - Constants.BoxCastBounds.SideBoxPosDeport, 
                                                           0, 
                                                           0),
                                                          new Vector3(
@@ -100,7 +104,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                                                          Vector3.right,
                                                          Quaternion.identity, 
                                                          Constants.BoxCastBounds.SideCastDist, 
-                                                         blockMask);
+                                                         blockMask,
+                                                         QueryTriggerInteraction.Ignore);
         
         #endregion
         
@@ -109,7 +114,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         public bool IsHittingTopLeft => Physics.BoxCast(_col.bounds.center + new Vector3(
                                                          0, 
                                                          0, 
-                                                         _col.bounds.extents.z + Constants.BoxCastBounds.SideBoxPosDeport),
+                                                         _col.bounds.extents.z - Constants.BoxCastBounds.SideBoxPosDeport),
                                                         new Vector3(
                                                                     _col.bounds.extents.x - Constants.BoxCastBounds.SideBoxLengthCut, 
                                                                     _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxLengthCut, 
@@ -117,7 +122,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                                                         Vector3.forward, 
                                                         Quaternion.identity, 
                                                         Constants.BoxCastBounds.SideCastDist, 
-                                                        blockMask);
+                                                        blockMask,
+                                                        QueryTriggerInteraction.Ignore);
         
         #endregion
         
@@ -126,7 +132,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         public bool IsHittingBottomRight => Physics.BoxCast(_col.bounds.center + new Vector3(
                                                              0, 
                                                              0, 
-                                                             -(_col.bounds.extents.z + Constants.BoxCastBounds.SideBoxPosDeport)),
+                                                             -(_col.bounds.extents.z - Constants.BoxCastBounds.SideBoxPosDeport)),
                                                             new Vector3(
                                                                         _col.bounds.extents.x - Constants.BoxCastBounds.SideBoxLengthCut, 
                                                                         _col.bounds.extents.y - Constants.BoxCastBounds.SideBoxLengthCut, 
@@ -134,14 +140,15 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                                                             Vector3.back, 
                                                             Quaternion.identity, 
                                                             Constants.BoxCastBounds.SideCastDist, 
-                                                            blockMask);
+                                                            blockMask,
+                                                            QueryTriggerInteraction.Ignore);
         
         #endregion
         
         #region IsHittingBL
         
         public bool IsHittingBottomLeft => Physics.BoxCast(_col.bounds.center + new Vector3(
-                                                            -(_col.bounds.extents.x + Constants.BoxCastBounds.SideBoxPosDeport), 
+                                                            -(_col.bounds.extents.x - Constants.BoxCastBounds.SideBoxPosDeport), 
                                                             0, 
                                                             0),
                                                            new Vector3(
@@ -151,21 +158,21 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                                                            Vector3.left, 
                                                            Quaternion.identity, 
                                                            Constants.BoxCastBounds.SideCastDist, 
-                                                           blockMask);
+                                                           blockMask,
+                                                           QueryTriggerInteraction.Ignore);
 
         #endregion
 
         #region IsHittingGround
-
-        //raycast ou boxcast ?
+        
         public bool IsHittingGround => Physics.BoxCast(_col.bounds.center + new Vector3(
                                                             0, 
                                                             -(_col.bounds.extents.y - Constants.BoxCastBounds.DownBoxPosDeport), 
                                                             0),
                                                            new Vector3(
-                                                                       _col.bounds.extents.x, 
+                                                                       _col.bounds.extents.x - Constants.BoxCastBounds.SideBoxLengthCut, 
                                                                        Constants.BoxCastBounds.DownBoxHalfExtent / 2, 
-                                                                       _col.bounds.extents.z),
+                                                                       _col.bounds.extents.z - Constants.BoxCastBounds.SideBoxLengthCut),
                                                            Vector3.down, 
                                                            Quaternion.identity, 
                                                            Constants.BoxCastBounds.DownCastDist, 
@@ -176,8 +183,15 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         #region HasBlueAbove
 
         public List<ReceptorInter> TopReceps => _grabber.RecepRefs;
-        
-        public bool IsOnTop { get; set; }
+
+        #endregion
+
+        #region PlayerCheck
+
+        protected bool HasInstantPlayer =>
+            // ReSharper disable once Unity.PreferNonAllocApi
+            Physics.OverlapBox(_col.bounds.center,
+                               _col.bounds.extents, Quaternion.identity, playerLayer).Length != 0;
 
         #endregion
         
@@ -187,31 +201,27 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         protected override void OnInit()
         {
-            hasElectricity = false;
+            HasElectricity = false;
             _col = GetComponent<Collider>();
-            _rb = GetComponent<Rigidbody>();
             _grabber = GetComponentInChildren<RecepsTopBlockGrabber>();
 
-            //_rb.mass = 1000;
-            //_rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
-            _rb.isKinematic = true;
-
             _tempDir = Vector3.zero;
-            IsOnTop = false;
             _fallCurveCounter = 0;
-
-            if (debugMod.hasLight)
-            {
-                InterLight = debugMod.debugLight;
-                OnChangeColorLightDebug(CurrentEnergyType);
-            }
             
             OnReset();
+
+            _vFXLerpCoef = 0;
+            _vFXGreenOn = 0;
+            _matBlock = new MaterialPropertyBlock();
+            rend.GetPropertyBlock(_matBlock);
         }
 
         protected override void OnUpdate()
         {
             base.OnUpdate();
+            
+            SetBlockEffect();
+            
             if (!HasWaveEnergy)
                 return;
 
@@ -249,34 +259,38 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             switch (CurrentEnergyType)
             {
                 case EnergyTypes.None:
-                    _col.enabled = true;
-                    hasElectricity = false;
-                    _isMovable = true;
-                    debugTextLocal = "";
+                    if (!HasInstantPlayer)
+                    {
+                        _isMovable = true;
+                        _canSwitch = true;
+                        _col.isTrigger = false;
+                    }
+                    HasElectricity = true;
                     break;
                 case EnergyTypes.Yellow:
-                    _col.enabled = true;
-                    hasElectricity = true;
-                    _isMovable = true;
-                    //_rb.isKinematic = true;
-                    //_rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
-                    debugTextLocal = "";
+                    if (!HasInstantPlayer)
+                    {
+                        _isMovable = true;
+                        _canSwitch = true;
+                        _col.isTrigger = false;
+                    }
+                    HasElectricity = true;
                     break;
                 case EnergyTypes.Green:
-                    _col.enabled = false;
-                    hasElectricity = false;
-                    _isMovable = false;
-                    //_rb.isKinematic = true;
-                    //_rb.constraints = GetRBConstraints(RBCMode.Full);
-                    debugTextLocal = "";
+                    _col.isTrigger = true;
+                    HasElectricity = false;
+                    _isMovable = true;
+                    if (HasCheckerRef)
+                        RemoveSelf();
                     break;
                 case EnergyTypes.Blue:
-                    _col.enabled = true;
-                    hasElectricity = false;
-                    _isMovable = true;
-                    //_rb.isKinematic = true;
-                    //_rb.constraints = GetRBConstraints(RBCMode.RotaPlan);
-                    debugTextLocal = debugMod.debugString;
+                    if (!HasInstantPlayer)
+                    {
+                        _isMovable = true;
+                        _canSwitch = true;
+                        _col.isTrigger = false;
+                    }
+                    HasElectricity = false;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(_currentAppliedEnergy), _currentAppliedEnergy,
@@ -288,6 +302,20 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         #region Inner Actions
         
+        private void OnTriggerExit(Collider other)
+        {
+            if (CurrentEnergyType is EnergyTypes.Green)
+                return;
+            
+            if (other.CompareTag("Player"))
+                return;
+            
+            _canSwitch = true;
+            if (this is not TeleporterRecep)
+                _col.isTrigger = false;
+            _isMovable = true;
+        }
+
         private Vector3 SetDir(Vector3 dir) => (dir.x, dir.z) switch
         {
             (>= Constants.MinBlockMoveInputThreshold, <= Constants.MinBlockMoveInputThreshold) => IsHittingTopRight ? Vector3.zero : dir,
@@ -299,8 +327,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         private void SolidFall()
         {
-            if (!_isMovable)
-                return;
+            /*if (!_isMovable)
+                return;*/
             
             if (IsHittingGround)
             {
@@ -313,9 +341,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             transform.position -= new Vector3(0, fallCurve.Evaluate(_fallCurveCounter) * Time.fixedDeltaTime, 0);
         }
         
-        public void MoveSolid(Vector3 dir) => _rb.transform.position += dir;
-            
-        public void SetRBConstraints(RigidbodyConstraints constraints) => _rb.constraints = constraints;
+        public void MoveSolid(Vector3 dir) => transform.position += dir;
         
         public virtual void OnReset()
         {
@@ -323,14 +349,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         }
 
         public float GetDistFromEmit(EmitterInter emit) => Vector3.Distance(emit.transform.position, transform.position);
-        
-        private void OnChangeColorLightDebug(EnergyTypes type)
-        {
-            if (InterLight is null)
-                return;
-            
-            InterLight.color = LightDebugger.DebugColor(type);
-        }
 
         private int SortList(IReadOnlyList<EmitterInter> receps)
         {
@@ -348,6 +366,66 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
             return i;
         }
+
+        #region VFX
+        
+        private void SetBlockEffect()
+        {
+            if (!_canSwitch)
+                return;
+            
+            if (CurrentEnergyType is EnergyTypes.Blue && _vFXLerpCoef < 1f)
+            {
+                _vFXLerpCoef += Time.fixedDeltaTime;
+                
+                if (_vFXLerpCoef > 0 && Mathf.Approximately(_vFXGreenOn, 1))
+                {
+                    _vFXGreenOn = 0;
+                    _matBlock.SetFloat(GreenE, Mathf.RoundToInt(_vFXGreenOn));
+                }
+                
+                _matBlock.SetFloat(FadeE, Mathf.Abs(_vFXLerpCoef));
+                rend.SetPropertyBlock(_matBlock);
+            }
+            
+            if (CurrentEnergyType is EnergyTypes.Green && _vFXLerpCoef > -1f)
+            {
+                _vFXLerpCoef -= Time.fixedDeltaTime;
+                
+                if (_vFXLerpCoef < 0 && Mathf.Approximately(_vFXGreenOn, 0))
+                {
+                    _vFXGreenOn = 1;
+                    _matBlock.SetFloat(GreenE, Mathf.RoundToInt(_vFXGreenOn));
+                }
+
+                if (Mathf.Approximately(_vFXLerpCoef, -1f))
+                    _canSwitch = false;
+                
+                _matBlock.SetFloat(FadeE, Mathf.Abs(_vFXLerpCoef));
+                rend.SetPropertyBlock(_matBlock);
+            }
+            
+            if (CurrentEnergyType is EnergyTypes.None && Mathf.Abs(_vFXLerpCoef) > 0f)
+            {
+                switch (_vFXLerpCoef)
+                {
+                    case > 0f:
+                        _vFXLerpCoef -= Time.fixedDeltaTime;
+                        break;
+                    case < 0f:
+                        _vFXLerpCoef += Time.fixedDeltaTime;
+                        break;
+                }
+
+                if (Mathf.Abs(_vFXLerpCoef) is < 0.01f and > 0f)
+                    _vFXLerpCoef = 0;
+                
+                _matBlock.SetFloat(FadeE, Mathf.Abs(_vFXLerpCoef));
+                rend.SetPropertyBlock(_matBlock);
+            }
+        }
+        
+        #endregion
         
         public static RigidbodyConstraints GetRBConstraints(RBCMode mode) => mode switch
         {
@@ -371,7 +449,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             #region TR
             
             //Top Right
-            Gizmos.DrawWireCube(bounds.center + new Vector3(bounds.extents.x + 0.1f, 0, 0),
+            Gizmos.DrawWireCube(bounds.center + new Vector3(bounds.extents.x - 0.1f, 0, 0),
                                 new Vector3(0.15f, bounds.size.y - 0.2f, bounds.size.z - 0.2f));
             
             #endregion
@@ -379,7 +457,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             #region BL
             
             //Bottom Left
-            Gizmos.DrawWireCube(bounds.center + new Vector3(-(bounds.extents.x + 0.1f), 0, 0),
+            Gizmos.DrawWireCube(bounds.center + new Vector3(-(bounds.extents.x - 0.1f), 0, 0),
                                 new Vector3(0.15f, bounds.size.y - 0.2f, bounds.size.z - 0.2f));
             
             #endregion
@@ -387,7 +465,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             #region TL
             
             //Top Left
-            Gizmos.DrawWireCube(bounds.center + new Vector3(0, 0, bounds.extents.z + 0.1f),
+            Gizmos.DrawWireCube(bounds.center + new Vector3(0, 0, bounds.extents.z - 0.1f),
                                 new Vector3(bounds.size.x - 0.2f, bounds.size.y - 0.2f, 0.15f));
             
             #endregion
@@ -395,14 +473,14 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             #region BR
             
             //Bottom Right
-            Gizmos.DrawWireCube(bounds.center + new Vector3(0, 0, -(bounds.extents.z + 0.1f)),
+            Gizmos.DrawWireCube(bounds.center + new Vector3(0, 0, -(bounds.extents.z - 0.1f)),
                                 new Vector3(bounds.size.x - 0.2f, bounds.size.y - 0.2f, 0.15f));
             #endregion
 
             #region GC
 
             Gizmos.DrawWireCube(bounds.center + new Vector3(0, -(bounds.extents.y/* - 0.03f*/), 0), 
-                new Vector3(bounds.size.x, 0.15f, bounds.size.z));
+                new Vector3(bounds.size.x - 0.2f, 0.15f, bounds.size.z - 0.2f));
 
             #endregion
         }
@@ -413,8 +491,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         #region fields
 
-        [FieldCompletion] [SerializeField] private Animator animator;
-
         [FieldCompletion] [SerializeField] private Transform pivot;
 
         [SerializeField] private LayerMask blockMask;
@@ -423,8 +499,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         
         [FieldCompletion(FieldColor.Orange)]
         [SerializeField] private Collider _col;
-        
-        private Rigidbody _rb;
+
+        [SerializeField] private Renderer rend;
+
+        [SerializeField] private LayerMask playerLayer;
+
+        private MaterialPropertyBlock _matBlock;
 
         private RecepsTopBlockGrabber _grabber;
 
@@ -443,6 +523,16 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         protected bool hasElectricity;
 
         private float _fallCurveCounter;
+
+        private float _vFXLerpCoef;
+
+        private float _vFXGreenOn;
+
+        private bool _canSwitch;
+
+        private static readonly int GreenE = Shader.PropertyToID("_On_Green_Off_Blue");
+
+        private static readonly int FadeE = Shader.PropertyToID("_On_Energy_fade");
 
         #endregion
     }

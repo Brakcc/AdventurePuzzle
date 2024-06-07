@@ -3,10 +3,15 @@ using UnityEngine.SceneManagement;
 
 namespace UIScripts
 {
-    public class MainMenuManager : MonoBehaviour
+    public class MainMenuManager : FileWriter
     {
-        [HideInInspector] public bool optionsHere = false;
-        
+        [HideInInspector] public bool optionsHere;
+
+        private void Start()
+        {
+            Debug.Log(Application.persistentDataPath);
+            optionsHere = false;
+        }
 
         public void ChargeScene(string sceneName)
         {

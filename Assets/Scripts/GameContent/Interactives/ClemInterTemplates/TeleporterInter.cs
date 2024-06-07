@@ -12,6 +12,15 @@ namespace GameContent.Interactives.ClemInterTemplates
 
         private bool _teleportStart;
         private Transform _playerToTeleport;
+        
+        //For TeleAltPush
+        [HideInInspector] public bool blue;
+
+        private void Start()
+        {
+            InterAction();
+        }
+
         private void FixedUpdate()
         {
             if (_teleportStart)
@@ -33,16 +42,18 @@ namespace GameContent.Interactives.ClemInterTemplates
             GetComponent<Collider>().isTrigger = (CurrentEnergyType != EnergyTypes.Blue);
             otherTeleporter.GetComponent<Collider>().isTrigger = (CurrentEnergyType != EnergyTypes.Blue);
             
-            if (CurrentEnergyType == EnergyTypes.Green)
+            if (CurrentEnergyType == EnergyTypes.Blue)
+            {
+                GetComponent<MeshRenderer>().material.color = new Color32(65,105,225,255);
+                otherTeleporter.GetComponent<MeshRenderer>().material.color = new Color32(65,105,225,255);
+                IsMovable = otherTeleporter.IsMovable = true;
+            }
+            else
             {
                 GetComponent<MeshRenderer>().material.color = new Color32(80,255,47,125);
                 otherTeleporter.GetComponent<MeshRenderer>().material.color = new Color32(80,255,47,125);
             }
-            else if (CurrentEnergyType == EnergyTypes.Blue)
-            {
-                GetComponent<MeshRenderer>().material.color = new Color32(65,105,225,255);
-                otherTeleporter.GetComponent<MeshRenderer>().material.color = new Color32(65,105,225,255);
-            }
+            blue = otherTeleporter.blue = (CurrentEnergyType == EnergyTypes.Blue);
         }
 
         public override void OnReset()
