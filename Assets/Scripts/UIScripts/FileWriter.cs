@@ -71,7 +71,15 @@ namespace UIScripts
                     break;
                 case 3 : //Checkpoint
                     path = Application.persistentDataPath + "/saveData.data";
-                    if (xPos != 1f && yPos != 1f && zPos != 1f)
+                    if (!(File.Exists(path)))
+                    {
+                        File.WriteAllText(path, 1 + ";"
+                                                                    + "\n" + 0 + ";" + "\n" + 0 + ";" + "\n" + 0 + ";" 
+                                                                    + "\n" + 0 + ";" + "\n" + 0 + ";" + "\n" + 0 + ";"
+                                                                    + "\n" + 0 + ";" + "\n" + 0 + ";" + "\n" + 0 );
+                        
+                    }
+                    else if (xPos != 1f && yPos != 1f && zPos != 1f)
                     {
                         DataSave saveData = new(saveFileNumber, new Vector3(xPos, yPos, zPos));
                         File.WriteAllText(path, saveData.saveChosen + ";"
@@ -124,7 +132,8 @@ namespace UIScripts
             }
             else
             {
-                return null;
+                WriteData(whichValuesToLoad);
+                return (LoadValues(whichValuesToLoad));
             }
 
         } 
