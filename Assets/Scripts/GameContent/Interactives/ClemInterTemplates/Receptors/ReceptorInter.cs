@@ -54,6 +54,12 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 hasElectricity = value;
             }
         }
+
+        public bool CanSwitch
+        {
+            get => _canSwitch;
+            protected set => _canSwitch = value;
+        }
         
         public bool IsMovable
         {
@@ -182,7 +188,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
 
         #region PlayerCheck
 
-        private bool HasInstantPlayer =>
+        protected bool HasInstantPlayer =>
             // ReSharper disable once Unity.PreferNonAllocApi
             Physics.OverlapBox(_col.bounds.center,
                                _col.bounds.extents, Quaternion.identity, playerLayer).Length != 0;
@@ -305,7 +311,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 return;
             
             _canSwitch = true;
-            _col.isTrigger = false;
+            if (this is not TeleporterRecep)
+                _col.isTrigger = false;
             _isMovable = true;
         }
 
