@@ -150,7 +150,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _col: {fileID: 8071874948182192384}
-  rend: {fileID: 2311121222739014366}
+  rend:
+  - {fileID: 2311121222739014366}
   playerLayer:
     serializedVersion: 2
     m_Bits: 2147483648

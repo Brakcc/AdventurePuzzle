@@ -213,7 +213,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             _vFXLerpCoef = 0;
             _vFXGreenOn = 0;
             _matBlock = new MaterialPropertyBlock();
-            rend.GetPropertyBlock(_matBlock);
+            foreach (var r in rend)
+            {
+                r.GetPropertyBlock(_matBlock);
+            }
         }
 
         protected override void OnUpdate()
@@ -385,7 +388,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                 }
                 
                 _matBlock.SetFloat(FadeE, Mathf.Abs(_vFXLerpCoef));
-                rend.SetPropertyBlock(_matBlock);
+                foreach (var r in rend)
+                {
+                    r.SetPropertyBlock(_matBlock);
+                }
             }
             
             if (CurrentEnergyType is EnergyTypes.Green && _vFXLerpCoef > -1f)
@@ -402,7 +408,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                     _canSwitch = false;
                 
                 _matBlock.SetFloat(FadeE, Mathf.Abs(_vFXLerpCoef));
-                rend.SetPropertyBlock(_matBlock);
+                foreach (var r in rend)
+                {
+                    r.SetPropertyBlock(_matBlock);
+                }
             }
             
             if (CurrentEnergyType is EnergyTypes.None && Mathf.Abs(_vFXLerpCoef) > 0f)
@@ -421,7 +430,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                     _vFXLerpCoef = 0;
                 
                 _matBlock.SetFloat(FadeE, Mathf.Abs(_vFXLerpCoef));
-                rend.SetPropertyBlock(_matBlock);
+
+                foreach (var r in rend)
+                {
+                    r.SetPropertyBlock(_matBlock);
+                }
             }
         }
         
@@ -500,7 +513,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         [FieldCompletion(FieldColor.Orange)]
         [SerializeField] private Collider _col;
 
-        [SerializeField] private Renderer rend;
+        [SerializeField] private Renderer[] rend;
 
         [SerializeField] private LayerMask playerLayer;
 

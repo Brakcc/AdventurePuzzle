@@ -581,7 +581,7 @@ GameObject:
   - component: {fileID: 2653912595761314018}
   - component: {fileID: 4896538208985361717}
   m_Layer: 0
-  m_Name: Prefab_Cosmos_Art
+  m_Name: Prefab_Cosmos_art
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -613,7 +613,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3833957822682366417}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 9902461a5d33aa74a906dd3b4d201a6e, type: 3}
   m_Controller: {fileID: 9100000, guid: bf162782e857bc94caaf015724cd5de4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0

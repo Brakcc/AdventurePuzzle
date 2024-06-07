@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Cailloux_tache 1
+  m_Name: M_LianeLumineuse_avecgris
   m_Shader: {fileID: -6465566751694194690, guid: 03caf838c69d71040bfc262802735d00,
     type: 3}
   m_Parent: {fileID: 0}
@@ -38,11 +38,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - MainTex:
-        m_Texture: {fileID: 2800000, guid: 8f3f6dbef82650443998e2bf2db756ce, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7fb4ecfa8aa639141ac2f84914f35d01, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AOTex:
-        m_Texture: {fileID: 2800000, guid: c92c8e75d0ac4cd4582a59cb6f2d7ba7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 44aeb2341e419a642a1b55d73d89ec30, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -90,7 +90,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: 220fb9e4396ef644cadc2ddc283a955c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2dd99373ccfcaf9448e05f9bfe6f7b95, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:

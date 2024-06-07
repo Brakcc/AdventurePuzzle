@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-417295691969607780
+--- !u!114 &-7221314706501543287
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Cailloux_tache
-  m_Shader: {fileID: -6465566751694194690, guid: 03caf838c69d71040bfc262802735d00,
+  m_Name: M_teleporteur
+  m_Shader: {fileID: -6465566751694194690, guid: 0b198ce5220e29e418f40e032c8eb3fb,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -37,23 +37,19 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - MainTex:
-        m_Texture: {fileID: 2800000, guid: a02a9455aa715754683e30e5910ac574, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _AOTex:
-        m_Texture: {fileID: 2800000, guid: 9bc0bfa2ee97f34468791ce5243839fa, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 7c7f75176e07feb458a7a5dac27e6620, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: deb0dff26e806cb41a40c106f6f0fdbc, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _CausticsTex:
+    - _DefaultTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -73,16 +69,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _EmissionMask:
+    - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 7c7f75176e07feb458a7a5dac27e6620, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 431c1e960058f5a4898dfdbe00677b98, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MossTex:
@@ -90,11 +82,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: 4e6e972f68a0dcb4ea115c642e33ac04, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: e10ad218ed4c0db44b8f5e7d5d6f9597, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -102,14 +94,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_2701eec41b1e477fb1b2a48a47c3fdfd_Out_0_Texture2D:
-        m_Texture: {fileID: 2800000, guid: c901ec5081746f547bedfb7fb5d5040a, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_a6fb4a7f08234d438127b106749c6a91_Out_0_Texture2D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -131,10 +115,9 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
+    - _Blue_SpeedDisplacement: 1
     - _Brightness: 0
     - _BumpScale: 1
-    - _Caustics: 0
-    - _Caustics_brighness: 0
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -149,11 +132,13 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
+    - _On_Energy_fade: 0
+    - _On_Green_Off_Blue: 0
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -162,15 +147,15 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _AOColor: {r: 1, g: 1, b: 1, a: 0}
+    - _AOColor: {r: 1, g: 0.01415092, b: 0.01415092, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Caustics_direction: {r: 0, g: 0, b: 0, a: 0}
+    - _Blue_DirectionDisplacement: {r: 0, g: 0.2, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorBlueEnergy: {r: 0, g: 0.8501792, b: 1, a: 0}
+    - _ColorGreenEnergy: {r: 0.21226415, g: 1, b: 0.5397151, a: 0}
+    - _DefaultColor: {r: 0.2783019, g: 0.37085047, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MossColor: {r: 0.6926296, g: 1, b: 0.6273585, a: 0}
     - _MossDirection: {r: 0, g: 0, b: 0, a: 0}
-    - _SecondShadowColor: {r: 0.8773585, g: 0.6083571, b: 0.6083571, a: 0}
-    - _ShadowColor: {r: 0.9607843, g: 0.81960785, b: 0.81960785, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Tiling_Caustics: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

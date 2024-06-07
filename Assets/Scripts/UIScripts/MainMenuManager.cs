@@ -13,7 +13,7 @@ namespace UIScripts
 
         private void Start()
         {
-            Debug.Log(Application.persistentDataPath);
+            Debug.Log(FMODUnity.RuntimeManager.HasBankLoaded("bank:/bankName"));
             optionsHere = false;
         }
 
