@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Cailloux_tache
+  m_Name: M_Mushroombig
   m_Shader: {fileID: -6465566751694194690, guid: 03caf838c69d71040bfc262802735d00,
     type: 3}
   m_Parent: {fileID: 0}
@@ -38,11 +38,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - MainTex:
-        m_Texture: {fileID: 2800000, guid: a02a9455aa715754683e30e5910ac574, type: 3}
+        m_Texture: {fileID: 2800000, guid: af4dff34bda057f4aabb3fec5c9211b5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AOTex:
-        m_Texture: {fileID: 2800000, guid: 9bc0bfa2ee97f34468791ce5243839fa, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1b05e1a827e7b7c4d962e0db82de12a0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -90,7 +90,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: 4e6e972f68a0dcb4ea115c642e33ac04, type: 3}
+        m_Texture: {fileID: 2800000, guid: 263ee32ee867831428eef6231138b2fb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
