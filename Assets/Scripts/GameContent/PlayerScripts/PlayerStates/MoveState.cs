@@ -61,7 +61,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             OnMove();
             OnRotate();
             //OnJump();
-
+            
             return 0;
         }
 
