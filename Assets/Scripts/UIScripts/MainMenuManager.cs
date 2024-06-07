@@ -27,10 +27,11 @@ namespace UIScripts
 
         public void QuitGame()
         {
-            var audioevent = RuntimeManager.CreateInstance(audioKey);
-            audioevent.start();
+            //var audioevent = RuntimeManager.CreateInstance(audioKey);
+            //audioevent.start();
             if (!optionsHere)
             {
+                Debug.Log("Quit");
                 Application.Quit();
             }
         }
