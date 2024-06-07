@@ -44,6 +44,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                         Collid.isTrigger = true;
                     }
                     HasElectricity = true;
+                    part.Play();
                     break;
                 case EnergyTypes.Yellow:
                     if (!HasInstantPlayer)
@@ -53,11 +54,13 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                         Collid.isTrigger = true;
                     }
                     HasElectricity = true;
+                    part.Play();
                     break;
                 case EnergyTypes.Green:
                     Collid.isTrigger = true;
                     HasElectricity = false;
                     IsMovable = true;
+                    part.Stop();
                     if (HasCheckerRef)
                         RemoveSelf();
                     break;
@@ -69,6 +72,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
                         Collid.isTrigger = false;
                     }
                     HasElectricity = false;
+                    part.Stop();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -110,6 +114,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         private TeleporterRecep teleporterRef;
 
         [SerializeField] private Collider topPoser;
+
+        [SerializeField] private ParticleSystem part;
 
         private bool _isReceiving;
 
