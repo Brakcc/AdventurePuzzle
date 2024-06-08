@@ -1,3 +1,4 @@
+using UIScripts.Sounds;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
