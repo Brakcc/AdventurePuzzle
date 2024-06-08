@@ -10,6 +10,8 @@ namespace GameContent.Interactives.ClemInterTemplates
 
         public EnergyTypes EnergyType => baseType;
 
+        public bool IsActivated => isActivated;
+
         #endregion
         
         #region methodes
