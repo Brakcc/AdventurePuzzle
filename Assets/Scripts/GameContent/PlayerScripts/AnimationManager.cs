@@ -31,6 +31,21 @@ namespace GameContent.PlayerScripts
             PlayerAnimator.SetFloat(paramName, paramState);
         }
         
+        public static void SetAnims(string paramName)
+        {
+            PlayerAnimator.SetTrigger(paramName);
+        }
+        
+        public static void SetAnims(string paramName, bool paramState)
+        {
+            PlayerAnimator.SetBool(paramName, paramState);
+        }
+        
+        public static void SetAnims(string paramName, float paramState)
+        {
+            PlayerAnimator.SetFloat(paramName, paramState);
+        }
+        
         #endregion
 
         #region fields

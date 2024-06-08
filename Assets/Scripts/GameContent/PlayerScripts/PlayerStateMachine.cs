@@ -46,6 +46,8 @@ namespace GameContent.PlayerScripts
 
         private void Awake()
         {
+            AnimationManager.InitAnimationManager(animator);
+            
             _stateMachine = new GenericStateMachine(11);
             var go = gameObject;
 
@@ -65,22 +67,22 @@ namespace GameContent.PlayerScripts
                 {"cineMove", new CinematicMoveForcedState(go, ControllerState.cineMove, this)}
             };
             
-            _stateMachine.SetCallBacks((byte)ControllerState.idle, "idle", pSD["idle"].OnInit, null, 
-                                       pSD["idle"].OnUpdate, pSD["idle"].OnFixedUpdate, null, null);
+            _stateMachine.SetCallBacks((byte)ControllerState.idle, "idle", pSD["idle"].OnInit, pSD["idle"].OnEnterState, 
+                                       pSD["idle"].OnUpdate, pSD["idle"].OnFixedUpdate, pSD["idle"].OnExitState, null);
             
             _stateMachine.SetCallBacks((byte)ControllerState.move, "move", pSD["move"].OnInit, pSD["move"].OnEnterState, 
-                                       pSD["move"].OnUpdate, pSD["move"].OnFixedUpdate, null, null);
+                                       pSD["move"].OnUpdate, pSD["move"].OnFixedUpdate, pSD["move"].OnExitState, null);
             
             _stateMachine.SetCallBacks((byte)ControllerState.jump, "jump", pSD["jump"].OnInit, pSD["jump"].OnEnterState, 
                                        pSD["jump"].OnUpdate, pSD["jump"].OnFixedUpdate, null, null);
             
             _stateMachine.SetCallBacks((byte)ControllerState.interact, "interact", pSD["interact"].OnInit, pSD["interact"].OnEnterState, 
-                                       pSD["interact"].OnUpdate, pSD["interact"].OnFixedUpdate, null, null);
+                                       pSD["interact"].OnUpdate, pSD["interact"].OnFixedUpdate, pSD["interact"].OnExitState, null);
             
             _stateMachine.SetCallBacks((byte)ControllerState.cancel, "cancel", pSD["cancel"].OnInit, pSD["cancel"].OnEnterState, 
                                        pSD["cancel"].OnUpdate, pSD["cancel"].OnFixedUpdate, null, null);
             
-            _stateMachine.SetCallBacks((byte)ControllerState.fall, "fall", pSD["fall"].OnInit, null, 
+            _stateMachine.SetCallBacks((byte)ControllerState.fall, "fall", pSD["fall"].OnInit, pSD["fall"].OnEnterState, 
                                        pSD["fall"].OnUpdate, pSD["fall"].OnFixedUpdate, pSD["fall"].OnExitState, null);
             
             _stateMachine.SetCallBacks((byte)ControllerState.grab, "grab", pSD["grab"].OnInit, pSD["grab"].OnEnterState, 

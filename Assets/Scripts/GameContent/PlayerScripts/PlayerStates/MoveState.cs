@@ -28,6 +28,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         {
             _coyoteTimeCounter = _datasSo.jumpDatasSo.coyoteTime;
             _jumpBufferCounter = Constants.SecuValuUnderZero;
+            
+            AnimationManager.SetAnims("isWalking", true);
         }
 
         public override void OnExitState()
@@ -88,7 +90,10 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnMove()
         {
             if (_analogInputMagnitude <= Constants.MinMoveInputValue)
+            {
+                stateMachine.SwitchState("idle");
                 return;
+            }
             
             _currentDir = (IsoRightDir * _inputDir.x + IsoForwardDir * _inputDir.z).normalized;
             _cc.SimpleMove(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime));
