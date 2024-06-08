@@ -20,7 +20,7 @@ namespace UIScripts
 
         protected bool VolumeNotPutYet;
 
-        private void Start()
+        private void Awake()
         {
             LoadData(3);
             if (saveChosen == 0)
@@ -34,6 +34,10 @@ namespace UIScripts
                 startSlidValues[2] = 70;
                 WriteData(1, startSlidValues);
                 VolumeNotPutYet = true;
+            }
+            else
+            {
+                LoadData(1);
             }
         }
 
