@@ -8,24 +8,27 @@ namespace GameContent.PlayerScripts
 
         public static void InitAnimationManager(Animator a) => PlayerAnimator = a;
 
-        public static void SetAnims(int layerID, float weight)
+        public static void SetLayerWeight(int layerID, float weight)
         {
-            
+            PlayerAnimator.SetLayerWeight(layerID, weight);
         }
         
         public static void SetAnims(int layerID, float weight, string paramName)
         {
-            
+            PlayerAnimator.SetLayerWeight(layerID, weight);
+            PlayerAnimator.SetTrigger(paramName);
         }
         
         public static void SetAnims(int layerID, float weight, string paramName, bool paramState)
         {
-            
+            PlayerAnimator.SetLayerWeight(layerID, weight);
+            PlayerAnimator.SetBool(paramName, paramState);
         }
         
         public static void SetAnims(int layerID, float weight, string paramName, float paramState)
         {
-            
+            PlayerAnimator.SetLayerWeight(layerID, weight);
+            PlayerAnimator.SetFloat(paramName, paramState);
         }
         
         #endregion
