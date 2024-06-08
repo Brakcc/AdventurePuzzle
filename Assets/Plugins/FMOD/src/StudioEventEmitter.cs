@@ -6,7 +6,7 @@ using UnityEngine;
 namespace FMODUnity
 {
     [AddComponentMenu("FMOD Studio/FMOD Studio Event Emitter")]
-    public class StudioEventEmitter : EventHandler
+    public class StudioEventEmitter : EventHandler, IEnumerable
     {
         public EventReference EventReference;
 
@@ -382,6 +382,11 @@ namespace FMODUnity
                 return (playbackState != FMOD.Studio.PLAYBACK_STATE.STOPPED);
             }
             return false;
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
     }
 }

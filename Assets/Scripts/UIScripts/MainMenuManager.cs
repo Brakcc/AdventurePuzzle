@@ -1,19 +1,18 @@
-using System.Diagnostics.Tracing;
-using FMODUnity;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using FMODUnity;
 
 namespace UIScripts
 {
     public class MainMenuManager : FileWriter
     {
-        [SerializeField] private string audioKey = default;
-        
         [HideInInspector] public bool optionsHere;
-
+        [SerializeField] private PlaySound startSceneButtonSound;
+        [SerializeField] private PlaySound quitButtonSound;
+        [SerializeField] private PlaySound normalSound; 
+        
         private void Start()
         {
-            Debug.Log(FMODUnity.RuntimeManager.HasBankLoaded("bank:/bankName"));
             optionsHere = false;
         }
 
@@ -21,17 +20,21 @@ namespace UIScripts
         {
             if (!optionsHere)
             {
+                if (sceneName == "SaveFileScene")
+                {
+                    normalSound.PlayEventSound();
+                }
+                else{startSceneButtonSound.PlayEventSound();}
                 SceneManager.LoadScene(sceneName);
             }
         }
 
         public void QuitGame()
         {
-            //var audioevent = RuntimeManager.CreateInstance(audioKey);
-            //audioevent.start();
             if (!optionsHere)
             {
                 Debug.Log("Quit");
+                quitButtonSound.PlayEventSound();
                 Application.Quit();
             }
         }
