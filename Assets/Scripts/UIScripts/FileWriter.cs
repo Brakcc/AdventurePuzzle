@@ -156,7 +156,6 @@ namespace UIScripts
                 switch (whichFileToLoad)
                 {
                     case 1 : //Sound
-                        Debug.Log("rt");
                         mainVolumeValue = float.Parse(LoadValues(whichFileToLoad)[0]);
                         musicVolumeValue = float.Parse(LoadValues(whichFileToLoad)[1]);
                         soundEffectVolumeValue = float.Parse(LoadValues(whichFileToLoad)[2]);
