@@ -44,6 +44,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DefaultTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -61,7 +65,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMask:
-        m_Texture: {fileID: 2800000, guid: 431c1e960058f5a4898dfdbe00677b98, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -118,6 +122,7 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
+    - _Blue_SpeedDisplacement: 1
     - _Brightness: 0
     - _BumpScale: 1
     - _Caustics: 0
@@ -136,6 +141,8 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
+    - _On_Energy_fade: 0
+    - _On_Green_Off_Blue: 0
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -151,9 +158,15 @@ Material:
     m_Colors:
     - _AOColor: {r: 1, g: 1, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BlueColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Blue_DirectionDisplacement: {r: 0, g: 0, b: 0, a: 0}
     - _Caustics_direction: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.7882353, g: 0.70980394, b: 0.8901961, a: 1}
+    - _ColorBlueEnergy: {r: 0, g: 0.8501792, b: 1, a: 0}
+    - _ColorGreenEnergy: {r: 0.21226415, g: 1, b: 0.5397151, a: 0}
+    - _DefaultColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GreenColor: {r: 0, g: 0, b: 0, a: 0}
     - _MossColor: {r: 0.59494114, g: 0.9716981, b: 0.1787558, a: 0}
     - _MossDirection: {r: 0, g: 0, b: 0, a: 0}
     - _SecondShadowColor: {r: 1, g: 0.6745283, b: 0.6745283, a: 0}
