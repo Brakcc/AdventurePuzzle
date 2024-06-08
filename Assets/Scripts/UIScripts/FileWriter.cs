@@ -1,11 +1,8 @@
-using System;
 using System.Globalization;
 using System.IO;
 using JetBrains.Annotations;
 using UnityEngine;
 using Utilities;
-
-// ReSharper disable CompareOfFloatsByEqualityOperator
 
 namespace UIScripts
 {
@@ -21,12 +18,22 @@ namespace UIScripts
         [HideInInspector] public int saveChosen = 1;
         [HideInInspector] public Vector3 newPosCheckpoint;
 
+        protected bool VolumeNotPutYet;
+
         private void Start()
         {
+            LoadData(3);
             if (saveChosen == 0)
             {
                 WriteData(4,null,null, 1, 0.5f,0.5f,0.5f);
                 saveChosen = 1;
+                
+                float[] startSlidValues = new float[3];
+                startSlidValues[0] = 100;
+                startSlidValues[1] = 90;
+                startSlidValues[2] = 70;
+                WriteData(1, startSlidValues);
+                VolumeNotPutYet = true;
             }
         }
 
@@ -71,7 +78,15 @@ namespace UIScripts
                     break;
                 case 3 : //Checkpoint
                     path = Application.persistentDataPath + "/saveData.data";
-                    if (xPos != 1f && yPos != 1f && zPos != 1f)
+                    if (!(File.Exists(path)))
+                    {
+                        File.WriteAllText(path, 1 + ";"
+                                                                    + "\n" + 0 + ";" + "\n" + 0 + ";" + "\n" + 0 + ";" 
+                                                                    + "\n" + 0 + ";" + "\n" + 0 + ";" + "\n" + 0 + ";"
+                                                                    + "\n" + 0 + ";" + "\n" + 0 + ";" + "\n" + 0 );
+                        
+                    }
+                    else if (xPos != 1f && yPos != 1f && zPos != 1f)
                     {
                         DataSave saveData = new(saveFileNumber, new Vector3(xPos, yPos, zPos));
                         File.WriteAllText(path, saveData.saveChosen + ";"
@@ -124,7 +139,8 @@ namespace UIScripts
             }
             else
             {
-                return null;
+                WriteData(whichValuesToLoad);
+                return (LoadValues(whichValuesToLoad));
             }
 
         } 
@@ -136,6 +152,7 @@ namespace UIScripts
                 switch (whichFileToLoad)
                 {
                     case 1 : //Sound
+                        Debug.Log("rt");
                         mainVolumeValue = float.Parse(LoadValues(whichFileToLoad)[0]);
                         musicVolumeValue = float.Parse(LoadValues(whichFileToLoad)[1]);
                         soundEffectVolumeValue = float.Parse(LoadValues(whichFileToLoad)[2]);

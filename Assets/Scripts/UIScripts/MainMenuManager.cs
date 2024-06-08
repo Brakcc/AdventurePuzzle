@@ -1,15 +1,18 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using FMODUnity;
 
 namespace UIScripts
 {
     public class MainMenuManager : FileWriter
     {
         [HideInInspector] public bool optionsHere;
-
+        [SerializeField] private PlaySound startSceneButtonSound;
+        [SerializeField] private PlaySound quitButtonSound;
+        [SerializeField] private PlaySound normalSound; 
+        
         private void Start()
         {
-            Debug.Log(Application.persistentDataPath);
             optionsHere = false;
         }
 
@@ -17,6 +20,11 @@ namespace UIScripts
         {
             if (!optionsHere)
             {
+                if (sceneName == "SaveFileScene")
+                {
+                    normalSound.PlayEventSound();
+                }
+                else{startSceneButtonSound.PlayEventSound();}
                 SceneManager.LoadScene(sceneName);
             }
         }
@@ -25,6 +33,8 @@ namespace UIScripts
         {
             if (!optionsHere)
             {
+                Debug.Log("Quit");
+                quitButtonSound.PlayEventSound();
                 Application.Quit();
             }
         }

@@ -44,7 +44,9 @@ namespace UIScripts
         public void GoBackToPreviousCheckPoint()
         {
             if (pauseEnabled){ShowPause();}
-            CheckpointManager.CheckMInstance.SendToCheckpoint();
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //CheckpointManager.CheckMInstance.SendToCheckpoint();
         }
     }
 }
