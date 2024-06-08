@@ -32,8 +32,18 @@ Material:
         m_Texture: {fileID: 2800000, guid: fe78479bda3eb3047a17dcc05db48d31, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _EmissiveTex:
+        m_Texture: {fileID: 2800000, guid: c901ec5081746f547bedfb7fb5d5040a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Triplanar_108ba2217fc84f4d860a3c34831d24b6_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 4c402c24ffda2ea498ea91df4057f2e2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _Emissive_Intensity: 2.7
+    - _Emissive_Tex_Tile: 0.06
     m_Colors:
     - _Color_1: {r: 0.37865782, g: 0.33268064, b: 0.7924528, a: 0}
     - _Color_2: {r: 0.38039216, g: 0.33333334, b: 0.7921569, a: 0}
