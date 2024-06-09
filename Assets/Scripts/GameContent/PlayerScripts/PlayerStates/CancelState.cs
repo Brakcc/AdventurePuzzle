@@ -20,6 +20,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         public override void OnEnterState()
         {
             _applyTimeCounter = _datasSo.interactDatasSo.applyTime;
+            AnimationManager.SetAnims("poser");
         }
 
         public override void OnExitState()
