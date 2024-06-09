@@ -18,15 +18,43 @@ namespace UIScripts
 
         public InputActionAsset myInputAction;
         
+        [SerializeField] private PlaySound openOptionsButtonSound;
+        [SerializeField] private PlaySound quitOptionsButtonSound;
+        
         private void Start()
         {
+            
             _optionsGroup = transform.GetChild(0).gameObject;
             _optionsGroup.SetActive(false);
+            if (VolumeNotPutYet)
+            {
+                sliderVolumePrincipal.value = mainVolumeValue;
+                sliderVolumeMusique.value = musicVolumeValue;
+                sliderVolumeSoundEffect.value = soundEffectVolumeValue;
+                VolumeNotPutYet = false;
+            }
+            else
+            {
+                sliderVolumePrincipal.value = mainVolumeValue;
+                sliderVolumeMusique.value = musicVolumeValue;
+                sliderVolumeSoundEffect.value = soundEffectVolumeValue;
+            }
             
+            
+            SoundManager.SoundInstance.SetUpVolumes(mainVolumeValue, musicVolumeValue, soundEffectVolumeValue);
         }
 
         public void ShowOptions()
         {
+            if (!_optionsGroup.activeSelf)
+            {
+                openOptionsButtonSound.PlayMySound();
+            }
+            else
+            {
+                quitOptionsButtonSound.PlayMySound();
+            }
+            
             _optionsGroup.SetActive(!_optionsGroup.activeSelf);
             if (pauseGroup == null)
             {
@@ -36,6 +64,7 @@ namespace UIScripts
             {
                 pauseGroup.SetActive(!_optionsGroup.activeSelf);
             }
+            
         }
 
         public void ChangeVolumeOptions()
@@ -49,6 +78,12 @@ namespace UIScripts
             arraySound[2] = volSoundEffectValue;
             
             WriteData(1, arraySound);
+            
+            SoundManager.SoundInstance.SetUpVolumes(volPrincValue, volMusiqueValue, volSoundEffectValue);
+            
+            sliderVolumePrincipal.GetComponent<PlaySound>().PlayMySound();
         }
+
+        
     }
 }

@@ -12,6 +12,13 @@ namespace UIScripts
         public bool pauseEnabled;
         public Transform firstTransformPos;
 
+        
+        [SerializeField] PlaySound openPauseSound;
+        [SerializeField] PlaySound endPauseSound;
+        [SerializeField] PlaySound backToCheckPointSound;
+        [SerializeField] PlaySound quitSound;
+        
+        
         private void Start()
         {
             Time.timeScale = 1;
@@ -30,6 +37,14 @@ namespace UIScripts
 
         public void ShowPause()
         {
+            if (!pauseEnabled)
+            {
+                endPauseSound.PlayMySound();
+            }
+            else
+            {
+                openPauseSound.PlayMySound();
+            }
             pauseButton.SetActive(pauseEnabled);
             _pauseGroup.SetActive(!pauseEnabled);
             pauseEnabled = !pauseEnabled;
@@ -38,13 +53,17 @@ namespace UIScripts
 
         public void SaveAndQuit()
         {
+            quitSound.PlayMySound();
+            
             SceneManager.LoadScene("TitleScreen");
         }
 
         public void GoBackToPreviousCheckPoint()
         {
+            backToCheckPointSound.PlayMySound();
             if (pauseEnabled){ShowPause();}
-            CheckpointManager.CheckMInstance.SendToCheckpoint();
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }
