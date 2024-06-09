@@ -1,4 +1,5 @@
 ﻿using System;
+using UIScripts.Sounds;
 using UnityEngine;
 using Utilities.CustomAttributes;
 
@@ -80,6 +81,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
             if (!other.CompareTag("Player") || !HasElectricity || _isReceiving)
                 return;
 
+            GetComponent<PlaySound>().PlayMySound();
             teleporterRef._isReceiving = true;
             _isSending = true;
 

@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f1ed5b39adda2a4dada2f0766f5f5b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAmbiance: 0
+  isAmbiance: 1
 --- !u!1 &960492636747518751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,4 +1030,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f1ed5b39adda2a4dada2f0766f5f5b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAmbiance: 0
+  isAmbiance: 1
