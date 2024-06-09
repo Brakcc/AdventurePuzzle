@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5118237667348998455}
   - component: {fileID: 4261962901266718829}
   - component: {fileID: 9009615336660033070}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 5207678389324839229}
   - component: {fileID: 9217382387437041304}
   - component: {fileID: 6345096043997200978}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PF_Energie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 8132222219636201671}
   - component: {fileID: 6240946979176083552}
   - component: {fileID: 4040991269263844}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: SourceVerte
   m_TagString: Interactible
   m_Icon: {fileID: 0}

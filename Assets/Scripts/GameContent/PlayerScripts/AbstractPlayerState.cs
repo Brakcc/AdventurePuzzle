@@ -60,8 +60,20 @@ namespace GameContent.PlayerScripts
 
         public override sbyte OnUpdate()
         {
+            AnimationManager.SetLayerWeight(1, _playerMachine.MoveAnimLerpCoef);
+
+            if (stateMachine == "move" && _playerMachine.MoveAnimLerpCoef < 1)
+                _playerMachine.MoveAnimLerpCoef += Time.deltaTime;
+            
+            else if (stateMachine != "move" && _playerMachine.MoveAnimLerpCoef > 0)
+                _playerMachine.MoveAnimLerpCoef -= Time.deltaTime;
+
             if (stateMachine == "camera")
+            {
+                if (_playerMachine.MoveAnimLerpCoef > 0)
+                    _playerMachine.MoveAnimLerpCoef = 0;
                 return 1;
+            }
 
             if (_playerMachine.CamLerpCoef < 0.001f)
             {

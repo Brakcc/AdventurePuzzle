@@ -90,9 +90,12 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnMove()
         {
             if (_analogInputMagnitude <= Constants.MinMoveInputValue)
+                _idleSwitchCounter += Time.deltaTime;
+
+            if (_idleSwitchCounter > Constants.MinMoveInputValue)
             {
+                _idleSwitchCounter = 0;
                 stateMachine.SwitchState("idle");
-                return;
             }
             
             _currentDir = (IsoRightDir * _inputDir.x + IsoForwardDir * _inputDir.z).normalized;
@@ -213,6 +216,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         private float _jumpBufferCounter;
 
         private float _analogInputMagnitude;
+
+        private float _idleSwitchCounter;
         
         private Vector3 _lastDir;
 
