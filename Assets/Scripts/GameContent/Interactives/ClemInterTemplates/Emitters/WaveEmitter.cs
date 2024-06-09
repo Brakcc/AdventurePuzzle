@@ -78,10 +78,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             #endregion
         }
 
-        public override void InterAction()
-        {
-        }
-
         public override void PlayerAction()
         {
             if (!_canInteract)
@@ -94,6 +90,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             if (PlayerEnergyM.EnergyType == EnergyTypes.None)
                 return;
+            
+            activateSound.PlayMySound();
             
             SourceDatasList.Add(PlayerEnergyM.CurrentSource);
             PlayerEnergyM.CurrentSource = new SourceDatas(null);
@@ -175,7 +173,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 {
                     if (Vector3.Distance(playerTransform.position, transform.position) < distanceForSound)
                     {
-                        transform.GetChild(0).GetComponent<PlaySound>().PlayMySound();
+                        transform.GetChild(1).GetComponent<PlaySound>().PlayMySound();
                     }
                     v1.Play();
                     Destroy(tempGO1, v1.main.duration);
@@ -198,7 +196,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                     {
                         if (Vector3.Distance(playerTransform.position, transform.position) < distanceForSound)
                         {
-                            GetComponent<PlaySound>().PlayMySound();
+                            transform.GetChild(0).GetComponent<PlaySound>().PlayMySound();
                         }
                         v2.Play();
                         Destroy(tempGO2, v2.main.duration);
@@ -354,6 +352,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         #region fields
         
+        [SerializeField] private PlaySound activateSound;
+        
         [SerializeField] private List<RecepDatas> recepDatas;
 
         [SerializeField] private WaveEmitterDatas datas;
@@ -426,7 +426,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         [SerializeField] internal bool drawDebugCube;
         [SerializeField] internal Color gizmosColor;
-        
+
         #endregion
     }
 }

@@ -1,5 +1,3 @@
-using System;
-using Cinemachine;
 using GameContent.Interactives.ClemInterTemplates.Emitters;
 using UIScripts.Sounds;
 using UnityEngine;
@@ -41,18 +39,32 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         {
             base.PlayerAction();
             distributorRef.CurrentOrientationLevel = Level;
-
+            UnMaxDanimAAjouter();
+            
             if ((_value < Level || (_value == 3 && Level == 0)) && (!(_value == 0 && Level == 3)))
             {
-                transform.GetChild(2).GetComponent<PlaySound>().PlayMySound();
+                try
+                {
+                    rightSound.PlayMySound();
+                }
+                catch
+                {
+                    // ignored
+                }
             }
             else
             {
-                transform.GetChild(1).GetComponent<PlaySound>().PlayMySound();
+
+                try
+                {
+                    leftSound.PlayMySound();
+                }
+                catch
+                {
+                    // Ignore
+                }
             }
             _value = Level;
-            
-            UnMaxDanimAAjouter();
         }
         
         private void UnMaxDanimAAjouter()
@@ -86,6 +98,9 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         [SerializeField] private Color gizmosColor;
 
         private int _value;
+
+        [SerializeField] private PlaySound leftSound;
+        [SerializeField] private PlaySound rightSound;
 
         #endregion
     }
