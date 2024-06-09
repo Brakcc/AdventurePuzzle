@@ -36,6 +36,8 @@ namespace GameContent.PlayerScripts
         
         internal float CamLerpCoef { get; set; }
         
+        internal float MoveAnimLerpCoef { get; set; }
+        
         public static int InitCamAngle => InitialCameraAngle;
         
         public CharacterController CharaCont => GetComponent<CharacterController>();
