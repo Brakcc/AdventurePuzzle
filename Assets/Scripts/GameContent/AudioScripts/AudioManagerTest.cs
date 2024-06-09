@@ -6,7 +6,7 @@ namespace GameContent.AudioScripts
 {
     public class AudioManagerTest : MonoBehaviour
     {
-        [SerializeField] private EventReference audio;
+        [SerializeField] private new EventReference audio;
         
         public static AudioManagerTest Instance { get; set; }
 

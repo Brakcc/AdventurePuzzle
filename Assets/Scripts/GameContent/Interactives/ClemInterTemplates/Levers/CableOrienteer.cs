@@ -1,4 +1,7 @@
+using System;
+using Cinemachine;
 using GameContent.Interactives.ClemInterTemplates.Emitters;
+using UIScripts.Sounds;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates.Levers
@@ -6,6 +9,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
     public sealed class CableOrienteer : LeverInter
     {
         #region properties
+
+        private void Start()
+        {
+            _value = Level;
+        }
 
         public override sbyte Level
         {
@@ -33,6 +41,17 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         {
             base.PlayerAction();
             distributorRef.CurrentOrientationLevel = Level;
+
+            if ((_value < Level || (_value == 3 && Level == 0)) && (!(_value == 0 && Level == 3)))
+            {
+                transform.GetChild(2).GetComponent<PlaySound>().PlayMySound();
+            }
+            else
+            {
+                transform.GetChild(1).GetComponent<PlaySound>().PlayMySound();
+            }
+            _value = Level;
+            
             UnMaxDanimAAjouter();
         }
         
@@ -65,6 +84,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
         [SerializeField] private Distributor distributorRef;
 
         [SerializeField] private Color gizmosColor;
+
+        private int _value;
 
         #endregion
     }

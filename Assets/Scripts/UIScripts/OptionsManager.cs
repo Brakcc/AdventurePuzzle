@@ -29,19 +29,11 @@ namespace UIScripts
             _optionsGroup.SetActive(false);
             if (VolumeNotPutYet)
             {
-                sliderVolumePrincipal.value = mainVolumeValue;
-                sliderVolumeMusique.value = musicVolumeValue;
-                sliderVolumeSoundEffect.value = soundEffectVolumeValue;
                 VolumeNotPutYet = false;
             }
-            else
-            {
-                sliderVolumePrincipal.value = mainVolumeValue;
-                sliderVolumeMusique.value = musicVolumeValue;
-                sliderVolumeSoundEffect.value = soundEffectVolumeValue;
-            }
-            
-            
+            sliderVolumePrincipal.value = mainVolumeValue;
+            sliderVolumeMusique.value = musicVolumeValue;
+            sliderVolumeSoundEffect.value = soundEffectVolumeValue;
             SoundManager.SoundInstance.SetUpVolumes(mainVolumeValue, musicVolumeValue, soundEffectVolumeValue);
         }
 
@@ -84,7 +76,5 @@ namespace UIScripts
             
             sliderVolumePrincipal.GetComponent<PlaySound>().PlayMySound();
         }
-
-        
     }
 }
