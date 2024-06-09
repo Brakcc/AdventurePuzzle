@@ -33,6 +33,8 @@ namespace GameContent.PlayerScripts
         public CameraManager InitCamManager => initCamManager;
 
         public CameraManager TransCamManager => transCamManager;
+
+        internal bool IsDedge { get; set; } = false;
         
         internal float CamLerpCoef { get; set; }
         
@@ -107,9 +109,17 @@ namespace GameContent.PlayerScripts
 
         private void Start() => _stateMachine.StartMachine();
         
-        private void Update() => _stateMachine.UpdateMachine();
+        private void Update()
+        {
+            if (!IsDedge)
+                _stateMachine.UpdateMachine();
+        }
 
-        private void FixedUpdate() => _stateMachine.FixedUpdateMachine();
+        private void FixedUpdate()
+        {
+            if (!IsDedge)
+                _stateMachine.FixedUpdateMachine();
+        }
         
         #endregion
         
@@ -131,6 +141,8 @@ namespace GameContent.PlayerScripts
         
         private GenericStateMachine _stateMachine;
 
+        private float _dedTimeCounter;
+        
         private const int InitialCameraAngle = 45;
 
         #endregion

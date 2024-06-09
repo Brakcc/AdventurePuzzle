@@ -34,6 +34,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnExitState()
         {
+            AnimationManager.SetAnims("isWalking", false);
         }
 
         public override sbyte OnUpdate()

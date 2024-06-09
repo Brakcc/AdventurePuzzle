@@ -18,6 +18,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         public override void OnEnterState()
         {
             _absorbTimeCounter = _datasSo.interactDatasSo.absorbTime;
+            AnimationManager.SetAnims("poser");
         }
 
         public override void OnExitState()
