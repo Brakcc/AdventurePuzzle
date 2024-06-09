@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using FMODUnity;
+using UIScripts.Sounds;
 
 namespace UIScripts
 {

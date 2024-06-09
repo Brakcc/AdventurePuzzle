@@ -1,4 +1,5 @@
 using GameContent.Interactives.ClemInterTemplates.Receptors;
+using UIScripts.Sounds;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates
@@ -71,6 +72,7 @@ namespace GameContent.Interactives.ClemInterTemplates
         {
             if (playerCol.transform.CompareTag("Player") && _canTeleport && !_justTeleported)
             {
+                GetComponent<PlaySound>().PlayMySound();
                 _playerToTeleport = playerCol.transform;
                 _teleportStart = true;
                 otherTeleporter._justTeleported = true;

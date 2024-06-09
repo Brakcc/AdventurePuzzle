@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using GameContent.Interactives.ClemInterTemplates.Receptors;
 using GameContent.PlayerScripts;
 using TMPro;
+using UIScripts.Sounds;
 using UnityEngine;
 using Utilities.CustomAttributes;
 using Utilities.CustomAttributes.FieldColors;
@@ -18,7 +19,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         private int RecepCount => recepDatas.Count;
 
         public Vector3 SpherePos => datas.sphere.position;
-        
+        [SerializeField] private Transform playerTransform;
+        [SerializeField] private float distanceForSound = 30;
         public sbyte CurrentHeightLevel
         {
             get => _currentLevel;
@@ -76,10 +78,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             #endregion
         }
 
-        public override void InterAction()
-        {
-        }
-
         public override void PlayerAction()
         {
             if (!_canInteract)
@@ -92,6 +90,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             if (PlayerEnergyM.EnergyType == EnergyTypes.None)
                 return;
+            
+            activateSound.PlayMySound();
             
             SourceDatasList.Add(PlayerEnergyM.CurrentSource);
             PlayerEnergyM.CurrentSource = new SourceDatas(null);
@@ -171,6 +171,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 var tempGO1 = Instantiate(datas.waveVFXs[0], datas.sphere.position, Quaternion.identity);
                 if (tempGO1.TryGetComponent<ParticleSystem>(out var v1))
                 {
+                    if (Vector3.Distance(playerTransform.position, transform.position) < distanceForSound)
+                    {
+                        transform.GetChild(1).GetComponent<PlaySound>().PlayMySound();
+                    }
                     v1.Play();
                     Destroy(tempGO1, v1.main.duration);
                 }
@@ -190,6 +194,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                     var tempGO2 = Instantiate(datas.waveVFXs[1], datas.sphere.position, Quaternion.identity);
                     if (tempGO2.TryGetComponent<ParticleSystem>(out var v2))
                     {
+                        if (Vector3.Distance(playerTransform.position, transform.position) < distanceForSound)
+                        {
+                            transform.GetChild(0).GetComponent<PlaySound>().PlayMySound();
+                        }
                         v2.Play();
                         Destroy(tempGO2, v2.main.duration);
                     }
@@ -344,6 +352,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         #region fields
         
+        [SerializeField] private PlaySound activateSound;
+        
         [SerializeField] private List<RecepDatas> recepDatas;
 
         [SerializeField] private WaveEmitterDatas datas;
@@ -416,7 +426,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         
         [SerializeField] internal bool drawDebugCube;
         [SerializeField] internal Color gizmosColor;
-        
+
         #endregion
     }
 }
