@@ -80,8 +80,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
                 if (_checker.InterRef is EmitterInter { SourceCount: > 0 })
                 {
-                    _datasSo.interactDatasSo.OnVFX(3, _goRef.transform.position, 
-                                                   Quaternion.LookRotation(PlayerEnergyM.CurrentSource.Source.transform.position - _goRef.transform.position));
+                    _datasSo.interactDatasSo.OnVFX(3, _goRef.transform.position, _goRef.transform.position);
 
                     if (PlayerEnergyM.EnergyType is not EnergyTypes.None)
                         _datasSo.interactDatasSo.OnVFX(PlayerEnergyM.EnergyType is EnergyTypes.Green ? (byte)1 : (byte)2, _goRef.transform.position, 

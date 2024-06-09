@@ -4,53 +4,59 @@ namespace GameContent.PlayerScripts
 {
     public static class AnimationManager
     {
+        #region properties
+
+        public static Animator PlayerAnimator => playerAnimator;
+
+        #endregion
+        
         #region mathodes
 
-        public static void InitAnimationManager(Animator a) => PlayerAnimator = a;
+        public static void InitAnimationManager(Animator a) => playerAnimator = a;
 
         public static void SetLayerWeight(int layerID, float weight)
         {
-            PlayerAnimator.SetLayerWeight(layerID, weight);
+            playerAnimator.SetLayerWeight(layerID, weight);
         }
         
         public static void SetAnims(int layerID, float weight, string paramName)
         {
-            PlayerAnimator.SetLayerWeight(layerID, weight);
-            PlayerAnimator.SetTrigger(paramName);
+            playerAnimator.SetLayerWeight(layerID, weight);
+            playerAnimator.SetTrigger(paramName);
         }
         
         public static void SetAnims(int layerID, float weight, string paramName, bool paramState)
         {
-            PlayerAnimator.SetLayerWeight(layerID, weight);
-            PlayerAnimator.SetBool(paramName, paramState);
+            playerAnimator.SetLayerWeight(layerID, weight);
+            playerAnimator.SetBool(paramName, paramState);
         }
         
         public static void SetAnims(int layerID, float weight, string paramName, float paramState)
         {
-            PlayerAnimator.SetLayerWeight(layerID, weight);
-            PlayerAnimator.SetFloat(paramName, paramState);
+            playerAnimator.SetLayerWeight(layerID, weight); 
+            playerAnimator.SetFloat(paramName, paramState);
         }
         
         public static void SetAnims(string paramName)
         {
-            PlayerAnimator.SetTrigger(paramName);
+            playerAnimator.SetTrigger(paramName);
         }
         
         public static void SetAnims(string paramName, bool paramState)
         {
-            PlayerAnimator.SetBool(paramName, paramState);
+            playerAnimator.SetBool(paramName, paramState);
         }
         
         public static void SetAnims(string paramName, float paramState)
         {
-            PlayerAnimator.SetFloat(paramName, paramState);
+            playerAnimator.SetFloat(paramName, paramState);
         }
         
         #endregion
 
         #region fields
 
-        private static Animator PlayerAnimator;
+        private static Animator playerAnimator;
 
         #endregion
     }

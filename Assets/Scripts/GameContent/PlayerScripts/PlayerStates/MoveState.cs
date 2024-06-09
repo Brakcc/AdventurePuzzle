@@ -30,6 +30,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             _jumpBufferCounter = Constants.SecuValuUnderZero;
             
             AnimationManager.SetAnims("isWalking", true);
+            AnimationManager.SetLayerWeight(1, 1);
         }
 
         public override void OnExitState()

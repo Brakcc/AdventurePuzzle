@@ -116,6 +116,9 @@ namespace GameContent.PlayerScripts.PlayerStates
             _interRef = null;
             
             AnimationManager.SetAnims("isGrabbing", false);
+            AnimationManager.SetAnims("isPushing", false);
+            AnimationManager.SetAnims("isPulling", false);
+            AnimationManager.PlayerAnimator.speed = 1;
         }
 
         public override sbyte OnUpdate()
@@ -124,6 +127,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             var input = _datasSo.moveInput.action.ReadValue<Vector2>();
             _inputDir = new Vector3(input.x, 0, input.y).normalized;
+            _absoluteInputMagnitude = input.magnitude;
             
             OnFall();
             GetHoldInput();
@@ -322,6 +326,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                         .normalized;
                     AnimationManager.SetAnims("isPulling", true);
                     AnimationManager.SetAnims("isPushing", false);
+                    AnimationManager.PlayerAnimator.speed = _absoluteInputMagnitude;
                     break;
                 case RelativeInterPos.TR when _inputDir is { x: < 0, z: < 0 }:
                     _currentDir = GetBlockBL(_absoluteAngle)
@@ -330,6 +335,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                         .normalized;
                     AnimationManager.SetAnims("isPulling", false);
                     AnimationManager.SetAnims("isPushing", true);
+                    AnimationManager.PlayerAnimator.speed = _absoluteInputMagnitude;
                     break;
                 
                 #endregion
@@ -343,6 +349,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                         .normalized;
                     AnimationManager.SetAnims("isPulling", true);
                     AnimationManager.SetAnims("isPushing", false);
+                    AnimationManager.PlayerAnimator.speed = _absoluteInputMagnitude;
                     break;
                 case RelativeInterPos.BR when _inputDir is { x: < 0, z: > 0 }:
                     _currentDir = GetBlockTL(_absoluteAngle)
@@ -351,6 +358,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                         .normalized;
                     AnimationManager.SetAnims("isPulling", false);
                     AnimationManager.SetAnims("isPushing", true);
+                    AnimationManager.PlayerAnimator.speed = _absoluteInputMagnitude;
                     break;
                 
                 #endregion
@@ -364,6 +372,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                         .normalized;
                     AnimationManager.SetAnims("isPulling", false);
                     AnimationManager.SetAnims("isPushing", true);
+                    AnimationManager.PlayerAnimator.speed = _absoluteInputMagnitude;
                     break;
                 case RelativeInterPos.TL when _inputDir is { x: < 0, z: > 0 }:
                     _currentDir = GetBlockTL(_absoluteAngle) || GetPlayerTL(_absoluteAngle)
@@ -372,6 +381,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                         .normalized;
                     AnimationManager.SetAnims("isPulling", true);
                     AnimationManager.SetAnims("isPushing", false);
+                    AnimationManager.PlayerAnimator.speed = _absoluteInputMagnitude;
                     break;
                 
                 #endregion
@@ -385,6 +395,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                         .normalized;
                     AnimationManager.SetAnims("isPulling", false);
                     AnimationManager.SetAnims("isPushing", true);
+                    AnimationManager.PlayerAnimator.speed = _absoluteInputMagnitude;
                     break;
                 case RelativeInterPos.BL when _inputDir is { x: < 0, z: < 0 }:
                     _currentDir = GetBlockBL(_absoluteAngle) || GetPlayerBL(_absoluteAngle)
@@ -393,6 +404,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                         .normalized;
                     AnimationManager.SetAnims("isPulling", true);
                     AnimationManager.SetAnims("isPushing", false);
+                    AnimationManager.PlayerAnimator.speed = _absoluteInputMagnitude;
                     break;
                 
                 #endregion
@@ -464,6 +476,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         private float _fallCounter;
 
         private float _blockFallCounter;
+
+        private float _absoluteInputMagnitude;
 
         #endregion
     }
