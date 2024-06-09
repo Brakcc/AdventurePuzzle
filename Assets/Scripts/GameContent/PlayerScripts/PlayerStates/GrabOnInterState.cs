@@ -105,6 +105,8 @@ namespace GameContent.PlayerScripts.PlayerStates
             _absoluteAngle = getAbsoluteAngle();
             
             _directionMode = GetBaseMoveDir(_relativePos);
+            
+            AnimationManager.SetAnims("isGrabbing", true);
         }
 
         public override void OnExitState()
@@ -112,6 +114,11 @@ namespace GameContent.PlayerScripts.PlayerStates
             _tempDistFromPlayer = 0;
             
             _interRef = null;
+            
+            AnimationManager.SetAnims("isGrabbing", false);
+            AnimationManager.SetAnims("isPushing", false);
+            AnimationManager.SetAnims("isPulling", false);
+            AnimationManager.PlayerAnimator.speed = 1;
         }
 
         public override sbyte OnUpdate()
@@ -120,6 +127,7 @@ namespace GameContent.PlayerScripts.PlayerStates
             
             var input = _datasSo.moveInput.action.ReadValue<Vector2>();
             _inputDir = new Vector3(input.x, 0, input.y).normalized;
+            _absoluteInputMagnitude = input.magnitude;
             
             OnFall();
             GetHoldInput();
@@ -307,59 +315,107 @@ namespace GameContent.PlayerScripts.PlayerStates
             if (_inputDir.magnitude <= Constants.MinMoveInputValue)
                 return;
 
-            _currentDir = _relativePos switch
+            switch (_relativePos)
             {
                 #region TR
                 
-                RelativeInterPos.TR when _inputDir is { x: > 0, z: > 0 } =>
-                    GetBlockTR(_absoluteAngle) || GetPlayerTR(_absoluteAngle)
+                case RelativeInterPos.TR when _inputDir is { x: > 0, z: > 0 }:
+                    _currentDir = GetBlockTR(_absoluteAngle) || GetPlayerTR(_absoluteAngle)
                         ? Vector3.zero
-                        : ((IsoForwardDir + IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
-                RelativeInterPos.TR when _inputDir is { x: < 0, z: < 0 } => GetBlockBL(_absoluteAngle)
-                    ? Vector3.zero
-                    : ((IsoForwardDir + IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                        : ((IsoForwardDir + IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x)))
+                        .normalized;
+                    AnimationManager.SetAnims("isPulling", true);
+                    AnimationManager.SetAnims("isPushing", false);
+                    AnimationManager.PlayerAnimator.speed = _absoluteInputMagnitude;
+                    break;
+                case RelativeInterPos.TR when _inputDir is { x: < 0, z: < 0 }:
+                    _currentDir = GetBlockBL(_absoluteAngle)
+                        ? Vector3.zero
+                        : ((IsoForwardDir + IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x)))
+                        .normalized;
+                    AnimationManager.SetAnims("isPulling", false);
+                    AnimationManager.SetAnims("isPushing", true);
+                    AnimationManager.PlayerAnimator.speed = _absoluteInputMagnitude;
+                    break;
                 
                 #endregion
                 
                 #region BR
                 
-                RelativeInterPos.BR when _inputDir is { x: > 0, z: < 0 } =>
-                    GetBlockBR(_absoluteAngle) || GetPlayerBR(_absoluteAngle)
+                case RelativeInterPos.BR when _inputDir is { x: > 0, z: < 0 }:
+                    _currentDir = GetBlockBR(_absoluteAngle) || GetPlayerBR(_absoluteAngle)
                         ? Vector3.zero
-                        : ((IsoForwardDir - IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
-                RelativeInterPos.BR when _inputDir is { x: < 0, z: > 0 } => GetBlockTL(_absoluteAngle)
-                    ? Vector3.zero
-                    : ((IsoForwardDir - IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                        : ((IsoForwardDir - IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x)))
+                        .normalized;
+                    AnimationManager.SetAnims("isPulling", true);
+                    AnimationManager.SetAnims("isPushing", false);
+                    AnimationManager.PlayerAnimator.speed = _absoluteInputMagnitude;
+                    break;
+                case RelativeInterPos.BR when _inputDir is { x: < 0, z: > 0 }:
+                    _currentDir = GetBlockTL(_absoluteAngle)
+                        ? Vector3.zero
+                        : ((IsoForwardDir - IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x)))
+                        .normalized;
+                    AnimationManager.SetAnims("isPulling", false);
+                    AnimationManager.SetAnims("isPushing", true);
+                    AnimationManager.PlayerAnimator.speed = _absoluteInputMagnitude;
+                    break;
                 
                 #endregion
                 
                 #region TL
-                    
-                RelativeInterPos.TL when _inputDir is { x: > 0, z: < 0 } => GetBlockBR(_absoluteAngle)
-                    ? Vector3.zero
-                    : ((IsoForwardDir - IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
-                RelativeInterPos.TL when _inputDir is { x: < 0, z: > 0 } =>
-                    GetBlockTL(_absoluteAngle) || GetPlayerTL(_absoluteAngle)
+                
+                case RelativeInterPos.TL when _inputDir is { x: > 0, z: < 0 }:
+                    _currentDir = GetBlockBR(_absoluteAngle)
                         ? Vector3.zero
-                        : ((IsoForwardDir - IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                        : ((IsoForwardDir - IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x)))
+                        .normalized;
+                    AnimationManager.SetAnims("isPulling", false);
+                    AnimationManager.SetAnims("isPushing", true);
+                    AnimationManager.PlayerAnimator.speed = _absoluteInputMagnitude;
+                    break;
+                case RelativeInterPos.TL when _inputDir is { x: < 0, z: > 0 }:
+                    _currentDir = GetBlockTL(_absoluteAngle) || GetPlayerTL(_absoluteAngle)
+                        ? Vector3.zero
+                        : ((IsoForwardDir - IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x)))
+                        .normalized;
+                    AnimationManager.SetAnims("isPulling", true);
+                    AnimationManager.SetAnims("isPushing", false);
+                    AnimationManager.PlayerAnimator.speed = _absoluteInputMagnitude;
+                    break;
                 
                 #endregion
                 
                 #region BL
                 
-                RelativeInterPos.BL when _inputDir is { x: > 0, z: > 0 } => GetBlockTR(_absoluteAngle)
-                    ? Vector3.zero
-                    : ((IsoForwardDir + IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
-                RelativeInterPos.BL when _inputDir is { x: < 0, z: < 0 } =>
-                    GetBlockBL(_absoluteAngle) || GetPlayerBL(_absoluteAngle)
+                case RelativeInterPos.BL when _inputDir is { x: > 0, z: > 0 }:
+                    _currentDir = GetBlockTR(_absoluteAngle)
                         ? Vector3.zero
-                        : ((IsoForwardDir + IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x))).normalized,
+                        : ((IsoForwardDir + IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x)))
+                        .normalized;
+                    AnimationManager.SetAnims("isPulling", false);
+                    AnimationManager.SetAnims("isPushing", true);
+                    AnimationManager.PlayerAnimator.speed = _absoluteInputMagnitude;
+                    break;
+                case RelativeInterPos.BL when _inputDir is { x: < 0, z: < 0 }:
+                    _currentDir = GetBlockBL(_absoluteAngle) || GetPlayerBL(_absoluteAngle)
+                        ? Vector3.zero
+                        : ((IsoForwardDir + IsoRightDir) * (_inputDir.x * _inputDir.z * Mathf.Sign(_inputDir.x)))
+                        .normalized;
+                    AnimationManager.SetAnims("isPulling", true);
+                    AnimationManager.SetAnims("isPushing", false);
+                    AnimationManager.PlayerAnimator.speed = _absoluteInputMagnitude;
+                    break;
                 
                 #endregion
                 
-                _ => Vector3.zero
-            };
-            
+                default:
+                    _currentDir = Vector3.zero;
+                    AnimationManager.SetAnims("isPulling", false);
+                    AnimationManager.SetAnims("isPushing", false);
+                    break;
+            }
+
             _cc.SimpleMove(_currentDir * (_datasSo.moveDatasSo.holdingRecepMoveSpeed * Constants.SpeedMultiplier * Time.deltaTime));
             
             //obj move
@@ -420,6 +476,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         private float _fallCounter;
 
         private float _blockFallCounter;
+
+        private float _absoluteInputMagnitude;
 
         #endregion
     }

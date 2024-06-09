@@ -22,6 +22,8 @@ namespace GameContent.PlayerScripts.PlayerStates
                 return;
             }
 
+            AnimationManager.SetAnims("isWalking", false);
+            
             _playerMachine.InitCamManager.IsFocused = true;
             _playerMachine.TransCamManager.IsFocused = true;
         }

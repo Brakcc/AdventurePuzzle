@@ -80,6 +80,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public override void PlayerAction()
         {
+            if (!_canInteract)
+                return;
+
+            _canInteract = false;
+            
             if (SourceCount >= Constants.MaxWaveEmitterEnergyContaints)
                 return;
             
@@ -98,6 +103,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public override void PlayerCancel()
         {
+            if (!_canInteract)
+                return;
+
+            _canInteract = false;
+            
             if (SourceCount <= 0)
                 return;
 
@@ -120,6 +130,19 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         protected override void OnUpdate()
         {
             base.OnUpdate();
+
+            if (_canInteract)
+                goto TimeSetters;
+
+            _actionBlockerThreshold += Time.deltaTime;
+            
+            if (!(_actionBlockerThreshold >= Constants.ActionBlockerThreshold))
+                goto TimeSetters;
+
+            _actionBlockerThreshold = 0;
+            _canInteract = true;
+            
+            TimeSetters:
             
             if (_tripleWavesDelayCounter <= datas.tripleWavesDelay)
             {
@@ -127,9 +150,13 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                 return;
             }
             _tripleWavesDelayCounter = 0;
-            
+
             if (SourceCount == 0)
+            {
+                if (_tripleWavesDelayCounter < datas.tripleWavesDelay)
+                    _tripleWavesDelayCounter = datas.tripleWavesDelay;
                 return;
+            }
                 
             StartCoroutine(WaveStarted());
         }
@@ -244,20 +271,25 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             switch (energies.Count)
             {
                 case 0:
-                    _matBlock.SetFloat(TwoColor, 0);
-                    _matBlock.SetFloat(ThreeColor, 0);
+                    _matBlock.SetFloat(TwoColor, 1);
+                    _matBlock.SetFloat(ThreeColor, 1);
                     _matBlock.SetColor(Color01, GetEnergyColor(EnergyTypes.None));
+                    _matBlock.SetColor(Color02, GetEnergyColor(EnergyTypes.None));
+                    _matBlock.SetColor(Color03, GetEnergyColor(EnergyTypes.None));
                     break;
                 case 1:
-                    _matBlock.SetFloat(TwoColor, 0);
-                    _matBlock.SetFloat(ThreeColor, 0);
+                    _matBlock.SetFloat(TwoColor, 1);
+                    _matBlock.SetFloat(ThreeColor, 1);
                     _matBlock.SetColor(Color01, GetEnergyColor(energies[0].Type));
+                    _matBlock.SetColor(Color02, GetEnergyColor(EnergyTypes.None));
+                    _matBlock.SetColor(Color03, GetEnergyColor(EnergyTypes.None));
                     break;
                 case 2:
                     _matBlock.SetFloat(TwoColor, 1);
-                    _matBlock.SetFloat(ThreeColor, 0);
+                    _matBlock.SetFloat(ThreeColor, 1);
                     _matBlock.SetColor(Color01, GetEnergyColor(energies[0].Type));
                     _matBlock.SetColor(Color02, GetEnergyColor(energies[1].Type));
+                    _matBlock.SetColor(Color03, GetEnergyColor(EnergyTypes.None));
                     break;
                 case >= 3:
                     _matBlock.SetFloat(TwoColor, 1);
@@ -333,6 +365,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         private sbyte _currentLevel;
         
         private float _tripleWavesDelayCounter;
+
+        private float _actionBlockerThreshold;
+
+        private bool _canInteract;
         
         private MaterialPropertyBlock _matBlock;
         
