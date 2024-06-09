@@ -18,8 +18,8 @@ namespace UIScripts
 
         public InputActionAsset myInputAction;
         
-        [SerializeField] private PlaySound openPauseButtonSound;
-        [SerializeField] private PlaySound quitPauseButtonSound;
+        [SerializeField] private PlaySound openOptionsButtonSound;
+        [SerializeField] private PlaySound quitOptionsButtonSound;
         
         private void Start()
         {
@@ -35,25 +35,24 @@ namespace UIScripts
             }
             else
             {
-                LoadData(1);
                 sliderVolumePrincipal.value = mainVolumeValue;
                 sliderVolumeMusique.value = musicVolumeValue;
                 sliderVolumeSoundEffect.value = soundEffectVolumeValue;
             }
             
             
-            SetUpVolumes();
+            SoundManager.SoundInstance.SetUpVolumes(mainVolumeValue, musicVolumeValue, soundEffectVolumeValue);
         }
 
         public void ShowOptions()
         {
             if (!_optionsGroup.activeSelf)
             {
-                openPauseButtonSound.PlayEventSound();
+                openOptionsButtonSound.PlayMySound();
             }
             else
             {
-                quitPauseButtonSound.PlayEventSound();
+                quitOptionsButtonSound.PlayMySound();
             }
             
             _optionsGroup.SetActive(!_optionsGroup.activeSelf);
@@ -80,17 +79,11 @@ namespace UIScripts
             
             WriteData(1, arraySound);
             
-            SetUpVolumes();
+            SoundManager.SoundInstance.SetUpVolumes(volPrincValue, volMusiqueValue, volSoundEffectValue);
             
-            sliderVolumePrincipal.GetComponent<PlaySound>().PlayEventSound();
+            sliderVolumePrincipal.GetComponent<PlaySound>().PlayMySound();
         }
 
-        void SetUpVolumes()
-        {
-            foreach (var soundObjects in FindObjectsOfType<PlaySound>())
-            {
-                soundObjects.volume = mainVolumeValue / 100;
-            }
-        }
+        
     }
 }

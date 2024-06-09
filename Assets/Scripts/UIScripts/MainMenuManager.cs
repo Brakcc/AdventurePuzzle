@@ -22,9 +22,9 @@ namespace UIScripts
             {
                 if (sceneName == "SaveFileScene")
                 {
-                    normalSound.PlayEventSound();
+                    normalSound.PlayMySound();
                 }
-                else{startSceneButtonSound.PlayEventSound();}
+                else{startSceneButtonSound.PlayMySound();}
                 SceneManager.LoadScene(sceneName);
             }
         }
@@ -34,7 +34,7 @@ namespace UIScripts
             if (!optionsHere)
             {
                 Debug.Log("Quit");
-                quitButtonSound.PlayEventSound();
+                quitButtonSound.PlayMySound();
                 Application.Quit();
             }
         }

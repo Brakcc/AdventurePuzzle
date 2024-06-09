@@ -1,5 +1,6 @@
 using FMODUnity;
 using UnityEngine;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace UIScripts
 {
@@ -7,14 +8,15 @@ namespace UIScripts
     {
         [Header("Nécessite un FPro Sound Emitter")]
         public bool isAmbiance;
-        
-        public StudioEventEmitter MyEmitter;
-        [HideInInspector] public float volume;
 
-        public void PlayEventSound()
+        private void Start()
         {
-            MyEmitter.EventInstance.setVolume(volume);
-            MyEmitter.EventInstance.start();
+            GetComponent<StudioEventEmitter>().EventInstance.stop(STOP_MODE.IMMEDIATE);
+        }
+
+        public void PlayMySound()
+        {
+            SoundManager.SoundInstance.PlayEventSound(GetComponent<StudioEventEmitter>(), isAmbiance);
         }
 
     }
