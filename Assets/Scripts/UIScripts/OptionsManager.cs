@@ -71,8 +71,15 @@ namespace UIScripts
             arraySound[2] = volSoundEffectValue;
             
             WriteData(1, arraySound);
-            
-            SoundManager.SoundInstance.SetUpVolumes(volPrincValue, volMusiqueValue, volSoundEffectValue);
+
+            try
+            {
+                SoundManager.SoundInstance.SetUpVolumes(volPrincValue, volMusiqueValue, volSoundEffectValue);
+            }
+            catch 
+            {
+                // ignored
+            }
             
             sliderVolumePrincipal.GetComponent<PlaySound>().PlayMySound();
         }

@@ -2,6 +2,7 @@
 using System.Collections;
 using GameContent.Interactives.ClemInterTemplates.Receptors;
 using GameContent.PlayerScripts;
+using UIScripts.Sounds;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates.Emitters
@@ -9,7 +10,19 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
     public sealed class CableEmitter : EmitterInter
     {
         #region methodes
-        
+
+        private void Start()
+        {
+            StartCoroutine(WaitJustABitForTheSound());
+        }
+
+        IEnumerator WaitJustABitForTheSound()
+        {
+            _began = false;
+            yield return new WaitForSecondsRealtime(1f);
+            _began = true;
+        }
+
         protected override void OnInit()
         {
             base.OnInit();
@@ -114,6 +127,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
 
         public override void InterAction()
         {
+            base.InterAction();
             for (var i = 0; i < SourceCount; i++)
             {
                 switch (nodes[i].dendrite)
@@ -125,6 +139,7 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                         break;
                     case DentriteType.Distributor:
                         nodes[i].distributorRef.IncomingCollectedEnergy = this[i].Type;
+                        if (_began){GetComponent<PlaySound>().PlayMySound();}
                         break;
                     case DentriteType.None:
                         break;
@@ -146,6 +161,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             if (PlayerEnergyM.EnergyType == EnergyTypes.None)
                 return;
+            
+            activateSound.PlayMySound();
             
             SourceDatasList.Add(PlayerEnergyM.CurrentSource);
             PlayerEnergyM.CurrentSource = new SourceDatas();
@@ -193,11 +210,14 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             
             if (SourceCount <= 0)
                 return;
+            
+            emptySound.PlayMySound();
 
             if (PlayerEnergyM.GetEnergyBack)
             {
                 if (PlayerEnergyM.EnergyType != EnergyTypes.None)
                     PlayerEnergyM.CurrentSource.Source.InterAction();
+                
                 PlayerEnergyM.CurrentSource = SourceDatasList[SourceCount - 1];
                 PlayerEnergyM.OnSourceChangedDebug();
             }
@@ -433,6 +453,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
         private static readonly int EmissionFade = Shader.PropertyToID("_On_Energy_fade");
         
         private static readonly int GreenBlue = Shader.PropertyToID("_On_Green_Off_Blue");
+
+        private bool _began;
+
+        [SerializeField] private PlaySound emptySound;
+        [SerializeField] private PlaySound activateSound;
 
         #endregion
     }
