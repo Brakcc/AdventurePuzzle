@@ -20,7 +20,7 @@ namespace UIScripts
 
         protected bool VolumeNotPutYet;
 
-        private void Start()
+        private void Awake()
         {
             LoadData(3);
             if (saveChosen == 0)
@@ -34,6 +34,10 @@ namespace UIScripts
                 startSlidValues[2] = 70;
                 WriteData(1, startSlidValues);
                 VolumeNotPutYet = true;
+            }
+            else
+            {
+                LoadData(1);
             }
         }
 
@@ -152,7 +156,6 @@ namespace UIScripts
                 switch (whichFileToLoad)
                 {
                     case 1 : //Sound
-                        Debug.Log("rt");
                         mainVolumeValue = float.Parse(LoadValues(whichFileToLoad)[0]);
                         musicVolumeValue = float.Parse(LoadValues(whichFileToLoad)[1]);
                         soundEffectVolumeValue = float.Parse(LoadValues(whichFileToLoad)[2]);

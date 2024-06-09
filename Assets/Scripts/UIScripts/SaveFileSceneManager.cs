@@ -1,3 +1,4 @@
+using UIScripts.Sounds;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,13 +6,22 @@ namespace UIScripts
 {
     public class SaveFileSceneManager : FileWriter
     {
+        public PlaySound normalClick;
+        public PlaySound quitClick;
+
+        void Start()
+        {
+            SoundManager.SoundInstance.SetUpVolumes(mainVolumeValue, musicVolumeValue, soundEffectVolumeValue);
+        }
         public void ReturnToMainMenu()
         {
+            quitClick.PlayMySound();
             SceneManager.LoadScene("TitleScreen");
         }
 
         public void ChangeSaveFile(int numberOfTheSaveFile)
         {
+            normalClick.PlayMySound();
             switch (numberOfTheSaveFile)
             {
                 case 1:
