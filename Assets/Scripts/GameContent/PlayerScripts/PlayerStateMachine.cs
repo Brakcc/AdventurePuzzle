@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GameContent.CameraScripts;
 using GameContent.PlayerScripts.PlayerDatas;
 using GameContent.PlayerScripts.PlayerStates;
