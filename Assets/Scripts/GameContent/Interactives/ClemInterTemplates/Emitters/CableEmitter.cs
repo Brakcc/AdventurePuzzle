@@ -285,12 +285,16 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
                                                   datas.stacks[SourceCount - 1], 
                                                   datas.vFXPos[SourceCount - 1].position, 
                                                   SourceDatasList[SourceCount - 1].Type));
+                        _cableMats[SourceCount - 1].SetFloat(GreenBlue, 1);
+                        nodes[SourceCount - 1].SetProperties(_cableMats[SourceCount - 1]);
                         break;
                     case EnergyTypes.Blue:
                         StartCoroutine(OnPartLive(datas.blueAppearPartSys, 
                                                   datas.stacks[SourceCount - 1], 
                                                   datas.vFXPos[SourceCount - 1].position, 
                                                   SourceDatasList[SourceCount - 1].Type));
+                        _cableMats[SourceCount - 1].SetFloat(GreenBlue, 0);
+                        nodes[SourceCount - 1].SetProperties(_cableMats[SourceCount - 1]);
                         break;
                     case EnergyTypes.None:
                         break;

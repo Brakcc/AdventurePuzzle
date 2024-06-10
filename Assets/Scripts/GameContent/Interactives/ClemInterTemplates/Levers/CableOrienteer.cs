@@ -35,8 +35,29 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
             Level = distributorRef.StartingLevel;
         }
 
+        protected override void OnUpdate()
+        {
+            base.OnUpdate();
+            
+            if (_canInteract)
+                return;
+
+            _actionBlockerThreshold += Time.deltaTime;
+            
+            if (_actionBlockerThreshold <= 0.3f)
+                return;
+
+            _actionBlockerThreshold = 0;
+            _canInteract = true;
+        }
+
         public override void PlayerAction()
         {
+            if (!_canInteract)
+                return;
+
+            _canInteract = false;
+            
             base.PlayerAction();
             distributorRef.CurrentOrientationLevel = Level;
             UnMaxDanimAAjouter();
@@ -72,6 +93,8 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
             //arreter d'avoir la flemme et faire le truc
             
             DistributorPivot.rotation = Quaternion.Euler(0, GetDistributorAngle(), 0);
+            
+            anim.SetTrigger(Turn);
         }
 
         private float GetDistributorAngle() => Level switch
@@ -93,6 +116,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
 
         #region fields
 
+        [SerializeField] private Animator anim;
+        
+        private static readonly int Turn = Animator.StringToHash("Turn");
+        
         [SerializeField] private Distributor distributorRef;
 
         [SerializeField] private Color gizmosColor;
@@ -101,6 +128,10 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
 
         [SerializeField] private PlaySound leftSound;
         [SerializeField] private PlaySound rightSound;
+
+        private bool _canInteract = true;
+
+        private float _actionBlockerThreshold;
 
         #endregion
     }
