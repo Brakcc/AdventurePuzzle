@@ -289,6 +289,81 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &4232826266943464290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8706213347869589526}
+  - component: {fileID: 6400742974811846937}
+  - component: {fileID: 6770295697866411785}
+  m_Layer: 31
+  m_Name: GroundSoundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8706213347869589526
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4232826266943464290}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.108, z: 0}
+  m_LocalScale: {x: 0.23873256, y: 0.6018206, z: 0.23873256}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 808993273491451992}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6400742974811846937
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4232826266943464290}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6770295697866411785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4232826266943464290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e750ab10ea826f49b1f900857f49cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCollidToIgnore1: {fileID: 4961898190823947747}
+  playerCollidToIgnore2: {fileID: 2208434415901889940}
+  sound:
+    Guid:
+      Data1: -621248419
+      Data2: 1199793733
+      Data3: -846243960
+      Data4: 1673816751
+    Path: event:/Chara/CosmosChute
 --- !u!1 &7537734540998498118
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +436,7 @@ Transform:
   - {fileID: 5518624120297943000}
   - {fileID: 4353327182877276981}
   - {fileID: 5896440626325804008}
+  - {fileID: 8706213347869589526}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &515621050460604674
@@ -548,6 +624,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: a9f4a815-9ae8-429e-a945-59bb43b00929
     m_ActionName: Player/Absorb[/SwitchProControllerHID/rightTrigger,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 31d7c13e-e1fc-4702-85fd-baab13ead319
+    m_ActionName: Player/CameraFocus[/Keyboard/c,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6f13049a-3ce5-4bf4-8b8b-44afa83957bd
+    m_ActionName: Player/Pause[/Keyboard/escape,/Keyboard/p,/XInputControllerWindows/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 34b6256b-5460-4807-b6f7-6b5c7984f27c
+    m_ActionName: Player/Test[/Keyboard/anyKey]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

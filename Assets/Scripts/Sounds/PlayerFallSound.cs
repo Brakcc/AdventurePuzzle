@@ -17,7 +17,6 @@ namespace Sounds
         {
             if (other != playerCollidToIgnore1 && other != playerCollidToIgnore2 && !other.GetComponent<CamAngleOverrider>())
             {
-                Debug.Log(other.gameObject.name);
                 if (_collidersTouched.Count == 0)
                 {
                     RuntimeManager.PlayOneShot(sound, transform.position);
