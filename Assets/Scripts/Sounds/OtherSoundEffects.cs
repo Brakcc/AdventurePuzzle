@@ -16,7 +16,6 @@ namespace Sounds
         {
             OtherSoundEffectInstance = this;
             RuntimeManager.PlayOneShot(cosmosVoice, playerTransform.position);
-            Debug.Log("si");
         }
         
         public void PlayGrabSound()
