@@ -70,7 +70,7 @@ namespace GameContent.PlayerScripts.PlayerStates
                 stateMachine.SwitchState("move");
                 return;
             }
-
+            
             _checker.InterRef.PlayerAction();
             stateMachine.SwitchState("move");
         }

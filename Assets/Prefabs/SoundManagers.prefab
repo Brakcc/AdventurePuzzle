@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2463838391653254111
+--- !u!1 &2245426041171683377
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,75 +8,32 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7975317726411307623}
-  - component: {fileID: 4429740883385339158}
-  - component: {fileID: 516916403396946490}
+  - component: {fileID: 5940455211383356254}
   m_Layer: 0
-  m_Name: ForetBackgroundMusic1
+  m_Name: AmbianceColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7975317726411307623
+--- !u!4 &5940455211383356254
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2463838391653254111}
+  m_GameObject: {fileID: 2245426041171683377}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 9037293147109193246}
+  - {fileID: 1495069923458863241}
+  - {fileID: 3971592907907605279}
   m_Father: {fileID: 8163664267598394238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4429740883385339158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2463838391653254111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 202733564
-      Data2: 1203744823
-      Data3: 281580973
-      Data4: -658308982
-    Path: "event:/Ambiance/For\xEAt"
-  Event: 
-  PlayEvent: 1
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  AllowNonRigidbodyDoppler: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
---- !u!114 &516916403396946490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2463838391653254111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f1ed5b39adda2a4dada2f0766f5f5b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isAmbiance: 1
 --- !u!1 &2477328304524722124
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,9 +66,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4868886338947044055}
-  - {fileID: 5131924933364315825}
-  - {fileID: 7975317726411307623}
+  - {fileID: 5940455211383356254}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6119669468289348283
@@ -141,9 +96,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 727df1a0db8cd0b4898965052b7e7fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atterrissageVaisseau: {fileID: 2488483147831084753}
-  decolageVaisseau: {fileID: 5442148053153546477}
-  forestBackgroundMusic: {fileID: 516916403396946490}
+  atterrissageVaisseau:
+    Guid:
+      Data1: -732673814
+      Data2: 1176137792
+      Data3: 147444370
+      Data4: -1227169818
+    Path: event:/Ambiance/VaisseauAtterrissage
+  decolageVaisseau:
+    Guid:
+      Data1: -1485193604
+      Data2: 1316286904
+      Data3: -1219991919
+      Data4: -1927681041
+    Path: "event:/Ambiance/VaisseauD\xE9collage"
+  backgroundMusic:
+    Guid:
+      Data1: 202733564
+      Data2: 1203744823
+      Data3: 281580973
+      Data4: -658308982
+    Path: "event:/Ambiance/For\xEAt"
+  thePlayer: {fileID: 0}
 --- !u!114 &1426752822952538810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,19 +133,33 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   cosmosVoice:
     Guid:
-      Data1: 56575626
-      Data2: 1337095229
-      Data3: 952889472
-      Data4: -1856582692
-    Path: event:/Chara/CompagnonVoix
+      Data1: 995515194
+      Data2: 1148989120
+      Data3: -1606197066
+      Data4: 598474393
+    Path: event:/Chara/CosmosVoix
   grabSoundEffect:
     Guid:
-      Data1: -48637166
-      Data2: 1228821358
-      Data3: 326890138
-      Data4: -491940870
-    Path: event:/Chara/CompagnonPas
---- !u!1 &3141859441066568225
+      Data1: 1146180726
+      Data2: 1152456785
+      Data3: -1318472774
+      Data4: 1180157485
+    Path: event:/Chara/CosmosGrab
+  energieThrowSound:
+    Guid:
+      Data1: -74371567
+      Data2: 1078124479
+      Data3: -1810936187
+      Data4: 728034163
+    Path: "event:/\xC9nergie/\xC9nergieJet\xE9e"
+  energieGetSound:
+    Guid:
+      Data1: -1496507161
+      Data2: 1286264797
+      Data3: 1037412275
+      Data4: -1159945127
+    Path: "event:/\xC9nergie/\xC9nergieR\xE9cup\xE9r\xE9e"
+--- !u!1 &3031302379110795028
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,76 +167,100 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4868886338947044055}
-  - component: {fileID: 6256751104894575331}
-  - component: {fileID: 2488483147831084753}
+  - component: {fileID: 3971592907907605279}
+  - component: {fileID: 3796818278750497086}
+  - component: {fileID: 8471854163033883663}
+  - component: {fileID: 8841839760299294953}
   m_Layer: 0
-  m_Name: VaisseauAtterrissage
+  m_Name: ForetDeathChanger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4868886338947044055
+--- !u!4 &3971592907907605279
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3141859441066568225}
+  m_GameObject: {fileID: 3031302379110795028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -50.18, y: 0, z: 20.2}
+  m_LocalScale: {x: 1.8903, y: 7.0881, z: 13.53086}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8163664267598394238}
+  m_Father: {fileID: 5940455211383356254}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6256751104894575331
+--- !u!114 &3796818278750497086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3141859441066568225}
+  m_GameObject: {fileID: 3031302379110795028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Script: {fileID: 11500000, guid: 4441eebf02fde4a4a807d611a1aba67f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
+  newAmbiance:
     Guid:
-      Data1: -732673814
-      Data2: 1176137792
-      Data3: 147444370
-      Data4: -1227169818
-    Path: event:/Ambiance/VaisseauAtterrissage
-  Event: 
-  PlayEvent: 1
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  AllowNonRigidbodyDoppler: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
---- !u!114 &2488483147831084753
-MonoBehaviour:
+      Data1: -1805981034
+      Data2: 1165421858
+      Data3: -2145313134
+      Data4: -2007869815
+    Path: "event:/Ambiance/For\xEAtPostMort"
+--- !u!65 &8471854163033883663
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3141859441066568225}
+  m_GameObject: {fileID: 3031302379110795028}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f1ed5b39adda2a4dada2f0766f5f5b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isAmbiance: 1
---- !u!1 &9019159238167304694
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &8841839760299294953
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3031302379110795028}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!1 &5272637871738282773
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -256,72 +268,197 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5131924933364315825}
-  - component: {fileID: 5030116656579304340}
-  - component: {fileID: 5442148053153546477}
+  - component: {fileID: 1495069923458863241}
+  - component: {fileID: 4487568730855961834}
+  - component: {fileID: 7167431883961263917}
+  - component: {fileID: 6404526777050713151}
   m_Layer: 0
-  m_Name: "VaisseauD\xE9collage"
+  m_Name: SerreDeathChanger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5131924933364315825
+--- !u!4 &1495069923458863241
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9019159238167304694}
+  m_GameObject: {fileID: 5272637871738282773}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -16.1, y: 0, z: -24.73}
+  m_LocalScale: {x: 9.184517, y: 6.667844, z: 5.1244}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8163664267598394238}
+  m_Father: {fileID: 5940455211383356254}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5030116656579304340
+--- !u!114 &4487568730855961834
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9019159238167304694}
+  m_GameObject: {fileID: 5272637871738282773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Script: {fileID: 11500000, guid: 4441eebf02fde4a4a807d611a1aba67f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
+  newAmbiance:
     Guid:
-      Data1: -1485193604
-      Data2: 1316286904
-      Data3: -1219991919
-      Data4: -1927681041
-    Path: "event:/Ambiance/VaisseauD\xE9collage"
-  Event: 
-  PlayEvent: 1
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  AllowNonRigidbodyDoppler: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
---- !u!114 &5442148053153546477
+      Data1: 2123352607
+      Data2: 1097570149
+      Data3: -574673782
+      Data4: -1376067622
+    Path: event:/Ambiance/SerrePostMort
+--- !u!65 &7167431883961263917
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5272637871738282773}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &6404526777050713151
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5272637871738282773}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!1 &8969929972163887480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9037293147109193246}
+  - component: {fileID: 8602223426247773952}
+  - component: {fileID: 4903269781217282670}
+  - component: {fileID: 743001685922780077}
+  m_Layer: 0
+  m_Name: SerreChanger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9037293147109193246
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8969929972163887480}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 56.59, y: 0, z: 14.6}
+  m_LocalScale: {x: 1, y: 3.8307319, z: 12.026613}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5940455211383356254}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8602223426247773952
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9019159238167304694}
+  m_GameObject: {fileID: 8969929972163887480}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f1ed5b39adda2a4dada2f0766f5f5b0, type: 3}
+  m_Script: {fileID: 11500000, guid: 4441eebf02fde4a4a807d611a1aba67f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAmbiance: 1
+  newAmbiance:
+    Guid:
+      Data1: 1328554911
+      Data2: 1173782240
+      Data3: -1762217025
+      Data4: -1897491139
+    Path: event:/Ambiance/Serre
+--- !u!65 &4903269781217282670
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8969929972163887480}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &743001685922780077
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8969929972163887480}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0

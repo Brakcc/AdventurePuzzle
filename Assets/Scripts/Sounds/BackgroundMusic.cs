@@ -1,6 +1,8 @@
 using System.Collections;
 using FMODUnity;
 using UnityEngine;
+using FMOD.Studio;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Sounds
 {
@@ -8,8 +10,9 @@ namespace Sounds
     {
         [SerializeField] private EventReference atterrissageVaisseau;
         [SerializeField] private EventReference decolageVaisseau;
-        [SerializeField] private EventReference forestBackgroundMusic;
+        [SerializeField] private EventReference backgroundMusic;
         [SerializeField] private Transform thePlayer;
+        private EventInstance _instanceAmbience;
         
         
         private void Start()
@@ -21,13 +24,26 @@ namespace Sounds
         IEnumerator PlayBackgroundMusic()
         {
             yield return new WaitForSeconds(1f);
-            RuntimeManager.PlayOneShot(forestBackgroundMusic, thePlayer.position);
+            
+            _instanceAmbience = RuntimeManager.CreateInstance(backgroundMusic);
+            _instanceAmbience.set3DAttributes(RuntimeUtils.To3DAttributes(thePlayer.transform));
+            _instanceAmbience.start();
+            
             yield return new WaitForSeconds(99);
+            PlayBackgroundMusic(); //? Maybe
         }
 
         public void PlayDecollage()
         {
             RuntimeManager.PlayOneShot(decolageVaisseau, thePlayer.position);
+        }
+
+        public void ChangeBackgroundMusic(EventReference newBackgroundMusic)
+        {
+            _instanceAmbience.stop(STOP_MODE.ALLOWFADEOUT);
+            StopCoroutine(PlayBackgroundMusic());
+            backgroundMusic = newBackgroundMusic;
+            StartCoroutine(PlayBackgroundMusic());
         }
     }
 }

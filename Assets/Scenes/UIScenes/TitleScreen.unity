@@ -1679,6 +1679,7 @@ GameObject:
   - component: {fileID: 1837698302}
   - component: {fileID: 1837698304}
   - component: {fileID: 1837698305}
+  - component: {fileID: 1837698306}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -1739,6 +1740,26 @@ MonoBehaviour:
   volume: 0
   musicVolume: 0
   soundEffectVolume: 0
+--- !u!114 &1837698306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837698301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047371a672f770545bde5d5e853a32ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicRef:
+    Guid:
+      Data1: 697135671
+      Data2: 1132651992
+      Data3: -1761039724
+      Data4: -2067888405
+    Path: event:/Musiques/MusiqueMenu
+  thePlayer: {fileID: 1902434315}
 --- !u!1 &1902434312
 GameObject:
   m_ObjectHideFlags: 0
@@ -2263,6 +2284,11 @@ PrefabInstance:
     - target: {fileID: 3201830893995290943, guid: 8c23dab963abdda41a7f8bce352845ce,
         type: 3}
       propertyPath: openPauseButtonSound
+      value: 
+      objectReference: {fileID: 817040303}
+    - target: {fileID: 3201830893995290943, guid: 8c23dab963abdda41a7f8bce352845ce,
+        type: 3}
+      propertyPath: openOptionsButtonSound
       value: 
       objectReference: {fileID: 817040303}
     - target: {fileID: 5569085830286987290, guid: 8c23dab963abdda41a7f8bce352845ce,

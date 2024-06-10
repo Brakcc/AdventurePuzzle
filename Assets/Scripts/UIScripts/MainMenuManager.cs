@@ -1,7 +1,9 @@
+using System.Collections;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using FMODUnity;
 using UIScripts.Sounds;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace UIScripts
 {
@@ -10,8 +12,12 @@ namespace UIScripts
         [HideInInspector] public bool optionsHere;
         [SerializeField] private PlaySound startSceneButtonSound;
         [SerializeField] private PlaySound quitButtonSound;
-        [SerializeField] private PlaySound normalSound; 
-        
+        [SerializeField] private PlaySound normalSound;
+
+        void Awake()
+        {
+            StopAllSounds();
+        }
         private void Start()
         {
             optionsHere = false;
@@ -24,9 +30,13 @@ namespace UIScripts
                 if (sceneName == "SaveFileScene")
                 {
                     normalSound.PlayMySound();
+                    SceneManager.LoadScene(sceneName);
                 }
-                else{startSceneButtonSound.PlayMySound();}
-                SceneManager.LoadScene(sceneName);
+                else
+                {
+                    startSceneButtonSound.PlayMySound();
+                    StartCoroutine(WaitAVerySmallTimeBeforeKillingTheSounds(sceneName));
+                }
             }
         }
 
@@ -38,6 +48,17 @@ namespace UIScripts
                 quitButtonSound.PlayMySound();
                 Application.Quit();
             }
+        }
+
+        IEnumerator WaitAVerySmallTimeBeforeKillingTheSounds(string sceneName)
+        {
+            yield return new WaitForSeconds(1.1f);
+            StopAllSounds();
+            SceneManager.LoadScene(sceneName);
+        }
+        void StopAllSounds()
+        {
+            RuntimeManager.GetBus("Bus:/").stopAllEvents(STOP_MODE.IMMEDIATE);
         }
         
     }
