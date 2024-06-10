@@ -42,8 +42,8 @@ GameObject:
   - component: {fileID: 8720282794273822869}
   - component: {fileID: 8432772202858898988}
   - component: {fileID: 1963146569761553509}
-  - component: {fileID: 7658461597210477767}
-  - component: {fileID: 8318060744297938871}
+  - component: {fileID: 7435575955876359021}
+  - component: {fileID: 5696400361200758049}
   m_Layer: 6
   m_Name: Teleporter2
   m_TagString: Interactible
@@ -144,6 +144,50 @@ MonoBehaviour:
   teleporterRef: {fileID: 7345823610371286365}
   topPoser: {fileID: 6157907129169449687}
   part: {fileID: 4236335218513005758}
+--- !u!114 &7435575955876359021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379614064238331386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1ed5b39adda2a4dada2f0766f5f5b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAmbiance: 0
+--- !u!114 &5696400361200758049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379614064238331386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 84634661
+      Data2: 1314939098
+      Data3: 833684895
+      Data4: 14277058
+    Path: "event:/\xC9l\xE9ments/TPemprunt\xE9"
+  Event: 
+  PlayEvent: 1
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &960492636747518751
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,8 +791,8 @@ GameObject:
   - component: {fileID: 4184617958813600759}
   - component: {fileID: 7433629708988770}
   - component: {fileID: 7345823610371286365}
-  - component: {fileID: 4198727931326060436}
-  - component: {fileID: 2514990174953164068}
+  - component: {fileID: 6251777011193875507}
+  - component: {fileID: 4977137012877589067}
   m_Layer: 6
   m_Name: Teleporter1
   m_TagString: Interactible
@@ -849,6 +893,50 @@ MonoBehaviour:
   teleporterRef: {fileID: 1963146569761553509}
   topPoser: {fileID: 1075216335867155356}
   part: {fileID: 372551163852125475}
+--- !u!114 &6251777011193875507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004662900991372034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1ed5b39adda2a4dada2f0766f5f5b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAmbiance: 0
+--- !u!114 &4977137012877589067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004662900991372034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 84634661
+      Data2: 1314939098
+      Data3: 833684895
+      Data4: 14277058
+    Path: "event:/\xC9l\xE9ments/TPemprunt\xE9"
+  Event: 
+  PlayEvent: 1
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &6376311125237529778
 PrefabInstance:
   m_ObjectHideFlags: 0
