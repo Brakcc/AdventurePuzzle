@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using GameContent.CameraScripts;
 using GameContent.PlayerScripts.PlayerDatas;
 using GameContent.PlayerScripts.PlayerStates;
@@ -59,6 +60,8 @@ namespace GameContent.PlayerScripts
         
         #region methodes
 
+        #region GenericStateMachine
+        
         private void Awake()
         {
             AnimationManager.InitAnimationManager(animator);
@@ -146,6 +149,8 @@ namespace GameContent.PlayerScripts
             if (!IsDedge)
                 _stateMachine.FixedUpdateMachine();
         }
+        
+        #endregion
         
         #endregion
         
