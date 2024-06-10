@@ -10,11 +10,11 @@ namespace GameContent.PlayerScripts.PlayerStates.ForcedStates
         
         public override void OnEnterState()
         {
+            AnimationManager.SetAnims("isWalking", true);
         }
 
         public override void OnExitState()
         {
-            throw new System.NotImplementedException();
         }
     }
 }

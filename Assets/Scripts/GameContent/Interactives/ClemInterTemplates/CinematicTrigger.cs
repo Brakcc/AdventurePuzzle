@@ -1,4 +1,5 @@
-﻿using GameContent.PlayerScripts.CutScenes;
+﻿using System;
+using GameContent.PlayerScripts.CutScenes;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates
@@ -21,12 +22,20 @@ namespace GameContent.Interactives.ClemInterTemplates
             CSRef.OnStartCutScene();
             StartCoroutine(CSRef.HandleCutScene());
         }
-        
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireCube(transform.position, col.size);
+        }
+
         #endregion
 
         #region fields
-
+        
         [SerializeField] private CutScene CSRef;
+
+        [SerializeField] private BoxCollider col;
 
         #endregion
     }
