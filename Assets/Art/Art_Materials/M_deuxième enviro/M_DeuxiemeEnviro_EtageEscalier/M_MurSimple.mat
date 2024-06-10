@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_MurSimple
-  m_Shader: {fileID: -6465566751694194690, guid: 03caf838c69d71040bfc262802735d00,
+  m_Shader: {fileID: -6465566751694194690, guid: a42e8d9d731047242abc39fbcfbd1c85,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -137,6 +137,8 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
+    - _Opacity: 1.5
+    - _Opaque: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -158,6 +160,7 @@ Material:
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
     - _MossColor: {r: 0.6926296, g: 1, b: 0.6273585, a: 0}
     - _MossDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _Range: {r: 8, g: 12, b: 0, a: 0}
     - _SecondShadowColor: {r: 0.5647059, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0.9607843, g: 0.81960785, b: 0.81960785, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
