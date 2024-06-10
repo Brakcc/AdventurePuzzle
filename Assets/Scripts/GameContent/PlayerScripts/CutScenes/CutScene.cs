@@ -1,8 +1,9 @@
 ﻿using System.Collections;
+using UnityEngine;
 
 namespace GameContent.PlayerScripts.CutScenes
 {
-    public abstract class CutScene
+    public abstract class CutScene : MonoBehaviour
     {
         #region constructor
         
