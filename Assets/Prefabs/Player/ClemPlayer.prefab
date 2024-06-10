@@ -105,6 +105,109 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2571678165676568075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8305039524909767890}
+  - component: {fileID: 522042338485332903}
+  - component: {fileID: 6301426261566409276}
+  - component: {fileID: 1757229159362220772}
+  m_Layer: 31
+  m_Name: SoundGroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8305039524909767890
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2571678165676568075}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.040451, y: 0.69006, z: 0.013519}
+  m_LocalScale: {x: 0.3438, y: 1.6829, z: 0.56719}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 808993273491451992}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &522042338485332903
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2571678165676568075}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.123291, y: 0.2592926, z: 0.7382202}
+  m_Center: {x: -0.061645508, y: -1.0105228, z: 0.031234741}
+--- !u!54 &6301426261566409276
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2571678165676568075}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!114 &1757229159362220772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2571678165676568075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e750ab10ea826f49b1f900857f49cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCollidToIgnore1: {fileID: 4961898190823947747}
+  playerCollidToIgnore2: {fileID: 2208434415901889940}
+  sound:
+    Guid:
+      Data1: -621248419
+      Data2: 1199793733
+      Data3: -846243960
+      Data4: 1673816751
+    Path: event:/Chara/CosmosChute
 --- !u!1 &3188689432893581724
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,6 +431,8 @@ Transform:
   - {fileID: 5518624120297943000}
   - {fileID: 4353327182877276981}
   - {fileID: 5896440626325804008}
+  - {fileID: 8305039524909767890}
+  - {fileID: 5569456791339269454}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &515621050460604674
@@ -533,7 +638,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   datasSo: {fileID: 11400000, guid: 23c25195203c77244a024765acdfd4e5, type: 2}
+  animator: {fileID: 0}
   checker: {fileID: 3358087142996880176}
+  initCamManager: {fileID: 0}
+  transCamManager: {fileID: 0}
+  initCamDatas:
+    pivot: {fileID: 0}
+    arm: {fileID: 0}
+  transCamDatas:
+    pivot: {fileID: 0}
+    arm: {fileID: 0}
 --- !u!114 &3982721170977102547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,3 +661,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   getEnergyBack: 1
+--- !u!1 &8560535260659691449
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5569456791339269454}
+  m_Layer: 31
+  m_Name: MoveSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5569456791339269454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8560535260659691449}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.040451, y: 0.69006, z: 0.013519}
+  m_LocalScale: {x: 0.3438, y: 1.6829, z: 0.56719}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 808993273491451992}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
