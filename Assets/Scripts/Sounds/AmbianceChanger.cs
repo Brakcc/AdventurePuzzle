@@ -5,13 +5,16 @@ namespace Sounds
 {
     public class AmbianceChanger : MonoBehaviour
     {
-        private BackgroundMusic _myBackgroundMusic;
+        private BackgroundMusic _myBackgroundAmbience;
+        private MusicScript _myMusicScript;
         private bool _musicChanged;
         [SerializeField] private EventReference newAmbiance;
+        [SerializeField] private EventReference newMusic;
         void Start()
         {
             _musicChanged = false;
-            _myBackgroundMusic = transform.parent.parent.GetComponent<BackgroundMusic>();
+            _myBackgroundAmbience = transform.parent.parent.GetComponent<BackgroundMusic>();
+            _myMusicScript = transform.parent.parent.GetComponent<MusicScript>();
         }
         private void OnTriggerEnter(Collider other)
         {
@@ -19,7 +22,10 @@ namespace Sounds
             {
                 Debug.Log("Ambiance Changed");
                 _musicChanged = true;
-                _myBackgroundMusic.ChangeBackgroundMusic(newAmbiance);
+                _myBackgroundAmbience.ChangeBackgroundMusic(newAmbiance);
+                _myMusicScript.StopMusic();
+                _myMusicScript.musicRef = newMusic;
+                _myMusicScript.PlayMusic();
             }
         }
     }

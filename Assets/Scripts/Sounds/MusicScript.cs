@@ -8,7 +8,7 @@ namespace Sounds
 {
     public class MusicScript : MonoBehaviour
     {
-        [SerializeField] private EventReference musicRef;
+        public EventReference musicRef;
         private EventInstance _instanceMusic;
         [SerializeField] private Transform thePlayer;
         
