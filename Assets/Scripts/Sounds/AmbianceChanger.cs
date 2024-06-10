@@ -1,4 +1,5 @@
 using FMODUnity;
+using UIScripts.Sounds;
 using UnityEngine;
 
 namespace Sounds

@@ -40,6 +40,7 @@ Transform:
   - {fileID: 3310171771367090807}
   - {fileID: 8597722545419746389}
   - {fileID: 7374405339399636382}
+  - {fileID: 6176687111631628481}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!114 &6951788503715229555
@@ -2115,8 +2116,8 @@ Transform:
   m_GameObject: {fileID: 5667962089791976001}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 2.31, y: 0, z: 3.96}
-  m_LocalScale: {x: 2.1549, y: 0.47368997, z: 1.3079}
+  m_LocalPosition: {x: 2.36, y: 0, z: 3.9239}
+  m_LocalScale: {x: 1.3239942, y: 0.57681274, z: 0.8035881}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4584514710441275047}
@@ -2188,6 +2189,59 @@ MonoBehaviour:
       Data3: 965388423
       Data4: -1254921915
     Path: "event:/\xC9l\xE9ments/\xC9l\xE9mentChute"
+--- !u!1 &6659591466152444989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6176687111631628481}
+  - component: {fileID: 6456831938604105170}
+  m_Layer: 6
+  m_Name: MoveSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6176687111631628481
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6659591466152444989}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.7071068, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: -15.214529, y: 1.3152142, z: 35.184982}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4584514710441275047}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6456831938604105170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6659591466152444989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9aeaaa9ed3975c4994092d9fe3c36a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    Guid:
+      Data1: -401141685
+      Data2: 1248893506
+      Data3: -730514760
+      Data4: -1377667435
+    Path: "event:/\xC9l\xE9ments/\xC9l\xE9mentD\xE9plac\xE9"
+  elementVelocity: {fileID: 4584514710441275047}
+  valueSound: 1
 --- !u!1 &7760513663751307510
 GameObject:
   m_ObjectHideFlags: 0
