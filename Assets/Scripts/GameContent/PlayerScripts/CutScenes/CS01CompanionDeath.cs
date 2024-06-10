@@ -31,5 +31,13 @@ namespace GameContent.PlayerScripts.CutScenes
         }
         
         #endregion
+
+        #region fields
+
+        [SerializeField] private Transform startPos;
+
+        [SerializeField] private Transform targetPos;
+
+        #endregion
     }
 }

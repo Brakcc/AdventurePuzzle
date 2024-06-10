@@ -16,7 +16,7 @@ namespace GameContent.PlayerScripts.CutScenes
 
         public override void OnStartCutScene()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public override IEnumerator HandleCutScene()
@@ -26,7 +26,7 @@ namespace GameContent.PlayerScripts.CutScenes
 
         public override void OnEndCutScene()
         {
-            throw new System.NotImplementedException();
+            
         }
         
         #endregion
