@@ -10,12 +10,10 @@ namespace GameContent.Narration.Creature
         #region properties
 
         private bool IsGrounded => Physics.Raycast(transform.position, Vector3.down, groundCheckRayLength, groundLayer);
-
-        public Animator Animator => animator;
         
         public bool IsSlower { get; set; }
 
-        public bool IsDead { get; set; } = false;
+        public bool IsDedge { get; set; } = false;
         
         public byte CurrentState { get; set; }
         
@@ -32,7 +30,7 @@ namespace GameContent.Narration.Creature
 
         private void Update()
         {
-            if (IsDead)
+            if (IsDedge)
                 return;
             
             SetAnims();
@@ -115,7 +113,20 @@ namespace GameContent.Narration.Creature
 
         private void SetAnims()
         {
-            animator.SetBool(!IsSlower ? IsMoving : IsFatigue, _rb.velocity.magnitude >= 0.1f);
+            if (!IsDedge)
+                animator.SetBool(!IsSlower ? IsMoving : IsFatigue, _rb.velocity.magnitude >= 0.1f);
+        }
+
+        public void SetAnims(string anim, bool state)
+        {
+            animator.SetBool(anim, state);
+        }
+        
+        public void OnDie()
+        {
+            animator.SetBool(IsMoving, false);
+            animator.SetBool(IsFatigue, false);
+            animator.SetBool(IsDead, true);
         }
 
         #endregion
@@ -148,6 +159,8 @@ namespace GameContent.Narration.Creature
         private static readonly int IsMoving = Animator.StringToHash("isMoving");
 
         private static readonly int IsFatigue = Animator.StringToHash("isFatigue");
+        
+        private static readonly int IsDead = Animator.StringToHash("isDead");
 
         private const float Gravity = 9.81f;
 

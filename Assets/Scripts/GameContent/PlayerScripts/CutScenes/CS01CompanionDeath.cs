@@ -30,6 +30,9 @@ namespace GameContent.PlayerScripts.CutScenes
             upperRec.DOLocalMoveY(200, 1);
             lowerRec.DOLocalMoveY(-200, 1);
             
+            //Crea die while walking
+            creatureMachine.IsDedge = true;
+            creatureMachine.SetAnims("isMoving", false);
             while (Vector3.Distance(playerMachine.transform.position, targetPos.position) >= 1f)
             {
                 playerMachine.transform.position = Vector3.MoveTowards(playerMachine.transform.position, 
@@ -39,6 +42,7 @@ namespace GameContent.PlayerScripts.CutScenes
             }
             
             //Switch To idle
+            creatureMachine.OnDie();
             playerMachine.Machine.ForceState("cineIdle");
             yield return new WaitForSeconds(2.5f);
             
