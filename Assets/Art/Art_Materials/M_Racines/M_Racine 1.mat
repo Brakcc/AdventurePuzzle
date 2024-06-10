@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Racine03
+  m_Name: M_Racine 1
   m_Shader: {fileID: -6465566751694194690, guid: 03caf838c69d71040bfc262802735d00,
     type: 3}
   m_Parent: {fileID: 0}
@@ -25,11 +25,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - MainTex:
-        m_Texture: {fileID: 2800000, guid: 236237a37a4d44e46b2f831e0d3a04bf, type: 3}
+        m_Texture: {fileID: 2800000, guid: d86c06782a43c4e4e8ad557cc5443229, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AOTex:
-        m_Texture: {fileID: 2800000, guid: 07d7489182d6e9340bdb697befb64517, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8b1e8d40e142ed84098beb0a745c2d00, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -77,7 +77,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: 72aeb497154e87c4a8a98f9f8857bf00, type: 3}
+        m_Texture: {fileID: 2800000, guid: d427f8a14f1e0c848bed91b88894ad92, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -150,7 +150,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _AOColor: {r: 0.48751792, g: 0.385947, b: 0.5566038, a: 0}
+    - _AOColor: {r: 0.4917285, g: 0.4016999, b: 0.5566038, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Caustics_direction: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

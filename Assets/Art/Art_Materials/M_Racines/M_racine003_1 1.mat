@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_racine003_1
+  m_Name: M_racine003_1 1
   m_Shader: {fileID: -6465566751694194690, guid: 03caf838c69d71040bfc262802735d00,
     type: 3}
   m_Parent: {fileID: 0}
@@ -25,11 +25,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - MainTex:
-        m_Texture: {fileID: 2800000, guid: fa652c96c62f0f54eb329d100d49670e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 992ffdc985a31e84fac9fa9159b2d6b9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AOTex:
-        m_Texture: {fileID: 2800000, guid: e3b5ea3861c8ac24fbfa0dc0cacbe29c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6f8695a1c15a9504983ee6caec2917f9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -73,7 +73,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: f8ea270ce6af2b14f91295db1158d84e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -122,6 +122,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
+    - _Emissive_Intensity: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -141,15 +142,17 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _AOColor: {r: 1, g: 0.01415092, b: 0.01415092, a: 0}
+    - _AOColor: {r: 0.5351363, g: 0.4235938, b: 0.5377358, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Caustics_direction: {r: 0, g: 1, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
     - _MossColor: {r: 0.6926296, g: 1, b: 0.6273585, a: 0}
     - _MossDirection: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _TilingMossTex: {r: 0, g: 0, b: 0, a: 0}
     - _Tiling_Caustics: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6627796251797730767

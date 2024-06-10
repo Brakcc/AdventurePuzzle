@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Racine01
+  m_Name: M_racine003_1
   m_Shader: {fileID: -6465566751694194690, guid: 03caf838c69d71040bfc262802735d00,
     type: 3}
   m_Parent: {fileID: 0}
@@ -25,11 +25,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - MainTex:
-        m_Texture: {fileID: 2800000, guid: 5f5c9bd54b85dbf469e783b0c04450f6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3a4e22cb469489d4e82ce71d0b9fec2e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AOTex:
-        m_Texture: {fileID: 2800000, guid: edeacd2cfa7154b46a82fa79128966a3, type: 3}
+        m_Texture: {fileID: 2800000, guid: 67d2d9bc6b934fa49a58739d5cb68351, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -37,10 +37,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _CausticsTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -77,7 +73,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: ae85843c9028d9348af381c356b6e0c3, type: 3}
+        m_Texture: {fileID: 2800000, guid: e28c23e0e41a1dc4c8f40d5655574db1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -94,10 +90,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_2701eec41b1e477fb1b2a48a47c3fdfd_Out_0_Texture2D:
         m_Texture: {fileID: 2800000, guid: c901ec5081746f547bedfb7fb5d5040a, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_a6fb4a7f08234d438127b106749c6a91_Out_0_Texture2D:
-        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -150,21 +142,20 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _AOColor: {r: 0.48751792, g: 0.385947, b: 0.5566038, a: 0}
+    - _AOColor: {r: 0.5351363, g: 0.4235938, b: 0.5377358, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Caustics_direction: {r: 0, g: 0, b: 0, a: 0}
+    - _Caustics_direction: {r: 0, g: 1, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
     - _MossColor: {r: 0.6926296, g: 1, b: 0.6273585, a: 0}
     - _MossDirection: {r: 0, g: 0, b: 0, a: 0}
-    - _SecondShadowColor: {r: 0.5647059, g: 0, b: 0, a: 0}
-    - _ShadowColor: {r: 0.9607843, g: 0.81960785, b: 0.81960785, a: 1}
+    - _ShadowColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TilingMossTex: {r: 0, g: 0, b: 0, a: 0}
-    - _Tiling_Caustics: {r: 0, g: 0, b: 0, a: 0}
+    - _Tiling_Caustics: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &856763315784070422
+--- !u!114 &6627796251797730767
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
