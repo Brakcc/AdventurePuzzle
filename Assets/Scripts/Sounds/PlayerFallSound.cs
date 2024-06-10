@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
+using FMOD.Studio;
 using GameContent.CameraScripts;
 using GameContent.Interactives.ClemInterTemplates.Receptors;
 
@@ -13,14 +14,19 @@ namespace Sounds
         [SerializeField] private Collider playerCollidToIgnore2;
         
         [SerializeField] private EventReference sound;
+        [SerializeField] private float valueSound;
         
         private void OnTriggerEnter(Collider other)
         {
-            if (other != playerCollidToIgnore1 && other != playerCollidToIgnore2 && !other.GetComponent<CamAngleOverrider>() && !other.GetComponent<TeleporterRecep>())
+            if (other != playerCollidToIgnore1 
+                && other != playerCollidToIgnore2 
+                && !other.GetComponent<CamAngleOverrider>() 
+                && !other.GetComponent<TeleporterRecep>()
+                && !other.GetComponent<WalkSoundPlayer>())
             {
                 if (_collidersTouched.Count == 0)
                 {
-                    RuntimeManager.PlayOneShot(sound, transform.position);
+                   PlayFallInstance();
                 }
                 _collidersTouched.Add(other);
             }
@@ -32,6 +38,22 @@ namespace Sounds
             {
                 _collidersTouched.Remove(other);
             }
+        }
+        
+        void PlayFallInstance()
+        {
+            EventInstance instanceStep = RuntimeManager.CreateInstance(sound);
+            
+            instanceStep.getDescription(out EventDescription stepDescription);
+            stepDescription.getParameterDescriptionByName("CosmosTerrain",
+                out PARAMETER_DESCRIPTION stepParameterDescription);
+            var idCosmosTerrain = stepParameterDescription.id;
+
+            instanceStep.setParameterByID(idCosmosTerrain, valueSound);
+            
+            instanceStep.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject.transform));
+
+            instanceStep.start();
         }
     }
 }

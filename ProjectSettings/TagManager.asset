@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Interactible
+  - Water
+  - Metal
+  - Stone
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -23,10 +27,10 @@ TagManager:
   - 
   - 
   - 
+  - MetalStairs
+  - RockStairs
   - 
-  - 
-  - 
-  - 
+  - Filet
   - 
   - 
   - 

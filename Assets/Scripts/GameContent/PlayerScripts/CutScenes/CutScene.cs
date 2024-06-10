@@ -26,7 +26,7 @@ namespace GameContent.PlayerScripts.CutScenes
         
         #region fiedls
 
-        protected PlayerStateMachine playerMachine;
+        [SerializeField] protected PlayerStateMachine playerMachine;
 
         #endregion
     }
