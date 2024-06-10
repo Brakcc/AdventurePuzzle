@@ -4,6 +4,7 @@ using Utilities.CustomAttributes.FieldColors;
 
 namespace GameContent.Narration.Creature
 {
+    //Bon en fait c'est pas une state machine parce que flemme aussi la
     [RequireComponent(typeof(Rigidbody))]
     public class CreatureStateMachine : MonoBehaviour
     {
@@ -11,14 +12,6 @@ namespace GameContent.Narration.Creature
 
         private bool IsGrounded => Physics.Raycast(transform.position, Vector3.down, groundCheckRayLength, groundLayer);
 
-        public Animator Animator => animator;
-        
-        public bool IsSlower { get; set; }
-
-        public bool IsDead { get; set; } = false;
-        
-        public byte CurrentState { get; set; }
-        
         #endregion
 
         #region methodes
@@ -32,11 +25,6 @@ namespace GameContent.Narration.Creature
 
         private void Update()
         {
-            if (IsDead)
-                return;
-            
-            SetAnims();
-            
             //Plan Move
             SecuTeleport();
             OnMove();
@@ -86,19 +74,12 @@ namespace GameContent.Narration.Creature
             SetVertPos();
         }
 
-        private void OnRotate(Vector3 dir)
-        {
-            transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
-        }
-        
         private void OnMove()
         {
             var tempDir = GetDir(playerRef.position);
             var tempVel = tempDir * creatureSpeed;
             
             _rb.velocity = new Vector3(tempVel.x, _rb.velocity.y, tempVel.z);
-            
-            OnRotate(tempDir);
         }
         
         private Vector3 GetDir(Vector3 targetPos)
@@ -110,15 +91,6 @@ namespace GameContent.Narration.Creature
         }
 
         #endregion
-
-        #region anims
-
-        private void SetAnims()
-        {
-            animator.SetBool(!IsSlower ? IsMoving : IsFatigue, _rb.velocity.magnitude >= 0.1f);
-        }
-
-        #endregion
         
         #endregion
 
@@ -126,8 +98,6 @@ namespace GameContent.Narration.Creature
 
         [FieldCompletion(_checkedColor:FieldColor.Green)]
         [SerializeField] private Transform playerRef;
-
-        [SerializeField] private Animator animator;
         
         [SerializeField] private AnimationCurve creatureAccelerationCurve;
 
@@ -144,10 +114,6 @@ namespace GameContent.Narration.Creature
         private Rigidbody _rb;
 
         private float _vertVelocity;
-        
-        private static readonly int IsMoving = Animator.StringToHash("isMoving");
-
-        private static readonly int IsFatigue = Animator.StringToHash("isFatigue");
 
         private const float Gravity = 9.81f;
 
