@@ -30,10 +30,12 @@ namespace GameContent.PlayerScripts.PlayerStates
             _jumpBufferCounter = Constants.SecuValuUnderZero;
             
             AnimationManager.SetAnims("isWalking", true);
+            AnimationManager.SetLayerWeight(1, 1);
         }
 
         public override void OnExitState()
         {
+            AnimationManager.SetAnims("isWalking", false);
         }
 
         public override sbyte OnUpdate()
@@ -90,13 +92,13 @@ namespace GameContent.PlayerScripts.PlayerStates
         private void OnMove()
         {
             if (_analogInputMagnitude <= Constants.MinMoveInputValue)
-            {
                 _idleSwitchCounter += Time.deltaTime;
-                return;
-            }
-            
+
             if (_idleSwitchCounter > Constants.MinMoveInputValue)
+            {
+                _idleSwitchCounter = 0;
                 stateMachine.SwitchState("idle");
+            }
             
             _currentDir = (IsoRightDir * _inputDir.x + IsoForwardDir * _inputDir.z).normalized;
             _cc.SimpleMove(_currentDir.normalized * (_datasSo.moveDatasSo.moveSpeed * Constants.SpeedMultiplier * Time.deltaTime));

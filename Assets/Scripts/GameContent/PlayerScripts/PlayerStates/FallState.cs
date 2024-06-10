@@ -23,11 +23,12 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnEnterState()
         {
-            
+            AnimationManager.SetAnims("isFalling", true);
         }
 
         public override void OnExitState()
         {
+            AnimationManager.SetAnims("isFalling", false);
             _lerpCoef = 0;
         }
 
