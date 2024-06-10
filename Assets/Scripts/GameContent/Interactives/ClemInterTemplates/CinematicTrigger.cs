@@ -1,7 +1,5 @@
-﻿using GameContent.PlayerScripts;
-using GameContent.PlayerScripts.CutScenes;
+﻿using GameContent.PlayerScripts.CutScenes;
 using UnityEngine;
-using Utilities.CustomAttributes;
 
 namespace GameContent.Interactives.ClemInterTemplates
 {
