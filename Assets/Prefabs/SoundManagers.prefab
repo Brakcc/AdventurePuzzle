@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 8163664267598394238}
   - component: {fileID: 6119669468289348283}
   - component: {fileID: 7536980517426527799}
+  - component: {fileID: 1426752822952538810}
   m_Layer: 0
   m_Name: SoundManagers
   m_TagString: Untagged
@@ -143,6 +144,33 @@ MonoBehaviour:
   atterrissageVaisseau: {fileID: 2488483147831084753}
   decolageVaisseau: {fileID: 5442148053153546477}
   forestBackgroundMusic: {fileID: 516916403396946490}
+--- !u!114 &1426752822952538810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2477328304524722124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cdaa882e76117c4ab2aebb3209b56e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
+  cosmosVoice:
+    Guid:
+      Data1: 56575626
+      Data2: 1337095229
+      Data3: 952889472
+      Data4: -1856582692
+    Path: event:/Chara/CompagnonVoix
+  grabSoundEffect:
+    Guid:
+      Data1: -48637166
+      Data2: 1228821358
+      Data3: 326890138
+      Data4: -491940870
+    Path: event:/Chara/CompagnonPas
 --- !u!1 &3141859441066568225
 GameObject:
   m_ObjectHideFlags: 0

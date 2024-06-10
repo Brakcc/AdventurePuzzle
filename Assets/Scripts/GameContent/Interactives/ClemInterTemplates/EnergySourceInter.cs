@@ -1,4 +1,5 @@
 ﻿using GameContent.PlayerScripts;
+using Sounds;
 using UnityEngine;
 using Utilities.CustomAttributes;
 
@@ -71,6 +72,7 @@ namespace GameContent.Interactives.ClemInterTemplates
             if (isActivated)
                 return;
             
+            OtherSoundEffects.OtherSoundEffectInstance.PlayEnergThrowSound();
             //mettre des lien renderer ou vfx pour montrer la libération de l'energie ?
             isActivated = true;
             //OnActionAnim("isActive", isActivated);
@@ -80,7 +82,7 @@ namespace GameContent.Interactives.ClemInterTemplates
         {
             if (!isActivated)
                 return;
-
+            
             isActivated = false;
             //OnActionAnim("isActive", isActivated);
         }

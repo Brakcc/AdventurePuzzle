@@ -2,32 +2,32 @@ using System.Collections;
 using FMODUnity;
 using UnityEngine;
 
-namespace UIScripts.Sounds
+namespace Sounds
 {
     public class BackgroundMusic : MonoBehaviour
     {
-        [SerializeField] private PlaySound atterrissageVaisseau;
-        [SerializeField] private PlaySound decolageVaisseau;
-        [SerializeField] PlaySound forestBackgroundMusic;
+        [SerializeField] private EventReference atterrissageVaisseau;
+        [SerializeField] private EventReference decolageVaisseau;
+        [SerializeField] private EventReference forestBackgroundMusic;
+        [SerializeField] private Transform thePlayer;
         
         
         private void Start()
         {
             StartCoroutine(PlayBackgroundMusic());
-            atterrissageVaisseau.PlayMySound();
+            RuntimeManager.PlayOneShot(atterrissageVaisseau, thePlayer.position);
         }
 
         IEnumerator PlayBackgroundMusic()
         {
             yield return new WaitForSeconds(1f);
-            forestBackgroundMusic.PlayMySound();
-            forestBackgroundMusic.GetComponent<StudioEventEmitter>().EventDescription.getLength(out var time);
-            yield return new WaitForSeconds(time - 1f);
+            RuntimeManager.PlayOneShot(forestBackgroundMusic, thePlayer.position);
+            yield return new WaitForSeconds(99);
         }
 
         public void PlayDecollage()
         {
-            decolageVaisseau.PlayMySound();
+            RuntimeManager.PlayOneShot(decolageVaisseau, thePlayer.position);
         }
     }
 }
