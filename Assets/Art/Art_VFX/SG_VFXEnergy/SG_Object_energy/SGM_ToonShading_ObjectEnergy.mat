@@ -120,6 +120,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _0_GreenEnergy: 1
+    - _ActivableEmissive: 2
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
@@ -148,7 +149,7 @@ Material:
     - _Off_GreenEnergy: 0
     - _OnOff: 1
     - _OnOffGreenEnergy: 0
-    - _On_Energy_fade: 1
+    - _On_Energy_fade: 0
     - _On_GreenEnergy: 1
     - _On_Green_Off_Blue: 1
     - _Opacity: 1
@@ -169,7 +170,8 @@ Material:
     - _AOColor: {r: 0.8773585, g: 0.49247953, b: 0.49247953, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Blue_DirectionDisplacement: {r: 0, g: 20, b: 0, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 0.7400185, b: 0, a: 1}
+    - _ColorActivable: {r: 1, g: 0.73631996, b: 0, a: 0}
     - _ColorBlueEnergy: {r: 0, g: 0.6016865, b: 1, a: 0}
     - _ColorGreenEnergy: {r: 0, g: 0.8980392, b: 0.29666376, a: 0}
     - _DefaultColor: {r: 1, g: 1, b: 1, a: 1}

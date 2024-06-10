@@ -18,6 +18,8 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         public override void OnEnterState()
         {
+            AnimationManager.SetAnims("isLevier");
+            
             _leverRef = _checker.InterRef as LeverInter;
             if (_leverRef!.LeverOrientationMode == LeverOrientationMode.Horizontal)
                 _leverRef.ImageD.SetActive(true);

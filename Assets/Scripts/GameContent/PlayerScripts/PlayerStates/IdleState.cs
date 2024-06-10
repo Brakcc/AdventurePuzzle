@@ -26,6 +26,7 @@ namespace GameContent.PlayerScripts.PlayerStates
         
         public override void OnEnterState()
         {
+            AnimationManager.SetAnims("isWalking", false);
         }
 
         public override void OnExitState()

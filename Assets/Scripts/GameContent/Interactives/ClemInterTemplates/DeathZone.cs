@@ -10,7 +10,7 @@ namespace GameContent.Interactives.ClemInterTemplates
             if (!other.gameObject.CompareTag("Player"))
                 return;
 
-            //other.gameObject.GetComponent<PlayerStateMachine>().IsDedge = true; // Change?
+            other.gameObject.GetComponent<PlayerStateMachine>().IsDedge = true;
         }
     }
 }
