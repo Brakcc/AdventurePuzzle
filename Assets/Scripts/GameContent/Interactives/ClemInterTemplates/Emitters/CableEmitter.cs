@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates.Emitters
 {
+    [SelectionBase]
     public sealed class CableEmitter : EmitterInter
     {
         #region methodes
