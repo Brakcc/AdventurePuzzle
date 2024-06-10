@@ -133,25 +133,32 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   cosmosVoice:
     Guid:
-      Data1: 56575626
-      Data2: 1337095229
-      Data3: 952889472
-      Data4: -1856582692
-    Path: event:/Chara/CompagnonVoix
+      Data1: 995515194
+      Data2: 1148989120
+      Data3: -1606197066
+      Data4: 598474393
+    Path: event:/Chara/CosmosVoix
   grabSoundEffect:
     Guid:
-      Data1: -48637166
-      Data2: 1228821358
-      Data3: 326890138
-      Data4: -491940870
-    Path: event:/Chara/CompagnonPas
-  energieRecupSound:
+      Data1: 1146180726
+      Data2: 1152456785
+      Data3: -1318472774
+      Data4: 1180157485
+    Path: event:/Chara/CosmosGrab
+  energieThrowSound:
     Guid:
       Data1: -74371567
       Data2: 1078124479
       Data3: -1810936187
       Data4: 728034163
     Path: "event:/\xC9nergie/\xC9nergieJet\xE9e"
+  energieGetSound:
+    Guid:
+      Data1: -1496507161
+      Data2: 1286264797
+      Data3: 1037412275
+      Data4: -1159945127
+    Path: "event:/\xC9nergie/\xC9nergieR\xE9cup\xE9r\xE9e"
 --- !u!1 &3031302379110795028
 GameObject:
   m_ObjectHideFlags: 0

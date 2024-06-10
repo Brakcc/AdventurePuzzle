@@ -53,6 +53,8 @@ namespace GameContent.Interactives.ClemInterTemplates
             if (!isActivated)
                 return;
             
+            OtherSoundEffects.OtherSoundEffectInstance.PlayEnergGetSound();
+            
             isActivated = false;
             //OnActionAnim("isActive", isActivated);
 

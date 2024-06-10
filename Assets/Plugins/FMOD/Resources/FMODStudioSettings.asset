@@ -697,8 +697,6 @@ MonoBehaviour:
   MasterBanks:
   - Master
   Banks:
-  - All
-  - All.assets
   - Ambiance
   - Ambiance.assets
   - Master.assets
@@ -706,6 +704,8 @@ MonoBehaviour:
   - Music.assets
   - SFX
   - SFX.assets
+  - Snapshots
+  - Snapshots.assets
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0

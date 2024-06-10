@@ -1,5 +1,6 @@
 using FMODUnity;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Sounds
 {
@@ -10,7 +11,8 @@ namespace Sounds
         
         [SerializeField] private EventReference cosmosVoice;
         [SerializeField] private EventReference grabSoundEffect;
-        [SerializeField] private EventReference energieRecupSound;
+        [SerializeField] private EventReference energieThrowSound;
+        [SerializeField] private EventReference energieGetSound;
 
         private void Awake()
         {
@@ -25,7 +27,12 @@ namespace Sounds
 
         public void PlayEnergThrowSound()
         {
-            RuntimeManager.PlayOneShot(energieRecupSound, playerTransform.position);
+            RuntimeManager.PlayOneShot(energieThrowSound, playerTransform.position);
+        }
+
+        public void PlayEnergGetSound()
+        {
+            RuntimeManager.PlayOneShot(energieGetSound, playerTransform.position);
         }
     }
 }
