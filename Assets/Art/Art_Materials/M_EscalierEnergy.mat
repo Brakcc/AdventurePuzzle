@@ -148,7 +148,7 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _On_Energy_fade: 0
+    - _On_Energy_fade: 1
     - _On_Green_Off_Blue: 0
     - _Parallax: 0.005
     - _QueueControl: 0
@@ -165,7 +165,7 @@ Material:
     m_Colors:
     - _AOColor: {r: 1, g: 1, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Blue_DirectionDisplacement: {r: 0, g: 0, b: 0, a: 0}
+    - _Blue_DirectionDisplacement: {r: 0, g: 0.2, b: 0, a: 0}
     - _Caustics_direction: {r: 0, g: 1, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorActivable: {r: 1, g: 0.7332485, b: 0, a: 0}
