@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x4000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 000001D0509D7F48 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 000002954BB34E28 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -17,37 +17,765 @@
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
-[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
-[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
-[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
-[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] SoundI::release                          : VaisseauAtterrissage (000002918072B898)
+[LOG] SoundI::release                          :     VaisseauAtterrissage (00000293EAD9A3E8)
+[LOG] SoundI::release                          :     VaisseauAtterrissage (00000294EACEC3D8)
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F2070A8, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F2070A8
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F207E28, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F2070A8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F207E28
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F207E28
+[LOG] SoundI::release                          : atmo-rural-africa-winter-crickets-01 (00000294EACEC588)
+[LOG] SoundI::release                          :     atmo-rural-africa-winter-crickets-01 (00000293E5206F38)
+[LOG] SoundI::release                          :     atmo-rural-africa-winter-crickets-01 (000002957F207E28)
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957FE9C848, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957FE9C848
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000293DAC7BCE0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='animal-bird-african-bush-bird-chirp-01', format=5, channels=2, frequency=48000, lengthbytes=150144, lengthpcm=573840, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.260962.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957FE9C848
+[LOG] SoundI::release                          : animal-bird-african-bush-bird-chirp-01 (000002957FE9C848)
+[LOG] SoundI::release                          :     animal-bird-african-bush-bird-chirp-01 (00000293B743BA68)
+[LOG] SoundI::release                          :     animal-bird-african-bush-bird-chirp-01 (00000295363F7088)
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000294EACEC588, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000294EACEC588
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000293EA9F6E30
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='atmo-rural-cricket-chirp-close-01', format=5, channels=2, frequency=48000, lengthbytes=1259360, lengthpcm=4397328, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.087533.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000294EACEC588
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002918022EC38, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002918022EC38
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000002947FEE7A70
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Wind', format=5, channels=2, frequency=48000, lengthbytes=1280320, lengthpcm=5091983, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.029114.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002918022EC38
+[LOG] SoundI::release                          : Wind (00000294EACECC48)
+[LOG] SoundI::release                          :     Wind (00000293E5202AF8)
+[LOG] SoundI::release                          :     Wind (000002957F2070A8)
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000294EA8B2658, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000294EA8B2658
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002918072B898, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000294EA8B2658
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002918072B898
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002918072B898
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000294EA8B2658, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000294EA8B2658
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002918072B898, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000294EA8B2658
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002918072B898
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002918072B898
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000294EA8B2658, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000294EA8B2658
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002918072B898, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000294EA8B2658
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002918072B898
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002918072B898
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000294EBE7C3D8, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000294EBE7C3D8
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000293EA9F67F0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='animal-bird-african-bush-bird-chirp-01', format=5, channels=2, frequency=48000, lengthbytes=150144, lengthpcm=573840, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.260962.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000294EBE7C3D8
+[LOG] SoundI::release                          : animal-bird-african-bush-bird-chirp-01 (00000294EBE7C3D8)
+[LOG] SoundI::release                          :     animal-bird-african-bush-bird-chirp-01 (00000293E5205398)
+[LOG] SoundI::release                          :     animal-bird-african-bush-bird-chirp-01 (0000029535F369D8)
 [LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
 [LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
 [LOG] SystemI::createSoundInternal             : exinfo->length             = 739008
 [LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 4896
 [LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000007F872FF408
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000AA7064F4F8
 [LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFF9D6C4130
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFF9D6C40F0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFF9D6C4210
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFF9D6C42D0
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001D115C0B158
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFA50284130
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFA502840F0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFA50284210
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFA502842D0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000002947FA868B8
 [LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
 [LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='TPemprunté', format=5, channels=2, frequency=48000, lengthbytes=34208, lengthpcm=118441, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.290344.
-[LOG] SoundI::release                          :  (000001D13C5F6038)
-[LOG] SoundI::release                          :     TPemprunté (000001CE0C36F418)
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='CosmosChuteFlaque', format=5, channels=2, frequency=48000, lengthbytes=10400, lengthpcm=38806, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.213623.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 739008
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 4896
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000AA7064F4F8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFA50284130
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFA502840F0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFA50284210
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFA502842D0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000002947FA868B8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='CosmosChuteHerbe', format=5, channels=2, frequency=48000, lengthbytes=2560, lengthpcm=10261, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.208282.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 739008
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 4896
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000AA7064F4F8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFA50284130
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFA502840F0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFA50284210
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFA502842D0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000002947FA868B8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='CosmosChuteHerbeMorte', format=5, channels=2, frequency=48000, lengthbytes=3552, lengthpcm=12113, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.242157.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 739008
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 4896
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000AA7064F4F8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFA50284130
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFA502840F0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFA50284210
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFA502842D0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000002947FA868B8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='CosmosChuteMetal', format=5, channels=2, frequency=48000, lengthbytes=8192, lengthpcm=38806, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.350128.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 739008
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 4896
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000AA7064F4F8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFA50284130
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFA502840F0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFA50284210
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFA502842D0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000002947FA868B8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='CosmosChutePierre', format=5, channels=2, frequency=48000, lengthbytes=6016, lengthpcm=27474, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.251373.
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000294EA8B1A88, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000294EA8B1A88
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000294C6BDFED0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='atmo-rural-africa-winter-crickets-01', format=5, channels=2, frequency=48000, lengthbytes=482528, lengthpcm=1619424, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.166512.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000294EA8B1A88
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000294EA8B2658, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000294EA8B2658
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002918072B898, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 00000293DB1DECA8, queue head = 000002919C342CB8, queue count = 1
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000294EA8B2658
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002918072B898
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002918072B898
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000293DB1DECA8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000293DB1DECA8
+[LOG] SoundI::release                          : atmo-rural-cricket-chirp-close-01 (00000294EACEC588)
+[LOG] SoundI::release                          :     atmo-rural-cricket-chirp-close-01 (000002954B62CBF8)
+[LOG] SoundI::release                          :     atmo-rural-cricket-chirp-close-01 (000002918072B898)
+[LOG] SoundI::release                          : atmo-rural-africa-winter-crickets-01 (00000294EA8B1A88)
+[LOG] SoundI::release                          :     atmo-rural-africa-winter-crickets-01 (00000293EAD9A248)
+[LOG] SoundI::release                          :     atmo-rural-africa-winter-crickets-01 (00000293DB1DECA8)
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000295363FB0A8, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000295363FB0A8
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000029222417650
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='atmo-rural-cricket-chirp-close-01', format=5, channels=2, frequency=48000, lengthbytes=1259360, lengthpcm=4397328, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.087533.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000295363FB0A8
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002918022F808, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002918022F808
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000002947FEE7570
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Wind', format=5, channels=2, frequency=48000, lengthbytes=1280320, lengthpcm=5091983, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.029114.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002918022F808
+[LOG] SoundI::release                          : Wind (000002918022EC38)
+[LOG] SoundI::release                          :     Wind (00000293D9D3E168)
+[LOG] SoundI::release                          :     Wind (00000294EA8B2658)
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002954B5D5108, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002954B5D5108
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002954B5D5468, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002954B5D5108
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002954B5D5468
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002954B5D5468
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F965E18, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F965E18
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000293E9908BC0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='animal-bird-african-bush-bird-chirp-01', format=5, channels=2, frequency=48000, lengthbytes=150144, lengthpcm=573840, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.260962.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F965E18
+[LOG] SoundI::release                          : animal-bird-african-bush-bird-chirp-01 (000002957F965E18)
+[LOG] SoundI::release                          :     animal-bird-african-bush-bird-chirp-01 (00000293EA962958)
+[LOG] SoundI::release                          :     animal-bird-african-bush-bird-chirp-01 (00000294EB123AA8)
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002954B5D5108, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002954B5D5108
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002954B5D5468, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002954B5D5108
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002954B5D5468
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002954B5D5468
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002954B5D5108, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002954B5D5108
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002954B5D5468, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002954B5D5108
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002954B5D5468
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002954B5D5468
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000294E9B1E318, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000294E9B1E318
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000294C5CF4D00
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='atmo-rural-africa-winter-crickets-01', format=5, channels=2, frequency=48000, lengthbytes=482528, lengthpcm=1619424, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.166512.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000294E9B1E318
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000294F687FE08, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000294F687FE08
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000002947FEE76B0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='atmo-rural-cricket-chirp-close-01', format=5, channels=2, frequency=48000, lengthbytes=1259360, lengthpcm=4397328, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.087533.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000294F687FE08
+[LOG] SoundI::release                          : atmo-rural-africa-winter-crickets-01 (00000294E9B1E318)
+[LOG] SoundI::release                          :     atmo-rural-africa-winter-crickets-01 (00000293B743D7A8)
+[LOG] SoundI::release                          :     atmo-rural-africa-winter-crickets-01 (00000295363DC748)
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002954B5D5108, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002954B5D5108
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002954B5D5468, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002957F6BBC78, queue head = 000002919C342CB8, queue count = 1
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002954B5D5108
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002954B5D5468
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002954B5D5468
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BBC78
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BBC78
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002954B5D5108, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002954B5D5108
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002954B5D5468, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002957F6BBC78, queue head = 000002919C342CB8, queue count = 1
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002954B5D5108
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002954B5D5468
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002954B5D5468
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BBC78
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BBC78
+[LOG] SoundI::release                          : atmo-rural-cricket-chirp-close-01 (00000295363FB0A8)
+[LOG] SoundI::release                          :     atmo-rural-cricket-chirp-close-01 (00000293B71B8EA8)
+[LOG] SoundI::release                          :     atmo-rural-cricket-chirp-close-01 (000002954B5D5468)
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F308588, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F308588
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000002947FEE7BB0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Wind', format=5, channels=2, frequency=48000, lengthbytes=1280320, lengthpcm=5091983, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.029114.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F308588
+[LOG] SoundI::release                          : Wind (000002918022F808)
+[LOG] SoundI::release                          :     Wind (00000294C55EF038)
+[LOG] SoundI::release                          :     Wind (000002954B5D5108)
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000295D826FB98, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000295D826FB98
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000294C6BDFED0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='animal-bird-african-bush-bird-chirp-01', format=5, channels=2, frequency=48000, lengthbytes=150144, lengthpcm=573840, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.260962.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000295D826FB98
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000295363F8678, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000295363F8678
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002957F308738, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002957F6BBC78, queue head = 000002919C342CB8, queue count = 1
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000295363F8678
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F308738
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F308738
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BBC78
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BBC78
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000295363F8678, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000295363F8678
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002957F308738, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002957F6BBC78, queue head = 000002919C342CB8, queue count = 1
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000295363F8678
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F308738
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F308738
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BBC78
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BBC78
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000295363F8678, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000295363F8678
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002957F308738, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002957F6BBC78, queue head = 000002919C342CB8, queue count = 1
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000295363F8678
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F308738
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F308738
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BBC78
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BBC78
+[LOG] SoundI::release                          : animal-bird-african-bush-bird-chirp-01 (00000295D826FB98)
+[LOG] SoundI::release                          :     animal-bird-african-bush-bird-chirp-01 (00000294FEA7E668)
+[LOG] SoundI::release                          :     animal-bird-african-bush-bird-chirp-01 (000002957F308738)
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F308738, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F308738
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000002947FEE7E30
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='atmo-rural-cricket-chirp-close-01', format=5, channels=2, frequency=48000, lengthbytes=1259360, lengthpcm=4397328, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.087533.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F308738
+[LOG] SoundI::release                          : atmo-rural-cricket-chirp-close-01 (00000294F687FE08)
+[LOG] SoundI::release                          :     atmo-rural-cricket-chirp-close-01 (00000293D9CC1218)
+[LOG] SoundI::release                          :     atmo-rural-cricket-chirp-close-01 (000002957F6BBC78)
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000293DB1DFA28, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000293DB1DFA28
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000293EA9F6F70
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='atmo-rural-africa-winter-crickets-01', format=5, channels=2, frequency=48000, lengthbytes=482528, lengthpcm=1619424, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.166512.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000293DB1DFA28
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000295363F8678, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000294EACEC8E8, queue head = 000002919C342CB8, queue count = 1
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F6BBC78, queue head = 000002919C342CB8, queue count = 2
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000295363F8678
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000295363F8678
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000294EACEC8E8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000294EACEC8E8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BBC78
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BBC78
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000295363F8678, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000295363F8678
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000294EACEC8E8, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002957F6BBC78, queue head = 000002919C342CB8, queue count = 1
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000295363F8678
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000294EACEC8E8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000294EACEC8E8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BBC78
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BBC78
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F965248, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F965248
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000293E9908BC0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='atmo-rural-cricket-chirp-close-01', format=5, channels=2, frequency=48000, lengthbytes=1259360, lengthpcm=4397328, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.087533.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F965248
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F965098, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F965098
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000293E9908E40
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='animal-bird-african-bush-bird-chirp-01', format=5, channels=2, frequency=48000, lengthbytes=150144, lengthpcm=573840, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.260962.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F965098
+[LOG] SoundI::release                          : atmo-rural-africa-winter-crickets-01 (00000293DB1DFA28)
+[LOG] SoundI::release                          :     atmo-rural-africa-winter-crickets-01 (00000293B71B8EA8)
+[LOG] SoundI::release                          :     atmo-rural-africa-winter-crickets-01 (000002957F6BBC78)
+[LOG] SoundI::release                          : animal-bird-african-bush-bird-chirp-01 (000002957F965098)
+[LOG] SoundI::release                          :     animal-bird-african-bush-bird-chirp-01 (00000293B743D7A8)
+[LOG] SoundI::release                          :     animal-bird-african-bush-bird-chirp-01 (00000295363EFC18)
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000293DB1DFA28, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000293DB1DFA28
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000293EA9F6E30
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Wind', format=5, channels=2, frequency=48000, lengthbytes=1280320, lengthpcm=5091983, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.029114.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000293DB1DFA28
+[LOG] SoundI::release                          : Wind (000002957F308588)
+[LOG] SoundI::release                          :     Wind (00000293B743AA28)
+[LOG] SoundI::release                          :     Wind (00000295363F8678)
+[LOG] SoundI::release                          : atmo-rural-cricket-chirp-close-01 (000002957F308738)
+[LOG] SoundI::release                          :     atmo-rural-cricket-chirp-close-01 (00000293EAD9A588)
+[LOG] SoundI::release                          :     atmo-rural-cricket-chirp-close-01 (00000294EACEC8E8)
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F308C48, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F308C48
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000002947FEE7BB0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='atmo-rural-cricket-chirp-close-01', format=5, channels=2, frequency=48000, lengthbytes=1259360, lengthpcm=4397328, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.087533.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F308C48
+[LOG] SoundI::release                          : atmo-rural-cricket-chirp-close-01 (000002957F965248)
+[LOG] SoundI::release                          :     atmo-rural-cricket-chirp-close-01 (00000294C55EF038)
+[LOG] SoundI::release                          :     atmo-rural-cricket-chirp-close-01 (000002957F6BB768)
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000293DB1DF008, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000293DB1DF008
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000293EA9F6BB0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Wind', format=5, channels=2, frequency=48000, lengthbytes=1280320, lengthpcm=5091983, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.029114.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000293DB1DF008
+[LOG] SoundI::release                          : Wind (00000293DB1DFA28)
+[LOG] SoundI::release                          :     Wind (00000293EAD9A248)
+[LOG] SoundI::release                          :     Wind (00000293DB1E00E8)
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000295363E34F8, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000295363E34F8
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000029222417290
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='atmo-rural-africa-winter-crickets-01', format=5, channels=2, frequency=48000, lengthbytes=482528, lengthpcm=1619424, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.166512.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000295363E34F8
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000029535F36828, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000029535F36828
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000293E9908BC0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='animal-bird-african-bush-bird-chirp-01', format=5, channels=2, frequency=48000, lengthbytes=150144, lengthpcm=573840, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.260962.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000029535F36828
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F6BB768, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F6BBC78, queue head = 000002919C342CB8, queue count = 1
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BB768
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002957F6BBAC8, queue head = 000002919C342CB8, queue count = 1
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 0000029535F36EE8, queue head = 000002919C342CB8, queue count = 2
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BB768
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BBC78
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BBC78
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BBAC8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BBAC8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000029535F36EE8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000029535F36EE8
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F6BB768, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F6BBC78, queue head = 000002919C342CB8, queue count = 1
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BB768
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002957F6BBAC8, queue head = 000002919C342CB8, queue count = 1
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 0000029535F36EE8, queue head = 000002919C342CB8, queue count = 2
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BB768
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BBC78
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BBC78
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BBAC8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BBAC8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000029535F36EE8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000029535F36EE8
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F6BB768, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BB768
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F6BBC78, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002957F6BBAC8, queue head = 000002919C342CB8, queue count = 1
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 0000029535F36EE8, queue head = 000002919C342CB8, queue count = 2
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BB768
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BBC78
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BBC78
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BBAC8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BBAC8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000029535F36EE8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000029535F36EE8
+[LOG] SoundI::release                          : animal-bird-african-bush-bird-chirp-01 (0000029535F36828)
+[LOG] SoundI::release                          :     animal-bird-african-bush-bird-chirp-01 (00000293D97E7BB8)
+[LOG] SoundI::release                          :     animal-bird-african-bush-bird-chirp-01 (000002957F6BBC78)
+[LOG] SoundI::release                          : atmo-rural-africa-winter-crickets-01 (00000295363E34F8)
+[LOG] SoundI::release                          :     atmo-rural-africa-winter-crickets-01 (00000293E5205398)
+[LOG] SoundI::release                          :     atmo-rural-africa-winter-crickets-01 (0000029535F36EE8)
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F6BB768, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BB768
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002957F6BBAC8, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BB768
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BBAC8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BBAC8
+[LOG] SystemI::createSound                     : filename = FMODBuild/Desktop/Ambiance.assets.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000296079C6588, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000296079C6588
+[LOG] SystemI::createSoundInternal             :     Create name='FMODBuild/Desktop/Ambiance.assets.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 9752160
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 3264
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000293EA9F67F0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='animal-bird-african-bush-bird-chirp-01', format=5, channels=2, frequency=48000, lengthbytes=150144, lengthpcm=573840, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.260962.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000296079C6588
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002957F6BB768, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BB768
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 00000295F73403D8, queue head = 000002919C342CB8, queue count = 0
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002957F6BBAC8, queue head = 000002919C342CB8, queue count = 1
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BB768
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000295F73403D8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000295F73403D8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002957F6BBAC8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002957F6BBAC8
+[LOG] SoundI::release                          : atmo-rural-cricket-chirp-close-01 (000002957F308C48)
+[LOG] SoundI::release                          :     atmo-rural-cricket-chirp-close-01 (00000293B71B8EA8)
+[LOG] SoundI::release                          :     atmo-rural-cricket-chirp-close-01 (000002957F6BBAC8)
+[LOG] SoundI::release                          :  (00000293B7264A88)
+[LOG] SoundI::release                          :     ÉlémentChutePierre (00000293E5201AB8)
+[LOG] SoundI::release                          :  (0000029196BF3718)
+[LOG] SoundI::release                          :     ÉlémentChuteHerbe+HerbeMorte (00000293E5201918)
+[LOG] SoundI::release                          :  (000002957F967368)
+[LOG] SoundI::release                          :     ÉlémentChuteFlaque (00000293E5202C98)
+[LOG] SoundI::release                          :  (00000293B7264D68)
+[LOG] SoundI::release                          :     ÉlémentChuteMetal (00000293E5206098)
+[LOG] SoundI::release                          :  (00000294C62868C8)
+[LOG] SoundI::release                          :     CosmosChuteFlaque (000002954B292F58)
+[LOG] SoundI::release                          :  (00000294C62865E8)
+[LOG] SoundI::release                          :     CosmosChuteHerbe (000002954B293298)
+[LOG] SoundI::release                          :  (00000294C6285618)
+[LOG] SoundI::release                          :     CosmosChuteMetal (00000293DAD80598)
+[LOG] SoundI::release                          :  (00000294C6287A08)
+[LOG] SoundI::release                          :     CosmosChutePierre (00000294FEA7E328)
+[LOG] SoundI::release                          :  (00000294C62847B8)
+[LOG] SoundI::release                          :     CosmosChuteHerbeMorte (000002954B292A78)
+[LOG] SoundI::release                          :  (0000029196BF3CD8)
+[LOG] SoundI::release                          :     Onde (00000293E5206A58)
+[LOG] SoundI::release                          :  (00000293B7264078)
+[LOG] SoundI::release                          :     PalierRemplissage (00000293E5203998)
+[LOG] SoundI::release                          :  (00000293B72647A8)
+[LOG] SoundI::release                          :     TPemprunté (00000293E5205D58)
+[LOG] SoundI::release                          :  (000002953684D508)
+[LOG] SoundI::release                          :     PréOnde (00000293E5207758)
+[LOG] SoundI::release                          :  (0000029196BF3B68)
+[LOG] SoundI::release                          :     ManivelleTournéeGauche (00000293E5206D98)
+[LOG] SoundI::release                          :  (000002953684D398)
+[LOG] SoundI::release                          :     PalierVidange (00000293E5207418)
+[LOG] SoundI::release                          :  (000002957F9671F8)
+[LOG] SoundI::release                          :     VaisseauDécollage (00000293E5202FD8)
+[LOG] SoundI::release                          :  (000002953684D228)
+[LOG] SoundI::release                          :     ManivelleTournéeDroite (00000293E5205538)
+[LOG] SoundI::release                          :  (000002957F967088)
+[LOG] SoundI::release                          :     animal-insect-cricket-chirp-01 (00000293E53C05B8)
+[LOG] SoundI::release                          :  (00000294EA36F7A8)
+[LOG] SoundI::release                          :     animal-insect-cricket-chirp-03 (00000293E53BF578)
+[LOG] SoundI::release                          :  (00000294EA36F078)
+[LOG] SoundI::release                          :     animal-bird-african-savanna-bird-chirp-01 (00000293E53BED58)
+[LOG] SoundI::release                          : animal-bird-african-bush-bird-chirp-01 (00000296079C6588)
+[LOG] SoundI::release                          :     animal-bird-african-bush-bird-chirp-01 (00000295D336D338)
+[LOG] SoundI::release                          :     animal-bird-african-bush-bird-chirp-01 (00000295F73403D8)
+[LOG] SoundI::release                          : Wind (00000293DB1DF008)
+[LOG] SoundI::release                          :     Wind (00000293B71B9388)
+[LOG] SoundI::release                          :     Wind (000002957F6BB768)
+[LOG] SoundI::release                          :  (000002957F9674D8)
+[LOG] SoundI::release                          :     animal-bird-african-savanna-bird-chirp-02 (00000293E53C0278)
+[LOG] SoundI::release                          :  (000002957F967D78)
+[LOG] SoundI::release                          :     animal-bird-chirp-forest-02 (00000293E53C08F8)
+[LOG] SoundI::release                          :  (00000294EA36F638)
+[LOG] SoundI::release                          :     animal-bird-chirp-forest-03 (00000293E53BE398)
+[LOG] SoundI::release                          :  (00000294EA36F1E8)
+[LOG] SoundI::release                          :     animal-bird-jackdaw-distant-call-01 (00000293E53BEEF8)
+[LOG] SoundI::release                          :  (00000294EA36F4C8)
+[LOG] SoundI::release                          :     animal-bird-kookaburra-call-02 (00000293E53BDD18)
+[LOG] SoundI::release                          :  (000002953684D0B8)
+[LOG] SoundI::release                          :     ÉnergieDéposée (00000293E52034B8)
+[LOG] Thread::callback                         : FMOD Studio update thread finished.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
 [LOG] Thread::callback                         : FMOD Studio sample load thread finished.
 [LOG] LiveUpdate::release                      : 
 [LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
 [LOG] Thread::callback                         : FMOD stream thread finished.
 [LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
 [LOG] SystemI::close                           : Closed.
