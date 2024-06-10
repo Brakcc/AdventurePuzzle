@@ -34,7 +34,18 @@ namespace GameContent.PlayerScripts
 
         public CameraManager TransCamManager => transCamManager;
 
-        internal bool IsDedge { get; set; } = false;
+        private Vector3 LastPos
+        {
+            get
+            {
+                Physics.Raycast(transform.position, Vector3.down, out var hit, 2,
+                    datasSo.groundingDatasSo.groundLayer);
+
+                return hit.point + new Vector3(0, CharaCont.height / 2 + 0.5f, 0);
+            }
+        }
+        
+        internal bool IsDedge { get; set; }
         
         internal float CamLerpCoef { get; set; }
         
@@ -112,7 +123,22 @@ namespace GameContent.PlayerScripts
         private void Update()
         {
             if (!IsDedge)
+            {
                 _stateMachine.UpdateMachine();
+                _lastPos = LastPos;
+                return;
+            }
+
+            _dedTimeCounter += Time.deltaTime;
+
+            if (_dedTimeCounter > 0.35f)
+                transform.position = _lastPos;
+
+            if (_dedTimeCounter <= 0.55f)
+                return;
+            
+            _dedTimeCounter = 0;
+            IsDedge = false;
         }
 
         private void FixedUpdate()
@@ -141,6 +167,8 @@ namespace GameContent.PlayerScripts
         
         private GenericStateMachine _stateMachine;
 
+        private Vector3 _lastPos;
+        
         private float _dedTimeCounter;
         
         private const int InitialCameraAngle = 45;
