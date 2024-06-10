@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using GameContent.CameraScripts;
+using GameContent.Interactives.ClemInterTemplates.Receptors;
 
 namespace Sounds
 {
@@ -15,9 +16,8 @@ namespace Sounds
         
         private void OnTriggerEnter(Collider other)
         {
-            if (other != playerCollidToIgnore1 && other != playerCollidToIgnore2 && !other.GetComponent<CamAngleOverrider>())
+            if (other != playerCollidToIgnore1 && other != playerCollidToIgnore2 && !other.GetComponent<CamAngleOverrider>() && !other.GetComponent<TeleporterRecep>())
             {
-                Debug.Log(other.gameObject.name);
                 if (_collidersTouched.Count == 0)
                 {
                     RuntimeManager.PlayOneShot(sound, transform.position);
