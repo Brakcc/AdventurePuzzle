@@ -5,6 +5,7 @@ using Utilities.CustomAttributes;
 
 namespace GameContent.Interactives.ClemInterTemplates.Receptors
 {
+    [SelectionBase]
     public class TeleporterRecep : ReceptorInter
     {
         #region properties

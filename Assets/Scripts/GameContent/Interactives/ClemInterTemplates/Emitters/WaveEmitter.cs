@@ -12,6 +12,7 @@ using UnityEngine.VFX;
 
 namespace GameContent.Interactives.ClemInterTemplates.Emitters
 {
+    [SelectionBase]
     public sealed class WaveEmitter : EmitterInter
     {
         #region properties

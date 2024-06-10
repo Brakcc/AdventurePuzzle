@@ -6,6 +6,7 @@ using Utilities.CustomAttributes.FieldColors;
 
 namespace GameContent.Interactives.ClemInterTemplates.Receptors
 {
+    [SelectionBase]
     [RequireComponent(typeof(Collider))]
     public class ReceptorInter : BaseInterBehavior
     {
