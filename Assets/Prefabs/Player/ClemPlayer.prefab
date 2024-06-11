@@ -588,6 +588,9 @@ MonoBehaviour:
   transCamDatas:
     pivot: {fileID: 0}
     arm: {fileID: 0}
+  _camSpecRota:
+  - pivot: {fileID: 0}
+    arm: {fileID: 0}
 --- !u!114 &3982721170977102547
 MonoBehaviour:
   m_ObjectHideFlags: 0

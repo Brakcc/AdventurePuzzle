@@ -493,11 +493,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1770208010025067718, guid: 2c994173e3763e44a8ac6182f0b284f7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.38268325
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770208010025067718, guid: 2c994173e3763e44a8ac6182f0b284f7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9238796
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770208010025067718, guid: 2c994173e3763e44a8ac6182f0b284f7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 3131402452738518865, guid: 2c994173e3763e44a8ac6182f0b284f7,
         type: 3}
       propertyPath: m_Name
       value: Cameras
       objectReference: {fileID: 0}
+    - target: {fileID: 3442081485470498782, guid: 2c994173e3763e44a8ac6182f0b284f7,
+        type: 3}
+      propertyPath: playerRef
+      value: 
+      objectReference: {fileID: 2218784551641374870}
     - target: {fileID: 3750584357350617712, guid: 2c994173e3763e44a8ac6182f0b284f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -533,6 +553,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c994173e3763e44a8ac6182f0b284f7, type: 3}
+--- !u!4 &1253872211358397050 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1770208010025067718, guid: 2c994173e3763e44a8ac6182f0b284f7,
+    type: 3}
+  m_PrefabInstance: {fileID: 718232796943374012}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1277524855253341930 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1751059103733760086, guid: 2c994173e3763e44a8ac6182f0b284f7,
@@ -560,6 +586,12 @@ Transform:
 --- !u!4 &4466282711272481996 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3750584357350617712, guid: 2c994173e3763e44a8ac6182f0b284f7,
+    type: 3}
+  m_PrefabInstance: {fileID: 718232796943374012}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5833192306276098167 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6414257899777341131, guid: 2c994173e3763e44a8ac6182f0b284f7,
     type: 3}
   m_PrefabInstance: {fileID: 718232796943374012}
   m_PrefabAsset: {fileID: 0}
@@ -690,6 +722,16 @@ PrefabInstance:
       propertyPath: transCamDatas.pivot
       value: 
       objectReference: {fileID: 4466282711272481996}
+    - target: {fileID: 2805556016637855305, guid: 509654485f54e2340847a9f3da1c48de,
+        type: 3}
+      propertyPath: _camSpecRota.Array.data[0].arm
+      value: 
+      objectReference: {fileID: 5833192306276098167}
+    - target: {fileID: 2805556016637855305, guid: 509654485f54e2340847a9f3da1c48de,
+        type: 3}
+      propertyPath: _camSpecRota.Array.data[0].pivot
+      value: 
+      objectReference: {fileID: 1253872211358397050}
     - target: {fileID: 3982721170977102547, guid: 509654485f54e2340847a9f3da1c48de,
         type: 3}
       propertyPath: hairRend.Array.size
