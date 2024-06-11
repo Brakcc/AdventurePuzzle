@@ -101,7 +101,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bcf7c5767428b6e4590bca858cf60061, type: 2}
+  - {fileID: 2100000, guid: df1cc7b5e8ab315489e27cbdfe98deb8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -206,7 +206,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bcf7c5767428b6e4590bca858cf60061, type: 2}
+  - {fileID: 2100000, guid: df1cc7b5e8ab315489e27cbdfe98deb8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -311,7 +311,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bcf7c5767428b6e4590bca858cf60061, type: 2}
+  - {fileID: 2100000, guid: df1cc7b5e8ab315489e27cbdfe98deb8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -416,7 +416,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bcf7c5767428b6e4590bca858cf60061, type: 2}
+  - {fileID: 2100000, guid: df1cc7b5e8ab315489e27cbdfe98deb8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -532,6 +532,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_plafond_vitre (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8292112727294300744, guid: dbcade7d7a6dbab4e8d8abbae0a6ee66,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: df1cc7b5e8ab315489e27cbdfe98deb8, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1541391229243458654, guid: dbcade7d7a6dbab4e8d8abbae0a6ee66, type: 3}
@@ -617,6 +622,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_plafond_vitre (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8292112727294300744, guid: dbcade7d7a6dbab4e8d8abbae0a6ee66,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: df1cc7b5e8ab315489e27cbdfe98deb8, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1541391229243458654, guid: dbcade7d7a6dbab4e8d8abbae0a6ee66, type: 3}
@@ -702,6 +712,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_plafond_vitre (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8292112727294300744, guid: dbcade7d7a6dbab4e8d8abbae0a6ee66,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: df1cc7b5e8ab315489e27cbdfe98deb8, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1541391229243458654, guid: dbcade7d7a6dbab4e8d8abbae0a6ee66, type: 3}
@@ -787,6 +802,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_plafond_vitre
       objectReference: {fileID: 0}
+    - target: {fileID: 8292112727294300744, guid: dbcade7d7a6dbab4e8d8abbae0a6ee66,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: df1cc7b5e8ab315489e27cbdfe98deb8, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1541391229243458654, guid: dbcade7d7a6dbab4e8d8abbae0a6ee66, type: 3}
