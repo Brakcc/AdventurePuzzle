@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace GameContent.PlayerScripts.CutScenes
 {
-    public class CS03CompanionFatigue : CutScene
+    [RequireComponent(typeof(BoxCollider))]
+    public sealed class CS03CompanionFatigue : CutScene
     {
         #region constructor
         

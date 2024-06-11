@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace GameContent.PlayerScripts.CutScenes
 {
+    [RequireComponent(typeof(BoxCollider))]
     public sealed class CS01CompanionDeath : CutScene
     {
         #region constructor
