@@ -13,6 +13,10 @@ namespace Sounds
         private bool _canPlay;
 
         [SerializeField] private float valueSound;
+
+        [SerializeField] private int waterLayer;
+        [SerializeField] private int stoneLayer;
+        [SerializeField] private int metalLayer;
         
         private void Start()
         {
@@ -55,7 +59,7 @@ namespace Sounds
 
         private void OnTriggerStay(Collider other)
         {
-            if (other.gameObject.layer == 4)
+            if (other.gameObject.layer == waterLayer)
             {
                 valueSound = 0;
             }
@@ -63,13 +67,15 @@ namespace Sounds
             {
                 valueSound = 2;
             }*/
-            else if (other.gameObject.layer == 4)
+            else if (other.gameObject.layer == stoneLayer)
             {
-                valueSound = 3;
-            }
-            else if (other.gameObject.layer == 18)
-            {
+                //Stone
                 valueSound = 4;
+            }
+            else if (other.gameObject.layer == metalLayer)
+            {
+                //Metal
+                valueSound = 3;
             }
             else
             {

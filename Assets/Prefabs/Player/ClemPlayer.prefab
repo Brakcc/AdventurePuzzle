@@ -418,6 +418,9 @@ MonoBehaviour:
     Path: event:/Chara/CosmosPas
   walkVelocity: {fileID: 808993273491451992}
   valueSound: 1
+  waterLayer: 4
+  stoneLayer: 18
+  metalLayer: 17
 --- !u!1 &7537734540998498118
 GameObject:
   m_ObjectHideFlags: 0
