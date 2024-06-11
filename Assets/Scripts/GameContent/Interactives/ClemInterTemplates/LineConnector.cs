@@ -1,5 +1,4 @@
-﻿using System;
-using GameContent.Interactives.ClemInterTemplates.Receptors;
+﻿using GameContent.Interactives.ClemInterTemplates.Receptors;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates
@@ -16,7 +15,7 @@ namespace GameContent.Interactives.ClemInterTemplates
 
         private void Update()
         {
-            if (recepRef.CurrentEnergyType is not EnergyTypes.Blue)
+            if (recepRef.CurrentEnergyType is not EnergyTypes.Blue || !recepRef.HasCableEnergy)
             {
                 if (_line.enabled)
                     _line.enabled = false;

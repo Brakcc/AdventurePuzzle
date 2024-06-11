@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using UIScripts.Sounds;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates

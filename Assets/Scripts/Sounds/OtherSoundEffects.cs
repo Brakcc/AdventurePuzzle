@@ -1,6 +1,5 @@
 using FMODUnity;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Sounds
 {
