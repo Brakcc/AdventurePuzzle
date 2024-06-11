@@ -154,9 +154,9 @@ namespace GameContent.StateMachines
 
         private readonly Func<IEnumerator>[] _coroutineStates;
 
-        private bool cine;
+        public bool cine;
 
-        private bool locked;
+        public bool locked;
 
         #endregion
     }
