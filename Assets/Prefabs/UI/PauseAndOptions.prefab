@@ -177,9 +177,34 @@ PrefabInstance:
       objectReference: {fileID: 5698733912155958189}
     - target: {fileID: 8310871912066298291, guid: bca37ae9102cb324dafa5424c7ae2a6e,
         type: 3}
+      propertyPath: echoPause.Path
+      value: event:/EffetGamePaused
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310871912066298291, guid: bca37ae9102cb324dafa5424c7ae2a6e,
+        type: 3}
       propertyPath: openPauseSound
       value: 
       objectReference: {fileID: 7752783058161188409}
+    - target: {fileID: 8310871912066298291, guid: bca37ae9102cb324dafa5424c7ae2a6e,
+        type: 3}
+      propertyPath: echoPause.Guid.Data1
+      value: -348164730
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310871912066298291, guid: bca37ae9102cb324dafa5424c7ae2a6e,
+        type: 3}
+      propertyPath: echoPause.Guid.Data2
+      value: 1322688077
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310871912066298291, guid: bca37ae9102cb324dafa5424c7ae2a6e,
+        type: 3}
+      propertyPath: echoPause.Guid.Data3
+      value: -1931630433
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310871912066298291, guid: bca37ae9102cb324dafa5424c7ae2a6e,
+        type: 3}
+      propertyPath: echoPause.Guid.Data4
+      value: -350299369
+      objectReference: {fileID: 0}
     - target: {fileID: 8310871912066298291, guid: bca37ae9102cb324dafa5424c7ae2a6e,
         type: 3}
       propertyPath: backToCheckPointSound

@@ -55,7 +55,7 @@ namespace Sounds
 
         private void OnTriggerStay(Collider other)
         {
-            if (other.CompareTag("Water"))
+            if (other.gameObject.layer == 4)
             {
                 valueSound = 0;
             }
@@ -63,11 +63,11 @@ namespace Sounds
             {
                 valueSound = 2;
             }*/
-            else if (other.CompareTag("Metal"))
+            else if (other.gameObject.layer == 4)
             {
                 valueSound = 3;
             }
-            else if (other.CompareTag("Stone"))
+            else if (other.gameObject.layer == 18)
             {
                 valueSound = 4;
             }

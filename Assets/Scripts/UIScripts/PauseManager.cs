@@ -1,6 +1,9 @@
+using FMOD.Studio;
+using FMODUnity;
 using UIScripts.Sounds;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace UIScripts
 {
@@ -18,6 +21,9 @@ namespace UIScripts
         [SerializeField] PlaySound endPauseSound;
         [SerializeField] PlaySound backToCheckPointSound;
         [SerializeField] PlaySound quitSound;
+
+        [SerializeField] private EventReference echoPause;
+        private EventInstance _echoInstance;
         
         
         private void Start()
@@ -26,6 +32,13 @@ namespace UIScripts
             _pauseGroup = transform.GetChild(0).gameObject;
             _pauseGroup.SetActive(false);
             _myOptionsManager = transform.parent.GetChild(1).GetComponent<OptionsManager>();
+            
+            
+            //Set Up Pause Echo Sound
+            _echoInstance = RuntimeManager.CreateInstance(echoPause);
+            _echoInstance.setParameterByName("GamePaused", 1);
+            
+            _echoInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject.transform));
         }
 
         void Update()
@@ -40,10 +53,12 @@ namespace UIScripts
         {
             if (!pauseEnabled)
             {
+                _echoInstance.stop(STOP_MODE.IMMEDIATE);
                 endPauseSound.PlayMySound();
             }
             else
             {
+                _echoInstance.start();
                 openPauseSound.PlayMySound();
             }
             pauseButton.SetActive(pauseEnabled);
