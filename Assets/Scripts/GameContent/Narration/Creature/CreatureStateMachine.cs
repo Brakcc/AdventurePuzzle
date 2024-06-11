@@ -33,6 +33,8 @@ namespace GameContent.Narration.Creature
                         animator.SetBool(IsMoving,  false);
                         break;
                     case 3:
+                        break;
+                    case 4:
                         IsDedge = true;
                         animator.SetBool(IsMoving,  false);
                         animator.SetBool(IsFatigue,  false);
@@ -56,7 +58,7 @@ namespace GameContent.Narration.Creature
 
         private void Update()
         {
-            if (CurrentState is 0 or 3)
+            if (CurrentState is 0 or 3 or 4)
                 return;
             
             SetAnims();

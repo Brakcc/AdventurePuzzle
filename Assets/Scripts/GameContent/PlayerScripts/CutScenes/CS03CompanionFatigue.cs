@@ -19,7 +19,7 @@ namespace GameContent.PlayerScripts.CutScenes
 
         public override void OnStartCutScene()
         {
-            creatureMachine.IsSlower = true;
+            creatureMachine.CurrentState = 2;
         }
 
         public override IEnumerator HandleCutScene()
