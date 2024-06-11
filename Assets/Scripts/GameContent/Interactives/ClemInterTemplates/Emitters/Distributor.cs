@@ -91,8 +91,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             base.OnUpdate();
             
             SetLerpCoefs();
-
-            //Debug.Log($"{_lerpCoefs[0]}_{_lerpCoefs[1]}_{_lerpCoefs[2]}_{_lerpCoefs[3]}_{_lerpCoefs[4]}_");
         }
 
         public override void InterAction()
