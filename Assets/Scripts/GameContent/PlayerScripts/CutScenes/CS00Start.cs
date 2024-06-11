@@ -1,7 +1,9 @@
 ﻿using System.Collections;
+using UnityEngine;
 
 namespace GameContent.PlayerScripts.CutScenes
 {
+    [RequireComponent(typeof(BoxCollider))]
     public sealed class CS00Start : CutScene
     {
         #region constructor
