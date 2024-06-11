@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Utilities.CustomAttributes;
 using Utilities.CustomAttributes.FieldColors;
 
@@ -85,12 +85,19 @@ namespace GameContent.Narration.Creature
             SetVertPos();
         }
 
+        private void OnRotate(Vector3 dir)
+        {
+            transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
+        }
+        
         private void OnMove()
         {
             var tempDir = GetDir(playerRef.position);
             var tempVel = tempDir * creatureSpeed;
             
             _rb.velocity = new Vector3(tempVel.x, _rb.velocity.y, tempVel.z);
+            
+            OnRotate(tempDir);
         }
         
         private Vector3 GetDir(Vector3 targetPos)
@@ -131,6 +138,8 @@ namespace GameContent.Narration.Creature
 
         [FieldCompletion(_checkedColor:FieldColor.Green)]
         [SerializeField] private Transform playerRef;
+
+        [SerializeField] private Animator animator;
         
         [SerializeField] private AnimationCurve creatureAccelerationCurve;
 
@@ -147,6 +156,8 @@ namespace GameContent.Narration.Creature
         private Rigidbody _rb;
 
         private float _vertVelocity;
+
+        private static readonly int IsMoving = Animator.StringToHash("isMoving");
 
         private static readonly int IsFatigue = Animator.StringToHash("isFatigue");
         
