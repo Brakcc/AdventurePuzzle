@@ -1,5 +1,4 @@
-﻿using System;
-using GameContent.PlayerScripts.CutScenes;
+﻿using GameContent.PlayerScripts.CutScenes;
 using UnityEngine;
 
 namespace GameContent.Interactives.ClemInterTemplates
