@@ -10,12 +10,12 @@ namespace GameContent.PlayerScripts.PlayerStates.ForcedStates
 
         public override void OnEnterState()
         {
-            throw new System.NotImplementedException();
+            AnimationManager.SetAnims("isWalking", false);
         }
 
         public override void OnExitState()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }
