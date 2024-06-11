@@ -405,7 +405,7 @@ namespace UnityEngine.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""216e7ced-75b6-4790-892c-e8e752f956f3"",
-                    ""path"": ""<NimbusGamepadHid>/buttonSouth"",
+                    ""path"": ""<NimbusGamepadHid>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -416,7 +416,7 @@ namespace UnityEngine.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""44e9f887-47e0-4d0f-ba43-a2f896631951"",
-                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""path"": ""<XInputController>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -427,7 +427,7 @@ namespace UnityEngine.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""1cc1f936-1353-4b1d-b0e8-91a3d995baab"",
-                    ""path"": ""<XboxOneGamepadAndroid>/buttonSouth"",
+                    ""path"": ""<XboxOneGamepadAndroid>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -438,7 +438,7 @@ namespace UnityEngine.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""45765249-0771-4887-90c6-cf07173391b8"",
-                    ""path"": ""<XboxOneGampadiOS>/buttonSouth"",
+                    ""path"": ""<XboxOneGampadiOS>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
