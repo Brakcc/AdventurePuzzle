@@ -14,7 +14,6 @@ namespace Sounds
 
         [SerializeField] private float valueSound;
         
-        
         private void Start()
         {
             _canPlay = true;

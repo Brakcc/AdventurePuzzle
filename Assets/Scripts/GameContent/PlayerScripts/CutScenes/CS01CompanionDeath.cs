@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using DG.Tweening;
-using GameContent.Narration.Creature;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts.CutScenes
@@ -86,8 +85,6 @@ namespace GameContent.PlayerScripts.CutScenes
 
         #region fields
 
-        [SerializeField] private CreatureStateMachine creatureMachine;
-        
         [SerializeField] private Transform startPos;
 
         [SerializeField] private Transform targetPos;
