@@ -30,6 +30,8 @@ namespace GameContent.PlayerScripts
         
         public CameraDatas InitCamDatas => initCamDatas;
 
+        public CameraDatas[] CamSpecRota => _camSpecRota;
+
         public CameraManager InitCamManager => initCamManager;
 
         public CameraManager TransCamManager => transCamManager;
@@ -176,6 +178,8 @@ namespace GameContent.PlayerScripts
         [SerializeField] private CameraDatas initCamDatas;
         
         [SerializeField] private CameraDatas transCamDatas;
+
+        [SerializeField] private CameraDatas[] _camSpecRota;
         
         private GenericStateMachine _stateMachine;
 
