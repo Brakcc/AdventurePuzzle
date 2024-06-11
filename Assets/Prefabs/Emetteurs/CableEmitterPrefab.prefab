@@ -1156,7 +1156,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8615067955835611537
 Transform:
   m_ObjectHideFlags: 0
@@ -2193,8 +2193,6 @@ MonoBehaviour:
       type: 3}
     greenDisapPartSys: {fileID: 464848864216952090, guid: d6c2b41dc9d2b5042bce4c68ca32ad4d,
       type: 3}
-  emptySound: {fileID: 6784697092005407072}
-  activateSound: {fileID: 6919690428360401528}
 --- !u!1 &6827159568831170831
 GameObject:
   m_ObjectHideFlags: 0
@@ -2796,7 +2794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3103631702973766799
 Transform:
   m_ObjectHideFlags: 0

@@ -601,6 +601,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   getEnergyBack: 1
+  hairRend:
+  - {fileID: 5027214919696898152}
 --- !u!1001 &5657635452127767495
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1000,6 +1002,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c9fb1c28361a9d46bca458b7dc2dc17, type: 3}
+--- !u!137 &5027214919696898152 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 812816317674992559, guid: 5c9fb1c28361a9d46bca458b7dc2dc17,
+    type: 3}
+  m_PrefabInstance: {fileID: 5657635452127767495}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7662701069976392485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2653912595761314018, guid: 5c9fb1c28361a9d46bca458b7dc2dc17,

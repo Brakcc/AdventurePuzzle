@@ -690,6 +690,16 @@ PrefabInstance:
       propertyPath: transCamDatas.pivot
       value: 
       objectReference: {fileID: 4466282711272481996}
+    - target: {fileID: 3982721170977102547, guid: 509654485f54e2340847a9f3da1c48de,
+        type: 3}
+      propertyPath: hairRend.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982721170977102547, guid: 509654485f54e2340847a9f3da1c48de,
+        type: 3}
+      propertyPath: hairRend.Array.data[0]
+      value: 
+      objectReference: {fileID: 5779502084538091686}
     - target: {fileID: 6084949309606600270, guid: 509654485f54e2340847a9f3da1c48de,
         type: 3}
       propertyPath: m_Enabled
@@ -719,6 +729,12 @@ Animator:
 --- !u!4 &2218784551641374870 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 808993273491451992, guid: 509654485f54e2340847a9f3da1c48de,
+    type: 3}
+  m_PrefabInstance: {fileID: 1580952395651092686}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &5779502084538091686 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5027214919696898152, guid: 509654485f54e2340847a9f3da1c48de,
     type: 3}
   m_PrefabInstance: {fileID: 1580952395651092686}
   m_PrefabAsset: {fileID: 0}
