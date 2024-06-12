@@ -21,10 +21,10 @@ namespace GameContent.PlayerScripts.PlayerStates
             AnimationManager.SetAnims("isLevier");
             
             _leverRef = _checker.InterRef as LeverInter;
-            if (_leverRef!.LeverOrientationMode == LeverOrientationMode.Horizontal)
+            /*if (_leverRef!.LeverOrientationMode == LeverOrientationMode.Horizontal)
                 _leverRef.ImageD.SetActive(true);
             else
-                _leverRef.ImageF.SetActive(true);
+                _leverRef.ImageF.SetActive(true);*/
 
             _canManip = false;
             _canReloadManip = true;
@@ -33,8 +33,8 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnExitState()
         {
-            _leverRef.ImageD.SetActive(false);
-            _leverRef.ImageF.SetActive(false);
+            /*_leverRef.ImageD.SetActive(false);
+            _leverRef.ImageF.SetActive(false);*/
             _leverRef = null;
         }
 

@@ -6,10 +6,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Levers
     {
         #region properties
 
-        public GameObject ImageD => imageIndic;
-
-        public GameObject ImageF => imageVert;
-
         public abstract sbyte Level { get; set; }
 
         public LeverOrientationMode LeverOrientationMode => leverOrientation;

@@ -4,6 +4,7 @@ using Utilities.CustomAttributes.FieldColors;
 
 namespace GameContent.Narration.Creature
 {
+    //Bon en fait c'est pas une state machine parce que flemme aussi la
     [RequireComponent(typeof(Rigidbody))]
     public class CreatureStateMachine : MonoBehaviour
     {
@@ -13,9 +14,28 @@ namespace GameContent.Narration.Creature
         
         public bool IsSlower { get; set; }
 
-        public bool IsDedge { get; set; } = false;
-        
-        public byte CurrentState { get; set; }
+        public bool IsDedge { get; set; }
+
+        public byte CurrentState
+        {
+            get => _currentState;
+            set
+            {
+                _currentState = value;
+                switch (_currentState)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        IsDedge = true;
+                        break;
+                }
+            }
+        }
         
         #endregion
 
@@ -30,7 +50,7 @@ namespace GameContent.Narration.Creature
 
         private void Update()
         {
-            if (IsDedge)
+            if (CurrentState is 0 or 3)
                 return;
             
             SetAnims();
@@ -155,6 +175,8 @@ namespace GameContent.Narration.Creature
         private Rigidbody _rb;
 
         private float _vertVelocity;
+
+        private byte _currentState;
         
         private static readonly int IsMoving = Animator.StringToHash("isMoving");
 
