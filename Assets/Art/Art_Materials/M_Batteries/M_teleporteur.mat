@@ -38,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AOTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: e985c9d101e936946aaa1e1804a899be, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -50,7 +50,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DefaultTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 77e6b3a1c68de1e41bebb5129e827815, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -111,6 +111,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _ActivableEmissive: 2
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
@@ -147,13 +148,14 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _AOColor: {r: 1, g: 0.01415092, b: 0.01415092, a: 0}
+    - _AOColor: {r: 0.4339623, g: 0, b: 0.42115542, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Blue_DirectionDisplacement: {r: 0, g: 0.2, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorActivable: {r: 1, g: 0.7332485, b: 0, a: 0}
     - _ColorBlueEnergy: {r: 0, g: 0.8501792, b: 1, a: 0}
     - _ColorGreenEnergy: {r: 0.21226415, g: 1, b: 0.5397151, a: 0}
-    - _DefaultColor: {r: 0.2783019, g: 0.37085047, b: 1, a: 1}
+    - _DefaultColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MossColor: {r: 0.6926296, g: 1, b: 0.6273585, a: 0}
     - _MossDirection: {r: 0, g: 0, b: 0, a: 0}
