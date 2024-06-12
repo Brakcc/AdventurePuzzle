@@ -32,18 +32,15 @@ namespace GameContent.PlayerScripts.CutScenes
                     eulerGauche.y - 90,
                     eulerGauche.z),
                 1);
+            
+            sphure.Play();
         }
 
         public override IEnumerator HandleCutScene()
         {
-            var i = 0;
-
-            while (i < 1000)
-            {
-                sphure.localScale += new Vector3(1, 0, 1);
-                i++;
-                yield return new WaitForEndOfFrame();
-            }
+            yield return new WaitForSeconds(4.5f);
+            
+            sphure.Pause();
         }
 
         public override void OnEndCutScene()
@@ -55,7 +52,7 @@ namespace GameContent.PlayerScripts.CutScenes
 
         #region fields
 
-        [SerializeField] private Transform sphure;
+        [SerializeField] private ParticleSystem sphure;
 
         [SerializeField] private GameObject PorteCollisioneuseDeDroite;
         
