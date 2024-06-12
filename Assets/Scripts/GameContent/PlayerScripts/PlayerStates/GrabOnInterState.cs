@@ -1,5 +1,6 @@
 using System;
 using GameContent.Interactives.ClemInterTemplates.Receptors;
+using Sounds;
 using UnityEngine;
 
 namespace GameContent.PlayerScripts.PlayerStates
@@ -94,6 +95,7 @@ namespace GameContent.PlayerScripts.PlayerStates
 
         public override void OnEnterState()
         {
+            OtherSoundEffects.OtherSoundEffectInstance.PlayGrabSound();
             _interRef = _checker.InterRef as ReceptorInter;
             
             _tempDistFromPlayer = _interRef!.DistFromPlayer;

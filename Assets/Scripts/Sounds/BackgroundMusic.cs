@@ -1,33 +1,49 @@
 using System.Collections;
 using FMODUnity;
 using UnityEngine;
+using FMOD.Studio;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
-namespace UIScripts.Sounds
+namespace Sounds
 {
     public class BackgroundMusic : MonoBehaviour
     {
-        [SerializeField] private PlaySound atterrissageVaisseau;
-        [SerializeField] private PlaySound decolageVaisseau;
-        [SerializeField] PlaySound forestBackgroundMusic;
+        [SerializeField] private EventReference atterrissageVaisseau;
+        [SerializeField] private EventReference decolageVaisseau;
+        [SerializeField] private EventReference backgroundMusic;
+        [SerializeField] private Transform thePlayer;
+        private EventInstance _instanceAmbience;
         
         
         private void Start()
         {
             StartCoroutine(PlayBackgroundMusic());
-            atterrissageVaisseau.PlayMySound();
+            RuntimeManager.PlayOneShot(atterrissageVaisseau, thePlayer.position);
         }
 
         IEnumerator PlayBackgroundMusic()
         {
             yield return new WaitForSeconds(1f);
-            forestBackgroundMusic.PlayMySound();
-            forestBackgroundMusic.GetComponent<StudioEventEmitter>().EventDescription.getLength(out var time);
-            yield return new WaitForSeconds(time - 1f);
+            
+            _instanceAmbience = RuntimeManager.CreateInstance(backgroundMusic);
+            _instanceAmbience.set3DAttributes(RuntimeUtils.To3DAttributes(thePlayer.transform));
+            _instanceAmbience.start();
+            
+            yield return new WaitForSeconds(99);
+            PlayBackgroundMusic(); //? Maybe
         }
 
         public void PlayDecollage()
         {
-            decolageVaisseau.PlayMySound();
+            RuntimeManager.PlayOneShot(decolageVaisseau, thePlayer.position);
+        }
+
+        public void ChangeBackgroundMusic(EventReference newBackgroundMusic)
+        {
+            _instanceAmbience.stop(STOP_MODE.ALLOWFADEOUT);
+            StopCoroutine(PlayBackgroundMusic());
+            backgroundMusic = newBackgroundMusic;
+            StartCoroutine(PlayBackgroundMusic());
         }
     }
 }

@@ -1,4 +1,6 @@
 using FMODUnity;
+using GameContent.Interactives.ClemInterTemplates;
+using GameContent.Interactives.ClemInterTemplates.Receptors;
 using UnityEngine;
 
 namespace Sounds
@@ -8,7 +10,10 @@ namespace Sounds
         [SerializeField] private EventReference emi;
         private void OnTriggerEnter(Collider ground)
         {
-            RuntimeManager.PlayOneShot(emi, transform.position);
+            if (transform.parent.GetComponent<TeleporterRecep>() == null || (transform.parent.GetComponent<TeleporterRecep>().CurrentEnergyType != EnergyTypes.Green))
+            {
+                RuntimeManager.PlayOneShot(emi, transform.position);
+            }
         }
     }
 }

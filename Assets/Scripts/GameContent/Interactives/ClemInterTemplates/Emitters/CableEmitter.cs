@@ -2,6 +2,7 @@
 using System.Collections;
 using GameContent.Interactives.ClemInterTemplates.Receptors;
 using GameContent.PlayerScripts;
+using Sounds;
 using UIScripts.Sounds;
 using UnityEngine;
 
@@ -217,7 +218,11 @@ namespace GameContent.Interactives.ClemInterTemplates.Emitters
             if (PlayerEnergyM.GetEnergyBack)
             {
                 if (PlayerEnergyM.EnergyType != EnergyTypes.None)
+                {
+                    OtherSoundEffects.OtherSoundEffectInstance.PlayEnergThrowSound();
                     PlayerEnergyM.CurrentSource.Source.InterAction();
+                }
+                
                 
                 PlayerEnergyM.CurrentSource = SourceDatasList[SourceCount - 1];
                 PlayerEnergyM.OnSourceChangedDebug();
