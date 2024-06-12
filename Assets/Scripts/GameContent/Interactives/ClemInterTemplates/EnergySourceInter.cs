@@ -1,4 +1,5 @@
-﻿using GameContent.PlayerScripts;
+﻿using System.Collections;
+using GameContent.PlayerScripts;
 using UnityEngine;
 using Utilities.CustomAttributes;
 
@@ -42,7 +43,7 @@ namespace GameContent.Interactives.ClemInterTemplates
                 default:
                     return;
             }
-
+            
             _matBlock.SetFloat(EnergyFade, _lerpCoef);
             rend.SetPropertyBlock(_matBlock);
         }
@@ -53,7 +54,7 @@ namespace GameContent.Interactives.ClemInterTemplates
                 return;
             
             isActivated = false;
-            //OnActionAnim("isActive", isActivated);
+            OnActionAnim();
 
             if (PlayerEnergyM.EnergyType != EnergyTypes.None)
             {
@@ -73,7 +74,12 @@ namespace GameContent.Interactives.ClemInterTemplates
             
             //mettre des lien renderer ou vfx pour montrer la libération de l'energie ?
             isActivated = true;
-            //OnActionAnim("isActive", isActivated);
+
+            if (currentDB is not null)
+                Destroy(currentDB.gameObject);
+            
+            if (currentDP is not null)
+                Destroy(currentDP.gameObject);
         }
 
         public void OnForceAbsorb()
@@ -82,19 +88,22 @@ namespace GameContent.Interactives.ClemInterTemplates
                 return;
             
             isActivated = false;
-            //OnActionAnim("isActive", isActivated);
+            OnActionAnim();
         }
         
         #region anims et VFX
         
-        private void OnActionAnim(string arg, bool state)
+        private void OnActionAnim()
         {
-            //animator.SetBool(arg, state);
-        }
-        
-        private void OnActionAnim(int id, bool state)
-        {
-            //animator.SetBool(id, state);
+            var position = transform.position;
+            
+            var db = Instantiate(deathball, position, Quaternion.identity);
+            currentDB = db.GetComponent<ParticleSystem>();
+            currentDB.Play();
+            
+            var dp = Instantiate(deathparts, position, Quaternion.identity);
+            currentDP = dp.GetComponent<ParticleSystem>();
+            currentDP.Play();
         }
         
         #endregion
@@ -109,7 +118,19 @@ namespace GameContent.Interactives.ClemInterTemplates
 
         [SerializeField] private Renderer rend;
 
+        [SerializeField] private GameObject deathball;
+
+        [SerializeField] private GameObject deathparts;
+
+        private ParticleSystem currentDB;
+        
+        private ParticleSystem currentDP;
+        
         private MaterialPropertyBlock _matBlock;
+
+        private float _actionBlockerThreshold;
+
+        private bool _canInteract;
 
         private float _lerpCoef;
         
