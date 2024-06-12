@@ -4,6 +4,7 @@ using Utilities.CustomAttributes.FieldColors;
 
 namespace GameContent.Narration.Creature
 {
+    //Bon en fait c'est pas une state machine parce que flemme aussi la
     [RequireComponent(typeof(Rigidbody))]
     public class CreatureStateMachine : MonoBehaviour
     {
@@ -13,9 +14,35 @@ namespace GameContent.Narration.Creature
         
         public bool IsSlower { get; set; }
 
-        public bool IsDedge { get; set; } = false;
-        
-        public byte CurrentState { get; set; }
+        public bool IsDedge { get; set; }
+
+        public byte CurrentState
+        {
+            get => _currentState;
+            set
+            {
+                _currentState = value;
+                switch (_currentState)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        IsSlower = true;
+                        animator.SetBool(IsMoving,  false);
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        IsDedge = true;
+                        animator.SetBool(IsMoving,  false);
+                        animator.SetBool(IsFatigue,  false);
+                        animator.SetBool(IsDead, true); 
+                        break;
+                }
+            }
+        }
         
         #endregion
 
@@ -26,11 +53,12 @@ namespace GameContent.Narration.Creature
             _rb = GetComponent<Rigidbody>();
 
             _vertVelocity = 0;
+            CurrentState = 0;
         }
 
         private void Update()
         {
-            if (IsDedge)
+            if (CurrentState is 0 or 3 or 4)
                 return;
             
             SetAnims();
@@ -113,8 +141,8 @@ namespace GameContent.Narration.Creature
 
         private void SetAnims()
         {
-            if (!IsDedge)
-                animator.SetBool(!IsSlower ? IsMoving : IsFatigue, _rb.velocity.magnitude >= 0.1f);
+            if (CurrentState != 3)
+                animator.SetBool(!IsSlower ? IsMoving : IsFatigue, _rb.velocity.magnitude >= 1f);
         }
 
         public void SetAnims(string anim, bool state)
@@ -155,6 +183,8 @@ namespace GameContent.Narration.Creature
         private Rigidbody _rb;
 
         private float _vertVelocity;
+
+        private byte _currentState;
         
         private static readonly int IsMoving = Animator.StringToHash("isMoving");
 

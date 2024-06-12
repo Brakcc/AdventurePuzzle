@@ -289,135 +289,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &4232826266943464290
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8706213347869589526}
-  - component: {fileID: 6400742974811846937}
-  - component: {fileID: 6770295697866411785}
-  m_Layer: 31
-  m_Name: GroundSoundCheck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8706213347869589526
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4232826266943464290}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.108, z: 0}
-  m_LocalScale: {x: 0.23873256, y: 0.6018206, z: 0.23873256}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 808993273491451992}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6400742974811846937
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4232826266943464290}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6770295697866411785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4232826266943464290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e750ab10ea826f49b1f900857f49cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCollidToIgnore1: {fileID: 4961898190823947747}
-  playerCollidToIgnore2: {fileID: 2208434415901889940}
-  sound:
-    Guid:
-      Data1: -621248419
-      Data2: 1199793733
-      Data3: -846243960
-      Data4: 1673816751
-    Path: event:/Chara/CosmosChute
-  valueSound: 1
---- !u!1 &4510131229485479119
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4067591469298688068}
-  - component: {fileID: 7910174670586511944}
-  m_Layer: 31
-  m_Name: WalkSound
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4067591469298688068
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4510131229485479119}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.108, z: 0}
-  m_LocalScale: {x: 0.23873256, y: 0.6018206, z: 0.23873256}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 808993273491451992}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7910174670586511944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4510131229485479119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1c4412fd1ea8ad47ac1963bd0afd1af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sound:
-    Guid:
-      Data1: -1545763404
-      Data2: 1261495617
-      Data3: -13075798
-      Data4: -1514778331
-    Path: event:/Chara/CosmosPas
-  walkVelocity: {fileID: 808993273491451992}
-  valueSound: 1
 --- !u!1 &7537734540998498118
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,8 +361,6 @@ Transform:
   - {fileID: 5518624120297943000}
   - {fileID: 4353327182877276981}
   - {fileID: 5896440626325804008}
-  - {fileID: 8706213347869589526}
-  - {fileID: 4067591469298688068}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &515621050460604674
@@ -719,6 +588,9 @@ MonoBehaviour:
   transCamDatas:
     pivot: {fileID: 0}
     arm: {fileID: 0}
+  _camSpecRota:
+  - pivot: {fileID: 0}
+    arm: {fileID: 0}
 --- !u!114 &3982721170977102547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -732,6 +604,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   getEnergyBack: 1
+  hairRend:
+  - {fileID: 5027214919696898152}
 --- !u!1001 &5657635452127767495
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1040,6 +914,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 7.736659
       objectReference: {fileID: 0}
+    - target: {fileID: 4896538208985361717, guid: 5c9fb1c28361a9d46bca458b7dc2dc17,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+        'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:RightArm'\n\tTransform
+        'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftShoulder'\n\tTransform 'mixamorig:RightFoot'\n\tTransform
+        'mixamorig:Head'\n\tTransform 'mixamorig:LeftUpLeg'\n\tand more ...\n\tFrom
+        animation clip 'LookBack'\n\tFrom animation clip 'sadCosmos'"
+      objectReference: {fileID: 0}
     - target: {fileID: 4902181240936015210, guid: 5c9fb1c28361a9d46bca458b7dc2dc17,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1120,6 +1005,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c9fb1c28361a9d46bca458b7dc2dc17, type: 3}
+--- !u!137 &5027214919696898152 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 812816317674992559, guid: 5c9fb1c28361a9d46bca458b7dc2dc17,
+    type: 3}
+  m_PrefabInstance: {fileID: 5657635452127767495}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7662701069976392485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2653912595761314018, guid: 5c9fb1c28361a9d46bca458b7dc2dc17,

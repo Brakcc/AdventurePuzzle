@@ -30,6 +30,8 @@ namespace GameContent.PlayerScripts
         
         public CameraDatas InitCamDatas => initCamDatas;
 
+        public CameraDatas[] CamSpecRota => _camSpecRota;
+
         public CameraManager InitCamManager => initCamManager;
 
         public CameraManager TransCamManager => transCamManager;
@@ -65,7 +67,7 @@ namespace GameContent.PlayerScripts
         {
             AnimationManager.InitAnimationManager(animator);
             
-            _stateMachine = new GenericStateMachine(11);
+            _stateMachine = new GenericStateMachine(13);
             var go = gameObject;
 
             //PlayerStateDictionary
@@ -81,7 +83,9 @@ namespace GameContent.PlayerScripts
                 {"lever", new LockedOnLeverState(go, ControllerState.lever, this)},
                 {"camera", new CameraFocusState(go, ControllerState.camera, this)},
                 {"cineIdle", new CinematicIdleForcedState(go, ControllerState.cineIdle, this)},
-                {"cineMove", new CinematicMoveForcedState(go, ControllerState.cineMove, this)}
+                {"cineMove", new CinematicMoveForcedState(go, ControllerState.cineMove, this)},
+                {"cineTurn", new CinematicPlayerTurn(go, ControllerState.cineTurn, this)},
+                {"cineSad", new CinematicPlayerSad(go, ControllerState.cineSad, this)}
             };
             
             _stateMachine.SetCallBacks((byte)ControllerState.idle, "idle", pSD["idle"].OnInit, pSD["idle"].OnEnterState, 
@@ -116,7 +120,13 @@ namespace GameContent.PlayerScripts
             
             _stateMachine.SetCallBacks((byte)ControllerState.cineMove, "cineMove", pSD["cineMove"].OnInit, pSD["cineMove"].OnEnterState, 
                                        pSD["cineMove"].OnUpdate, pSD["cineMove"].OnFixedUpdate, pSD["cineMove"].OnExitState, pSD["cineMove"].OnCoroutine);
-
+            
+            _stateMachine.SetCallBacks((byte)ControllerState.cineTurn, "cineTurn", pSD["cineTurn"].OnInit, pSD["cineTurn"].OnEnterState, 
+                                       pSD["cineTurn"].OnUpdate, pSD["cineTurn"].OnFixedUpdate, pSD["cineTurn"].OnExitState, pSD["cineTurn"].OnCoroutine);
+            
+            _stateMachine.SetCallBacks((byte)ControllerState.cineSad, "cineSad", pSD["cineSad"].OnInit, pSD["cineSad"].OnEnterState, 
+                                       pSD["cineSad"].OnUpdate, pSD["cineSad"].OnFixedUpdate, pSD["cineSad"].OnExitState, pSD["cineSad"].OnCoroutine);
+            
             _stateMachine.InitMachine();
         }
 
@@ -168,6 +178,8 @@ namespace GameContent.PlayerScripts
         [SerializeField] private CameraDatas initCamDatas;
         
         [SerializeField] private CameraDatas transCamDatas;
+
+        [SerializeField] private CameraDatas[] _camSpecRota;
         
         private GenericStateMachine _stateMachine;
 
