@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6406317180699820801}
   - component: {fileID: 7454951209844987433}
   - component: {fileID: 9102004900903028155}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: "Prefab_mur_fen\xEAtre"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,6 +159,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: "Mesh_mur_fen\xEAtre"
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fec9d41ad54b663449d8721273336f3c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -237,6 +242,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mesh_vitre
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8aecc1f9a8b8b6f4ab34dae1d47aa7b6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

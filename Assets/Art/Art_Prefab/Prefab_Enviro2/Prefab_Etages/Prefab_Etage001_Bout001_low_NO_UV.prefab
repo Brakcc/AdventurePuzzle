@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7379328738378305936}
   - component: {fileID: 5892819334758260277}
   - component: {fileID: 8512798075918559999}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Prefab_Etage001_Bout001_low_NO_UV
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,6 +173,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Etage_bout1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c092c11520c890a46afeba43a6b81d45,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -276,6 +281,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mesh_Etage001_Bout001_low_NO_UV
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cc461963e15a8594ebfa855944d88301,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

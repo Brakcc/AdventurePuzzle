@@ -98,6 +98,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -44.657
       objectReference: {fileID: 0}
+    - target: {fileID: -2422315340263230684, guid: bdad0408ad9ab5d44a576527adcb5802,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -1041279737980340588, guid: bdad0408ad9ab5d44a576527adcb5802,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -107,6 +112,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prefab_House_porte
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bdad0408ad9ab5d44a576527adcb5802,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3291460997423930385, guid: bdad0408ad9ab5d44a576527adcb5802,
         type: 3}
@@ -148,6 +158,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 13.204
       objectReference: {fileID: 0}
+    - target: {fileID: 3356896364251211365, guid: bdad0408ad9ab5d44a576527adcb5802,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6782720001662676919, guid: bdad0408ad9ab5d44a576527adcb5802,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -163,6 +178,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 40c05eb1782664745b814d4f3e189d66, type: 2}
+    - target: {fileID: 8144394004440419581, guid: bdad0408ad9ab5d44a576527adcb5802,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8835409689826365435, guid: bdad0408ad9ab5d44a576527adcb5802,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

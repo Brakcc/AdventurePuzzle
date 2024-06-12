@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 566339481017849948}
   - component: {fileID: 1761399518344196238}
   - component: {fileID: 8151139856776021764}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: c1_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6689958828218518251}
   - component: {fileID: 5026251278627769852}
   - component: {fileID: 4526570020371655952}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: socle m_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 3325470885440662272}
   - component: {fileID: 1705083691415171666}
   - component: {fileID: 5059244793604014008}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: c6_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 2650935930618497161}
   - component: {fileID: 9127714789893867962}
   - component: {fileID: 7650363694917255539}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: c3_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 4866008217530267170}
   - component: {fileID: 1641340914603466316}
   - component: {fileID: 7348977070845166030}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: c2_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -424,7 +424,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3078784794561979135}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Prefab_manivelle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 5861352166634601213}
   - component: {fileID: 6846082773420276582}
   - component: {fileID: 5241135616996242859}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: c4_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,7 +548,7 @@ GameObject:
   - component: {fileID: 7976321423741098272}
   - component: {fileID: 6356459979279890323}
   - component: {fileID: 4005373732851632635}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: metal m_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -631,7 +631,7 @@ GameObject:
   - component: {fileID: 8740896842655522290}
   - component: {fileID: 6166025049674987818}
   - component: {fileID: 894178078084673803}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: c5_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -714,7 +714,7 @@ GameObject:
   - component: {fileID: 2451413119740637177}
   - component: {fileID: 5082454650738687360}
   - component: {fileID: 2817054261266103377}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: directionnel_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -798,7 +798,7 @@ GameObject:
   - component: {fileID: 1484532714710258646}
   - component: {fileID: 8413735074071503890}
   - component: {fileID: 164126149365938858}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: boule pierre_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -902,6 +902,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3078784794561979135}
     m_Modifications:
+    - target: {fileID: 82382530280499649, guid: 3b6ff0d3ee3f48f468471cb8dc892c02,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 282986165843979497, guid: 3b6ff0d3ee3f48f468471cb8dc892c02,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858887925956206997, guid: 3b6ff0d3ee3f48f468471cb8dc892c02,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3161144828379595740, guid: 3b6ff0d3ee3f48f468471cb8dc892c02,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5959446632415657546, guid: 3b6ff0d3ee3f48f468471cb8dc892c02,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6573655151997816362, guid: 3b6ff0d3ee3f48f468471cb8dc892c02,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -952,10 +977,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6699033061332566665, guid: 3b6ff0d3ee3f48f468471cb8dc892c02,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7442738877467622789, guid: 3b6ff0d3ee3f48f468471cb8dc892c02,
         type: 3}
       propertyPath: m_Name
       value: "Prefab_VFXl\xE9vitation"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7442738877467622789, guid: 3b6ff0d3ee3f48f468471cb8dc892c02,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9171791793736449422, guid: 3b6ff0d3ee3f48f468471cb8dc892c02,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
