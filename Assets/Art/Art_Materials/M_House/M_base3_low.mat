@@ -38,11 +38,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - MainTex:
-        m_Texture: {fileID: 2800000, guid: d3209fec8948ad94ba736bf975914852, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0179b70052e2fa9429ec244d7fd22589, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AOTex:
-        m_Texture: {fileID: 2800000, guid: baf0459d443a8774f8dbe73e8043c75a, type: 3}
+        m_Texture: {fileID: 2800000, guid: c3762b1d83452a844a73b32b39926ff2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -90,7 +90,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: 8997ae8683bca0645a9fd11a7ee47967, type: 3}
+        m_Texture: {fileID: 2800000, guid: 19f3ec21b4deb244cbd18581245eb201, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -143,6 +143,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
+    - _Emissive_Intensity: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -165,12 +166,14 @@ Material:
     - _AOColor: {r: 1, g: 1, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Caustics_direction: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.745283, g: 0.26366144, b: 0.40590084, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
     - _MossColor: {r: 0.6926296, g: 1, b: 0.6273585, a: 0}
     - _MossDirection: {r: 0, g: 0, b: 0, a: 0}
     - _SecondShadowColor: {r: 0.5647059, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0.9607843, g: 0.81960785, b: 0.81960785, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _TilingMossTex: {r: 0, g: 0, b: 0, a: 0}
     - _Tiling_Caustics: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
