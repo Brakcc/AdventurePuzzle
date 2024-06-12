@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace GameContent.PlayerScripts.CutScenes
 {
-    public class CS03CompanionFatigue : CutScene
+    [RequireComponent(typeof(BoxCollider))]
+    public sealed class CS03CompanionFatigue : CutScene
     {
         #region constructor
         
@@ -18,7 +19,7 @@ namespace GameContent.PlayerScripts.CutScenes
 
         public override void OnStartCutScene()
         {
-            creatureMachine.IsSlower = true;
+            creatureMachine.CurrentState = 2;
         }
 
         public override IEnumerator HandleCutScene()

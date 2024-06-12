@@ -203,7 +203,6 @@ namespace GameContent.Interactives.ClemInterTemplates.Receptors
         protected override void OnInit()
         {
             HasElectricity = false;
-            _col = GetComponent<Collider>();
             _grabber = GetComponentInChildren<RecepsTopBlockGrabber>();
 
             _tempDir = Vector3.zero;

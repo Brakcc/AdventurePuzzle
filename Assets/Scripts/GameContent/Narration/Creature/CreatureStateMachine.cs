@@ -29,9 +29,16 @@ namespace GameContent.Narration.Creature
                     case 1:
                         break;
                     case 2:
+                        IsSlower = true;
+                        animator.SetBool(IsMoving,  false);
                         break;
                     case 3:
+                        break;
+                    case 4:
                         IsDedge = true;
+                        animator.SetBool(IsMoving,  false);
+                        animator.SetBool(IsFatigue,  false);
+                        animator.SetBool(IsDead, true); 
                         break;
                 }
             }
@@ -46,11 +53,12 @@ namespace GameContent.Narration.Creature
             _rb = GetComponent<Rigidbody>();
 
             _vertVelocity = 0;
+            CurrentState = 0;
         }
 
         private void Update()
         {
-            if (CurrentState is 0 or 3)
+            if (CurrentState is 0 or 3 or 4)
                 return;
             
             SetAnims();
@@ -133,8 +141,8 @@ namespace GameContent.Narration.Creature
 
         private void SetAnims()
         {
-            if (!IsDedge)
-                animator.SetBool(!IsSlower ? IsMoving : IsFatigue, _rb.velocity.magnitude >= 0.1f);
+            if (CurrentState != 3)
+                animator.SetBool(!IsSlower ? IsMoving : IsFatigue, _rb.velocity.magnitude >= 1f);
         }
 
         public void SetAnims(string anim, bool state)

@@ -15,6 +15,8 @@ namespace GameContent.PlayerScripts
         lever = 7,
         camera = 8,
         cineIdle = 9,
-        cineMove = 10
+        cineMove = 10,
+        cineTurn = 11,
+        cineSad = 12
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace GameContent.PlayerScripts.CutScenes
 {
+    [RequireComponent(typeof(BoxCollider))]
     public sealed class CS01CompanionDeath : CutScene
     {
         #region constructor
@@ -31,7 +32,7 @@ namespace GameContent.PlayerScripts.CutScenes
             lowerRec.DOLocalMoveY(-200, 1);
             
             //Crea die while walking
-            creatureMachine.IsDedge = true;
+            creatureMachine.CurrentState = 3;
             creatureMachine.SetAnims("isMoving", false);
             while (Vector3.Distance(playerMachine.transform.position, targetPos.position) >= 1f)
             {
@@ -42,19 +43,20 @@ namespace GameContent.PlayerScripts.CutScenes
             }
             
             //Switch To idle
-            creatureMachine.OnDie();
+            creatureMachine.CurrentState = 4;
             playerMachine.Machine.ForceState("cineIdle");
             yield return new WaitForSeconds(2.5f);
             
             //Turn back
-            playerMachine.Machine.ForceState("cineMove");
+            playerMachine.Machine.ForceState("cineTurn");
+            yield return new WaitForSeconds(4);
             playerMachine.transform.rotation = Quaternion.LookRotation(startPos.position - playerMachine.transform.position, Vector3.up);
             playerMachine.transform.position = Vector3.MoveTowards(playerMachine.transform.position, 
                                                                    startPos.position, 
                                                                    Time.fixedDeltaTime * 5);
             //Wait
             playerMachine.Machine.ForceState("cineIdle");
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             
             //Go back to see creature
             playerMachine.Machine.ForceState("cineMove");
@@ -67,8 +69,8 @@ namespace GameContent.PlayerScripts.CutScenes
             }
             
             //Wait and look
-            playerMachine.Machine.ForceState("cineIdle");
-            yield return new WaitForSeconds(2.5f);
+            playerMachine.Machine.ForceState("cineSad");
+            yield return new WaitForSeconds(6.5f);
             
             upperRec.DOLocalMoveY(250, 1);
             lowerRec.DOLocalMoveY(-250, 1);

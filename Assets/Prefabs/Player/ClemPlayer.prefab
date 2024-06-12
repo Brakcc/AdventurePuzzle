@@ -588,6 +588,9 @@ MonoBehaviour:
   transCamDatas:
     pivot: {fileID: 0}
     arm: {fileID: 0}
+  _camSpecRota:
+  - pivot: {fileID: 0}
+    arm: {fileID: 0}
 --- !u!114 &3982721170977102547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -601,6 +604,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   getEnergyBack: 1
+  hairRend:
+  - {fileID: 3744838825382466393}
 --- !u!1001 &5657635452127767495
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1000,6 +1005,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c9fb1c28361a9d46bca458b7dc2dc17, type: 3}
+--- !u!137 &3744838825382466393 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 9041999235724621982, guid: 5c9fb1c28361a9d46bca458b7dc2dc17,
+    type: 3}
+  m_PrefabInstance: {fileID: 5657635452127767495}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7662701069976392485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2653912595761314018, guid: 5c9fb1c28361a9d46bca458b7dc2dc17,
