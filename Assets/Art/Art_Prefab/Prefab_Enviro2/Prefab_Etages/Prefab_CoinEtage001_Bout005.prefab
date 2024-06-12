@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1068089672188489738}
   - component: {fileID: 4142544681735159727}
   - component: {fileID: 2204988352943426405}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Prefab_CoinEtage001_Bout005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,6 +166,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mesh_etage_coin
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a4a4abca4a1945b4e976b4ac8fb71813,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

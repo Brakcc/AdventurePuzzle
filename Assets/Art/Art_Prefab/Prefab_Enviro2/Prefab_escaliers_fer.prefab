@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4412316324241531849}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Prefab_escaliers_fer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4968426914740094942}
   - component: {fileID: 3529963696477797963}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,6 +153,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mesh_EscalierFer_ILFAITCRASH
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2b658fef01538f64daef5030f8cec6fa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

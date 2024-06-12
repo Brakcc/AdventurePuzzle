@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4081098178248325473}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Prefab_deco_abeillemini
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,6 +125,16 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4869306143899440449, guid: 6b45666a297d91c479b5dcf7217844ee,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -4158928582613560445, guid: 6b45666a297d91c479b5dcf7217844ee,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -2263540946396205466, guid: 6b45666a297d91c479b5dcf7217844ee,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -160,6 +170,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3d2b206637f12d74084b6dbd8be64f07, type: 2}
+    - target: {fileID: 40667031147347998, guid: 6b45666a297d91c479b5dcf7217844ee,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 695324582903331963, guid: 6b45666a297d91c479b5dcf7217844ee,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -169,6 +184,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mesh_deco_abeillemini (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6b45666a297d91c479b5dcf7217844ee,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1770269092968613683, guid: 6b45666a297d91c479b5dcf7217844ee,
         type: 3}
@@ -234,6 +254,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248214253963695614, guid: 6b45666a297d91c479b5dcf7217844ee,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5451956612212830476, guid: 6b45666a297d91c479b5dcf7217844ee,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8435404656038923070, guid: 6b45666a297d91c479b5dcf7217844ee,
         type: 3}

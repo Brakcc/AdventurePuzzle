@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1431168948013631555}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Prefab_etage_structure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,6 +99,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mesh_etage_structure
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5816d27f0187b0a4e9cfba368c5755fc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

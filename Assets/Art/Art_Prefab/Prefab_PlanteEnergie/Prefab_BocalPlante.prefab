@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6874566581030304455}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Prefab_BocalPlante
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,12 +115,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 3edbc15abf931054aa7bb69512673889, type: 2}
+      objectReference: {fileID: 2100000, guid: 70d15243f872ed345bab3c193d04407b, type: 2}
     - target: {fileID: -7511558181221131132, guid: 7a8085efdb890f64393bd9afce10801f,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 3edbc15abf931054aa7bb69512673889, type: 2}
+      objectReference: {fileID: 2100000, guid: 70d15243f872ed345bab3c193d04407b, type: 2}
     - target: {fileID: -7511558181221131132, guid: 7a8085efdb890f64393bd9afce10801f,
         type: 3}
       propertyPath: m_Materials.Array.data[2]
@@ -135,6 +135,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mesh_MiniPlanteEnergie
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7a8085efdb890f64393bd9afce10801f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -234,6 +239,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mesh_SupportBocal_MiniPlanteEnergie
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6a99a46d13015bf46b4826be6e5dcaff,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
