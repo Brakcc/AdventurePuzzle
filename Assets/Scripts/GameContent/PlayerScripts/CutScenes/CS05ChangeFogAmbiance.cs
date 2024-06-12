@@ -18,19 +18,58 @@ namespace GameContent.PlayerScripts.CutScenes
         
         public override void OnStartCutScene()
         {
-            throw new System.NotImplementedException();
+            _lowSkyBlock = new MaterialPropertyBlock();
+            _highSkyBlock = new MaterialPropertyBlock();
+            
+            highRend.GetPropertyBlock(_highSkyBlock);
+            lowRend.GetPropertyBlock(_lowSkyBlock);
+
+            StartCoroutine(HandleCutScene());
         }
 
         public override IEnumerator HandleCutScene()
         {
-            throw new System.NotImplementedException();
+            while (_lerpCoef < 1)
+            {
+                _lowSkyBlock.SetColor(Fog, Color.Lerp(lowColor, Color.clear, _lerpCoef));
+                _highSkyBlock.SetColor(Fog, Color.Lerp(baseHighColor, newHighColor, _lerpCoef));
+                
+                lowRend.SetPropertyBlock(_lowSkyBlock);
+                highRend.SetPropertyBlock(_highSkyBlock);
+
+                _lerpCoef += Time.fixedDeltaTime;
+                
+                yield return new WaitForFixedUpdate();
+            }
         }
 
         public override void OnEndCutScene()
         {
-            throw new System.NotImplementedException();
+            
         }
         
+        #endregion
+
+        #region fields
+
+        [SerializeField] private Renderer highRend;
+
+        [SerializeField] private Renderer lowRend;
+
+        [SerializeField] private Color lowColor;
+
+        [SerializeField] private Color baseHighColor;
+        
+        [SerializeField] private Color newHighColor;
+        
+        private MaterialPropertyBlock _lowSkyBlock;
+        
+        private MaterialPropertyBlock _highSkyBlock;
+
+        private float _lerpCoef = 0;
+
+        private static readonly int Fog = Shader.PropertyToID("_Fog");
+
         #endregion
     }
 }

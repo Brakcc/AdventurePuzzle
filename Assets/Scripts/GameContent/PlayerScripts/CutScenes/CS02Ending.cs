@@ -1,5 +1,8 @@
 ﻿using System.Collections;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace GameContent.PlayerScripts.CutScenes
 {
@@ -18,19 +21,37 @@ namespace GameContent.PlayerScripts.CutScenes
 
         public override void OnStartCutScene()
         {
-            throw new System.NotImplementedException();
+            playerMachine.Machine.ForceState("cineIdle");
         }
 
         public override IEnumerator HandleCutScene()
         {
-            throw new System.NotImplementedException();
+            blackScreen.DOColor(Color.black, 1);
+            yield return new WaitForSeconds(4.1f);
+
+            endScreen.DOColor(Color.white, 1);
+            yield return new WaitForSeconds(6.1f);
+            
+            blackScreen.color = Color.black;
+            endScreen.DOColor(Color.clear, 1);
+            yield return new WaitForSeconds(4.1f);
+            
+            OnEndCutScene();
         }
 
         public override void OnEndCutScene()
         {
-            throw new System.NotImplementedException();
+            SceneManager.LoadScene("TitleScreen");
         }
         
+        #endregion
+
+        #region fields
+
+        [SerializeField] private Image blackScreen;
+
+        [SerializeField] private Image endScreen;
+
         #endregion
     }
 }
