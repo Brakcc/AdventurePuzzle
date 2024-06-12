@@ -46,13 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b09524c56d4fa8b6adea45e709ddd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasDebugMod: 0
-  debugMod:
-    debugText: {fileID: 0}
-    debugString: 
-    hasLight: 0
-    debugLight: {fileID: 0}
+  startingLevel: 0
   nodeDatas: []
+  selfRend: {fileID: 0}
   levelText: {fileID: 1222548932487833609}
   nodeMode: 3
   pivot: {fileID: 7397816700923555314}
@@ -73,7 +69,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &603679747617022256
 RectTransform:
   m_ObjectHideFlags: 0
