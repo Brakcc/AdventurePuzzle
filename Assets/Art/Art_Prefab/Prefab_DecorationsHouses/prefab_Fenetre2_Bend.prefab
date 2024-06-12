@@ -68,15 +68,40 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.128
       objectReference: {fileID: 0}
+    - target: {fileID: -7481389708935651485, guid: f77c02453ec56474681a958058be66a4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -5653320100219037508, guid: f77c02453ec56474681a958058be66a4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -4346680757202132234, guid: f77c02453ec56474681a958058be66a4,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 246d7329867ada043a0dde93601d4314, type: 2}
+    - target: {fileID: -2781497055554673692, guid: f77c02453ec56474681a958058be66a4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -2356449770577204719, guid: f77c02453ec56474681a958058be66a4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f77c02453ec56474681a958058be66a4,
         type: 3}
       propertyPath: m_Name
       value: prefab_Fenetre2_Bend
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f77c02453ec56474681a958058be66a4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1786695466987352577, guid: f77c02453ec56474681a958058be66a4,
         type: 3}

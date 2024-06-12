@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8705474753092234841}
   - component: {fileID: 6685869751426884362}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Serre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,6 +118,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mesh_vitre_serre_mod
       objectReference: {fileID: 0}
+    - target: {fileID: 7895828214733700531, guid: 456bc23c388fe2c4c8e1e246e30d9890,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -141,6 +146,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mesh_barre_serre_mod
+      objectReference: {fileID: 0}
+    - target: {fileID: 8468738947922099251, guid: 23deb2f52b5166446990909cae8ece0c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9136908197827257993, guid: 23deb2f52b5166446990909cae8ece0c,
         type: 3}

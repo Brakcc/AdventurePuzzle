@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 71741927103819186}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Prefab_plafond_vitre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,6 +101,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mesh_vitre_plafond
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ccdd0740c275d4eb74e1ad007af89a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -185,6 +190,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mesh_plafond
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 74524c78982e33341a51d1e53227d04d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

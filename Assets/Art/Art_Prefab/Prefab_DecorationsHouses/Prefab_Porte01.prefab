@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7685720105680789173}
   - component: {fileID: 1542093756077497859}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Prefab_Porte01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,6 +124,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Serrure1_low (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b5c9bed17fa65784180264919e2d8f32,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -203,6 +208,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mesh_Arches (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 59146487c5460c24ca2fe313d4372ded,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -281,6 +291,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Porte1_low (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 026ac9b64931c52499daa4ff89175e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

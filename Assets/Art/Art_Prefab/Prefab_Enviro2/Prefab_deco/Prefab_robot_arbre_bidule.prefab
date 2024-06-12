@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3084803715419903112}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Prefab_robot_arbre_bidule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,6 +94,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mesh_robot_arbre_bidule
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3df6c04f9fe0cfe4496d11d1fd4a16e7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

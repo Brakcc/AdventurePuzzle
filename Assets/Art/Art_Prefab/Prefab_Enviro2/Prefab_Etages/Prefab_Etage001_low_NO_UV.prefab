@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6382675014795904643}
   - component: {fileID: 8015293044693977382}
   - component: {fileID: 5249224397942963692}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Prefab_Etage001_low_NO_UV
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,11 +158,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7824023032324380277, guid: 721d2a24bb4bab44984b01bf1625835d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -6669701307836820724, guid: 721d2a24bb4bab44984b01bf1625835d,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ca13905dd1b3aae42aea0cd5e3654b99, type: 2}
+    - target: {fileID: -4143474194874373374, guid: 721d2a24bb4bab44984b01bf1625835d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -4129352993836053837, guid: 721d2a24bb4bab44984b01bf1625835d,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -172,6 +182,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mesh_Etage_bout0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 721d2a24bb4bab44984b01bf1625835d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -276,6 +291,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mesh_Etage001_low_NO_UV
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8231f023361549d41a1e64dfd77db09c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
