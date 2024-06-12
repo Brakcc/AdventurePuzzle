@@ -1,5 +1,4 @@
 ﻿using GameContent.PlayerScripts;
-using Sounds;
 using UnityEngine;
 using Utilities.CustomAttributes;
 
@@ -90,12 +89,12 @@ namespace GameContent.Interactives.ClemInterTemplates
         
         private void OnActionAnim(string arg, bool state)
         {
-            animator.SetBool(arg, state);
+            //animator.SetBool(arg, state);
         }
         
         private void OnActionAnim(int id, bool state)
         {
-            animator.SetBool(id, state);
+            //animator.SetBool(id, state);
         }
         
         #endregion
