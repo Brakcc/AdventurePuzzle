@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_FoliageTest2
+  m_Name: "M_LianeCourb\xE9e"
   m_Shader: {fileID: -6465566751694194690, guid: 835fe04e7ab95284c847f3bc636769ce,
     type: 3}
   m_Parent: {fileID: 0}
@@ -38,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Alpha:
-        m_Texture: {fileID: 2800000, guid: 07cd14ead4d251b4f86f2b813c91886e, type: 3}
+        m_Texture: {fileID: 2800000, guid: f87c05d250dcab342919b326d3374f87, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -50,7 +50,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Color:
-        m_Texture: {fileID: 2800000, guid: 4e57c12066eac924fade722606e8ac49, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4190aeac1f96b0c489c705d269ad5410, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -66,6 +66,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissiveTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -110,7 +114,7 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _Contrast_Settings01: 0
+    - _Contrast_Settings01: 0.31
     - _Contrast_Settings02: 0
     - _Cull: 2
     - _Cutoff: 0.5
@@ -118,6 +122,8 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
+    - _Emissive_Intensity: 0
+    - _Emissive_Tex_Tile: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -139,8 +145,9 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color_1: {r: 0.14901961, g: 0.68235296, b: 1, a: 0}
-    - _Color_2: {r: 0, g: 0.728353, b: 1, a: 0}
+    - _Color_1: {r: 0.2943663, g: 0.47319666, b: 0.5943396, a: 1}
+    - _Color_2: {r: 0, g: 1, b: 0.84622765, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Emissive_color: {r: 1, g: 0.6868738, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
