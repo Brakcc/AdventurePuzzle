@@ -11,39 +11,7 @@ namespace GameContent.Narration.Creature
         #region properties
 
         private bool IsGrounded => Physics.Raycast(transform.position, Vector3.down, groundCheckRayLength, groundLayer);
-        
-        public bool IsSlower { get; set; }
 
-        public bool IsDedge { get; set; }
-
-        public byte CurrentState
-        {
-            get => _currentState;
-            set
-            {
-                _currentState = value;
-                switch (_currentState)
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        IsSlower = true;
-                        animator.SetBool(IsMoving,  false);
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        IsDedge = true;
-                        animator.SetBool(IsMoving,  false);
-                        animator.SetBool(IsFatigue,  false);
-                        animator.SetBool(IsDead, true); 
-                        break;
-                }
-            }
-        }
-        
         #endregion
 
         #region methodes
@@ -53,16 +21,10 @@ namespace GameContent.Narration.Creature
             _rb = GetComponent<Rigidbody>();
 
             _vertVelocity = 0;
-            CurrentState = 0;
         }
 
         private void Update()
         {
-            if (CurrentState is 0 or 3 or 4)
-                return;
-            
-            SetAnims();
-            
             //Plan Move
             SecuTeleport();
             OnMove();
@@ -79,8 +41,8 @@ namespace GameContent.Narration.Creature
 
         private void SetVertPos()
         {
-            var velocity = _rb.velocity;
-            _rb.velocity = IsGrounded ? new Vector3(velocity.x, 0, velocity.z) : new Vector3(velocity.x, _vertVelocity, velocity.z);
+            var velocity = _rb.linearVelocity;
+            _rb.linearVelocity = IsGrounded ? new Vector3(velocity.x, 0, velocity.z) : new Vector3(velocity.x, _vertVelocity, velocity.z);
         }
         
         private void SetGravity()
@@ -106,25 +68,18 @@ namespace GameContent.Narration.Creature
                 return;
 
             _rb.position = playerRef.position - tempDir.normalized * minDistFromPlayer;
-            _rb.velocity = Vector3.zero;
+            _rb.linearVelocity = Vector3.zero;
             _vertVelocity = 0;
             SetGravity();
             SetVertPos();
         }
 
-        private void OnRotate(Vector3 dir)
-        {
-            transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
-        }
-        
         private void OnMove()
         {
             var tempDir = GetDir(playerRef.position);
             var tempVel = tempDir * creatureSpeed;
             
-            _rb.velocity = new Vector3(tempVel.x, _rb.velocity.y, tempVel.z);
-            
-            OnRotate(tempDir);
+            _rb.linearVelocity = new Vector3(tempVel.x, _rb.linearVelocity.y, tempVel.z);
         }
         
         private Vector3 GetDir(Vector3 targetPos)
@@ -136,28 +91,6 @@ namespace GameContent.Narration.Creature
         }
 
         #endregion
-
-        #region anims
-
-        private void SetAnims()
-        {
-            if (CurrentState != 3)
-                animator.SetBool(!IsSlower ? IsMoving : IsFatigue, _rb.velocity.magnitude >= 1f);
-        }
-
-        public void SetAnims(string anim, bool state)
-        {
-            animator.SetBool(anim, state);
-        }
-        
-        public void OnDie()
-        {
-            animator.SetBool(IsMoving, false);
-            animator.SetBool(IsFatigue, false);
-            animator.SetBool(IsDead, true);
-        }
-
-        #endregion
         
         #endregion
 
@@ -165,8 +98,6 @@ namespace GameContent.Narration.Creature
 
         [FieldCompletion(_checkedColor:FieldColor.Green)]
         [SerializeField] private Transform playerRef;
-
-        [SerializeField] private Animator animator;
         
         [SerializeField] private AnimationCurve creatureAccelerationCurve;
 
@@ -183,14 +114,6 @@ namespace GameContent.Narration.Creature
         private Rigidbody _rb;
 
         private float _vertVelocity;
-
-        private byte _currentState;
-        
-        private static readonly int IsMoving = Animator.StringToHash("isMoving");
-
-        private static readonly int IsFatigue = Animator.StringToHash("isFatigue");
-        
-        private static readonly int IsDead = Animator.StringToHash("isDead");
 
         private const float Gravity = 9.81f;
 
